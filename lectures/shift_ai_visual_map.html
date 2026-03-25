@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHIFT AI 業務ビジュアルマップ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    /* =============================================
+       リセット・基本設定
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: #FDFAF4;
+      background-image:
+        radial-gradient(circle at 1px 1px, #E8DCC8 1px, transparent 0);
+      background-size: 28px 28px;
+      color: #2D2D2D;
+      min-height: 100vh;
+      padding: 24px 16px 60px;
+    }
+
+    /* =============================================
+       ヘッダー
+    ============================================= */
+    .page-header {
+      text-align: center;
+      margin-bottom: 36px;
+      position: relative;
+    }
+
+    .header-inner {
+      display: inline-block;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: #fff;
+      border-radius: 24px;
+      padding: 32px 48px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      max-width: 860px;
+    }
+
+    .header-inner::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 180px; height: 180px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+    }
+    .header-inner::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -40px;
+      width: 220px; height: 220px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+    }
+
+    .header-tag {
+      display: inline-block;
+      background: #e94560;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      padding: 4px 14px;
+      border-radius: 99px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .header-title {
+      font-size: clamp(28px, 6vw, 48px);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .header-title span {
+      color: #e94560;
+    }
+
+    .header-subtitle {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(16px, 3vw, 22px);
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 20px;
+    }
+
+    .header-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 99px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* =============================================
+       グリッドレイアウト
+    ============================================= */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .col-full  { grid-column: 1 / -1; }
+    .col-left  { grid-column: 1 / 2; }
+    .col-right { grid-column: 2 / 3; }
+
+    /* =============================================
+       カード共通
+    ============================================= */
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-accent {
+      position: absolute;
+      top: 0; left: 0;
+      width: 6px;
+      height: 100%;
+      border-radius: 20px 0 0 20px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 900;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title .icon {
+      font-size: 20px;
+    }
+
+    .section-label {
+      font-family: 'Caveat', cursive;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    /* =============================================
+       ターゲットカード（2分割）
+    ============================================= */
+    .target-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .target-card {
+      border-radius: 16px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .target-card.community {
+      background: linear-gradient(135deg, #FF6B35, #FF8E53);
+      color: #fff;
+    }
+
+    .target-card.junior {
+      background: linear-gradient(135deg, #2ECC71, #27AE60);
+      color: #fff;
+    }
+
+    .target-card::after {
+      content: attr(data-emoji);
+      position: absolute;
+      bottom: -10px; right: 10px;
+      font-size: 60px;
+      opacity: 0.18;
+      line-height: 1;
+    }
+
+    .target-label {
+      display: inline-block;
+      background: rgba(255,255,255,0.25);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 99px;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .target-name {
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+
+    .target-concept {
+      font-family: 'Caveat', cursive;
+      font-size: 16px;
+      margin-bottom: 12px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 8px;
+      padding: 6px 10px;
+    }
+
+    .target-list {
+      list-style: none;
+    }
+
+    .target-list li {
+      font-size: 12px;
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .target-list li:last-child { border-bottom: none; }
+
+    .target-list li::before {
+      content: '→';
+      flex-shrink: 0;
+      font-weight: 700;
+    }
+
+    /* =============================================
+       motokiブランディングカード
+    ============================================= */
+    .branding-card {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #fff;
+    }
+
+    .title-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .title-tag {
+      background: #e94560;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 99px;
+    }
+
+    .intro-box {
+      background: rgba(255,255,255,0.08);
+      border-left: 3px solid #e94560;
+      border-radius: 0 10px 10px 0;
+      padding: 12px 14px;
+      font-size: 13px;
+      line-height: 1.7;
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    .diff-flow {
+      background: rgba(233, 69, 96, 0.15);
+      border: 1px solid rgba(233,69,96,0.4);
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .diff-flow-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #e94560;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .flow-steps-inline {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .flow-step-mini {
+      background: rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .flow-arrow-mini {
+      color: #e94560;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .goal-box {
+      margin-top: 14px;
+      background: rgba(255, 215, 0, 0.12);
+      border: 1px solid rgba(255,215,0,0.3);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 12px;
+    }
+
+    .goal-box strong {
+      color: #FFD700;
+      display: block;
+      margin-bottom: 4px;
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    /* =============================================
+       哲学カード
+    ============================================= */
+    .philosophy-card {
+      background: #fff;
+    }
+
+    .do-dont {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .do-box, .dont-box {
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .do-box {
+      background: #E8F8EE;
+      border: 2px solid #2ECC71;
+    }
+
+    .dont-box {
+      background: #FEE;
+      border: 2px solid #E74C3C;
+    }
+
+    .do-box .box-label {
+      color: #27AE60;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    .dont-box .box-label {
+      color: #E74C3C;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    .do-box li, .dont-box li {
+      font-size: 12px;
+      list-style: none;
+      padding: 3px 0;
+      border-bottom: 1px dashed rgba(0,0,0,0.1);
+      line-height: 1.5;
+    }
+    .do-box li:last-child, .dont-box li:last-child { border-bottom: none; }
+
+    .era-box {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+      position: relative;
+    }
+
+    .era-box::before {
+      content: '💡 時代認識';
+      display: block;
+      font-size: 11px;
+      font-weight: 400;
+      opacity: 0.8;
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+    }
+
+    /* =============================================
+       制作フローカード
+    ============================================= */
+    .flow-card {
+      background: #fff;
+    }
+
+    .production-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .flow-row {
+      display: flex;
+      align-items: stretch;
+      gap: 8px;
+    }
+
+    .flow-step {
+      flex: 1;
+      border-radius: 12px;
+      padding: 12px 14px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .flow-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 900;
+      flex-shrink: 0;
+      border: 2px solid rgba(255,255,255,0.5);
+    }
+
+    .flow-text {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .flow-sub {
+      font-size: 10px;
+      opacity: 0.8;
+      margin-top: 2px;
+    }
+
+    .flow-connector {
+      display: flex;
+      justify-content: center;
+      color: #ccc;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    /* 各ステップの色 */
+    .step1 { background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; }
+    .step2 { background: linear-gradient(135deg, #4facfe, #00f2fe); color: #fff; }
+    .step3 { background: linear-gradient(135deg, #43e97b, #38f9d7); color: #fff; }
+    .step4 { background: linear-gradient(135deg, #fa709a, #fee140); color: #fff; }
+    .step5 { background: linear-gradient(135deg, #f093fb, #f5576c); color: #fff; }
+    .step6 { background: linear-gradient(135deg, #4481eb, #04befe); color: #fff; }
+    .step7 { background: linear-gradient(135deg, #ff9a9e, #fecfef); color: #fff; }
+
+    .tools-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+    }
+
+    .tool-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #F5F5F5;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .tool-chip .tool-icon {
+      font-size: 18px;
+    }
+
+    .tool-info {
+      font-size: 10px;
+      color: #888;
+      font-weight: 400;
+      margin-top: 1px;
+    }
+
+    /* =============================================
+       台本ルールカード
+    ============================================= */
+    .script-card { background: #fff; }
+
+    .rule-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+
+    .rule-item.ok  { background: #E8F8EE; }
+    .rule-item.ng  { background: #FEE8E8; }
+    .rule-item.neutral { background: #F0F4FF; }
+
+    .rule-icon { font-size: 18px; flex-shrink: 0; }
+
+    .opening-patterns {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .pattern-card {
+      border-radius: 10px;
+      padding: 12px 8px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .p1 { background: #FFF3E0; border: 2px solid #FF9800; color: #E65100; }
+    .p2 { background: #E8F5E9; border: 2px solid #4CAF50; color: #1B5E20; }
+    .p3 { background: #E3F2FD; border: 2px solid #2196F3; color: #0D47A1; }
+
+    .pattern-card .p-icon { font-size: 22px; display: block; margin-bottom: 4px; }
+    .pattern-card .p-label { font-size: 10px; font-weight: 400; margin-top: 4px; display: block; }
+
+    /* =============================================
+       ウェビナーカード
+    ============================================= */
+    .webinar-card { background: #fff; }
+
+    .style-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 14px;
+      font-size: 12px;
+    }
+
+    .style-table th {
+      background: #9C27B0;
+      color: #fff;
+      padding: 8px 10px;
+      text-align: left;
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .style-table th:first-child { border-radius: 8px 0 0 0; }
+    .style-table th:last-child  { border-radius: 0 8px 0 0; }
+
+    .style-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #F0F0F0;
+    }
+
+    .style-table tr:last-child td { border-bottom: none; }
+    .style-table tr:nth-child(even) td { background: #FAF0FF; }
+
+    .mindset-list {
+      list-style: none;
+    }
+
+    .mindset-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      padding: 8px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+    }
+
+    .mindset-list li.bad  { background: #FEE; }
+    .mindset-list li.good { background: #E8F8EE; }
+    .mindset-icon { font-size: 16px; flex-shrink: 0; }
+
+    /* =============================================
+       タスクカード
+    ============================================= */
+    .tasks-card { background: #fff; }
+
+    .task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #F8F9FF;
+      border-left: 4px solid;
+    }
+
+    .task-item:nth-child(1) { border-color: #667eea; }
+    .task-item:nth-child(2) { border-color: #4facfe; }
+    .task-item:nth-child(3) { border-color: #43e97b; }
+    .task-item:nth-child(4) { border-color: #fa709a; }
+    .task-item:nth-child(5) { border-color: #f093fb; }
+
+    .task-icon { font-size: 20px; }
+    .task-name { font-size: 13px; font-weight: 700; }
+    .task-desc { font-size: 11px; color: #888; margin-top: 2px; }
+
+    /* =============================================
+       品質管理カード
+    ============================================= */
+    .quality-card { background: #fff; }
+
+    .delivery-flow {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .delivery-step {
+      background: #E3F2FD;
+      border: 2px solid #2196F3;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #0D47A1;
+      text-align: center;
+    }
+
+    .delivery-arrow {
+      color: #2196F3;
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .fix-rule {
+      background: #FFF8E1;
+      border: 2px solid #FFC107;
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .fix-rule-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #F57F17;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    .fix-rule-body {
+      font-size: 13px;
+      font-weight: 700;
+      color: #2D2D2D;
+    }
+
+    .fix-rule-sub {
+      font-size: 11px;
+      color: #888;
+      margin-top: 4px;
+    }
+
+    /* =============================================
+       スケジュールカード
+    ============================================= */
+    .schedule-card {
+      background: linear-gradient(135deg, #f093fb, #f5576c);
+      color: #fff;
+    }
+
+    .schedule-items {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .schedule-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .schedule-icon { font-size: 24px; }
+
+    .schedule-name {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .schedule-deadline {
+      font-family: 'Caveat', cursive;
+      font-size: 18px;
+      font-weight: 700;
+      margin-left: auto;
+    }
+
+    /* =============================================
+       フッター
+    ============================================= */
+    .page-footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 12px;
+      color: #aaa;
+      font-family: 'Caveat', cursive;
+      font-size: 15px;
+    }
+
+    /* =============================================
+       セクション見出し（グリッド間）
+    ============================================= */
+    .section-heading {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .section-heading-text {
+      font-family: 'Caveat', cursive;
+      font-size: 18px;
+      font-weight: 700;
+      color: #555;
+    }
+
+    .section-heading-line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(to right, #ddd, transparent);
+    }
+
+    /* =============================================
+       アクセントカラー（カードボーダー）
+    ============================================= */
+    .accent-orange { border-top: 4px solid #FF6B35; }
+    .accent-green  { border-top: 4px solid #2ECC71; }
+    .accent-purple { border-top: 4px solid #9C27B0; }
+    .accent-blue   { border-top: 4px solid #2196F3; }
+    .accent-pink   { border-top: 4px solid #E91E63; }
+    .accent-amber  { border-top: 4px solid #FF9800; }
+    .accent-cyan   { border-top: 4px solid #00BCD4; }
+
+    /* =============================================
+       レスポンシブ
+    ============================================= */
+    @media (max-width: 640px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .col-left, .col-right { grid-column: 1 / -1; }
+
+      .target-grid { grid-template-columns: 1fr; }
+      .do-dont { grid-template-columns: 1fr; }
+      .opening-patterns { grid-template-columns: 1fr; }
+      .tools-row { grid-template-columns: 1fr 1fr; }
+      .delivery-flow { flex-direction: column; align-items: flex-start; }
+      .delivery-arrow { transform: rotate(90deg); }
+
+      .header-inner { padding: 24px 20px; }
+
+      .flow-steps-inline {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =============================================
+       ヘッダー
+  ============================================= -->
+  <header class="page-header">
+    <div class="header-inner">
+      <div class="header-tag">業務ビジュアルマップ</div>
+      <h1 class="header-title">🤖 <span>SHIFT AI</span> 業務全体像</h1>
+      <p class="header-subtitle">教材動画制作 ＆ ウェビナー登壇 の全体設計図</p>
+      <div class="header-badges">
+        <span class="badge">🏢 業務委託契約</span>
+        <span class="badge">🎬 教材動画制作</span>
+        <span class="badge">🎤 ウェビナー登壇</span>
+        <span class="badge">👥 Community + Junior</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- =============================================
+       メインコンテンツ
+  ============================================= -->
+  <main class="grid">
+
+    <!-- ▼ セクション見出し：ターゲット -->
+    <div class="section-heading">
+      <span class="section-heading-text">👥 ターゲット詳細</span>
+      <div class="section-heading-line"></div>
+    </div>
+
+    <!-- ターゲット（全幅） -->
+    <div class="card col-full">
+      <div class="card-title"><span class="icon">🎯</span>2つのターゲット層</div>
+      <div class="target-grid">
+
+        <!-- Community -->
+        <div class="target-card community" data-emoji="💼">
+          <span class="target-label">COMMUNITY</span>
+          <div class="target-name">大人・上級者向け</div>
+          <div class="target-concept">「実務をAIで一部自動化する」</div>
+          <ul class="target-list">
+            <li>AIで業務効率化し時間的余裕を作りたい社会人</li>
+            <li>実在する業務を具体的に起点にして提示</li>
+            <li>「この業務は○○→●●まで自動化できます」形式</li>
+          </ul>
+        </div>
+
+        <!-- Junior -->
+        <div class="target-card junior" data-emoji="🎒">
+          <span class="target-label">JUNIOR</span>
+          <div class="target-name">中学生以上 ＋ 保護者向け</div>
+          <div class="target-concept">「AIで自走できる環境を提供」</div>
+          <ul class="target-list">
+            <li>📖 勉強：AIとの対話で探求心を目覚めさせる</li>
+            <li>🗺️ 進路：興味を発見→仕事・収入・自己成長へ</li>
+            <li>⚽ 部活：スキル分析・課題発見・自己実現</li>
+            <li>✍️ 中学生と保護者 両方に同時に届ける言葉で</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ▼ セクション見出し：ブランディング & 哲学 -->
+    <div class="section-heading">
+      <span class="section-heading-text">🎯 ポジション & 哲学</span>
+      <div class="section-heading-line"></div>
+    </div>
+
+    <!-- motokiブランディング（左） -->
+    <div class="card branding-card col-left">
+      <div class="card-title" style="color:#e94560;"><span class="icon">⚡</span>motokiのポジション</div>
+
+      <div class="title-tags">
+        <span class="title-tag">AI × 地域創生の実践者</span>
+        <span class="title-tag">一人でAIを使い倒す町おこし人</span>
+      </div>
+
+      <div class="intro-box">
+        「地域事業者の業務をAI導入で自動化を地道に増やし、<br>
+        『地域創生』に愚直に取り組むメディア運営者」
+      </div>
+
+      <div class="diff-flow">
+        <div class="diff-flow-title">⚡ 最大の差別化：デバッグ対応の速さ（地域密着モデル）</div>
+        <div class="flow-steps-inline">
+          <div class="flow-step-mini">🔴 エラー発生</div>
+          <span class="flow-arrow-mini">→</span>
+          <div class="flow-step-mini">💻 リモート即対応<br><span style="font-size:9px;opacity:0.7">一次対応</span></div>
+          <span class="flow-arrow-mini">→</span>
+          <div class="flow-step-mini">🏃 即現場到着<br><span style="font-size:9px;opacity:0.7">二次対応</span></div>
+          <span class="flow-arrow-mini">→</span>
+          <div class="flow-step-mini">✅ 復旧</div>
+        </div>
+      </div>
+
+      <div class="goal-box">
+        <strong>🌏 SHIFT AIでの最終目標</strong>
+        全国展開のモデルケース確立。<br>
+        自ら赴くのではなく、各地のAI手練れたちに<br>
+        「地域AI導入支援のやり方」をレクチャーする立ち回り。
+      </div>
+    </div>
+
+    <!-- 哲学カード（右） -->
+    <div class="card philosophy-card col-right accent-pink">
+      <div class="card-title"><span class="icon">📚</span>コンテンツ制作の哲学・絶対ルール</div>
+
+      <div class="do-dont">
+        <div class="do-box">
+          <div class="box-label">✅ やること</div>
+          <ul>
+            <li>実在する業務シーンを必ず起点にする</li>
+            <li>「この場面でここまで自動化できる」を具体的に示す</li>
+            <li>「AIってすごい」→「どの場面で使えるの？」で伝える</li>
+          </ul>
+        </div>
+        <div class="dont-box">
+          <div class="box-label">❌ 絶対にやらないこと</div>
+          <ul>
+            <li>AIツール自体の機能説明・スペック紹介</li>
+            <li>抽象的・概念的な話だけで終わらせる</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="era-box">
+        「AIのすごさに興味を持つフェーズは終わっている。<br>
+        今は <strong>『で、どの場面で使えるの？』</strong> の時代」
+      </div>
+    </div>
+
+    <!-- ▼ セクション見出し：制作フロー -->
+    <div class="section-heading">
+      <span class="section-heading-text">🎬 教材動画の制作フロー</span>
+      <div class="section-heading-line"></div>
+    </div>
+
+    <!-- 制作フロー（全幅） -->
+    <div class="card flow-card col-full accent-blue">
+      <div class="card-title"><span class="icon">🎬</span>教材動画 制作フロー（Claude サポートステップ）</div>
+
+      <div class="production-flow">
+        <div class="flow-row">
+          <div class="flow-step step1">
+            <div class="flow-num">1</div>
+            <div>
+              <div class="flow-text">📋 アウトライン作成</div>
+              <div class="flow-sub">教材の大枠・構成を設計</div>
+            </div>
+          </div>
+        </div>
+        <div class="flow-connector">↓</div>
+        <div class="flow-row">
+          <div class="flow-step step2">
+            <div class="flow-num">2</div>
+            <div>
+              <div class="flow-text">🗂️ スライド構成案作成</div>
+              <div class="flow-sub">各ページの内容・流れを決定</div>
+            </div>
+          </div>
+        </div>
+        <div class="flow-connector">↓</div>
+        <div class="flow-row">
+          <div class="flow-step step3">
+            <div class="flow-num">3</div>
+            <div>
+              <div class="flow-text">📝 スライド台本作成</div>
+              <div class="flow-sub">ナレーション台本を執筆（書き言葉）</div>
+            </div>
+          </div>
+        </div>
+        <div class="flow-connector">↓</div>
+        <div class="flow-row">
+          <div class="flow-step step4">
+            <div class="flow-num">4</div>
+            <div>
+              <div class="flow-text">🤖 アバター動画 ＆ 音声作成</div>
+              <div class="flow-sub">HeyGen（2Dモデル）/ ElevenLabs</div>
+            </div>
+          </div>
+        </div>
+        <div class="flow-connector">↓</div>
+        <div class="flow-row">
+          <div class="flow-step step5">
+            <div class="flow-num">5</div>
+            <div>
+              <div class="flow-text">🎨 スライド作成</div>
+              <div class="flow-sub">Canva（SHIFT AI指定フォーマット）</div>
+            </div>
+          </div>
+        </div>
+        <div class="flow-connector">↓</div>
+        <div class="flow-row">
+          <div class="flow-step step6">
+            <div class="flow-num">6</div>
+            <div>
+              <div class="flow-text">✂️ 統合編集</div>
+              <div class="flow-sub">動画・スライド・音声を合成</div>
+            </div>
+          </div>
+        </div>
+        <div class="flow-connector">↓</div>
+        <div class="flow-row">
+          <div class="flow-step step7">
+            <div class="flow-num">7</div>
+            <div>
+              <div class="flow-text">🎉 完成！</div>
+              <div class="flow-sub">チェック → SHIFT AI提出</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-title" style="margin-top:4px;"><span class="icon">🛠️</span>使用ツール</div>
+      <div class="tools-row">
+        <div class="tool-chip">
+          <span class="tool-icon">🤖</span>
+          <div>
+            <div>HeyGen</div>
+            <div class="tool-info">既存2Dモデル / アバター動画</div>
+          </div>
+        </div>
+        <div class="tool-chip">
+          <span class="tool-icon">🎙️</span>
+          <div>
+            <div>ElevenLabs</div>
+            <div class="tool-info">音声生成</div>
+          </div>
+        </div>
+        <div class="tool-chip">
+          <span class="tool-icon">🎨</span>
+          <div>
+            <div>Canva</div>
+            <div class="tool-info">SHIFT AI指定フォーマット</div>
+          </div>
+        </div>
+        <div class="tool-chip">
+          <span class="tool-icon">✂️</span>
+          <div>
+            <div>統合編集</div>
+            <div class="tool-info">ツール未定</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ▼ セクション見出し：台本 & ウェビナー -->
+    <div class="section-heading">
+      <span class="section-heading-text">📝 台本ルール ＆ 🎤 ウェビナー</span>
+      <div class="section-heading-line"></div>
+    </div>
+
+    <!-- 台本ルール（左） -->
+    <div class="card script-card col-left accent-amber">
+      <div class="card-title"><span class="icon">📝</span>台本・スクリプト作成ルール</div>
+
+      <div class="rule-item ok">
+        <span class="rule-icon">✅</span>
+        <div><strong>文体：書き言葉</strong><br>
+        <span style="font-size:11px">「〜です」「〜ます」を使用。話し言葉は使わない。</span></div>
+      </div>
+
+      <div class="rule-item neutral">
+        <span class="rule-icon">📊</span>
+        <div><strong>難易度：AI用語ゼロから</strong><br>
+        <span style="font-size:11px">専門用語には必ず噛み砕いた説明をセットで。</span></div>
+      </div>
+
+      <div class="card-title" style="margin-top:14px; font-size:13px;">
+        <span class="icon">⏱️</span>動画の「つかみ」パターン（最初の30秒）
+      </div>
+      <div class="opening-patterns">
+        <div class="pattern-card p1">
+          <span class="p-icon">📊</span>
+          衝撃的な数字から入る
+          <span class="p-label">インパクト重視の時</span>
+        </div>
+        <div class="pattern-card p2">
+          <span class="p-icon">😔</span>
+          共感できる悩みから入る
+          <span class="p-label">感情に訴える時</span>
+        </div>
+        <div class="pattern-card p3">
+          <span class="p-icon">🎯</span>
+          結論から入る
+          <span class="p-label">論理的に伝える時</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ウェビナー（右） -->
+    <div class="card webinar-card col-right accent-purple">
+      <div class="card-title"><span class="icon">🎤</span>ウェビナー登壇ガイドライン</div>
+
+      <table class="style-table">
+        <thead>
+          <tr>
+            <th>スタイル</th>
+            <th>適用場面</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>📢 一方的な講義</td>
+            <td>知識・情報インプット中心の時</td>
+          </tr>
+          <tr>
+            <td>💬 Q&A形式</td>
+            <td>理解度確認・疑問解消の時</td>
+          </tr>
+          <tr>
+            <td>🛠️ ワークショップ型</td>
+            <td>実践・体験重視の時</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="card-title" style="font-size:13px;"><span class="icon">💭</span>登壇時の心構え（反省から得た教訓）</div>
+      <ul class="mindset-list">
+        <li class="bad">
+          <span class="mindset-icon">❌</span>
+          <div>受講者の顔色を窺わない</div>
+        </li>
+        <li class="good">
+          <span class="mindset-icon">✅</span>
+          <div>「自分がどうしても伝えたいこと」を明確にして、それを軸に進行する</div>
+        </li>
+        <li class="good">
+          <span class="mindset-icon">✅</span>
+          <div>オンライン特有の「間」と「テンポ」を意識する</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ▼ セクション見出し：タスク & 品質 & スケジュール -->
+    <div class="section-heading">
+      <span class="section-heading-text">🚀 タスク ＆ 品質管理 ＆ スケジュール</span>
+      <div class="section-heading-line"></div>
+    </div>
+
+    <!-- Claudeタスク（全幅） -->
+    <div class="card tasks-card col-full accent-cyan">
+      <div class="card-title"><span class="icon">🚀</span>Claudeに期待するタスク一覧</div>
+      <div class="task-list">
+        <div class="task-item">
+          <span class="task-icon">📋</span>
+          <div>
+            <div class="task-name">アウトライン作成</div>
+            <div class="task-desc">テーマに沿った教材の大枠を設計する</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-icon">🗂️</span>
+          <div>
+            <div class="task-name">スライド構成案作成</div>
+            <div class="task-desc">スライドの流れ・各ページの内容を設計する</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-icon">📝</span>
+          <div>
+            <div class="task-name">スライド台本作成</div>
+            <div class="task-desc">スライドに合わせたナレーション台本を執筆する</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-icon">🤖</span>
+          <div>
+            <div class="task-name">アバター・音声制作支援</div>
+            <div class="task-desc">HeyGen / ElevenLabs向けスクリプトの最適化</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-icon">🎤</span>
+          <div>
+            <div class="task-name">ウェビナー構成案作成</div>
+            <div class="task-desc">全体の進行設計とトークスクリプト作成</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 品質管理（左） -->
+    <div class="card quality-card col-left accent-blue">
+      <div class="card-title"><span class="icon">🔄</span>品質管理・修正ルール</div>
+
+      <div class="card-title" style="font-size:13px; margin-bottom:10px;">納品フロー</div>
+      <div class="delivery-flow">
+        <div class="delivery-step">🙋 自分でチェック</div>
+        <div class="delivery-arrow">→</div>
+        <div class="delivery-step">📤 SHIFT AI提出</div>
+        <div class="delivery-arrow">→</div>
+        <div class="delivery-step">💬 FB受取</div>
+        <div class="delivery-arrow">→</div>
+        <div class="delivery-step">✏️ 修正</div>
+        <div class="delivery-arrow">→</div>
+        <div class="delivery-step">📤 再提出</div>
+      </div>
+
+      <div class="fix-rule">
+        <div class="fix-rule-title">⚠️ Claudeへの修正指示ルール</div>
+        <div class="fix-rule-body">指示した箇所のみ修正する</div>
+        <div class="fix-rule-sub">全体の見直し・勝手な追記・構成変更は行わない</div>
+      </div>
+    </div>
+
+    <!-- スケジュール（右） -->
+    <div class="card schedule-card col-right">
+      <div class="card-title" style="color:#fff;"><span class="icon">⏰</span>スケジュール目標</div>
+      <div class="schedule-items">
+        <div class="schedule-item">
+          <span class="schedule-icon">🎬</span>
+          <div>
+            <div class="schedule-name">教材動画</div>
+            <div style="font-size:11px; opacity:0.8;">制作完了の目安</div>
+          </div>
+          <div class="schedule-deadline">最長 1ヶ月以内</div>
+        </div>
+        <div class="schedule-item">
+          <span class="schedule-icon">🎤</span>
+          <div>
+            <div class="schedule-name">ウェビナー</div>
+            <div style="font-size:11px; opacity:0.8;">構成案完成の目安</div>
+          </div>
+          <div class="schedule-deadline">開催 2週間前</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="page-footer">
+    ✍️ SHIFT AI 業務ビジュアルマップ — motoki
+  </footer>
+
+</body>
+</html>

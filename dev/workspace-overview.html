@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>yuniko ワークスペース全体図</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3350;
+    --accent1: #7c6af7;
+    --accent2: #4ecdc4;
+    --accent3: #ff6b9d;
+    --accent4: #ffd166;
+    --accent5: #06d6a0;
+    --text: #e8eaf6;
+    --text-muted: #8b91b8;
+    --text-dim: #545878;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', 'Hiragino Sans', 'Meiryo', sans-serif;
+    line-height: 1.7;
+    font-size: 14px;
+  }
+
+  /* ─── Header ─── */
+  header {
+    background: linear-gradient(135deg, #1a1d27 0%, #0f1117 50%, #1a1040 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 48px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(124,106,247,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; right: 100px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(78,205,196,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(124,106,247,0.2);
+    border: 1px solid rgba(124,106,247,0.4);
+    color: var(--accent1);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    background: linear-gradient(90deg, #fff 0%, var(--accent1) 50%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+  header p {
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .header-meta {
+    margin-top: 20px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .meta-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .meta-chip .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent5);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ─── Layout ─── */
+  main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 48px;
+  }
+
+  /* ─── Section ─── */
+  section { margin-bottom: 60px; }
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-title .icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+
+  /* ─── Cards ─── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--accent1); }
+  .card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 12px;
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
+
+  /* ─── Tables ─── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th {
+    background: var(--surface2);
+    color: var(--text-muted);
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(46,51,80,0.5);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(124,106,247,0.04); }
+
+  /* ─── Tags / Badges ─── */
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    margin: 2px;
+  }
+  .tag-purple { background: rgba(124,106,247,0.2); color: var(--accent1); }
+  .tag-teal   { background: rgba(78,205,196,0.2);  color: var(--accent2); }
+  .tag-pink   { background: rgba(255,107,157,0.2); color: var(--accent3); }
+  .tag-yellow { background: rgba(255,209,102,0.2); color: var(--accent4); }
+  .tag-green  { background: rgba(6,214,160,0.2);   color: var(--accent5); }
+
+  /* ─── Flow Diagram ─── */
+  .flow {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0;
+    padding: 20px 0;
+  }
+  .flow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    min-width: 100px;
+  }
+  .flow-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+  .flow-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 600;
+    max-width: 90px;
+  }
+  .flow-arrow {
+    color: var(--text-dim);
+    font-size: 18px;
+    padding: 0 4px;
+    flex-shrink: 0;
+    margin-bottom: 30px;
+  }
+
+  /* ─── Directory Tree ─── */
+  .tree {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.9;
+    color: var(--text);
+  }
+  .tree .dir  { color: var(--accent2); font-weight: 600; }
+  .tree .file { color: var(--text-muted); }
+  .tree .new  { color: var(--accent5); }
+  .tree .cfg  { color: var(--accent4); }
+  .tree .connector { color: var(--text-dim); }
+
+  /* ─── Timeline ─── */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px; top: 6px; bottom: 6px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent1), var(--accent2), var(--accent5));
+    border-radius: 2px;
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .tl-dot {
+    position: absolute;
+    left: -24px;
+    top: 6px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+  }
+  .tl-time {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 2px;
+  }
+  .tl-content {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+  .tl-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  .tl-desc { font-size: 12px; color: var(--text-muted); }
+
+  /* ─── Stat Cards ─── */
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+  .stat-number {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label { font-size: 12px; color: var(--text-muted); }
+
+  /* ─── Agent Card ─── */
+  .agent-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .agent-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .agent-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .agent-body { padding: 16px 20px; }
+  .agent-name { font-weight: 700; font-size: 14px; }
+  .agent-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .responsibility-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .responsibility-list li {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .responsibility-list li::before {
+    content: '→';
+    color: var(--accent1);
+    flex-shrink: 0;
+    margin-top: 0px;
+  }
+
+  /* ─── Code block ─── */
+  .code {
+    background: #0d1117;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    font-family: 'Consolas', monospace;
+    font-size: 12px;
+    color: var(--accent2);
+    overflow-x: auto;
+    line-height: 1.8;
+  }
+
+  /* ─── Auto Rule ─── */
+  .auto-rule {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent5);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .auto-rule-trigger {
+    font-family: 'Consolas', monospace;
+    background: rgba(6,214,160,0.1);
+    color: var(--accent5);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .auto-rule-arrow { color: var(--text-dim); font-size: 16px; }
+  .auto-rule-result {
+    font-family: 'Consolas', monospace;
+    background: rgba(124,106,247,0.1);
+    color: var(--accent1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .auto-rule-desc { font-size: 12px; color: var(--text-muted); flex: 1; }
+
+  /* ─── File output card ─── */
+  .file-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .file-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+  .file-name {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+    color: var(--accent2);
+    font-family: 'Consolas', monospace;
+  }
+  .file-path {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-family: 'Consolas', monospace;
+    margin-bottom: 6px;
+  }
+  .file-desc { font-size: 12px; color: var(--text-muted); }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    main { padding: 24px; }
+    header { padding: 24px; }
+  }
+  @media (max-width: 600px) {
+    .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     HEADER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<header>
+  <div class="header-badge">🦄 yuniko workspace</div>
+  <h1>AI動画制作 × 記事生成 自動化エージェント</h1>
+  <p>Claude Code + Remotion によるコンテンツ制作全プロセス自動化プロジェクト</p>
+  <div class="header-meta">
+    <div class="meta-chip"><span class="dot"></span> 稼働中</div>
+    <div class="meta-chip">📅 2026年3月22日</div>
+    <div class="meta-chip">📁 yuniko / .claude/</div>
+    <div class="meta-chip">🤖 Claude Sonnet 4.6</div>
+    <div class="meta-chip">📍 大阪府泉南郡熊取町</div>
+  </div>
+</header>
+
+<main>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION 1: プロジェクト概要
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section>
+  <div class="section-title">
+    <div class="icon" style="background:rgba(124,106,247,0.15);">🚀</div>
+    プロジェクト概要
+  </div>
+
+  <div class="grid-4" style="margin-bottom:20px;">
+    <div class="stat-card">
+      <div class="stat-number" style="background:linear-gradient(135deg,#7c6af7,#4ecdc4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">2</div>
+      <div class="stat-label">サブエージェント</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" style="background:linear-gradient(135deg,#ff6b9d,#ffd166);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">2</div>
+      <div class="stat-label">スキル定義</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" style="background:linear-gradient(135deg,#06d6a0,#4ecdc4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">2</div>
+      <div class="stat-label">生成済み記事</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" style="background:linear-gradient(135deg,#ffd166,#ff6b9d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">30</div>
+      <div class="stat-label">動画スタイルテンプレート</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">🎯 ビジョン・ゴール</div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+        <li style="display:flex;gap:10px;align-items:flex-start;">
+          <span style="color:var(--accent1);font-size:18px;line-height:1;">①</span>
+          <div>
+            <div style="font-weight:700;font-size:13px;">AI × 地域創生モデルの確立</div>
+            <div style="font-size:12px;color:var(--text-muted);">全国に広められる再現可能な仕組みをつくる</div>
+          </div>
+        </li>
+        <li style="display:flex;gap:10px;align-items:flex-start;">
+          <span style="color:var(--accent2);font-size:18px;line-height:1;">②</span>
+          <div>
+            <div style="font-weight:700;font-size:13px;">メディア運営の事業化・収益化</div>
+            <div style="font-size:12px;color:var(--text-muted);">広告・案件・コンサルなどで収益を確立する</div>
+          </div>
+        </li>
+        <li style="display:flex;gap:10px;align-items:flex-start;">
+          <span style="color:var(--accent3);font-size:18px;line-height:1;">③</span>
+          <div>
+            <div style="font-weight:700;font-size:13px;">「AI × 地方創生」の先進事例として注目される</div>
+            <div style="font-size:12px;color:var(--text-muted);">熊取町から全国モデルを発信する</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🛠️ 技術スタック</div>
+      <table>
+        <thead>
+          <tr><th>レイヤー</th><th>技術・ツール</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>ランタイム</td><td><span class="tag tag-green">Node.js (CommonJS)</span></td></tr>
+          <tr><td>動画フレームワーク</td><td><span class="tag tag-purple">Remotion</span></td></tr>
+          <tr><td>AIエージェント</td><td><span class="tag tag-teal">Claude Code</span> <span class="tag tag-yellow">Antigravity</span></td></tr>
+          <tr><td>記事管理</td><td><span class="tag tag-pink">Markdown (.md)</span></td></tr>
+          <tr><td>音声生成</td><td><span class="tag tag-green">音声クローンAPI</span></td></tr>
+          <tr><td>画像生成</td><td><span class="tag tag-teal">画像生成API</span></td></tr>
+          <tr><td>コーディング規約</td><td>キャメルケース / パスカルケース / ケバブケース</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION 2: ディレクトリ構造
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section>
+  <div class="section-title">
+    <div class="icon" style="background:rgba(78,205,196,0.15);">📁</div>
+    ディレクトリ構造
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">ワークスペース全体</div>
+      <div class="tree">
+<span class="dir">yuniko/</span>
+<span class="connector">├── </span><span class="cfg">CLAUDE.md</span>           <span style="color:var(--text-dim);">← プロジェクト指示書</span>
+<span class="connector">├── </span><span class="cfg">package.json</span>
+<span class="connector">├── </span><span class="new">AI動画記事.md</span>        <span style="color:var(--text-dim);">← 🆕 今日生成</span>
+<span class="connector">├── </span><span class="new">AIで育児を楽にする方法記事.md</span> <span style="color:var(--text-dim);">← 🆕 今日生成</span>
+<span class="connector">├── </span><span class="new">workspace-overview.html</span> <span style="color:var(--text-dim);">← 🆕 このファイル</span>
+<span class="connector">│</span>
+<span class="connector">├── </span><span class="dir">.claude/</span>
+<span class="connector">│   ├── </span><span class="cfg">settings.json</span>
+<span class="connector">│   ├── </span><span class="dir">agents/</span>
+<span class="connector">│   │   ├── </span><span class="file">article-creator.md</span>
+<span class="connector">│   │   └── </span><span class="file">video-creator.md</span>
+<span class="connector">│   ├── </span><span class="dir">skills/</span>
+<span class="connector">│   │   ├── </span><span class="dir">article-generator/</span>
+<span class="connector">│   │   │   └── </span><span class="file">SKILL.md</span>
+<span class="connector">│   │   └── </span><span class="dir">remotion-video/</span>
+<span class="connector">│   │       └── </span><span class="file">SKILL.md</span>
+<span class="connector">│   ├── </span><span class="dir">commands/</span>
+<span class="connector">│   │   ├── </span><span class="file">create-article.md</span>
+<span class="connector">│   │   └── </span><span class="file">create-video.md</span>
+<span class="connector">│   └── </span><span class="dir">rules/</span>
+<span class="connector">│       └── </span><span class="cfg">project-rules.md</span> <span style="color:var(--text-dim);">← 🆕 自動判定ルール追記</span>
+<span class="connector">│</span>
+<span class="connector">└── </span><span class="dir">参考記事/</span>
+<span class="connector">    └── </span><span class="file">ユニコ記事</span>          <span style="color:var(--text-dim);">← スタイル参照元</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">settings.json — 権限設定</div>
+      <div class="code">
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash(npm run *)",
+      "Bash(npx remotion *)",
+      "Bash(node *)",
+      "Bash(mkdir *)",
+      "Bash(ls *)",
+      "Bash(cat *)"
+    ],
+    "deny": [
+      "Bash(rm -rf /)",
+      "Bash(sudo *)"
+    ]
+  }
+}
+      </div>
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+        <span class="tag tag-green">✅ Remotion実行 許可</span>
+        <span class="tag tag-green">✅ ファイル読み書き 許可</span>
+        <span class="tag tag-pink">🚫 rm -rf 禁止</span>
+        <span class="tag tag-pink">🚫 sudo 禁止</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION 3: エージェント・スキル構成
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section>
+  <div class="section-title">
+    <div class="icon" style="background:rgba(255,107,157,0.15);">🤖</div>
+    エージェント & スキル構成
+  </div>
+
+  <div class="grid-2" style="margin-bottom:20px;">
+
+    <!-- Article Creator -->
+    <div class="agent-card">
+      <div class="agent-header" style="background:linear-gradient(135deg,rgba(124,106,247,0.08),rgba(78,205,196,0.04));">
+        <div class="agent-icon" style="background:rgba(124,106,247,0.2);">✍️</div>
+        <div>
+          <div class="agent-name">article-creator</div>
+          <div class="agent-desc">記事生成サブエージェント</div>
+        </div>
+        <span class="tag tag-purple" style="margin-left:auto;">Agent</span>
+      </div>
+      <div class="agent-body">
+        <ul class="responsibility-list">
+          <li>参考記事フォルダを読み込みスタイルを把握</li>
+          <li>ユニコ記事スタイルで3000文字以下の記事本文を生成</li>
+          <li>note用（最大15個）・stand.fm用（最大8個）ハッシュタグ生成</li>
+          <li>stand.fm放送説明文を150文字前後で生成</li>
+          <li>.mdファイルとして所定のフォルダに保存</li>
+        </ul>
+        <div style="margin-top:14px;display:flex;gap:6px;flex-wrap:wrap;">
+          <div style="font-size:11px;color:var(--text-dim);width:100%;margin-bottom:4px;">利用可能ツール：</div>
+          <span class="tag tag-teal">Read</span>
+          <span class="tag tag-teal">Write</span>
+          <span class="tag tag-teal">Glob</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video Creator -->
+    <div class="agent-card">
+      <div class="agent-header" style="background:linear-gradient(135deg,rgba(255,107,157,0.08),rgba(255,209,102,0.04));">
+        <div class="agent-icon" style="background:rgba(255,107,157,0.2);">🎬</div>
+        <div>
+          <div class="agent-name">video-creator</div>
+          <div class="agent-desc">AI動画制作サブエージェント</div>
+        </div>
+        <span class="tag tag-pink" style="margin-left:auto;">Agent</span>
+      </div>
+      <div class="agent-body">
+        <ul class="responsibility-list">
+          <li>動画の目的・スタイルをユーザーと対話形式で確認</li>
+          <li>台本の生成・管理（ユーザー提供素材を優先）</li>
+          <li>音声クローンAPIでナレーション音声を生成</li>
+          <li>ナレーションに同期した字幕データを生成</li>
+          <li>Remotionで動画をコンポジット・レンダリング</li>
+          <li>完成後にタイトル案5つと概要を報告</li>
+        </ul>
+        <div style="margin-top:14px;display:flex;gap:6px;flex-wrap:wrap;">
+          <div style="font-size:11px;color:var(--text-dim);width:100%;margin-bottom:4px;">利用可能ツール：</div>
+          <span class="tag tag-teal">Read</span>
+          <span class="tag tag-teal">Write</span>
+          <span class="tag tag-teal">Edit</span>
+          <span class="tag tag-yellow">Bash</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Skills -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">📖 スキル: article-generator</div>
+      <table>
+        <tbody>
+          <tr><td style="color:var(--text-muted);width:120px;">呼び出し</td><td><code style="color:var(--accent1);">/create-article [テーマ]</code></td></tr>
+          <tr><td style="color:var(--text-muted);">自動起動</td><td>「記事作って」「書いて」「note」など</td></tr>
+          <tr><td style="color:var(--text-muted);">出力形式</td><td>.mdファイル + チャット出力</td></tr>
+          <tr><td style="color:var(--text-muted);">文字数</td><td>3,000文字以下</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">🎥 スキル: remotion-video</div>
+      <table>
+        <tbody>
+          <tr><td style="color:var(--text-muted);width:120px;">呼び出し</td><td><code style="color:var(--accent3);">/create-video</code></td></tr>
+          <tr><td style="color:var(--text-muted);">自動起動</td><td>「動画作って」「映像化して」など</td></tr>
+          <tr><td style="color:var(--text-muted);">テンプレート</td><td>30種類（ピクセルアート・アニメ風・シネマティック等）</td></tr>
+          <tr><td style="color:var(--text-muted);">管理方法</td><td>通し番号 + 一覧HTML</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION 4: 記事生成フロー
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section>
+  <div class="section-title">
+    <div class="icon" style="background:rgba(6,214,160,0.15);">✍️</div>
+    記事生成フロー
+  </div>
+
+  <div class="card">
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-icon" style="background:rgba(124,106,247,0.2);">💬</div>
+        <div class="flow-label">ユーザーが依頼<br>「記事作って」</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon" style="background:rgba(6,214,160,0.2);">🔍</div>
+        <div class="flow-label">意図の<br>自動判定</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon" style="background:rgba(78,205,196,0.2);">🚀</div>
+        <div class="flow-label">create-article<br>スキル起動</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon" style="background:rgba(255,107,157,0.2);">📖</div>
+        <div class="flow-label">参考記事を<br>Read</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon" style="background:rgba(124,106,247,0.2);">✍️</div>
+        <div class="flow-label">記事本文<br>生成</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon" style="background:rgba(255,209,102,0.2);">#️⃣</div>
+        <div class="flow-label">ハッシュタグ<br>生成</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon" style="background:rgba(6,214,160,0.2);">🎙️</div>
+        <div class="flow-label">stand.fm<br>説明文生成</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon" style="background:rgba(78,205,196,0.2);">💾</div>
+        <div class="flow-label">.md保存<br>+ チャット出力</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;" class="grid-3">
+    <div class="card">
+      <div class="card-title">📝 ユニコ記事スタイル 構成</div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+        <li style="display:flex;align-items:center;gap:10px;">
+          <span style="background:rgba(124,106,247,0.2);color:var(--accent1);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">1</span>
+          <span style="font-size:13px;">体験談（一人称・熱量高め）</span>
+        </li>
+        <li style="display:flex;align-items:center;gap:10px;">
+          <span style="background:rgba(78,205,196,0.2);color:var(--accent2);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">2</span>
+          <span style="font-size:13px;">現状解説（トレンド・問題提起）</span>
+        </li>
+        <li style="display:flex;align-items:center;gap:10px;">
+          <span style="background:rgba(255,107,157,0.2);color:var(--accent3);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">3</span>
+          <span style="font-size:13px;">ツール・手法紹介（具体的）</span>
+        </li>
+        <li style="display:flex;align-items:center;gap:10px;">
+          <span style="background:rgba(255,209,102,0.2);color:var(--accent4);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">4</span>
+          <span style="font-size:13px;">地域活用（熊取町との接続）</span>
+        </li>
+        <li style="display:flex;align-items:center;gap:10px;">
+          <span style="background:rgba(6,214,160,0.2);color:var(--accent5);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">5</span>
+          <span style="font-size:13px;">FAQ（よくある疑問）</span>
+        </li>
+        <li style="display:flex;align-items:center;gap:10px;">
+          <span style="background:rgba(124,106,247,0.2);color:var(--accent1);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">6</span>
+          <span style="font-size:13px;">まとめ（行動喚起）</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">#️⃣ ハッシュタグ設定</div>
+      <table>
+        <thead><tr><th>プラットフォーム</th><th>上限</th><th>必須タグ</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="tag tag-purple">note</span></td>
+            <td>最大15個</td>
+            <td><code style="color:var(--accent4);font-size:11px;">#note</code>（末尾）</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-teal">stand.fm</span></td>
+            <td>最大8個</td>
+            <td><code style="color:var(--accent4);font-size:11px;">#standfm #ラジオ</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:12px;font-size:12px;color:var(--text-muted);">
+        共通で含めるタグ：<code style="color:var(--accent2);font-size:11px;">#AI活用 #熊取町 #地方創生</code>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🚫 禁止表現（AI感チェック）</div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+        <li style="font-size:12px;display:flex;align-items:center;gap:8px;">
+          <span style="color:var(--accent3);">✗</span>
+          <span style="text-decoration:line-through;color:var(--text-dim);">〜することが重要です</span>
+        </li>
+        <li style="font-size:12px;display:flex;align-items:center;gap:8px;">
+          <span style="color:var(--accent3);">✗</span>
+          <span style="text-decoration:line-through;color:var(--text-dim);">〜が求められます</span>
+        </li>
+        <li style="font-size:12px;display:flex;align-items:center;gap:8px;">
+          <span style="color:var(--accent3);">✗</span>
+          <span style="text-decoration:line-through;color:var(--text-dim);">〜と言えるでしょう</span>
+        </li>
+        <li style="font-size:12px;display:flex;align-items:center;gap:8px;">
+          <span style="color:var(--accent3);">✗</span>
+          <span style="text-decoration:line-through;color:var(--text-dim);">ぜひ活用してみてください</span>
+        </li>
+      </ul>
+      <div style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px;">
+        <div style="font-size:11px;color:var(--text-dim);margin-bottom:6px;">推奨トーン：</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span class="tag tag-purple">親しみ・親近感</span>
+          <span class="tag tag-teal">プロ・信頼性</span>
+          <span class="tag tag-pink">エネルギッシュ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION 5: 動画制作フロー
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section>
+  <div class="section-title">
+    <div class="icon" style="background:rgba(255,107,157,0.15);">🎬</div>
+    動画制作フロー（Remotion + Claude Code）
+  </div>
+
+  <div class="card" style="margin-bottom:16px;">
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-icon" style="background:rgba(124,106,247,0.2);">💬</div>
+        <div class="flow-label">「動画作って」</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon" style="background:rgba(6,214,160,0.2);">❓</div>
+        <div class="flow-label">目的・スタイル<br>確認（対話）</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon" style="background:rgba(78,205,196,0.2);">📝</div>
+        <div class="flow-label">台本<br>生成</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon" style="background:rgba(255,107,157,0.2);">🎙️</div>
+        <div class="flow-label">ナレーション<br>音声生成</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon" style="background:rgba(255,209,102,0.2);">📜</div>
+        <div class="flow-label">字幕<br>生成</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon" style="background:rgba(124,106,247,0.2);">🖼️</div>
+        <div class="flow-label">画像<br>生成</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon" style="background:rgba(255,107,157,0.2);">⚙️</div>
+        <div class="flow-label">Remotion<br>レンダリング</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon" style="background:rgba(6,214,160,0.2);">🎉</div>
+        <div class="flow-label">完成 + タイトル案5つ提示</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">📦 ユーザー提供素材の扱い</div>
+      <table>
+        <thead><tr><th>素材</th><th>優先度</th><th>未提供時</th></tr></thead>
+        <tbody>
+          <tr><td>台本</td><td><span class="tag tag-green">最優先</span></td><td>AIが自動生成</td></tr>
+          <tr><td>画像</td><td><span class="tag tag-green">最優先</span></td><td>画像生成APIで生成</td></tr>
+          <tr><td>音声</td><td><span class="tag tag-green">最優先</span></td><td>音声クローンAPIで生成</td></tr>
+          <tr><td>BGM</td><td><span class="tag tag-yellow">任意</span></td><td>デフォルトBGMを使用</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">🎨 スタイルテンプレート（30種）抜粋</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span class="tag tag-purple">ピクセルアート（暖色）</span>
+        <span class="tag tag-teal">ピクセルアート（寒色）</span>
+        <span class="tag tag-pink">ピクセルアート（ダーク）</span>
+        <span class="tag tag-yellow">アニメ風</span>
+        <span class="tag tag-green">シネマティック</span>
+        <span class="tag tag-purple">ミニマル</span>
+        <span class="tag tag-teal">ネオン</span>
+        <span class="tag tag-pink">水彩風</span>
+        <span class="tag tag-yellow">モノクロ</span>
+        <span class="tag tag-green">... 他21種</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION 6: 自動判定ルール（今日追加）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section>
+  <div class="section-title">
+    <div class="icon" style="background:rgba(6,214,160,0.15);">⚡</div>
+    意図の自動判定ルール <span class="tag tag-green" style="margin-left:8px;font-size:11px;">🆕 今日追加</span>
+  </div>
+
+  <div class="card" style="margin-bottom:16px;">
+    <div style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">
+      ユーザーがカジュアルに依頼した際、コマンドを使わなくても Claude が自動でスキル・エージェントを選択・実行します。
+    </div>
+
+    <div class="auto-rule">
+      <div>
+        <div style="font-size:11px;color:var(--text-dim);margin-bottom:4px;">トリガーワード</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span class="auto-rule-trigger">記事</span>
+          <span class="auto-rule-trigger">書いて</span>
+          <span class="auto-rule-trigger">note</span>
+          <span class="auto-rule-trigger">stand.fm</span>
+          <span class="auto-rule-trigger">コンテンツ</span>
+        </div>
+      </div>
+      <div class="auto-rule-arrow">→</div>
+      <div>
+        <div style="font-size:11px;color:var(--text-dim);margin-bottom:4px;">自動実行</div>
+        <span class="auto-rule-result">create-article スキル</span>
+      </div>
+      <div class="auto-rule-desc">テーマが発言内にあればそのまま渡す。不明な場合のみ1回確認。</div>
+    </div>
+
+    <div class="auto-rule">
+      <div>
+        <div style="font-size:11px;color:var(--text-dim);margin-bottom:4px;">トリガーワード</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span class="auto-rule-trigger">動画</span>
+          <span class="auto-rule-trigger">ビデオ</span>
+          <span class="auto-rule-trigger">映像</span>
+          <span class="auto-rule-trigger">Remotion</span>
+          <span class="auto-rule-trigger">動画化</span>
+        </div>
+      </div>
+      <div class="auto-rule-arrow">→</div>
+      <div>
+        <div style="font-size:11px;color:var(--text-dim);margin-bottom:4px;">自動実行</div>
+        <span class="auto-rule-result">create-video スキル</span>
+      </div>
+      <div class="auto-rule-desc">対話形式で目的・スタイルを確認してから制作を開始。</div>
+    </div>
+
+    <div style="margin-top:14px;background:var(--surface2);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--text-muted);">
+      ⚠️ 判定が難しい場合のみ「記事と動画、どちらですか？」と1回確認。その後は自動実行。
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title">✅ 実際の会話例（記事）</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="background:rgba(124,106,247,0.1);border-radius:8px;padding:10px 12px;font-size:12px;">
+          <div style="color:var(--text-dim);font-size:11px;margin-bottom:4px;">ユーザー</div>
+          「AIで育児を楽にする方法について記事書いて」
+        </div>
+        <div style="background:rgba(6,214,160,0.08);border-radius:8px;padding:10px 12px;font-size:12px;">
+          <div style="color:var(--text-dim);font-size:11px;margin-bottom:4px;">Claude</div>
+          → 自動で <code style="color:var(--accent1);">create-article</code> スキルを起動<br>
+          → <code style="color:var(--accent2);">AIで育児を楽にする方法記事.md</code> を生成・保存
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">✅ 実際の会話例（動画）</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="background:rgba(255,107,157,0.1);border-radius:8px;padding:10px 12px;font-size:12px;">
+          <div style="color:var(--text-dim);font-size:11px;margin-bottom:4px;">ユーザー</div>
+          「熊取町の紹介動画作って」
+        </div>
+        <div style="background:rgba(6,214,160,0.08);border-radius:8px;padding:10px 12px;font-size:12px;">
+          <div style="color:var(--text-dim);font-size:11px;margin-bottom:4px;">Claude</div>
+          → 自動で <code style="color:var(--accent3);">create-video</code> スキルを起動<br>
+          → スタイル確認後にRemotionレンダリング開始
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">📋 判定の優先順位</div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+        <li style="display:flex;gap:10px;align-items:center;font-size:12px;">
+          <span style="background:rgba(255,107,157,0.2);color:var(--accent3);padding:2px 8px;border-radius:4px;font-weight:700;flex-shrink:0;">Priority 1</span>
+          「動画」ワード → create-video
+        </li>
+        <li style="display:flex;gap:10px;align-items:center;font-size:12px;">
+          <span style="background:rgba(124,106,247,0.2);color:var(--accent1);padding:2px 8px;border-radius:4px;font-weight:700;flex-shrink:0;">Priority 2</span>
+          「記事」「書いて」→ create-article
+        </li>
+        <li style="display:flex;gap:10px;align-items:center;font-size:12px;">
+          <span style="background:rgba(255,209,102,0.2);color:var(--accent4);padding:2px 8px;border-radius:4px;font-weight:700;flex-shrink:0;">Priority 3</span>
+          判定不能 → 1回だけ確認
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION 7: 今日の生成物
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section>
+  <div class="section-title">
+    <div class="icon" style="background:rgba(255,209,102,0.15);">📄</div>
+    今日の生成物
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px;">
+    <div class="file-card">
+      <div class="file-icon">📝</div>
+      <div style="flex:1;">
+        <div class="file-name">AI動画記事.md</div>
+        <div class="file-path">C:\Users\motok\OneDrive\Desktop\Claude code\yuniko\AI動画記事.md</div>
+        <div class="file-desc">「AIで動画が作れる時代に、熊取町のメディア運営者がやってみた話」/ 約2,400文字 / Remotion + Claude Codeの実体験ベース</div>
+        <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+          <span class="tag tag-purple">AI動画</span>
+          <span class="tag tag-teal">Remotion</span>
+          <span class="tag tag-green">熊取町</span>
+          <span class="tag tag-yellow">note用15タグ</span>
+          <span class="tag tag-pink">stand.fm説明文付き</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="file-card">
+      <div class="file-icon">👶</div>
+      <div style="flex:1;">
+        <div class="file-name">AIで育児を楽にする方法記事.md</div>
+        <div class="file-path">C:\Users\motok\OneDrive\Desktop\Claude code\yuniko\AIで育児を楽にする方法記事.md</div>
+        <div class="file-desc">「AIで育児を楽にする方法｜熊取町で一人運営しながら気づいた、育児×AI活用の現実」/ 約2,300文字 / 深夜の夜泣き体験談から入る構成</div>
+        <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+          <span class="tag tag-purple">育児</span>
+          <span class="tag tag-teal">AI活用</span>
+          <span class="tag tag-green">熊取町</span>
+          <span class="tag tag-yellow">note用15タグ</span>
+          <span class="tag tag-pink">stand.fm説明文付き</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="file-card">
+      <div class="file-icon">🌐</div>
+      <div style="flex:1;">
+        <div class="file-name">workspace-overview.html</div>
+        <div class="file-path">C:\Users\motok\OneDrive\Desktop\Claude code\yuniko\workspace-overview.html</div>
+        <div class="file-desc">このファイル。ワークスペース全体の構成・フロー・生成物を視覚化したダッシュボード。</div>
+        <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+          <span class="tag tag-teal">HTML</span>
+          <span class="tag tag-purple">ダッシュボード</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION 8: 今日のセッション タイムライン
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section>
+  <div class="section-title">
+    <div class="icon" style="background:rgba(124,106,247,0.15);">🕐</div>
+    今日のセッション タイムライン（2026-03-22）
+  </div>
+
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--accent1);"></div>
+      <div class="tl-time">Session Start</div>
+      <div class="tl-content">
+        <div class="tl-title" style="color:var(--accent1);">📋 /create-article AI動画について</div>
+        <div class="tl-desc">参考記事（ユニコ記事スタイル）を読み込み → article-creator エージェント起動 → 「AI動画記事.md」生成・保存</div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--accent2);"></div>
+      <div class="tl-time">ルール更新</div>
+      <div class="tl-content">
+        <div class="tl-title" style="color:var(--accent2);">⚡ project-rules.md に自動判定ルールを追加</div>
+        <div class="tl-desc">「記事作って」などのカジュアルな依頼でも、コマンド不要で自動的に適切なスキルを起動するルールを project-rules.md に追記</div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--accent3);"></div>
+      <div class="tl-time">自動判定テスト</div>
+      <div class="tl-content">
+        <div class="tl-title" style="color:var(--accent3);">✅ 「AIで育児を楽にする方法について記事書いて」</div>
+        <div class="tl-desc">コマンド不要でルールが機能し、自動でcreate-articleスキルを起動 → 「AIで育児を楽にする方法記事.md」生成・保存。ルールの動作を実証。</div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--accent5);"></div>
+      <div class="tl-time">Now</div>
+      <div class="tl-content">
+        <div class="tl-title" style="color:var(--accent5);">🌐 workspace-overview.html 生成・ブラウザ表示</div>
+        <div class="tl-desc">これまでのやり取りとワークスペース全体を網羅的に視覚化。表・フロー図・タイムライン・ファイル一覧を含むHTMLダッシュボードを生成。</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION 9: CLAUDE.md 設定サマリー
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section>
+  <div class="section-title">
+    <div class="icon" style="background:rgba(78,205,196,0.15);">⚙️</div>
+    CLAUDE.md 設定サマリー
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title">🌏 言語・コミュニケーション</div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
+        <li style="font-size:12px;display:flex;align-items:center;gap:8px;"><span style="color:var(--accent5);">✓</span> 必ず日本語で回答</li>
+        <li style="font-size:12px;display:flex;align-items:center;gap:8px;"><span style="color:var(--accent5);">✓</span> コードには日本語コメント</li>
+        <li style="font-size:12px;display:flex;align-items:center;gap:8px;"><span style="color:var(--accent5);">✓</span> 重要な操作前に確認を取る</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">👥 ターゲット読者</div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
+        <li style="font-size:12px;display:flex;align-items:center;gap:8px;"><span style="color:var(--accent2);">•</span> 熊取町在住者</li>
+        <li style="font-size:12px;display:flex;align-items:center;gap:8px;"><span style="color:var(--accent2);">•</span> 移住検討者</li>
+        <li style="font-size:12px;display:flex;align-items:center;gap:8px;"><span style="color:var(--accent2);">•</span> 地域ビジネス・店舗関係者</li>
+        <li style="font-size:12px;display:flex;align-items:center;gap:8px;"><span style="color:var(--accent2);">•</span> AI活用・地方創生に興味ある人</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🚀 Claudeへの期待</div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
+        <li style="font-size:12px;display:flex;align-items:flex-start;gap:8px;">
+          <span style="color:var(--accent1);flex-shrink:0;">①</span>
+          <span>作業時間の大幅短縮（繰り返し作業の自動化）</span>
+        </li>
+        <li style="font-size:12px;display:flex;align-items:flex-start;gap:8px;">
+          <span style="color:var(--accent2);flex-shrink:0;">②</span>
+          <span>コンテンツクオリティの向上</span>
+        </li>
+        <li style="font-size:12px;display:flex;align-items:flex-start;gap:8px;">
+          <span style="color:var(--accent3);flex-shrink:0;">③</span>
+          <span>戦略・アイディアの積極的な提案</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer style="border-top:1px solid var(--border);padding:24px 48px;text-align:center;color:var(--text-dim);font-size:12px;">
+  yuniko workspace-overview | Generated by Claude Sonnet 4.6 | 2026-03-22
+</footer>
+
+</body>
+</html>
