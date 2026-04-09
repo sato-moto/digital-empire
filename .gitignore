@@ -3,6 +3,7 @@ node_modules/
 
 # 認証情報（漏洩リスク）
 wp-config.json
+notion-config.json
 
 # セキュリティ設定（Root直下のみ。サブディレクトリの .claude/ は追跡対象）
 /.claude/
