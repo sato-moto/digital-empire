@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/motok/AppData/Roaming/Claude/local-agent-mode-sessions/skills-plugin/0e021fc2-df7c-4394-b5e8-e8d760d145e2/c3962910-3308-4d4a-a467-3cb143adb5a0/skills/docx/**)",
+      "Bash(pandoc \"C:\\\\Users\\\\motok\\\\Downloads\\\\MATH-H-04 ｱｳﾄﾗｲﾝ骨子：数学（高校）講座.docx\" -o output.md)",
+      "Bash(python -c \":*)"
+    ]
+  }
+}

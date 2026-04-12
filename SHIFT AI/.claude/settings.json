@@ -1,0 +1,51 @@
+{
+  "autoMemoryEnabled": true,
+
+  "ignorePaths": [
+    "**/.git/config",
+    "**/.env",
+    "**/.env.*",
+    "**/.key",
+    "**/*.pem",
+    "**/*.crt",
+    "**/node_modules/**",
+    "**/.venv/**"
+  ],
+
+  "permissions": {
+    "allow": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash(git status*)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git log *)",
+      "Bash(git diff *)",
+      "Bash(git branch *)",
+      "Bash(ls *)",
+      "Bash(find *)",
+      "Bash(mkdir *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(node *)",
+      "Bash(npm run *)",
+      "Bash(npm install *)",
+      "Bash(python *)",
+      "Bash(pip install *)",
+      "Bash(cat *)",
+      "Bash(echo *)",
+      "Bash(touch *)",
+      "Bash(grep *)"
+    ],
+    "deny": [
+      "Bash(rm -rf /)",
+      "Bash(sudo *)",
+      "Bash(git push --force*)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean -f*)"
+    ]
+  },
+
+  "customInstructions": "【SHIFT AI スキル管理プロジェクト】\n\nこのプロジェクトはClaude Codeスキル（create-course, slide-generator, thumbnail-designer等）の開発・管理拠点である。\n\n1. スキルの新規作成・修正時は必ずテストを行うこと\n2. 外部通信コマンド（curl, wget, ssh等）は実行前にマスターの承認を得ること\n3. git pushは必ず確認フローを経ること\n4. 破壊的操作は必ず事前報告すること"
+}

@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(where claude:*)",
+      "Bash(python scripts/call_openai.py --help)",
+      "Bash(python scripts/call_gemini.py --help)",
+      "Bash(npx textlint:*)",
+      "Bash(PYTHONUTF8=1 C:\\\\Users\\\\motok\\\\OneDrive\\\\Desktop\\\\Claude code\\\\.claude\\\\skills\\\\.venv\\\\Scripts\\\\python.exe:*)",
+      "Bash(npm root:*)",
+      "Bash(NODE_PATH=\"C:\\\\Users\\\\motok\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\" node \"C:\\\\Users\\\\motok\\\\OneDrive\\\\Desktop\\\\Claude code\\\\.claude\\\\skills\\\\slide-generator-main\\\\scripts\\\\generate_diagrams.js\" output/slides.json output/diagrams/ --env \"C:\\\\Users\\\\motok\\\\OneDrive\\\\Desktop\\\\Claude code\\\\.claude\\\\skills\\\\create-course-main\\\\.env\")",
+      "Bash(NODE_PATH=\"C:\\\\Users\\\\motok\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\" node \"C:\\\\Users\\\\motok\\\\OneDrive\\\\Desktop\\\\Claude code\\\\.claude\\\\skills\\\\slide-generator-main\\\\scripts\\\\build_slides.js\" output/slides.json output/SCI-M-03.pptx --diagrams output/diagrams/ --pdf output/SCI-M-03.pdf --author \"Shifuto\")",
+      "Bash(mkdir -p \"C:\\\\Users\\\\motok\\\\OneDrive\\\\Desktop\\\\Claude code\\\\.claude\\\\skills\\\\slide-generator-main\\\\temp\")",
+      "Bash(cp \"C:\\\\Users\\\\motok\\\\OneDrive\\\\Desktop\\\\Claude code\\\\.claude\\\\skills\\\\slide-generator-main\\\\assets\\\\cover.png\" \"C:\\\\Users\\\\motok\\\\OneDrive\\\\Desktop\\\\Claude code\\\\.claude\\\\skills\\\\slide-generator-main\\\\temp\\\\cover.png\")",
+      "Bash(cp \"C:\\\\Users\\\\motok\\\\OneDrive\\\\Desktop\\\\Claude code\\\\.claude\\\\skills\\\\slide-generator-main\\\\assets\\\\temp.png\" \"C:\\\\Users\\\\motok\\\\OneDrive\\\\Desktop\\\\Claude code\\\\.claude\\\\skills\\\\slide-generator-main\\\\temp\\\\temp.png\")",
+      "Bash(npx playwright:*)"
+    ]
+  }
+}
