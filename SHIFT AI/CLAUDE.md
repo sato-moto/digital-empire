@@ -36,3 +36,19 @@
 - /create-course-main（講座コンテンツ制作ワークフロー）
 - /slide-generator-main（スライド生成）
 - /thumbnail-designer-main（サムネイル設計）
+
+## 環境セットアップ（セッション開始時に自動実行）
+
+以下のスキルはNode.js/Pythonの依存パッケージが必要。
+**講座制作・スライド生成に関わる作業を開始する前に、必ず依存チェックを実行せよ。**
+`node_modules` が存在しなければ `npm install` を自動実行する。ユーザーへの確認は不要。
+
+```bash
+# slide-generator-main の依存チェック（pptxgenjs, pdf-lib, playwright）
+cd "SHIFT AI/.claude/skills/slide-generator-main" && [ ! -d node_modules ] && npm install --silent
+
+# create-course-main の依存チェック（textlint）
+cd "SHIFT AI/.claude/skills/create-course-main" && [ ! -d node_modules ] && npm install --silent
+```
+
+これにより、worktree・新規チャット・別環境でも初回自動で環境が揃う。
