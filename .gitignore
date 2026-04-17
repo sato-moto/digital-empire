@@ -11,3 +11,6 @@ notion-config.json
 # OS 一時ファイル
 Thumbs.db
 .DS_Store
+
+# BOT-02_v3 PDF（112MBで GitHub 100MB制限超過。PPTX+diagramsから再生成可能）
+SHIFT AI/BOT-02_v3/output/BOT-02_v3.pdf
