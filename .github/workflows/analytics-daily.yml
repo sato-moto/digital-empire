@@ -1,0 +1,45 @@
+name: 熊取つーしん アナリティクス日報
+
+on:
+  schedule:
+    # 毎朝6:00 JST = UTC 21:00（前日）
+    - cron: '0 21 * * *'
+  workflow_dispatch: # 手動実行ボタンも有効化
+
+jobs:
+  run-analytics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Node.js セットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: dev/ga4-mcp/package.json
+
+      - name: 依存パッケージをインストール
+        working-directory: dev/ga4-mcp
+        run: npm install
+
+      - name: アナリティクス日報を実行
+        working-directory: dev/ga4-mcp
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+          SC_SITE_URL: ${{ secrets.SC_SITE_URL }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        run: node analytics-daily.js
+
+      - name: analytics-method.json の変更をコミット
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dev/ga4-mcp/analytics-method.json
+          git diff --staged --quiet || git commit -m "chore: analytics-method.json 自動更新 $(date +'%Y-%m-%d')"
+          git push
