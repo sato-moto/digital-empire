@@ -1,0 +1,17 @@
+{
+  "name": "ga4-mcp-server",
+  "version": "1.0.0",
+  "description": "GA4 + Search Console MCP Server for kumatori-info.com",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.87.0",
+    "@google-analytics/data": "^4.0.0",
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "googleapis": "^144.0.0",
+    "tweetsodium": "^0.0.4"
+  }
+}

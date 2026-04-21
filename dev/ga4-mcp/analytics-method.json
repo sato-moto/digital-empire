@@ -1,0 +1,135 @@
+{
+  "version": 4,
+  "last_updated": "2026-04-21",
+  "analysis_depth": "standard",
+  "comparison_windows": [
+    "28d",
+    "7d"
+  ],
+  "focus_metrics": [
+    "sessions",
+    "pageviews",
+    "users",
+    "bounce_rate",
+    "avg_session_duration",
+    "organic_search_share",
+    "top_pages_pv",
+    "search_console_ctr",
+    "search_console_position",
+    "action_completion_rate: 登録アクション実施率（%）を weekly ベースで追跡",
+    "single_page_concentration_pct: 最上位ページのPV比率。閾値50%超えでアラート",
+    "avg_engagement_by_page_cluster: ページクラスタ（グルメ、観光等）別の平均滞在時間比較",
+    "keyword_cluster_ctr_avg: キーワードグループ単位でのCTR平均値（温泉・銭湯グループ等）",
+    "internal_link_coverage: コンテンツ内の内部リンク数・密度を page ごとに測定",
+    "action_completion_rate_weekly",
+    "content_cluster_performance_by_theme",
+    "fragment_impression_to_click_conversion",
+    "action_completion_rate_weekly: 登録アクション完了率を weekly matrix で可視化",
+    "external_factor_correlation: daily peak/valley に対応する SNS投稿・広告日時をログ",
+    "onsen_ctr_recovery_tracking: /kumatori-onsen/ CTR改善状況を daily で監視"
+  ],
+  "reporting_sections": [
+    "summary",
+    "traffic_sources",
+    "top_pages",
+    "search_keywords",
+    "search_pages_ctr",
+    "alerts",
+    "actions",
+    "action_tracking: 前回レポート以降に登録されたアクションの completion status を matrix 形式で可視化",
+    "external_factor_log: daily trend peak/valley に対応する外部施策（SNS投稿日時、広告配信等）を記録",
+    "content_cluster_analysis: ページをテーマ別（グルメ、観光、イベント）に分類し、cluster ごとの performance を比較",
+    "next_actions_gantt: 提案アクションに対して実施予定日・担当者・dependency を記載した簡易スケジュール表",
+    "action_tracking_matrix: 登録アクション×status(計画/進行/完了/遅延)の weekly matrix",
+    "external_factor_log: daily peak/valley に対応する SNS投稿日時・広告配信・リンク獲得記録",
+    "next_actions_gantt: 提案アクション×deadline/担当者/dependency の簡易ガントチャート",
+    "action_tracking_matrix: 登録アクション×status(計画/進行/完了/遅延) の weekly 更新",
+    "external_factor_log: daily trend peak/valley に対応する SNS投稿日時・広告配信・リンク獲得ログ"
+  ],
+  "alert_thresholds": {
+    "sessions_drop_pct": 20,
+    "ctr_low_pct": "2% → 5% に引き上げ（表示数30以上のページのみ適用）",
+    "position_worse_than": "既述 15 → 12（Google第1ページ相当）",
+    "high_impression_low_ctr_impressions": "30 → 50 に引き上げ（より信度の高い統計データのみ対象化）",
+    "single_page_concentration_alert": "現行50% → 55%超で HIGH alert（閾値更新済み）",
+    "ctr_low_threshold": "5%（現行）→ 3% に引き下げ（温泉関連は特別監視）",
+    "high_impression_low_ctr": "50表示以上 & CTR 1%未満で HIGH alert に格上げ"
+  },
+  "special_focus": [
+    "onsen_ctr_recovery: /kumatori-onsen/ タイトル・メタ改善実施日・効果測定（4/14 position 8 → 5目標）",
+    "pukupuku_kitchen_distribution: 新記事投稿・内部リンク再設計による PV分散戦略（目標: 7d PV比 35%以下）",
+    "external_factor_peak_analysis: 4/14・4/17・4/20の高セッション日とSNS投稿・記事公開日時の correlation 調査"
+  ],
+  "improvement_log": [
+    {
+      "date": "2026-04-11",
+      "score": 7,
+      "reason": "日別ピーク追跡・CTR継続監視の必要性を確認。special_focusに登録。",
+      "issues": [
+        "ピーク日（4/9）の詳細データ自動取得なし",
+        "CTR改善対象ページの継続追跡なし"
+      ]
+    },
+    {
+      "date": "2026-04-13",
+      "score": 8,
+      "reason": "pukupuku-kitchen好調継続・Organic Searchシェア拡大を確認。onsenページCTR改善アクションを追加。",
+      "issues": [
+        "/kumatori-onsen/ CTR 0.9%（7d: 0%）継続。タイトル・メタ改善未実施。",
+        "温泉・銭湯KWのクリックゼロ継続"
+      ],
+      "actions_registered": [
+        "/kumatori-onsen/ タイトル・メタリライト",
+        "/kumatori-kosodate-lunch/ 内部リンク追加",
+        "温泉・銭湯記事の充実"
+      ]
+    },
+    {
+      "date": "2026-04-14",
+      "score": 8,
+      "reason": "7d日平均セッション+135%急増（pukupuku-kitchen効果持続）。オーガニック比率59.5%に改善。エンゲージ品質は継続優秀。",
+      "issues": [
+        "/kumatori-onsen/ CTR 0%（7d）・0.8%（28d）継続。改修未実施。",
+        "温泉・銭湯KWグループ計35表示・0クリック継続",
+        "pukupuku-kitchen 1ページ集中リスク上昇（7d PV 49.5%）"
+      ],
+      "actions_registered": [
+        "/kumatori-onsen/ SEOタイトル・メタリライト → wp-auto-post.jsで更新",
+        "「熊取 銭湯」新規記事執筆・下書き投稿",
+        "/kumatori-kosodate-lunch/ 内部リンク追加 → wp-auto-post.jsで更新"
+      ]
+    },
+    {
+      "date": "2026-04-17",
+      "score": 8,
+      "reason": "現在の分析手法（score 8）は『指標検出と alert 発火』には優秀だが、『検出から実行、実行から効果測定への full cycle』の tracking が機能していない。特に 4/13 登録アクション（/kumatori-onsen/ タイトル・メタ改善等）が 4/14 時点で未実施となっており、手法の『actionability』の向上が急務である。また pukupuku-kitchen の集中現象や /kumatori-kosodate-lunch/ の高エンゲージメントといった『戦略的機会』の検出は行われているが、その後の施策設計と timeline 管理が manual 依存となっている。JSON 形式の output に『action_tracking matrix』『next_actions_gantt』『external_factor_log』を組み込むことで、『検出→実行→検証→改善』の closed loop を自動化し、reporting cycle を weekly cycle に短縮することで、競争力あるメディアの運営基盤が形成される。",
+      "issues": [
+        "アクション実施状況の自動追跡メカニズムが欠如。2026-04-13で登録された『/kumatori-onsen/ タイトル・メタリライト』アクションが4/14現在も未実施のまま経過している",
+        "pukupuku-kitchen の単一ページ集中リスクが指摘されながら、具体的な分散戦略（新記事執筆計画、内部リンク再構築）の deadline と担当者が明記されていない",
+        "/kumatori-kosodate-lunch/ の『超高エンゲージ』（1520秒）を活用した内部リンク追加が未実施。この指標を検出しながらも actionable な改修工程が組まれていない",
+        "温泉・銭湯KWグループの『計35表示・0クリック継続』監視は継続されているが、新規記事執筆の具体化と publish タイミングが未定義のままである",
+        "daily trend における 4/14 の異常値ピーク（42セッション）の原因分析が行われていない。外部施策（SNS投稿、リンク獲得等）の詳細記録との連携が欠落"
+      ]
+    },
+    {
+      "date": "2026-04-18",
+      "score": 8,
+      "reason": "現行 method は『指標検出と alert 発火』では優秀だが、『検出→実行→検証→改善』の closed loop が機能していない。4/13 登録アクション（onsen タイトル・メタ改善）が 4/17 時点で未実施のまま経過する等、actionability の欠落が課題。JSON 出力に action_tracking_matrix・external_factor_log・next_actions_gantt を組み込み、実行管理と因果分析を自動化することで、weekly reporting cycle への短縮と競争力強化が可能。",
+      "issues": [
+        "アクション実施状況の自動追跡が欠落。登録から完了までのサイクル管理が manual",
+        "4/14セッション42のピーク原因未分析。SNS投稿等外部施策ログとの連携が欠損",
+        "提案アクションに deadline・担当者・dependency が明記されていない"
+      ]
+    },
+    {
+      "date": "2026-04-21",
+      "score": 8,
+      "reason": "現行手法は『指標検出と alert 発火』では優秀だが、『検出→実行→検証→改善』の closed loop が機能していない。4/13登録アクション（onsen改修）が4/20現在も未実施のまま経過し、actionability の欠落が深刻。JSON出力に action_tracking_matrix・external_factor_log・next_actions_gantt を組み込むことで、実行管理と因果分析を自動化し、weekly reporting cycle への短縮と改善スピード向上が可能。",
+      "issues": [
+        "4/13登録アクション未実施のまま4/20を経過。実行管理の自動追跡メカニズム欠落",
+        "4/14セッション42ピークの原因分析なし。外部施策ログとの因果分析体制不在",
+        "提案アクションに deadline・担当者・dependency が記載されていない。実行計画の具体性不足"
+      ]
+    }
+  ]
+}
