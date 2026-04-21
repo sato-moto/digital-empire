@@ -5,8 +5,11 @@ node_modules/
 wp-config.json
 notion-config.json
 
-# セキュリティ設定（Root直下のみ。サブディレクトリの .claude/ は追跡対象）
-/.claude/
+# セキュリティ設定（ローカル固有設定・ワークツリーのみ除外。settings.json/commands/rules/skillsは追跡対象）
+/.claude/settings.local.json
+/.claude/.claude/
+/.claude/worktrees/
+/.claude/skills/.claude/worktrees/
 
 # OS 一時ファイル
 Thumbs.db
