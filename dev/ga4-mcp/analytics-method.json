@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "last_updated": "2026-04-23",
   "analysis_depth": "standard",
   "comparison_windows": [
@@ -32,7 +32,9 @@
     "external_factor_correlation_daily",
     "action_completion_rate_weekly（登録→完了率をweekly matrix で可視化）",
     "external_factor_correlation_daily（daily peak/valley とSNS投稿・広告日時の相関ログ）",
-    "pukupuku_concentration_monitoring（28d集中度と週別推移追跡）"
+    "pukupuku_concentration_monitoring（28d集中度と週別推移追跡）",
+    "action_completion_rate_weekly（登録→実施→完了を週単位matrix可視化）",
+    "onsen_ctr_daily_tracking（/kumatori-onsen/ CTR日別監視。目標2%以上・position5以下）"
   ],
   "reporting_sections": [
     "summary",
@@ -57,7 +59,10 @@
     "action_tracking_matrix: 登録アクション×status(計画/進行/完了/遅延)を weekly 更新",
     "external_factor_log: daily peak/valley とSNS投稿・広告日時の相関記録",
     "next_actions_gantt: 提案アクション×deadline・担当者・dependency の簡易スケジュール",
-    "external_factor_log: daily trend peak/valley とSNS投稿・広告配信の相関記録"
+    "external_factor_log: daily trend peak/valley とSNS投稿・広告配信の相関記録",
+    "action_tracking_matrix（登録アクション×status(計画/進行/完了/遅延)を週単位更新）",
+    "external_factor_log（daily peak/valley とSNS投稿・広告日時・記事公開日の相関記録）",
+    "next_actions_gantt（提案アクション×deadline・担当者・dependency の簡易スケジュール）"
   ],
   "alert_thresholds": {
     "sessions_drop_pct": 20,
@@ -66,16 +71,17 @@
     "high_impression_low_ctr_impressions": "30 → 50 に引き上げ（より信度の高い統計データのみ対象化）",
     "single_page_concentration_alert": "現行50% → 35%に引き下げ（pukupuku現状39.1%を検出）",
     "ctr_low_threshold": "5%（現行）→ 3% に引き下げ（温泉関連は特別監視）",
-    "high_impression_low_ctr": "40表示以上・CTR 0% で HIGH alert（現行50）",
-    "onsen_ctr_alert": "CTR < 3% に引き下げ（現行5%）。温泉関連は特別監視。",
+    "high_impression_low_ctr": "40表示以上・CTR3%未満（onsen関連特別監視）",
+    "onsen_ctr_alert": "0.5%未満で高priority alert（現行3%から引き下げ）",
     "high_impression_zero_ctr": "40表示以上・CTR 0% で HIGH alert（現行50）",
     "onsen_ctr_low": "5% → 0.5%に引き下げ（実績0.5%に対応）",
-    "high_impression_low_ctr_threshold": "50表示 → 40表示に引き下げ（onsen 185表示検出用）"
+    "high_impression_low_ctr_threshold": "50表示 → 40表示に引き下げ（onsen 185表示検出用）",
+    "single_page_concentration": "35%超えで注視（現行50%。pukupuku39.1%検出）"
   },
   "special_focus": [
-    "onsen_ctr_recovery: /kumatori-onsen/ CTR改善。目標 2%以上・位置5以下。4/24完了予定",
-    "pukupuku_concentration_relief: 28d集中度35%以下を目標に、kosodate-lunch 内部リンク強化",
-    "external_peak_causality: 4/14-4/21の高セッション期の外部施策ログ化と再現可能性検証"
+    "onsen_ctr_recovery: /kumatori-onsen/ CTR改善。目標2%以上・位置5以下。4/24完了。タイトル・メタ改修必須。",
+    "pukupuku_concentration_relief: 28d35%以下を目標。kosodate-lunch超高engagement（1520秒）活用し内部リンク強化・新記事多角化で分散。",
+    "external_peak_causality: 4/14-4/21高セッション期の外部施策（SNS投稿・広告等）詳細ログ化。再現可能性検証と今後最適化に必須。"
   ],
   "improvement_log": [
     {
@@ -176,6 +182,16 @@
         "アクション実施状況の自動追跡メカニズムが欠落。4/13登録改善が4/22未実施",
         "外部施策ログ（SNS投稿・広告日時）との因果分析体制が未構築。4/14ピーク原因不明",
         "提案アクションに deadline・担当者・dependency が記載されていない"
+      ]
+    },
+    {
+      "date": "2026-04-23",
+      "score": 7,
+      "reason": "現行手法は『指標検出』では優秀（score7-8）だが、『検出→実行→検証→改善』の closed loop が機能していない。4/13登録アクション（onsen改修）が4/22未実施のまま経過し、actionability が著しく欠落。外部施策ログ（SNS投稿日時等）との因果分析体制も不在で、4/14ピーク原因が不明なままである。JSON出力に action_tracking_matrix・external_factor_log・next_actions_gantt を組み込み、実行管理と外部因果分析を自動化することで、『検出→実行→検証』の full cycle を完成させ、weekly reporting cycle への短縮と改善スピード加速が実現可能。",
+      "issues": [
+        "アクション実施追跡の自動化欠落。4/13登録改修が4/22未実施のまま。",
+        "外部因果分析体制未構築。4/14ピーク原因（SNS投稿/広告等）の詳細ログなし。",
+        "提案アクションにdeadline・担当者・dependency記載なし。実行計画の具体性不足。"
       ]
     }
   ]
