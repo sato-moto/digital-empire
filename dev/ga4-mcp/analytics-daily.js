@@ -170,16 +170,14 @@ async function fetchSearchConsole(startDate, endDate) {
 // ─── Claude API で分析・手法評価 ───
 async function analyzeWithClaude(data28d, data7d, sc28d, sc7d) {
   const prompt = `
-あなたは地域情報メディア「熊取つーしん（kumatori-info.com）」のSEOアナリストです。
-以下のアナリティクスデータを分析し、JSON形式で結果を返してください。
+あなたは地域情報メディア「熊取つーしん（kumatori-info.com）」の編集戦略アドバイザーです。
+運営者は熊取町在住の個人で、SEOの専門知識はありません。
+データを見て「次に何をすべきか」を具体的に教えることが最大の役割です。
 
-## 現在の分析手法設定
-${JSON.stringify(method, null, 2)}
-
-## GA4データ（直近28日: ${dateOffset(28)} 〜 ${dateOffset(1)}）
+## GA4データ（直近28日）
 ${JSON.stringify(data28d, null, 2)}
 
-## GA4データ（直近7日: ${dateOffset(7)} 〜 ${dateOffset(1)}）
+## GA4データ（直近7日）
 ${JSON.stringify(data7d, null, 2)}
 
 ## Search Console（直近28日）
@@ -189,40 +187,55 @@ ${JSON.stringify(sc28d, null, 2)}
 ${JSON.stringify(sc7d, null, 2)}
 
 ## 出力フォーマット（JSON必須）
-
-**絶対ルール: JSONの総文字数を6000文字以内に抑えること。各フィールドの文字数上限を厳守すること。**
+**絶対ルール: JSONの総文字数を7000文字以内。文字数上限を超えたら必ず切り捨てること。**
 
 {
   "report": {
-    "summary_text": "全体サマリー（150文字以内）",
-    "kpi_table": [
-      {"metric": "指標名", "value_28d": "値", "value_7d": "値", "trend": "↑/↓/→", "comment": "20文字以内"}
+    "today_summary": "今日のひとこと。専門用語なし。数字を使って端的に（100文字以内）",
+    "traffic_table": [
+      {"label": "訪問者数", "week": "直近7日の値", "month": "直近28日の値", "trend": "↑/↓/→", "memo": "一言（20文字以内）"},
+      {"label": "ページ閲覧数", "week": "値", "month": "値", "trend": "↑/↓/→", "memo": "一言"},
+      {"label": "Googleからの流入", "week": "値", "month": "値", "trend": "↑/↓/→", "memo": "一言"},
+      {"label": "検索での表示回数", "week": "値", "month": "値", "trend": "↑/↓/→", "memo": "一言"},
+      {"label": "検索からのクリック数", "week": "値", "month": "値", "trend": "↑/↓/→", "memo": "一言"}
     ],
-    "traffic_sources": "流入元分析（100文字以内）",
-    "top_pages_insights": "上位ページの注目点（150文字以内）",
-    "search_keywords_insights": "検索KW分析（150文字以内）",
-    "ctr_opportunities": [
-      {"url": "URL", "impressions": 数値, "ctr_pct": 数値, "action": "30文字以内の改善提案"}
+    "hot_pages": [
+      {"page": "ページパス", "visits": 数値, "why_hot": "注目理由（30文字以内）"}
     ],
-    "alerts": ["アラート（50文字以内）×最大3件"],
-    "actions": ["アクション（50文字以内）×最大3件"]
+    "article_strategy": [
+      {
+        "title": "具体的な記事タイトル案",
+        "reason": "なぜ今書くべきか・データの根拠（60文字以内）",
+        "keyword": "狙うキーワード",
+        "difficulty": "簡単/普通/難しい"
+      }
+    ],
+    "info_to_gather": [
+      {
+        "info": "集めるべき情報・取材内容",
+        "article": "それで書ける記事タイトル案",
+        "how": "入手方法（40文字以内）"
+      }
+    ],
+    "one_action": "今日やるべきことを1つだけ。具体的に（60文字以内）",
+    "alerts": ["気になること（50文字以内）×最大2件"]
   },
   "method_evaluation": {
-    "current_method_score": 1〜10の整数,
-    "issues_found": ["問題点（40文字以内）×最大3件"],
+    "current_method_score": 1から10の整数,
     "needs_update": true または false,
+    "issues_found": ["問題点（40文字以内）×最大2件"],
     "proposed_changes": {
       "add_metrics": [],
       "remove_metrics": [],
-      "change_thresholds": {"キー": "変更内容（50文字以内）"},
-      "add_sections": ["追加セクション（50文字以内）×最大3件"],
+      "change_thresholds": {},
+      "add_sections": [],
       "special_focus": ["注目観点（60文字以内）×最大3件"],
-      "reason": "変更理由（200文字以内）"
+      "reason": "変更理由（150文字以内）"
     }
   }
 }
 
-日本語で、テキストは自然な文章で書いてください。文字数上限を超えたら必ず切り捨てること。
+日本語で書いてください。専門用語は使わないこと。
 `;
 
   const response = await claude.messages.create({
@@ -264,54 +277,45 @@ async function createNotionReport(analysis) {
   const r = analysis.report;
   const dateLabel = today;
 
-  // KPIテーブルをMarkdown風テキストに変換
-  const kpiText = r.kpi_table?.map(k =>
-    `${k.metric}: ${k.value_28d}（7日: ${k.value_7d}）${k.trend} — ${k.comment}`
-  ).join('\n') || '';
-
-  // CTR改善機会テキスト
-  const ctrText = r.ctr_opportunities?.map(c =>
-    `${c.url} — 表示${c.impressions}回・CTR${c.ctr_pct}% → ${c.action}`
-  ).join('\n') || 'なし';
-
   // アラートテキスト
   const alertText = r.alerts?.length ? r.alerts.join('\n') : 'なし';
 
-  // アクションテキスト
-  const actionText = r.actions?.map((a, i) => `${i+1}. ${a}`).join('\n') || '';
+  // 各テーブルの行データを配列形式に変換
+  const trafficRows = (r.traffic_table || []).map(t => [
+    t.label || '', t.week || '', t.month || '', t.trend || '', t.memo || ''
+  ]);
+  const hotPagesRows = (r.hot_pages || []).map(p => [
+    p.page || '', String(p.visits ?? ''), p.why_hot || ''
+  ]);
+  const strategyRows = (r.article_strategy || []).map(a => [
+    a.title || '', a.reason || '', a.keyword || '', a.difficulty || ''
+  ]);
+  const infoRows = (r.info_to_gather || []).map(i => [
+    i.info || '', i.article || '', i.how || ''
+  ]);
 
-  // 手法評価テキスト
-  const me = analysis.method_evaluation;
-  const methodText = `スコア: ${me.current_method_score}/10\n${me.issues_found?.join('\n') || 'なし'}\n\n変更提案: ${me.needs_update ? me.proposed_changes?.reason || '更新あり' : '変更不要'}`;
-
-  // Notion ブロック構築（paragraph() は配列を返すので flatMap で展開する）
+  // Notion ブロック構築
   const blocks = [
-    heading2('📊 全体サマリー'),
-    ...paragraph(r.summary_text || ''),
+    heading2('💬 今日のひとこと'),
+    ...paragraph(r.today_summary || ''),
     divider(),
-    heading2('📈 KPI指標（28日 vs 7日比較）'),
-    ...[].concat(code(kpiText)),
+    heading2('📊 アクセス数（今週 vs 今月）'),
+    notionTable(['指標', '直近7日', '直近28日', '増減', 'ひとこと'], trafficRows),
     divider(),
-    heading2('🚦 流入元チャネル'),
-    ...paragraph(r.traffic_sources || ''),
+    heading2('🔥 今週の注目ページ'),
+    notionTable(['ページ', '訪問数', '注目理由'], hotPagesRows),
     divider(),
-    heading2('📄 上位ページ'),
-    ...paragraph(r.top_pages_insights || ''),
+    heading2('📝 次に書くべき記事（優先順）'),
+    notionTable(['記事タイトル案', '書くべき理由', 'キーワード', '難易度'], strategyRows),
     divider(),
-    heading2('🔍 検索キーワード'),
-    ...paragraph(r.search_keywords_insights || ''),
+    heading2('📡 集めると記事になる情報'),
+    notionTable(['集める情報', '書ける記事', '入手方法'], infoRows),
     divider(),
-    heading2('🎯 CTR改善機会'),
-    ...[].concat(code(ctrText)),
+    heading2('✅ 今日やること'),
+    ...paragraph(r.one_action || ''),
     divider(),
-    heading2('⚠️ アラート'),
+    heading2('⚠️ 気になること'),
     ...paragraph(alertText),
-    divider(),
-    heading2('✅ 今日のアクション'),
-    ...paragraph(actionText),
-    divider(),
-    heading2('🔧 分析手法の自己評価'),
-    ...paragraph(methodText)
   ];
 
   // Notion API でページ作成
@@ -392,6 +396,23 @@ function code(text) {
 }
 function divider() {
   return { object: 'block', type: 'divider', divider: {} };
+}
+// Notion テーブルブロック（headers: 列名配列, rows: 値の2次元配列）
+function notionTable(headers, rows) {
+  const tableWidth = headers.length;
+  const toCell = text => [{ type: 'text', text: { content: String(text ?? '') } }];
+  const headerRow = {
+    object: 'block', type: 'table_row',
+    table_row: { cells: headers.map(toCell) }
+  };
+  const dataRows = rows.map(row => ({
+    object: 'block', type: 'table_row',
+    table_row: { cells: row.map(toCell) }
+  }));
+  return {
+    object: 'block', type: 'table',
+    table: { table_width: tableWidth, has_column_header: true, has_row_header: false, children: [headerRow, ...dataRows] }
+  };
 }
 
 // ─── analytics-method.json 更新 ───
