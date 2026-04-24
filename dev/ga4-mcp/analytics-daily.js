@@ -336,7 +336,27 @@ async function createNotionReport(analysis) {
 
   const data = await res.json();
   if (data.object === 'error') throw new Error('Notion API エラー: ' + JSON.stringify(data));
-  return data.id;
+  const pageId = data.id;
+
+  // ページID確定後に壁打ちコーナーを追加
+  const chatUrl = `https://sato-moto.github.io/digital-empire/?pageId=${pageId.replace(/-/g, '')}`;
+  await fetch(`https://api.notion.com/v1/blocks/${pageId}/children`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${NOTION_TOKEN}`,
+      'Notion-Version': '2022-06-28',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      children: [
+        divider(),
+        heading2('💬 壁打ちコーナー'),
+        { object: 'block', type: 'embed', embed: { url: chatUrl } }
+      ]
+    })
+  });
+
+  return pageId;
 }
 
 // ─── Notion ブロックヘルパー ───
