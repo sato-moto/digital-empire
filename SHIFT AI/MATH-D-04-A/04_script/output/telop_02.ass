@@ -1,0 +1,27 @@
+﻿[Script Info]
+Title: MATH-D-04-A Ch2 Telop
+ScriptType: v4.00+
+WrapStyle: 0
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Telop,Noto Sans JP,60,&H00303030,&H000000FF,&H00FFFFFF,&H80000000,-1,0,1,4,2,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.00,0:00:01.40,Telop,,0,0,0,,{\pos(1115,955)}では画面を見てほしい。
+Dialogue: 0,0:00:01.40,0:00:02.29,Telop,,0,0,0,,{\pos(1115,955)}Geminiの
+Dialogue: 0,0:00:02.29,0:00:03.94,Telop,,0,0,0,,{\pos(1115,955)}一時チャットを使っている。
+Dialogue: 0,0:00:03.94,0:00:04.70,Telop,,0,0,0,,{\pos(1115,955)}ここに2つの
+Dialogue: 0,0:00:04.70,0:00:05.72,Telop,,0,0,0,,{\pos(1115,955)}因数分解がある。
+Dialogue: 0,0:00:05.72,0:00:06.48,Telop,,0,0,0,,{\pos(1115,955)}x²−9 と
+Dialogue: 0,0:00:06.48,0:00:07.49,Telop,,0,0,0,,{\pos(1115,955)}x²−6x+9。
+Dialogue: 0,0:00:07.49,0:00:08.76,Telop,,0,0,0,,{\pos(1115,955)}似た式に見えるけど、
+Dialogue: 0,0:00:08.76,0:00:09.78,Telop,,0,0,0,,{\pos(1115,955)}使う公式が違う。
+Dialogue: 0,0:00:09.78,0:00:11.05,Telop,,0,0,0,,{\pos(1115,955)}この「どっちの公式を
+Dialogue: 0,0:00:11.05,0:00:12.45,Telop,,0,0,0,,{\pos(1115,955)}使うか」の判断基準を、
+Dialogue: 0,0:00:12.45,0:00:13.59,Telop,,0,0,0,,{\pos(1115,955)}3つのプロンプトで
+Dialogue: 0,0:00:13.59,0:00:14.48,Telop,,0,0,0,,{\pos(1115,955)}見抜いていく。

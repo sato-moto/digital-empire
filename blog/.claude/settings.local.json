@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(npm install:*)",
+      "Bash(gcloud --version)",
+      "Bash(winget --version)",
+      "Bash(where python:*)",
+      "Bash(winget install:*)",
+      "Bash(export PATH=\"$PATH:/c/Users/motok/AppData/Local/Google/Cloud SDK/google-cloud-sdk/bin:/c/Program Files \\(x86\\)/Google/Cloud SDK/google-cloud-sdk/bin\")",
+      "Bash('/c/Users/motok/AppData/Local/Google/Cloud SDK/google-cloud-sdk/bin/gcloud' auth list)",
+      "Bash('/c/Users/motok/AppData/Local/Google/Cloud SDK/google-cloud-sdk/bin/gcloud' projects list)",
+      "Bash('/c/Users/motok/AppData/Local/Google/Cloud SDK/google-cloud-sdk/bin/gcloud' projects create kumatori-analytics '--name=Kumatori Analytics')",
+      "Bash(echo \"EXIT: $?\")",
+      "Bash('/c/Users/motok/AppData/Local/Google/Cloud SDK/google-cloud-sdk/bin/gcloud' config set project kumatori-analytics)",
+      "Bash('/c/Users/motok/AppData/Local/Google/Cloud SDK/google-cloud-sdk/bin/gcloud' services enable analyticsdata.googleapis.com webmasters.googleapis.com --project=kumatori-analytics)",
+      "Bash($GCLOUD services:*)"
+    ]
+  }
+}

@@ -1,0 +1,847 @@
+{
+  "collected_at": "2026-04-17",
+  "period_28d": {
+    "start": "2026-03-20",
+    "end": "2026-04-16"
+  },
+  "period_7d": {
+    "start": "2026-04-10",
+    "end": "2026-04-16"
+  },
+  "ga4_28d": {
+    "summary": {
+      "sessions": 238,
+      "pageviews": 513,
+      "users": 150,
+      "bounce_rate_pct": 43.7,
+      "avg_session_duration_sec": 290
+    },
+    "topPages": [
+      {
+        "path": "/kumatori-pukupuku-kitchen/",
+        "pv": 200,
+        "users": 116,
+        "duration": 181
+      },
+      {
+        "path": "/",
+        "pv": 143,
+        "users": 37,
+        "duration": 236
+      },
+      {
+        "path": "/page/2/",
+        "pv": 14,
+        "users": 8,
+        "duration": 12
+      },
+      {
+        "path": "/kumatori-pan/",
+        "pv": 13,
+        "users": 9,
+        "duration": 132
+      },
+      {
+        "path": "/kumatori-kosodate-lunch/",
+        "pv": 10,
+        "users": 2,
+        "duration": 1520
+      },
+      {
+        "path": "/kumatori-lunch-osusume/",
+        "pv": 9,
+        "users": 5,
+        "duration": 295
+      },
+      {
+        "path": "/kumatori-tsushin-start/",
+        "pv": 9,
+        "users": 7,
+        "duration": 120
+      },
+      {
+        "path": "/kumatori-kounotori-hiraiki-2026/",
+        "pv": 8,
+        "users": 3,
+        "duration": 109
+      },
+      {
+        "path": "/kumatori-onsen/",
+        "pv": 7,
+        "users": 7,
+        "duration": 190
+      },
+      {
+        "path": "/kumatori-takeout/",
+        "pv": 6,
+        "users": 6,
+        "duration": 98
+      },
+      {
+        "path": "/page/3/",
+        "pv": 6,
+        "users": 5,
+        "duration": 49
+      },
+      {
+        "path": "/熊取町のおすすめランチ15選｜地元民が通う人気店/",
+        "pv": 6,
+        "users": 1,
+        "duration": 677
+      },
+      {
+        "path": "/about/",
+        "pv": 5,
+        "users": 5,
+        "duration": 89
+      },
+      {
+        "path": "/kumatori-cafe/",
+        "pv": 5,
+        "users": 4,
+        "duration": 36
+      },
+      {
+        "path": "/author/motoki0131/",
+        "pv": 4,
+        "users": 4,
+        "duration": 12
+      },
+      {
+        "path": "/category/openclose/",
+        "pv": 4,
+        "users": 2,
+        "duration": 58
+      },
+      {
+        "path": "/eiraku-dam/",
+        "pv": 4,
+        "users": 4,
+        "duration": 28
+      },
+      {
+        "path": "/kumatori-izakaya/",
+        "pv": 4,
+        "users": 2,
+        "duration": 1315
+      },
+      {
+        "path": "/kumatori-newopen/",
+        "pv": 4,
+        "users": 4,
+        "duration": 101
+      },
+      {
+        "path": "/kumatori-niko-bagels/",
+        "pv": 4,
+        "users": 4,
+        "duration": 58
+      }
+    ],
+    "channels": [
+      {
+        "channel": "Organic Search",
+        "sessions": 118,
+        "users": 79
+      },
+      {
+        "channel": "Direct",
+        "sessions": 72,
+        "users": 37
+      },
+      {
+        "channel": "Organic Social",
+        "sessions": 48,
+        "users": 34
+      }
+    ],
+    "dailyTrend": [
+      {
+        "date": "2026-03-20",
+        "sessions": 3,
+        "pv": 13
+      },
+      {
+        "date": "2026-03-21",
+        "sessions": 1,
+        "pv": 1
+      },
+      {
+        "date": "2026-03-22",
+        "sessions": 1,
+        "pv": 1
+      },
+      {
+        "date": "2026-03-23",
+        "sessions": 11,
+        "pv": 35
+      },
+      {
+        "date": "2026-03-24",
+        "sessions": 8,
+        "pv": 59
+      },
+      {
+        "date": "2026-03-25",
+        "sessions": 9,
+        "pv": 17
+      },
+      {
+        "date": "2026-03-26",
+        "sessions": 2,
+        "pv": 3
+      },
+      {
+        "date": "2026-03-28",
+        "sessions": 2,
+        "pv": 2
+      },
+      {
+        "date": "2026-03-29",
+        "sessions": 1,
+        "pv": 1
+      },
+      {
+        "date": "2026-03-31",
+        "sessions": 2,
+        "pv": 2
+      },
+      {
+        "date": "2026-04-01",
+        "sessions": 2,
+        "pv": 3
+      },
+      {
+        "date": "2026-04-02",
+        "sessions": 1,
+        "pv": 1
+      },
+      {
+        "date": "2026-04-03",
+        "sessions": 1,
+        "pv": 1
+      },
+      {
+        "date": "2026-04-05",
+        "sessions": 1,
+        "pv": 1
+      },
+      {
+        "date": "2026-04-06",
+        "sessions": 2,
+        "pv": 8
+      },
+      {
+        "date": "2026-04-07",
+        "sessions": 1,
+        "pv": 1
+      },
+      {
+        "date": "2026-04-08",
+        "sessions": 2,
+        "pv": 2
+      },
+      {
+        "date": "2026-04-09",
+        "sessions": 10,
+        "pv": 34
+      },
+      {
+        "date": "2026-04-10",
+        "sessions": 27,
+        "pv": 48
+      },
+      {
+        "date": "2026-04-11",
+        "sessions": 20,
+        "pv": 54
+      },
+      {
+        "date": "2026-04-12",
+        "sessions": 17,
+        "pv": 41
+      },
+      {
+        "date": "2026-04-13",
+        "sessions": 12,
+        "pv": 16
+      },
+      {
+        "date": "2026-04-14",
+        "sessions": 42,
+        "pv": 66
+      },
+      {
+        "date": "2026-04-15",
+        "sessions": 34,
+        "pv": 56
+      },
+      {
+        "date": "2026-04-16",
+        "sessions": 27,
+        "pv": 47
+      }
+    ]
+  },
+  "ga4_7d": {
+    "summary": {
+      "sessions": 178,
+      "pageviews": 328,
+      "users": 123,
+      "bounce_rate_pct": 47.8,
+      "avg_session_duration_sec": 231
+    },
+    "topPages": [
+      {
+        "path": "/kumatori-pukupuku-kitchen/",
+        "pv": 189,
+        "users": 114,
+        "duration": 185
+      },
+      {
+        "path": "/",
+        "pv": 58,
+        "users": 22,
+        "duration": 88
+      },
+      {
+        "path": "/kumatori-kosodate-lunch/",
+        "pv": 10,
+        "users": 2,
+        "duration": 1520
+      },
+      {
+        "path": "/page/2/",
+        "pv": 6,
+        "users": 4,
+        "duration": 17
+      },
+      {
+        "path": "/kumatori-cafe/",
+        "pv": 4,
+        "users": 3,
+        "duration": 43
+      },
+      {
+        "path": "/kumatori-niko-bagels/",
+        "pv": 4,
+        "users": 4,
+        "duration": 58
+      },
+      {
+        "path": "/kumatori-pan/",
+        "pv": 4,
+        "users": 4,
+        "duration": 252
+      },
+      {
+        "path": "/kumatori-tsushin-start/",
+        "pv": 4,
+        "users": 3,
+        "duration": 232
+      },
+      {
+        "path": "/about/",
+        "pv": 3,
+        "users": 3,
+        "duration": 128
+      },
+      {
+        "path": "/author/motoki0131/",
+        "pv": 3,
+        "users": 3,
+        "duration": 14
+      },
+      {
+        "path": "/category/matome/",
+        "pv": 3,
+        "users": 1,
+        "duration": 12
+      },
+      {
+        "path": "/category/openclose/",
+        "pv": 3,
+        "users": 1,
+        "duration": 113
+      },
+      {
+        "path": "/kumatori-lunch-osusume/",
+        "pv": 3,
+        "users": 2,
+        "duration": 211
+      },
+      {
+        "path": "/kumatori-newopen/",
+        "pv": 3,
+        "users": 3,
+        "duration": 108
+      },
+      {
+        "path": "/kumatori-takeout/",
+        "pv": 3,
+        "users": 3,
+        "duration": 168
+      },
+      {
+        "path": "/page/3/",
+        "pv": 3,
+        "users": 3,
+        "duration": 8
+      },
+      {
+        "path": "/tag/pukupuku-kitchen/",
+        "pv": 3,
+        "users": 3,
+        "duration": 13
+      },
+      {
+        "path": "/tag/新店オープン/",
+        "pv": 3,
+        "users": 3,
+        "duration": 153
+      },
+      {
+        "path": "/eiraku-dam/",
+        "pv": 2,
+        "users": 2,
+        "duration": 34
+      },
+      {
+        "path": "/kumatori-hiking/",
+        "pv": 2,
+        "users": 1,
+        "duration": 140
+      }
+    ],
+    "channels": [
+      {
+        "channel": "Organic Search",
+        "sessions": 94,
+        "users": 66
+      },
+      {
+        "channel": "Organic Social",
+        "sessions": 43,
+        "users": 34
+      },
+      {
+        "channel": "Direct",
+        "sessions": 41,
+        "users": 23
+      }
+    ],
+    "dailyTrend": [
+      {
+        "date": "2026-04-10",
+        "sessions": 27,
+        "pv": 48
+      },
+      {
+        "date": "2026-04-11",
+        "sessions": 20,
+        "pv": 54
+      },
+      {
+        "date": "2026-04-12",
+        "sessions": 17,
+        "pv": 41
+      },
+      {
+        "date": "2026-04-13",
+        "sessions": 12,
+        "pv": 16
+      },
+      {
+        "date": "2026-04-14",
+        "sessions": 42,
+        "pv": 66
+      },
+      {
+        "date": "2026-04-15",
+        "sessions": 34,
+        "pv": 56
+      },
+      {
+        "date": "2026-04-16",
+        "sessions": 27,
+        "pv": 47
+      }
+    ]
+  },
+  "sc_28d": {
+    "keywords": [
+      {
+        "keyword": "地図お願い",
+        "clicks": 1,
+        "impressions": 1,
+        "ctr_pct": 100,
+        "position": 1
+      },
+      {
+        "keyword": "コウノトリ 熊取町",
+        "clicks": 0,
+        "impressions": 3,
+        "ctr_pct": 0,
+        "position": 9.7
+      },
+      {
+        "keyword": "ニコベーグル 熊取",
+        "clicks": 0,
+        "impressions": 12,
+        "ctr_pct": 0,
+        "position": 10.5
+      },
+      {
+        "keyword": "熊取 温泉",
+        "clicks": 0,
+        "impressions": 8,
+        "ctr_pct": 0,
+        "position": 11.5
+      },
+      {
+        "keyword": "熊取 温泉 日帰り",
+        "clicks": 0,
+        "impressions": 16,
+        "ctr_pct": 0,
+        "position": 9
+      },
+      {
+        "keyword": "熊取 銭湯",
+        "clicks": 0,
+        "impressions": 12,
+        "ctr_pct": 0,
+        "position": 9
+      },
+      {
+        "keyword": "熊取温泉",
+        "clicks": 0,
+        "impressions": 4,
+        "ctr_pct": 0,
+        "position": 10.3
+      }
+    ],
+    "pages": [
+      {
+        "url": "/kumatori-pukupuku-kitchen/",
+        "clicks": 41,
+        "impressions": 68,
+        "ctr_pct": 60.3,
+        "position": 2.9
+      },
+      {
+        "url": "/",
+        "clicks": 15,
+        "impressions": 68,
+        "ctr_pct": 22.1,
+        "position": 6.7
+      },
+      {
+        "url": "/tag/%E6%96%B0%E5%BA%97%E3%82%AA%E3%83%BC%E3%83%97%E3%83%B3/",
+        "clicks": 3,
+        "impressions": 19,
+        "ctr_pct": 15.8,
+        "position": 4.2
+      },
+      {
+        "url": "/kumatori-tsushin-start/",
+        "clicks": 2,
+        "impressions": 28,
+        "ctr_pct": 7.1,
+        "position": 4.9
+      },
+      {
+        "url": "/kumatori-onsen/",
+        "clicks": 1,
+        "impressions": 129,
+        "ctr_pct": 0.8,
+        "position": 8.2
+      },
+      {
+        "url": "/tag/%E3%83%86%E3%82%A4%E3%82%AF%E3%82%A2%E3%82%A6%E3%83%88/",
+        "clicks": 1,
+        "impressions": 16,
+        "ctr_pct": 6.3,
+        "position": 6.4
+      },
+      {
+        "url": "/why-kumatori-tsushin/",
+        "clicks": 1,
+        "impressions": 10,
+        "ctr_pct": 10,
+        "position": 6.4
+      },
+      {
+        "url": "/category/matome/",
+        "clicks": 0,
+        "impressions": 18,
+        "ctr_pct": 0,
+        "position": 4.4
+      },
+      {
+        "url": "/kumatori-korokke/",
+        "clicks": 0,
+        "impressions": 1,
+        "ctr_pct": 0,
+        "position": 9
+      },
+      {
+        "url": "/kumatori-tsushin-start/#toc1",
+        "clicks": 0,
+        "impressions": 16,
+        "ctr_pct": 0,
+        "position": 2.1
+      },
+      {
+        "url": "/kumatori-tsushin-start/#toc2",
+        "clicks": 0,
+        "impressions": 16,
+        "ctr_pct": 0,
+        "position": 2.1
+      },
+      {
+        "url": "/kumatori-tsushin-start/#toc3",
+        "clicks": 0,
+        "impressions": 15,
+        "ctr_pct": 0,
+        "position": 2.1
+      },
+      {
+        "url": "/kumatori-tsushin-start/#toc4",
+        "clicks": 0,
+        "impressions": 16,
+        "ctr_pct": 0,
+        "position": 2.1
+      },
+      {
+        "url": "/privacy-policy/",
+        "clicks": 0,
+        "impressions": 2,
+        "ctr_pct": 0,
+        "position": 10
+      },
+      {
+        "url": "/tag/%E3%82%B5%E3%83%B3%E3%83%89%E3%82%A4%E3%83%83%E3%83%81/",
+        "clicks": 0,
+        "impressions": 4,
+        "ctr_pct": 0,
+        "position": 5.3
+      },
+      {
+        "url": "/tag/%E3%83%91%E3%83%B3/",
+        "clicks": 0,
+        "impressions": 5,
+        "ctr_pct": 0,
+        "position": 5.2
+      },
+      {
+        "url": "/tag/%E5%A4%A7%E4%B9%85%E4%BF%9D%E5%8D%97/",
+        "clicks": 0,
+        "impressions": 5,
+        "ctr_pct": 0,
+        "position": 4.8
+      },
+      {
+        "url": "/tag/pukupuku-kitchen/",
+        "clicks": 0,
+        "impressions": 11,
+        "ctr_pct": 0,
+        "position": 4.2
+      },
+      {
+        "url": "/why-kumatori-tsushin/#toc1",
+        "clicks": 0,
+        "impressions": 4,
+        "ctr_pct": 0,
+        "position": 6.8
+      },
+      {
+        "url": "/why-kumatori-tsushin/#toc2",
+        "clicks": 0,
+        "impressions": 4,
+        "ctr_pct": 0,
+        "position": 6.8
+      }
+    ]
+  },
+  "sc_7d": {
+    "keywords": [
+      {
+        "keyword": "地図お願い",
+        "clicks": 1,
+        "impressions": 1,
+        "ctr_pct": 100,
+        "position": 1
+      },
+      {
+        "keyword": "ニコベーグル 熊取",
+        "clicks": 0,
+        "impressions": 4,
+        "ctr_pct": 0,
+        "position": 11.5
+      },
+      {
+        "keyword": "熊取 温泉",
+        "clicks": 0,
+        "impressions": 1,
+        "ctr_pct": 0,
+        "position": 12
+      },
+      {
+        "keyword": "熊取 温泉 日帰り",
+        "clicks": 0,
+        "impressions": 3,
+        "ctr_pct": 0,
+        "position": 10.3
+      },
+      {
+        "keyword": "熊取 銭湯",
+        "clicks": 0,
+        "impressions": 2,
+        "ctr_pct": 0,
+        "position": 10
+      }
+    ],
+    "pages": [
+      {
+        "url": "/kumatori-pukupuku-kitchen/",
+        "clicks": 38,
+        "impressions": 65,
+        "ctr_pct": 58.5,
+        "position": 2.9
+      },
+      {
+        "url": "/",
+        "clicks": 5,
+        "impressions": 25,
+        "ctr_pct": 20,
+        "position": 5.6
+      },
+      {
+        "url": "/tag/%E6%96%B0%E5%BA%97%E3%82%AA%E3%83%BC%E3%83%97%E3%83%B3/",
+        "clicks": 3,
+        "impressions": 18,
+        "ctr_pct": 16.7,
+        "position": 4.2
+      },
+      {
+        "url": "/kumatori-tsushin-start/",
+        "clicks": 1,
+        "impressions": 9,
+        "ctr_pct": 11.1,
+        "position": 2.7
+      },
+      {
+        "url": "/tag/%E3%83%86%E3%82%A4%E3%82%AF%E3%82%A2%E3%82%A6%E3%83%88/",
+        "clicks": 1,
+        "impressions": 15,
+        "ctr_pct": 6.7,
+        "position": 6.5
+      },
+      {
+        "url": "/category/matome/",
+        "clicks": 0,
+        "impressions": 6,
+        "ctr_pct": 0,
+        "position": 3.8
+      },
+      {
+        "url": "/kumatori-korokke/",
+        "clicks": 0,
+        "impressions": 1,
+        "ctr_pct": 0,
+        "position": 9
+      },
+      {
+        "url": "/kumatori-onsen/",
+        "clicks": 0,
+        "impressions": 23,
+        "ctr_pct": 0,
+        "position": 7.6
+      },
+      {
+        "url": "/kumatori-tsushin-start/#toc1",
+        "clicks": 0,
+        "impressions": 7,
+        "ctr_pct": 0,
+        "position": 2.3
+      },
+      {
+        "url": "/kumatori-tsushin-start/#toc2",
+        "clicks": 0,
+        "impressions": 7,
+        "ctr_pct": 0,
+        "position": 2.3
+      },
+      {
+        "url": "/kumatori-tsushin-start/#toc3",
+        "clicks": 0,
+        "impressions": 7,
+        "ctr_pct": 0,
+        "position": 2.3
+      },
+      {
+        "url": "/kumatori-tsushin-start/#toc4",
+        "clicks": 0,
+        "impressions": 7,
+        "ctr_pct": 0,
+        "position": 2.3
+      },
+      {
+        "url": "/tag/%E3%82%B5%E3%83%B3%E3%83%89%E3%82%A4%E3%83%83%E3%83%81/",
+        "clicks": 0,
+        "impressions": 4,
+        "ctr_pct": 0,
+        "position": 5.3
+      },
+      {
+        "url": "/tag/%E3%83%91%E3%83%B3/",
+        "clicks": 0,
+        "impressions": 5,
+        "ctr_pct": 0,
+        "position": 5.2
+      },
+      {
+        "url": "/tag/%E5%A4%A7%E4%B9%85%E4%BF%9D%E5%8D%97/",
+        "clicks": 0,
+        "impressions": 5,
+        "ctr_pct": 0,
+        "position": 4.8
+      },
+      {
+        "url": "/tag/pukupuku-kitchen/",
+        "clicks": 0,
+        "impressions": 11,
+        "ctr_pct": 0,
+        "position": 4.2
+      },
+      {
+        "url": "/why-kumatori-tsushin/",
+        "clicks": 0,
+        "impressions": 1,
+        "ctr_pct": 0,
+        "position": 10
+      },
+      {
+        "url": "/why-kumatori-tsushin/#toc1",
+        "clicks": 0,
+        "impressions": 1,
+        "ctr_pct": 0,
+        "position": 10
+      },
+      {
+        "url": "/why-kumatori-tsushin/#toc2",
+        "clicks": 0,
+        "impressions": 1,
+        "ctr_pct": 0,
+        "position": 10
+      },
+      {
+        "url": "/why-kumatori-tsushin/#toc3",
+        "clicks": 0,
+        "impressions": 1,
+        "ctr_pct": 0,
+        "position": 10
+      }
+    ]
+  }
+}

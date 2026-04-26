@@ -1,0 +1,29 @@
+﻿[Script Info]
+Title: MATH-D-04-A Ch2 Telop
+ScriptType: v4.00+
+WrapStyle: 0
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Telop,Noto Sans JP,60,&H00303030,&H000000FF,&H00FFFFFF,&H80000000,-1,0,1,4,2,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.00,0:00:00.97,Telop,,0,0,0,,{\pos(1115,955)}たった「何に
+Dialogue: 0,0:00:00.97,0:00:02.59,Telop,,0,0,0,,{\pos(1115,955)}つまずいている？」の
+Dialogue: 0,0:00:02.59,0:00:03.24,Telop,,0,0,0,,{\pos(1115,955)}一言で、
+Dialogue: 0,0:00:03.24,0:00:04.86,Telop,,0,0,0,,{\pos(1115,955)}ここまで構造の違いを
+Dialogue: 0,0:00:04.86,0:00:06.16,Telop,,0,0,0,,{\pos(1115,955)}見抜いてくれる。
+Dialogue: 0,0:00:06.16,0:00:07.13,Telop,,0,0,0,,{\pos(1115,955)}この聞き方は
+Dialogue: 0,0:00:07.13,0:00:07.94,Telop,,0,0,0,,{\pos(1115,955)}因数分解に
+Dialogue: 0,0:00:07.94,0:00:09.40,Telop,,0,0,0,,{\pos(1115,955)}限った話じゃない。
+Dialogue: 0,0:00:09.40,0:00:10.86,Telop,,0,0,0,,{\pos(1115,955)}数列でも絶対値でも
+Dialogue: 0,0:00:10.86,0:00:11.99,Telop,,0,0,0,,{\pos(1115,955)}三角関数でも、
+Dialogue: 0,0:00:11.99,0:00:13.13,Telop,,0,0,0,,{\pos(1115,955)}「自分がどこで
+Dialogue: 0,0:00:13.13,0:00:14.75,Telop,,0,0,0,,{\pos(1115,955)}詰まっているのか」を
+Dialogue: 0,0:00:14.75,0:00:16.53,Telop,,0,0,0,,{\pos(1115,955)}AIに言語化してもらう
+Dialogue: 0,0:00:16.53,0:00:17.18,Telop,,0,0,0,,{\pos(1115,955)}だけで、
+Dialogue: 0,0:00:17.18,0:00:18.80,Telop,,0,0,0,,{\pos(1115,955)}一気に視界が開ける。

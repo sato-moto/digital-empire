@@ -1,0 +1,21 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Telop,Noto Sans JP,80,&H00333333,&H000000FF,&H00333333,&H00000000,-1,0,0,0,100,100,1,0,1,2,0,5,310,90,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:03.31,Telop,,0,0,0,,{\pos(1050,940)}今のやり取り\N全部で2分もかかっていない
+Dialogue: 0,0:00:03.31,0:00:06.63,Telop,,0,0,0,,{\pos(1050,940)}たった2分で\N暗記していただけのルールが
+Dialogue: 0,0:00:06.63,0:00:10.12,Telop,,0,0,0,,{\pos(1050,940)}「なるほど そういう仕組みか」に\N変わった
+Dialogue: 0,0:00:10.12,0:00:13.26,Telop,,0,0,0,,{\pos(1050,940)}これが3つの\Nプロンプトパターンの力だ
+Dialogue: 0,0:00:13.26,0:00:14.82,Telop,,0,0,0,,{\pos(1050,940)}でも一つ問題がある
+Dialogue: 0,0:00:14.82,0:00:17.44,Telop,,0,0,0,,{\pos(1050,940)}今のやり取り\Nどこに残っている？
+Dialogue: 0,0:00:17.44,0:00:23.37,Telop,,0,0,0,,{\pos(1050,940)}Geminiの履歴を探せば\N見つかるかもしれないけど\N整理されてはいない
+Dialogue: 0,0:00:23.37,0:00:28.95,Telop,,0,0,0,,{\pos(1050,940)}テスト前に\N「あのとき納得した説明\Nどこだっけ」と探し回ることになる
+Dialogue: 0,0:00:28.95,0:00:32.44,Telop,,0,0,0,,{\pos(1050,940)}次の章では\Nこの問題を解決する方法を見せる

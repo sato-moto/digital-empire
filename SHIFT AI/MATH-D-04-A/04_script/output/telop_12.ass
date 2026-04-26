@@ -1,0 +1,39 @@
+﻿[Script Info]
+Title: MATH-D-04-A Ch2 Telop
+ScriptType: v4.00+
+WrapStyle: 0
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Telop,Noto Sans JP,60,&H00303030,&H000000FF,&H00FFFFFF,&H80000000,-1,0,1,4,2,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.00,0:00:01.11,Telop,,0,0,0,,{\pos(1115,955)}このサイクルを
+Dialogue: 0,0:00:01.11,0:00:02.38,Telop,,0,0,0,,{\pos(1115,955)}1回やるだけで、
+Dialogue: 0,0:00:02.38,0:00:03.48,Telop,,0,0,0,,{\pos(1115,955)}暗記じゃなくて
+Dialogue: 0,0:00:03.48,0:00:04.75,Telop,,0,0,0,,{\pos(1115,955)}「構造の理解」で
+Dialogue: 0,0:00:04.75,0:00:05.54,Telop,,0,0,0,,{\pos(1115,955)}因数分解が
+Dialogue: 0,0:00:05.54,0:00:07.44,Telop,,0,0,0,,{\pos(1115,955)}攻略できるようになった。
+Dialogue: 0,0:00:07.44,0:00:08.71,Telop,,0,0,0,,{\pos(1115,955)}そしてこの実演は
+Dialogue: 0,0:00:08.71,0:00:09.82,Telop,,0,0,0,,{\pos(1115,955)}因数分解という
+Dialogue: 0,0:00:09.82,0:00:11.25,Telop,,0,0,0,,{\pos(1115,955)}最も基礎的な題材で
+Dialogue: 0,0:00:11.25,0:00:12.20,Telop,,0,0,0,,{\pos(1115,955)}やったけど、
+Dialogue: 0,0:00:12.20,0:00:13.46,Telop,,0,0,0,,{\pos(1115,955)}やり方は同じだ。
+Dialogue: 0,0:00:13.46,0:00:14.73,Telop,,0,0,0,,{\pos(1115,955)}この座学と実演を
+Dialogue: 0,0:00:14.73,0:00:15.68,Telop,,0,0,0,,{\pos(1115,955)}土台にして、
+Dialogue: 0,0:00:15.68,0:00:16.79,Telop,,0,0,0,,{\pos(1115,955)}AIにどんどん
+Dialogue: 0,0:00:16.79,0:00:18.22,Telop,,0,0,0,,{\pos(1115,955)}深く聞いていけば、
+Dialogue: 0,0:00:18.22,0:00:19.48,Telop,,0,0,0,,{\pos(1115,955)}数列も三角関数も
+Dialogue: 0,0:00:19.48,0:00:20.59,Telop,,0,0,0,,{\pos(1115,955)}自分のペースで
+Dialogue: 0,0:00:20.59,0:00:21.86,Telop,,0,0,0,,{\pos(1115,955)}攻略していける。
+Dialogue: 0,0:00:21.86,0:00:23.44,Telop,,0,0,0,,{\pos(1115,955)}ぜひ挑戦してほしい。
+Dialogue: 0,0:00:23.44,0:00:24.39,Telop,,0,0,0,,{\pos(1115,955)}次の章では、
+Dialogue: 0,0:00:24.39,0:00:25.66,Telop,,0,0,0,,{\pos(1115,955)}今作った「型」を
+Dialogue: 0,0:00:25.66,0:00:28.20,Telop,,0,0,0,,{\pos(1115,955)}NotebookLMに蓄積して、
+Dialogue: 0,0:00:28.20,0:00:29.62,Telop,,0,0,0,,{\pos(1115,955)}いつでも引き出せる
+Dialogue: 0,0:00:29.62,0:00:30.89,Telop,,0,0,0,,{\pos(1115,955)}仕組みの作り方を
+Dialogue: 0,0:00:30.89,0:00:31.68,Telop,,0,0,0,,{\pos(1115,955)}見ていく。

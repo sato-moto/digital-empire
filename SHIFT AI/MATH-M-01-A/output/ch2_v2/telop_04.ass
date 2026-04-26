@@ -1,0 +1,18 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Telop,Noto Sans JP,80,&H00333333,&H000000FF,&H00333333,&H00000000,-1,0,0,0,100,100,1,0,1,2,0,5,310,90,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:05.85,Telop,,0,0,0,,{\pos(1050,940)}もう一段 パターン2で\N「中学生にもわかるように\N簡単に説明して」と聞き直した
+Dialogue: 0,0:00:05.85,0:00:11.54,Telop,,0,0,0,,{\pos(1050,940)}Geminiはトランプと\N動画の巻き戻しに絞って\Nさらにシンプルにしてくれた
+Dialogue: 0,0:00:11.54,0:00:16.91,Telop,,0,0,0,,{\pos(1050,940)}ここまで読んで\N「あ つまりこういうことか」と\N自分なりの理解が浮かんだ
+Dialogue: 0,0:00:16.91,0:00:19.13,Telop,,0,0,0,,{\pos(1050,940)}そこで出したのがパターン3だ
+Dialogue: 0,0:00:19.13,0:00:24.82,Telop,,0,0,0,,{\pos(1050,940)}「つまりマイナスを掛けるということは\N真逆の方向に向いて進む\Nということ？」
+Dialogue: 0,0:00:24.82,0:00:29.40,Telop,,0,0,0,,{\pos(1050,940)}自分の理解をぶつけて\N合っているかAIに検証してもらっている

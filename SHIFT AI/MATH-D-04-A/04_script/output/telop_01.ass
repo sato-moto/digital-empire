@@ -1,0 +1,41 @@
+﻿[Script Info]
+Title: MATH-D-04-A Ch2 Telop
+ScriptType: v4.00+
+WrapStyle: 0
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Telop,Noto Sans JP,60,&H00303030,&H000000FF,&H00FFFFFF,&H80000000,-1,0,1,4,2,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.00,0:00:01.42,Telop,,0,0,0,,{\pos(1115,955)}ここからは実演だ。
+Dialogue: 0,0:00:01.42,0:00:02.21,Telop,,0,0,0,,{\pos(1115,955)}座学で見た
+Dialogue: 0,0:00:02.21,0:00:03.78,Telop,,0,0,0,,{\pos(1115,955)}3つのプロンプトを、
+Dialogue: 0,0:00:03.78,0:00:05.04,Telop,,0,0,0,,{\pos(1115,955)}実際のAI画面で
+Dialogue: 0,0:00:05.04,0:00:06.46,Telop,,0,0,0,,{\pos(1115,955)}使っているところを
+Dialogue: 0,0:00:06.46,0:00:07.40,Telop,,0,0,0,,{\pos(1115,955)}見てもらう。
+Dialogue: 0,0:00:07.40,0:00:08.66,Telop,,0,0,0,,{\pos(1115,955)}題材は因数分解。
+Dialogue: 0,0:00:08.66,0:00:09.61,Telop,,0,0,0,,{\pos(1115,955)}「因数分解？
+Dialogue: 0,0:00:09.61,0:00:10.87,Telop,,0,0,0,,{\pos(1115,955)}それ基礎じゃん」
+Dialogue: 0,0:00:10.87,0:00:12.44,Telop,,0,0,0,,{\pos(1115,955)}と思った人、正解だ。
+Dialogue: 0,0:00:12.44,0:00:13.39,Telop,,0,0,0,,{\pos(1115,955)}あえて高校の
+Dialogue: 0,0:00:13.39,0:00:14.18,Telop,,0,0,0,,{\pos(1115,955)}計算分野で
+Dialogue: 0,0:00:14.18,0:00:15.59,Telop,,0,0,0,,{\pos(1115,955)}最も基礎的なものを
+Dialogue: 0,0:00:15.59,0:00:16.54,Telop,,0,0,0,,{\pos(1115,955)}選んでいる。
+Dialogue: 0,0:00:16.54,0:00:17.33,Telop,,0,0,0,,{\pos(1115,955)}大事なのは
+Dialogue: 0,0:00:17.33,0:00:19.22,Telop,,0,0,0,,{\pos(1115,955)}題材の難しさじゃなくて、
+Dialogue: 0,0:00:19.22,0:00:20.48,Telop,,0,0,0,,{\pos(1115,955)}AIとの壁打ちの
+Dialogue: 0,0:00:20.48,0:00:21.42,Telop,,0,0,0,,{\pos(1115,955)}「やり方」を
+Dialogue: 0,0:00:21.42,0:00:23.31,Telop,,0,0,0,,{\pos(1115,955)}身につけることだからだ。
+Dialogue: 0,0:00:23.31,0:00:25.04,Telop,,0,0,0,,{\pos(1115,955)}このやり方さえ掴めば、
+Dialogue: 0,0:00:25.04,0:00:26.78,Telop,,0,0,0,,{\pos(1115,955)}数列でも三角関数でも、
+Dialogue: 0,0:00:26.78,0:00:27.88,Telop,,0,0,0,,{\pos(1115,955)}AIにどんどん
+Dialogue: 0,0:00:27.88,0:00:29.30,Telop,,0,0,0,,{\pos(1115,955)}深く聞いていける。
+Dialogue: 0,0:00:29.30,0:00:30.40,Telop,,0,0,0,,{\pos(1115,955)}自分のペースで
+Dialogue: 0,0:00:30.40,0:00:32.45,Telop,,0,0,0,,{\pos(1115,955)}レベルを上げていけるので、
+Dialogue: 0,0:00:32.45,0:00:33.71,Telop,,0,0,0,,{\pos(1115,955)}まずはこの基礎で
+Dialogue: 0,0:00:33.71,0:00:35.28,Telop,,0,0,0,,{\pos(1115,955)}流れを掴んでほしい。

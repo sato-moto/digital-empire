@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(py --version)",
+      "Bash(pip install:*)",
+      "Bash(python -m pip install openpyxl)",
+      "Bash(where python:*)",
+      "Bash(where py:*)",
+      "Read(//usr/**)",
+      "Bash(C:/Users/motok/AppData/Local/Microsoft/WindowsApps/python.exe --version 2>&1)",
+      "Bash(npm install:*)"
+    ]
+  }
+}

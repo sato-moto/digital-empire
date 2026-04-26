@@ -1,0 +1,13 @@
+diff --git a/SHIFT AI/.claude/skills/slide-generator-main/scripts/generate_diagrams.js b/SHIFT AI/.claude/skills/slide-generator-main/scripts/generate_diagrams.js
+index 8fd1e15..41874d4 100644
+--- a/SHIFT AI/.claude/skills/slide-generator-main/scripts/generate_diagrams.js	
++++ b/SHIFT AI/.claude/skills/slide-generator-main/scripts/generate_diagrams.js	
+@@ -36,7 +36,7 @@ function loadEnvFile(envPath) {
+         const eqIndex = trimmed.indexOf('=');
+         if (eqIndex === -1) continue;
+         const key = trimmed.slice(0, eqIndex).trim();
+-        const value = trimmed.slice(eqIndex + 1).trim();
++        const value = trimmed.slice(eqIndex + 1).trim().replace(/^["']|["']$/g, '');
+         if (!process.env[key]) process.env[key] = value;
+       }
+       console.log(`[env] Loaded: ${filePath}`);

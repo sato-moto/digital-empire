@@ -1,0 +1,36 @@
+﻿[Script Info]
+Title: MATH-D-04-A Ch2 Telop
+ScriptType: v4.00+
+WrapStyle: 0
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Telop,Noto Sans JP,60,&H00303030,&H000000FF,&H00FFFFFF,&H80000000,-1,0,1,4,2,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.00,0:00:01.60,Telop,,0,0,0,,{\pos(1115,955)}2問解いたところで、
+Dialogue: 0,0:00:01.60,0:00:02.88,Telop,,0,0,0,,{\pos(1115,955)}最後の仕上げだ。
+Dialogue: 0,0:00:02.88,0:00:03.52,Telop,,0,0,0,,{\pos(1115,955)}3つ目、
+Dialogue: 0,0:00:03.52,0:00:04.96,Telop,,0,0,0,,{\pos(1115,955)}型抽出プロンプト。
+Dialogue: 0,0:00:04.96,0:00:06.40,Telop,,0,0,0,,{\pos(1115,955)}画面を見てほしい。
+Dialogue: 0,0:00:06.40,0:00:07.36,Telop,,0,0,0,,{\pos(1115,955)}「今の2問の
+Dialogue: 0,0:00:07.36,0:00:08.32,Telop,,0,0,0,,{\pos(1115,955)}判断の流れを
+Dialogue: 0,0:00:08.32,0:00:09.60,Telop,,0,0,0,,{\pos(1115,955)}フローチャートに
+Dialogue: 0,0:00:09.60,0:00:10.40,Telop,,0,0,0,,{\pos(1115,955)}まとめて。
+Dialogue: 0,0:00:10.40,0:00:11.84,Telop,,0,0,0,,{\pos(1115,955)}次に別の因数分解が
+Dialogue: 0,0:00:11.84,0:00:12.64,Telop,,0,0,0,,{\pos(1115,955)}出てきても
+Dialogue: 0,0:00:12.64,0:00:14.40,Telop,,0,0,0,,{\pos(1115,955)}これを見れば迷わない、
+Dialogue: 0,0:00:14.40,0:00:15.52,Telop,,0,0,0,,{\pos(1115,955)}ってレベルで」
+Dialogue: 0,0:00:15.52,0:00:16.64,Telop,,0,0,0,,{\pos(1115,955)}と聞いている。
+Dialogue: 0,0:00:16.64,0:00:17.44,Telop,,0,0,0,,{\pos(1115,955)}2問解いて
+Dialogue: 0,0:00:17.44,0:00:18.72,Telop,,0,0,0,,{\pos(1115,955)}終わりじゃない。
+Dialogue: 0,0:00:18.72,0:00:20.80,Telop,,0,0,0,,{\pos(1115,955)}ここで「型」にすることで、
+Dialogue: 0,0:00:20.80,0:00:21.92,Telop,,0,0,0,,{\pos(1115,955)}次に同じ種類の
+Dialogue: 0,0:00:21.92,0:00:23.20,Telop,,0,0,0,,{\pos(1115,955)}問題が出たときに
+Dialogue: 0,0:00:23.20,0:00:24.32,Telop,,0,0,0,,{\pos(1115,955)}迷わなくなる。
+Dialogue: 0,0:00:24.32,0:00:25.44,Telop,,0,0,0,,{\pos(1115,955)}これが暗記との
+Dialogue: 0,0:00:25.44,0:00:26.72,Telop,,0,0,0,,{\pos(1115,955)}決定的な違いだ。

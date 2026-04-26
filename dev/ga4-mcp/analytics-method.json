@@ -1,6 +1,6 @@
 {
-  "version": 10,
-  "last_updated": "2026-04-24",
+  "version": 12,
+  "last_updated": "2026-04-25",
   "analysis_depth": "standard",
   "comparison_windows": [
     "28d",
@@ -39,7 +39,14 @@
     "onsen_ctr_daily_tracking（目標CTR 2%以上・pos 5以下）",
     "action_tracking_matrix: 登録アクション×status(計画/進行/完了/遅延)を週単位更新",
     "external_factor_log: daily peak/valley とSNS投稿・広告日時の相関ログ",
-    "onsen_ctr_daily_tracking: /kumatori-onsen/ CTR日別監視（目標2%以上・pos 5以下）"
+    "onsen_ctr_daily_tracking: /kumatori-onsen/ CTR日別監視（目標2%以上・pos 5以下）",
+    "表示されて0クリックのページ一覧（毎週チェック）",
+    "新記事投稿数（目標：週2本以上）",
+    "キーワード別CTR改善率",
+    "各キーワードのGoogleサーチコンソール順位（月次）",
+    "ページのタイトル・メタディスクリプション評価スコア",
+    "記事公開日と流入開始日の時間差分析",
+    "Organic Socialの流入元詳細（どのSNS？）"
   ],
   "reporting_sections": [
     "summary",
@@ -71,7 +78,11 @@
     "action_tracking_matrix: 登録アクション×status(計画/進行/完了/遅延)を週単位更新",
     "external_factor_log: daily peak/valley とSNS投稿・広告日時・記事公開日の相関記録",
     "action_tracking_matrix: 登録→実施→完了の weekly matrix 可視化",
-    "external_factor_log: daily peak/valley とSNS投稿・記事公開日時の相関記録"
+    "external_factor_log: daily peak/valley とSNS投稿・記事公開日時の相関記録",
+    "毎週のタイトル改善実験記録",
+    "月1回の『取材予定』セクション",
+    "『失敗している施策セクション』：Google順位が下がった記事を可視化",
+    "『競合分析セクション』：温泉関連で順位が低い理由を定期調査"
   ],
   "alert_thresholds": {
     "sessions_drop_pct": 20,
@@ -85,12 +96,15 @@
     "high_impression_zero_ctr": "40表示以上・CTR 0% で HIGH alert（現行50）",
     "onsen_ctr_low": "5% → 0.5%に引き下げ（実績0.5%に対応）",
     "high_impression_low_ctr_threshold": "50表示 → 40表示に引き下げ（onsen 185表示検出用）",
-    "single_page_concentration": "35%超えで注視（pukupuku現状39.5%から改善傾向）"
+    "single_page_concentration": "35%超えで注視（pukupuku現状39.5%から改善傾向）",
+    "注目すべきページ": "PV30以上 → PV10以上に下げる（小さな芽も育てる）",
+    "改善優先度": "CTR 0%で表示10回以上のキーワードを最優先",
+    "機会損失検出": "印象数50以上でクリック数0のキーワードは即改善対象"
   },
   "special_focus": [
-    "onsen_ctr_recovery: /kumatori-onsen/ 0.5%→2%以上。タイトル・メタ改修4/25期限。日別監視継続。",
-    "pukupuku_concentration_relief: 7d 25.6%で改善中。kosodate-lunch超高エンゲージメント活用し内部リンク強化。",
-    "external_peak_causality: 4/14-4/21高セッション期の外部施策詳細ログ化。SNS投稿・記事公開日の相関分析必須。"
+    "『クリック率が低い理由』：タイトルとメタディスクが適切か確認する仕組み",
+    "『季節性の把握』：4月上旬のピークは『新年度』『新入学』が原因か検証",
+    "『長尻ロングテールキーワード開拓』：『熊取+◎◎』のニッチキーワード獲得"
   ],
   "improvement_log": [
     {
@@ -221,6 +235,24 @@
         "アクション実施追跡の自動化欠落。4/13登録改修が4/23未実施のまま経過。",
         "外部施策ログ（SNS投稿・広告日時）との因果分析体制が不在。4/14 42セッション理由不明。",
         "提案アクションに deadline・担当者・dependency が記載されていない。実行計画の具体性が不足。"
+      ]
+    },
+    {
+      "date": "2026-04-25",
+      "score": 7,
+      "reason": "現在は人気ページ監視が中心だが、検索では『見つかるのにクリックされない』問題が顕在化。タイトルやコンテンツの改善で既存ページの底上げと、新規ネタの定期投稿で流入増を同時実現する戦略へシフト必要。",
+      "issues": [
+        "表示されて0クリックのキーワード・ページを放置している",
+        "新規記事投稿が少なく、フレッシュネス不足の可能性"
+      ]
+    },
+    {
+      "date": "2026-04-25",
+      "score": 6,
+      "reason": "現在のデータは『何が起きたか』は見えるが『なぜ起きたか』『どう改善すべきか』が不明確。機会損失の検出（高印象数・低クリック）と競合順位の追跡をリアルタイムで加えることで、記事投稿から改善までのサイクルが10倍速くなります",
+      "issues": [
+        "機会損失の検出ができていない。190回表示→0クリックの発見が遅い",
+        "キーワード順位の変動追跡がない。Google順位の月次推移データが必要"
       ]
     }
   ]

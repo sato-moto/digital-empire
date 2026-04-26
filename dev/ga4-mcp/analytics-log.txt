@@ -1,0 +1,44 @@
+﻿cmd.exe : 'Program' は、内部コマンドまたは外部コマンド、
+発生場所 行:2 文字:11
++ $result = & 'cmd.exe' /c 'C:\Users\motok\OneDrive\Desktop\Claude code ...
++           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ('Program' は、内部コマンドまたは外部コマンド、:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+操作可能なプログラムまたはバッチ ファイルとして認識されていません。
+'豕墓峩譁ｰ' は、内部コマンドまたは外部コマンド、
+操作可能なプログラムまたはバッチ ファイルとして認識されていません。
+'t.json' は、内部コマンドまたは外部コマンド、
+操作可能なプログラムまたはバッチ ファイルとして認識されていません。
+[ERROR] Claude Code 縺ｮ螳溯｡後↓螟ｱ謨励＠縺ｾ縺励◆縲・  exit /b 1
+'cho' は、内部コマンドまたは外部コマンド、
+操作可能なプログラムまたはバッチ ファイルとして認識されていません。
+2026-04-13 06:24:26 START
+2026-04-13 06:24:31 [analytics-collect] 2026-04-12 繝・・繧ｿ蜿門ｾ鈴幕蟋・.. [analytics-collect] 螳御ｺ・竊・analytics-data-latest.json
+2026-04-13 06:24:31 STEP1 OK
+2026-04-13 06:28:36 螳御ｺ・ **螳溯｡檎ｵ先棡:** - Notion繝壹・繧ｸ菴懈・: `繧｢繝翫Μ繝・ぅ繧ｯ繧ｹ譌･蝣ｱ 2026-04-13`・・D: 34018b0b-fabc-814e-b4c1-f9c7a26a6cd1・・- analytics-method.json: special_focus繝ｻimprovement_log譖ｴ譁ｰ  **譛ｬ譌･縺ｮ荳ｻ隕√し繝槭Μ繝ｼ:** - Sessions +112%縲￣V +92%・・d譌･谺｡ vs 28d譌･谺｡・俄・4/9縲・1縺ｮ諤･蠅励′螟ｧ縺阪￥蟇・ｸ・- pukupuku-kitchen 縺・8PV繝ｻCTR 75%縺ｧ蝨ｧ蛟堤噪鬥紋ｽ・- kosodate-lunch 縺悟ｹｳ蝮・ｻ槫惠24蛻・ｼ郁ｶ・━濶ｯ繧ｨ繝ｳ繧ｲ繝ｼ繧ｸ・・- **譛蜆ｪ蜈医い繧ｯ繧ｷ繝ｧ繝ｳ: /kumatori-onsen/ 縺ｮ繧ｿ繧､繝医Ν繝ｻ繝｡繧ｿ繝ｪ繝ｩ繧､繝・*・・8譌･髢薙〒112陦ｨ遉ｺ繝ｻCTR 0.9%縺梧怙螟ｧ縺ｮ謾ｹ蝟・メ繝｣繝ｳ繧ｹ・・
+2026-04-13 06:28:36 DONE
+2026-04-14 06:00:03 START
+2026-04-14 06:00:12 [analytics-collect] 2026-04-13 繝・・繧ｿ蜿門ｾ鈴幕蟋・.. [analytics-collect] 螳御ｺ・竊・analytics-data-latest.json
+2026-04-14 06:00:12 STEP1 OK
+2026-04-14 06:06:58 螳御ｺ・ ---  **螳溯｡後し繝槭Μ繝ｼ**  - **譌･蝣ｱ蟄舌・繝ｼ繧ｸ菴懈・**: Notion縲後い繝翫Μ繝・ぅ繧ｯ繧ｹ縺ｾ縺ｨ繧∵怙譁ｰ縲埼・荳九↓縲・026-04-14縲阪・繝ｼ繧ｸ繧剃ｽ懈・・・D: 34118b0b-fabc-814b-90fc-faefaf3ac97a・・- **隕ｪ繝壹・繧ｸ譛ｬ譁・峩譁ｰ**: 蜈ｨ譌｢蟄倥ヶ繝ｭ繝・け繧単ATCH縺ｧ譛譁ｰ繝・・繧ｿ縺ｫ譖ｸ縺咲峩縺励∫ｩｺ繝代Λ繧ｰ繝ｩ繝輔ｒ蜑企勁 - **analytics-method.json譖ｴ譁ｰ**: special_focus繝ｻimprovement_log 繧呈怙譁ｰ迥ｶ豕√↓蜿肴丐  ---  **譛ｬ譌･縺ｮ繝・・繧ｿ隕∫せ・・026-04-14譎らせ・・*  - 隧穂ｾ｡繧ｰ繝ｬ繝ｼ繝・ **B・域ｦゅ・濶ｯ螂ｽ・・ Phase 1**・亥燕蝗樊ｯ皮ｶｭ謖・ｼ・- 7d譌･蟷ｳ蝮・そ繝・す繝ｧ繝ｳ: 28d豈・**+135%** 縺ｮ諤･蠅怜ｱ髱｢・・ukupuku-kitchen蜉ｹ譫懃ｶ咏ｶ夲ｼ・- 繧ｪ繝ｼ繧ｬ繝九ャ繧ｯ豈皮紫: 50.7% 竊・**59.5%**・郁憶螂ｽ豌ｴ貅悶↓蛻ｰ驕費ｼ・ **譛蜆ｪ蜈医い繧ｯ繧ｷ繝ｧ繝ｳ・域悽譌･荳ｭ・・* 1. `/kumatori-onsen/` 繧ｿ繧､繝医Ν繝ｻ繝｡繧ｿ繝ｪ繝ｩ繧､繝・竊・wp-auto-post.js縺ｧ譖ｴ譁ｰ・・19陦ｨ遉ｺ繝ｻCTR 0.8%繧呈隼蝟・ｼ・2. 縲檎・蜿・驫ｭ貉ｯ縲崎ｨ倅ｺ九ｒblog-article繧ｹ繧ｭ繝ｫ縺ｧ蝓ｷ遲・・荳区嶌縺肴兜遞ｿ 3. `/kumatori-kosodate-lunch/` 蜀・Κ繝ｪ繝ｳ繧ｯ2縲・譛ｬ霑ｽ蜉 竊・wp-auto-post.js縺ｧ譖ｴ譁ｰ
+2026-04-14 06:06:58 DONE
+2026-04-15 06:00:04 START
+2026-04-15 06:00:19 [analytics-collect] 2026-04-14 繝・・繧ｿ蜿門ｾ鈴幕蟋・.. [analytics-collect] 螳御ｺ・竊・analytics-data-latest.json
+2026-04-15 06:00:19 STEP1 OK
+2026-04-15 06:06:30 API Error: terminated
+2026-04-15 06:06:30 STEP2 FAILED
+2026-04-18 12:11:31 START
+2026-04-22 07:57:17 START
+2026-04-23 08:42:25 START
+2026-04-23 08:52:17  ====== 辭雁叙縺､繝ｼ縺励ｓ 繧｢繝翫Μ繝・ぅ繧ｯ繧ｹ譌･蝣ｱ 2026-04-22 ====== [1/4] GA4 繝・・繧ｿ蜿門ｾ嶺ｸｭ... [2/4] Search Console 繝・・繧ｿ蜿門ｾ嶺ｸｭ... [3/4] Claude API 縺ｧ蛻・梵繝ｻ謇区ｳ戊ｩ穂ｾ｡荳ｭ... [4/4] Notion 縺ｫ譌･蝣ｱ繝壹・繧ｸ繧剃ｽ懈・荳ｭ... [繧ｨ繝ｩ繝ｼ] Notion API 繧ｨ繝ｩ繝ｼ: {"object":"error","status":401,"code":"unauthorized","message":"API token is invalid.","request_id":"31995091-90f3-473e-95f2-b1117c9cd695"}
+2026-04-23 08:52:18 FAILED
+2026-04-24 10:14:34 START
+2026-04-24 10:15:21  ====== 辭雁叙縺､繝ｼ縺励ｓ 繧｢繝翫Μ繝・ぅ繧ｯ繧ｹ譌･蝣ｱ 2026-04-24 ====== [1/4] GA4 繝・・繧ｿ蜿門ｾ嶺ｸｭ... [2/4] Search Console 繝・・繧ｿ蜿門ｾ嶺ｸｭ... [3/4] Claude API 縺ｧ蛻・梵繝ｻ謇区ｳ戊ｩ穂ｾ｡荳ｭ... [4/4] Notion 縺ｫ譌･蝣ｱ繝壹・繧ｸ繧剃ｽ懈・荳ｭ... [繧ｨ繝ｩ繝ｼ] Notion API 繧ｨ繝ｩ繝ｼ: {"object":"error","status":401,"code":"unauthorized","message":"API token is invalid.","request_id":"bdc3b4d1-a00f-492f-97ed-329d096ae378"}
+2026-04-24 10:15:21 FAILED
+2026-04-25 12:45:52 START
+2026-04-25 12:47:06  ====== 辭雁叙縺､繝ｼ縺励ｓ 繧｢繝翫Μ繝・ぅ繧ｯ繧ｹ譌･蝣ｱ 2026-04-25 ====== [1/4] GA4 繝・・繧ｿ蜿門ｾ嶺ｸｭ... [2/4] Search Console 繝・・繧ｿ蜿門ｾ嶺ｸｭ... [3/4] Claude API 縺ｧ蛻・梵繝ｻ謇区ｳ戊ｩ穂ｾ｡荳ｭ... [4/4] Notion 縺ｫ譌･蝣ｱ繝壹・繧ｸ繧剃ｽ懈・荳ｭ... [繧ｨ繝ｩ繝ｼ] Notion API 繧ｨ繝ｩ繝ｼ: {"object":"error","status":401,"code":"unauthorized","message":"API token is invalid.","request_id":"87b21e9c-d406-437a-b44f-4cd556fba6a8"}
+2026-04-25 12:47:06 FAILED
+2026-04-26 08:32:22 START
+2026-04-26 08:34:23  ====== 辭雁叙縺､繝ｼ縺励ｓ 繧｢繝翫Μ繝・ぅ繧ｯ繧ｹ譌･蝣ｱ 2026-04-25 ====== [1/4] GA4 繝・・繧ｿ蜿門ｾ嶺ｸｭ... [2/4] Search Console 繝・・繧ｿ蜿門ｾ嶺ｸｭ... [3/4] Claude API 縺ｧ蛻・梵繝ｻ謇区ｳ戊ｩ穂ｾ｡荳ｭ... [4/4] Notion 縺ｫ譌･蝣ｱ繝壹・繧ｸ繧剃ｽ懈・荳ｭ... [螳御ｺ・ Notion 繝壹・繧ｸ菴懈・: https://notion.so/34d18b0bfabc8138bef9d17e6a271d6e [謇区ｳ墓峩譁ｰ] analytics-method.json 繧・v12 縺ｫ譖ｴ譁ｰ縺励∪縺励◆ ====== 螳御ｺ・====== 
+2026-04-26 08:34:27 DONE

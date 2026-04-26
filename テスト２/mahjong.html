@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>麻雀 — 一人用リーチ麻雀</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+/* ===== CSS変数 ===== */
+:root {
+  --green:   #1a6b2f;
+  --felt:    #217a38;
+  --felt2:   #1d6e32;
+  --gold:    #f0c040;
+  --red:     #d32f2f;
+  --blue:    #1565c0;
+  --white:   #faf8f0;
+  --tile-bg: #faf8f0;
+  --tile-shadow: rgba(0,0,0,0.4);
+  --ui-bg:   #111c14;
+  --text:    #e8f5e9;
+  --radius:  6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--ui-bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ===== ヘッダー ===== */
+header {
+  width: 100%;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #0a3d1a, #145228);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--gold);
+}
+header h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+}
+#score-board {
+  display: flex;
+  gap: 20px;
+  font-size: 0.9rem;
+}
+.score-item { display: flex; flex-direction: column; align-items: center; }
+.score-label { font-size: 0.7rem; color: #a5d6a7; }
+.score-value { font-size: 1.2rem; font-weight: 700; color: var(--gold); }
+
+/* ===== 卓面 ===== */
+#table {
+  width: 100%;
+  max-width: 1100px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ===== セクション共通 ===== */
+.section-label {
+  font-size: 0.75rem;
+  color: #a5d6a7;
+  margin-bottom: 6px;
+  letter-spacing: 0.08em;
+}
+
+/* ===== 牌山（残り枚数） ===== */
+#wall-area {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 0;
+}
+#wall-count {
+  background: #0d2b15;
+  border: 1px solid #2e7d32;
+  border-radius: var(--radius);
+  padding: 8px 18px;
+  font-size: 1rem;
+  color: #a5d6a7;
+}
+#wall-count span { font-weight: 700; color: var(--gold); font-size: 1.3rem; }
+
+/* ===== ドラ表示 ===== */
+#dora-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+}
+
+/* ===== 捨て牌エリア ===== */
+#discard-area {
+  background: var(--felt2);
+  border-radius: 8px;
+  padding: 12px;
+  min-height: 100px;
+  border: 1px solid #2e7d32;
+}
+#discard-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* ===== 手牌エリア ===== */
+#hand-area {
+  background: linear-gradient(180deg, #1a3d22, #0f2418);
+  border-radius: 10px;
+  padding: 16px;
+  border: 2px solid #2e7d32;
+}
+#hand-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: flex-end;
+  min-height: 90px;
+}
+/* 摸牌と手牌の区切り */
+#draw-separator {
+  width: 3px;
+  height: 80px;
+  background: var(--gold);
+  border-radius: 2px;
+  align-self: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+#draw-separator.visible { opacity: 0.7; }
+
+/* ===== 牌 ===== */
+.tile {
+  width: 52px;
+  height: 72px;
+  background: var(--tile-bg);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 3px 6px var(--tile-shadow), inset 0 1px 0 rgba(255,255,255,0.8);
+  border: 1px solid #ccc;
+  cursor: default;
+  user-select: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+  position: relative;
+  flex-shrink: 0;
+}
+.tile:hover { transform: translateY(-4px); }
+
+/* 手牌は選択・打牌可能 */
+.tile.in-hand {
+  cursor: pointer;
+}
+.tile.in-hand:hover {
+  transform: translateY(-8px);
+  box-shadow: 2px 8px 12px var(--tile-shadow);
+}
+.tile.selected {
+  transform: translateY(-12px);
+  box-shadow: 0 0 0 2px var(--gold), 2px 12px 14px var(--tile-shadow);
+}
+.tile.drawn {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px var(--gold), 2px 3px 6px var(--tile-shadow);
+}
+
+/* 牌の数字・記号 */
+.tile-num {
+  font-size: 1.6rem;
+  font-weight: 900;
+  line-height: 1;
+}
+.tile-suit {
+  font-size: 0.65rem;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+/* 種類ごとの色 */
+.man .tile-num  { color: var(--red); }
+.pin .tile-num  { color: #1565c0; }
+.sou .tile-num  { color: #2e7d32; }
+.honor .tile-num { color: #333; font-size: 1.2rem; }
+.honor.haku .tile-num  { color: #333; border: 1px solid #333; padding: 0 3px; border-radius: 3px; font-size: 0.9rem;}
+.honor.hatsu .tile-num { color: #2e7d32; }
+.honor.chun .tile-num  { color: var(--red); }
+
+/* 小さい牌（捨て牌用） */
+.tile.small {
+  width: 34px;
+  height: 46px;
+}
+.tile.small .tile-num { font-size: 1.1rem; }
+.tile.small .tile-suit { font-size: 0.5rem; }
+.tile.small.honor .tile-num { font-size: 0.8rem; }
+.tile.small.honor.haku .tile-num { font-size: 0.65rem; }
+
+/* ===== コントロールバー ===== */
+#controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 8px 0;
+}
+.btn {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.btn:active { transform: scale(0.97); }
+.btn-primary {
+  background: var(--gold);
+  color: #1a1a1a;
+}
+.btn-primary:hover { background: #f5d060; }
+.btn-secondary {
+  background: #2e7d32;
+  color: #fff;
+}
+.btn-secondary:hover { background: #388e3c; }
+.btn-danger {
+  background: var(--red);
+  color: #fff;
+}
+.btn-danger:hover { background: #e53935; }
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ===== ステータスバー ===== */
+#status-bar {
+  padding: 10px 16px;
+  background: #0d2b15;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  border-left: 4px solid var(--gold);
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.status-tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.tag-tenpai  { background: #e65100; color: #fff; }
+.tag-riichi  { background: #c62828; color: #fff; }
+.tag-win     { background: #1b5e20; color: var(--gold); font-size: 0.95rem; }
+.tag-info    { background: #1565c0; color: #fff; }
+
+/* ===== 役・点数モーダル ===== */
+#modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+}
+#modal-overlay.show { display: flex; }
+#modal {
+  background: #0f2418;
+  border: 2px solid var(--gold);
+  border-radius: 12px;
+  padding: 30px 36px;
+  max-width: 480px;
+  width: 90%;
+  text-align: center;
+}
+#modal h2 { font-size: 2rem; color: var(--gold); margin-bottom: 10px; }
+#modal .yaku-list { text-align: left; margin: 16px 0; }
+#modal .yaku-item { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #1e4d26; }
+#modal .yaku-name { color: #a5d6a7; }
+#modal .yaku-han  { color: var(--gold); font-weight: 700; }
+#modal .total-points { font-size: 1.6rem; font-weight: 900; color: var(--gold); margin: 12px 0; }
+#modal .total-label  { color: #a5d6a7; font-size: 0.85rem; }
+
+/* ===== レスポンシブ ===== */
+@media (max-width: 600px) {
+  .tile { width: 40px; height: 56px; }
+  .tile .tile-num { font-size: 1.2rem; }
+  .tile .tile-suit { font-size: 0.55rem; }
+  .tile.honor .tile-num { font-size: 1rem; }
+  .tile.honor.haku .tile-num { font-size: 0.75rem; }
+  #draw-separator { height: 60px; }
+  header h1 { font-size: 1.1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== ヘッダー ===== -->
+<header>
+  <h1>麻雀 — 一人用</h1>
+  <div id="score-board">
+    <div class="score-item">
+      <span class="score-label">持ち点</span>
+      <span class="score-value" id="pts">25000</span>
+    </div>
+    <div class="score-item">
+      <span class="score-label">局</span>
+      <span class="score-value" id="round-label">東1局</span>
+    </div>
+    <div class="score-item">
+      <span class="score-label">本場</span>
+      <span class="score-value" id="honba">0</span>
+    </div>
+  </div>
+</header>
+
+<!-- ===== 卓面 ===== -->
+<div id="table">
+
+  <!-- 牌山・ドラ -->
+  <div style="display:flex; gap:24px; flex-wrap:wrap; align-items:center;">
+    <div>
+      <div class="section-label">牌山</div>
+      <div id="wall-area">
+        <div id="wall-count">残り <span id="wall-num">70</span> 枚</div>
+      </div>
+    </div>
+    <div>
+      <div class="section-label">ドラ表示牌</div>
+      <div id="dora-area"></div>
+    </div>
+  </div>
+
+  <!-- 捨て牌 -->
+  <div>
+    <div class="section-label">捨て牌</div>
+    <div id="discard-area">
+      <div id="discard-tiles"></div>
+    </div>
+  </div>
+
+  <!-- ステータス -->
+  <div id="status-bar">ゲームを開始してください。</div>
+
+  <!-- 手牌 -->
+  <div>
+    <div class="section-label">手牌 — 捨てる牌をクリック</div>
+    <div id="hand-area">
+      <div id="hand-tiles"></div>
+    </div>
+  </div>
+
+  <!-- コントロール -->
+  <div id="controls">
+    <button class="btn btn-primary" id="btn-start">新局スタート</button>
+    <button class="btn btn-secondary" id="btn-draw" disabled>ツモる</button>
+    <button class="btn btn-danger" id="btn-tsumo" disabled>ツモ和了</button>
+    <button class="btn btn-secondary" id="btn-riichi" disabled>リーチ！</button>
+    <button class="btn btn-secondary" id="btn-sort" disabled>手牌整列</button>
+  </div>
+
+</div>
+
+<!-- ===== 和了モーダル ===== -->
+<div id="modal-overlay">
+  <div id="modal">
+    <h2 id="modal-title">ツモ和了！</h2>
+    <div class="yaku-list" id="yaku-list"></div>
+    <div class="total-label">獲得点数</div>
+    <div class="total-points" id="total-points">0点</div>
+    <button class="btn btn-primary" onclick="closeModal()" style="margin-top:16px;">次の局へ</button>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   麻雀ロジック — 一人用リーチ麻雀
+   ルール: 4人麻雀の牌セット(136枚)を使用。自摸専用。
+   役: 門前清自摸和・リーチ・一発・タンヤオ・ピンフ
+       一盃口・七対子・清一色・混一色・国士無双・九蓮宝燈
+   点数計算: 基本的な翻数×符計算（簡易版）
+   ============================================================ */
+
+/* ----- 牌定義 ----- */
+// id: 0-8=萬1-9, 9-17=筒1-9, 18-26=索1-9, 27=東,28=南,29=西,30=北,31=白,32=發,33=中
+const SUIT_NAMES = ['萬','筒','索'];
+const HONOR_NAMES = ['東','南','西','北','白','發','中'];
+
+function tileId(suit, num) { return suit * 9 + (num - 1); } // suit:0=萬,1=筒,2=索
+function honorId(idx)       { return 27 + idx; }             // idx:0-6
+
+function tileName(id) {
+  if (id < 27) { return (id % 9 + 1) + SUIT_NAMES[Math.floor(id / 9)]; }
+  return HONOR_NAMES[id - 27];
+}
+
+function tileClass(id) {
+  if (id < 9)  return 'man';
+  if (id < 18) return 'pin';
+  if (id < 27) return 'sou';
+  const honorIdx = id - 27;
+  const cls = 'honor';
+  if (honorIdx === 4) return cls + ' haku';
+  if (honorIdx === 5) return cls + ' hatsu';
+  if (honorIdx === 6) return cls + ' chun';
+  return cls;
+}
+
+function tileDisplay(id) {
+  if (id < 27) { return { num: (id % 9 + 1).toString(), suit: SUIT_NAMES[Math.floor(id / 9)] }; }
+  return { num: HONOR_NAMES[id - 27], suit: '' };
+}
+
+/* ----- 牌山生成 ----- */
+function buildWall() {
+  const wall = [];
+  for (let id = 0; id < 34; id++) {
+    for (let k = 0; k < 4; k++) wall.push(id);
+  }
+  // Fisher-Yates シャッフル
+  for (let i = wall.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [wall[i], wall[j]] = [wall[j], wall[i]];
+  }
+  return wall;
+}
+
+/* ============================================================
+   ゲーム状態
+   ============================================================ */
+const G = {
+  wall: [],
+  wallIdx: 0,
+  hand: [],        // 13枚（通常時）
+  drawn: null,     // 摸牌（null=未摸牌）
+  discards: [],
+  dora: [],
+  riichi: false,
+  ippatu: false,
+  riichiJustDeclared: false,
+  pts: 25000,
+  round: 1,        // 1=東1, 2=東2, ...
+  honba: 0,
+  phase: 'idle',   // idle | draw | discard | riichi | over
+};
+
+/* ----- ゲーム開始 ----- */
+function startGame() {
+  G.wall    = buildWall();
+  G.wallIdx = 0;
+  G.hand    = [];
+  G.drawn   = null;
+  G.discards = [];
+  G.dora    = [];
+  G.riichi  = false;
+  G.ippatu  = false;
+  G.riichiJustDeclared = false;
+  G.phase   = 'draw';
+
+  // ドラ表示牌（王牌14枚確保: wallIdx 0-13をドラ表示牌エリアとする）
+  G.wallIdx = 14; // 王牌を確保
+  G.dora.push(G.wall[4]); // 5枚目がドラ表示牌（慣例簡易版）
+
+  // 配牌 13枚
+  for (let i = 0; i < 13; i++) G.hand.push(G.wall[G.wallIdx++]);
+  sortHand();
+
+  setStatus('<span class="status-tag tag-info">配牌完了</span> ツモるボタンで摸牌してください');
+  render();
+  updateButtons();
+}
+
+/* ----- 摸牌 ----- */
+function draw() {
+  if (G.wallIdx >= G.wall.length - 14) { // 牌切れ
+    setStatus('流局 — 牌山が尽きました');
+    G.phase = 'over';
+    if (isTenpai(G.hand)) { G.pts += 3000; }
+    updateButtons();
+    render();
+    return;
+  }
+  G.drawn = G.wall[G.wallIdx++];
+  G.phase = 'discard';
+
+  // 自摸和了チェック
+  const fullHand = [...G.hand, G.drawn];
+  if (canWin(fullHand)) {
+    setStatus('<span class="status-tag tag-win">ツモ和了可能！</span> ツモ和了ボタンを押すか、打牌してください');
+    document.getElementById('btn-tsumo').disabled = false;
+  } else {
+    const tenpai = isTenpai(G.hand);
+    if (tenpai) setStatus('<span class="status-tag tag-tenpai">テンパイ</span> 打牌してください');
+    else setStatus('打牌してください（捨てる牌をクリック）');
+    document.getElementById('btn-tsumo').disabled = true;
+  }
+  render();
+  updateButtons();
+}
+
+/* ----- 打牌 ----- */
+function discard(idx, isDrawn) {
+  if (G.phase !== 'discard') return;
+  let tile;
+  if (isDrawn) {
+    tile = G.drawn;
+    G.drawn = null;
+  } else {
+    tile = G.hand.splice(idx, 1)[0];
+    G.hand.push(G.drawn);
+    G.drawn = null;
+  }
+  G.discards.push(tile);
+  if (G.riichiJustDeclared) {
+    G.riichiJustDeclared = false;
+    // 一発はリーチ宣言打牌では消えない（次巡まで有効）
+  } else {
+    G.ippatu = false;
+  }
+  G.phase = 'draw';
+
+  const tenpai = isTenpai(G.hand);
+  if (tenpai) setStatus('<span class="status-tag tag-tenpai">テンパイ</span> ツモボタンで摸牌');
+  else setStatus('ツモボタンで摸牌してください');
+
+  document.getElementById('btn-tsumo').disabled = true;
+  render();
+  updateButtons();
+}
+
+/* ----- リーチ ----- */
+function declareRiichi() {
+  if (G.phase !== 'discard' || G.drawn === null) return;
+  if (!isTenpai(G.hand) || G.riichi) return;
+  G.riichi = true;
+  G.ippatu = true;
+  G.riichiJustDeclared = true;
+  G.pts -= 1000;
+  // phase はすでに 'discard' なので変更不要
+  setStatus('<span class="status-tag tag-riichi">リーチ！</span> ツモ切りしてください（摸牌した牌をクリック）');
+  render();
+  updateButtons();
+}
+
+/* ----- ツモ和了 ----- */
+function tsumoWin() {
+  const fullHand = [...G.hand, G.drawn];
+  const result   = calcScore(fullHand, true);
+  G.pts  += result.points;
+  G.phase = 'over';
+  G.drawn = null;
+  showModal(result);
+  render();
+  updateButtons();
+}
+
+/* ============================================================
+   和了判定・役計算
+   ============================================================ */
+
+/* --- 和了判定（4面子1雀頭 / 七対子 / 国士） --- */
+function canWin(tiles) {
+  const sorted = [...tiles].sort((a,b)=>a-b);
+  return checkNormal(sorted) || checkChiitoi(sorted) || checkKokushi(sorted);
+}
+
+/* 通常形（4面子1雀頭） */
+function checkNormal(sorted) {
+  if (sorted.length !== 14) return false;
+  for (let head = 0; head < sorted.length - 1; head++) {
+    if (sorted[head] !== sorted[head + 1]) continue;
+    const rest = [...sorted];
+    rest.splice(head, 2);
+    if (canMentsu(rest)) return true;
+  }
+  return false;
+}
+
+function canMentsu(tiles) {
+  if (tiles.length === 0) return true;
+  const t = [...tiles];
+  // 刻子チェック
+  if (t[0] === t[1] && t[1] === t[2]) {
+    t.splice(0, 3);
+    if (canMentsu(t)) return true;
+  }
+  // 順子チェック（字牌不可）
+  if (t[0] < 27) {
+    const i1 = t.indexOf(t[0] + 1);
+    const i2 = t.indexOf(t[0] + 2);
+    if (i1 !== -1 && i2 !== -1 && t[0] % 9 <= 6) { // 8,9跨ぎ防止
+      const u = [...t];
+      u.splice(u.indexOf(t[0] + 2), 1);
+      u.splice(u.indexOf(t[0] + 1), 1);
+      u.splice(0, 1);
+      if (canMentsu(u)) return true;
+    }
+  }
+  return false;
+}
+
+/* 七対子 */
+function checkChiitoi(sorted) {
+  if (sorted.length !== 14) return false;
+  const pairs = [];
+  for (let i = 0; i < 14; i += 2) {
+    if (sorted[i] !== sorted[i + 1]) return false;
+    if (pairs.includes(sorted[i])) return false; // 同じ対子は不可
+    pairs.push(sorted[i]);
+  }
+  return true;
+}
+
+/* 国士無双 */
+function checkKokushi(sorted) {
+  const yao = [0,8,9,17,18,26,27,28,29,30,31,32,33]; // 1/9/字牌
+  const has = new Set(sorted);
+  let hasAll = yao.every(t => has.has(t));
+  if (!hasAll) return false;
+  return sorted.filter(t => yao.includes(t)).length >= yao.length + 1;
+}
+
+/* --- テンパイ判定（14枚で和了できる牌があるか） --- */
+function isTenpai(hand13) {
+  for (let id = 0; id < 34; id++) {
+    if (canWin([...hand13, id])) return true;
+  }
+  return false;
+}
+
+/* テンパイ牌一覧 */
+function tenpaiList(hand13) {
+  const list = [];
+  for (let id = 0; id < 34; id++) {
+    if (canWin([...hand13, id])) list.push(id);
+  }
+  return list;
+}
+
+/* --- 役判定 --- */
+function calcScore(tiles14, isTsumo) {
+  const yaku = [];
+
+  // 門前ツモ
+  if (isTsumo && !G.riichi) yaku.push({ name: '門前清自摸和', han: 1 });
+
+  // リーチ
+  if (G.riichi) yaku.push({ name: 'リーチ', han: 1 });
+
+  // 一発
+  if (G.ippatu && G.riichi) yaku.push({ name: '一発', han: 1 });
+
+  const sorted = [...tiles14].sort((a,b)=>a-b);
+
+  // 国士無双
+  if (checkKokushi(sorted)) {
+    yaku.push({ name: '国士無双', han: 13 });
+    return buildResult(yaku, tiles14, isTsumo);
+  }
+
+  // 七対子
+  if (checkChiitoi(sorted)) {
+    yaku.push({ name: '七対子', han: 2 });
+    return buildResult(yaku, tiles14, isTsumo);
+  }
+
+  // タンヤオ（1,9,字牌なし）
+  if (sorted.every(t => t >= 1 && t <= 25 && t % 9 !== 0 && t % 9 !== 8 && t < 27)) {
+    // 2-8の数牌のみ
+    const tanOnly = sorted.every(t => t < 27 && t % 9 !== 0 && t % 9 !== 8);
+    if (tanOnly) yaku.push({ name: 'タンヤオ', han: 1 });
+  }
+
+  // 清一色
+  const suits = new Set(sorted.filter(t => t < 27).map(t => Math.floor(t / 9)));
+  if (suits.size === 1 && sorted.every(t => t < 27)) {
+    yaku.push({ name: '清一色', han: 6 });
+  }
+  // 混一色（字牌あり+一種の数牌）
+  else if (suits.size === 1 && sorted.some(t => t >= 27)) {
+    yaku.push({ name: '混一色', han: 3 });
+  }
+
+  // 九蓮宝燈
+  if (checkKyuurenpoutou(sorted)) {
+    yaku.push({ name: '九蓮宝燈', han: 13 });
+    return buildResult(yaku, tiles14, isTsumo);
+  }
+
+  // ピンフ判定（簡易）
+  if (isPinfu(sorted)) yaku.push({ name: 'ピンフ', han: 1 });
+
+  // 一盃口
+  if (isIpeikou(sorted)) yaku.push({ name: '一盃口', han: 1 });
+
+  // 役なしチェック
+  if (yaku.length === 0) {
+    yaku.push({ name: '役なし（仮）', han: 0 });
+  }
+
+  return buildResult(yaku, tiles14, isTsumo);
+}
+
+function buildResult(yaku, tiles14, isTsumo) {
+  const totalHan = yaku.reduce((s, y) => s + y.han, 0);
+  let points = 0;
+  if (totalHan >= 13) points = 32000;
+  else if (totalHan >= 11) points = 24000;
+  else if (totalHan >= 8)  points = 16000;
+  else if (totalHan >= 6)  points = 12000;
+  else if (totalHan >= 5)  points = 8000;
+  else if (totalHan === 4) points = 8000;
+  else if (totalHan === 3) points = 5200;
+  else if (totalHan === 2) points = 2600;
+  else if (totalHan === 1) points = 1500;
+
+  // 本場ボーナス
+  points += G.honba * 300;
+
+  return { yaku, totalHan, points, isTsumo };
+}
+
+/* ピンフ（簡易：雀頭が役牌でなく全順子） */
+function isPinfu(sorted) {
+  for (let hi = 0; hi < sorted.length - 1; hi++) {
+    if (sorted[hi] !== sorted[hi + 1]) continue;
+    const head = sorted[hi];
+    if (head >= 27) continue; // 字牌雀頭はNG
+    const rest = [...sorted];
+    rest.splice(hi, 2);
+    if (isAllShuntsu(rest)) return true;
+  }
+  return false;
+}
+function isAllShuntsu(tiles) {
+  if (tiles.length === 0) return true;
+  const t = [...tiles];
+  if (t[0] >= 27) return false;
+  const i1 = t.indexOf(t[0] + 1);
+  const i2 = t.indexOf(t[0] + 2);
+  if (i1 === -1 || i2 === -1) return false;
+  if (t[0] % 9 > 6) return false;
+  const u = [...t];
+  u.splice(u.indexOf(t[0] + 2), 1);
+  u.splice(u.indexOf(t[0] + 1), 1);
+  u.splice(0, 1);
+  return isAllShuntsu(u);
+}
+
+/* 一盃口（同じ順子2組） */
+function isIpeikou(sorted) {
+  const sequences = [];
+  const temp = [...sorted];
+  while (temp.length >= 3) {
+    if (temp[0] < 27 && temp.indexOf(temp[0]+1) !== -1 && temp.indexOf(temp[0]+2) !== -1 && temp[0]%9<=6) {
+      const key = temp[0];
+      sequences.push(key);
+      temp.splice(temp.indexOf(key+2),1);
+      temp.splice(temp.indexOf(key+1),1);
+      temp.splice(0,1);
+    } else break;
+  }
+  const freq = {};
+  sequences.forEach(s => { freq[s] = (freq[s]||0)+1; });
+  return Object.values(freq).some(v => v >= 2);
+}
+
+/* 九蓮宝燈 */
+function checkKyuurenpoutou(sorted) {
+  if (!sorted.every(t => t < 27 && Math.floor(t/9) === Math.floor(sorted[0]/9))) return false;
+  const nums = sorted.map(t => t % 9 + 1);
+  const required = [1,1,1,2,3,4,5,6,7,8,9,9,9];
+  const temp = [...nums];
+  for (const r of required) {
+    const idx = temp.indexOf(r);
+    if (idx === -1) return false;
+    temp.splice(idx, 1);
+  }
+  return true;
+}
+
+/* ============================================================
+   手牌整列
+   ============================================================ */
+function sortHand() {
+  G.hand.sort((a, b) => a - b);
+}
+
+/* ============================================================
+   レンダリング
+   ============================================================ */
+function render() {
+  renderHand();
+  renderDiscards();
+  renderDora();
+  renderWallCount();
+  renderScoreBoard();
+}
+
+function renderHand() {
+  const el = document.getElementById('hand-tiles');
+  const sep = document.getElementById('draw-separator');
+  el.innerHTML = '';
+
+  G.hand.forEach((t, i) => {
+    el.appendChild(makeTile(t, false, () => {
+      if (G.phase !== 'discard') return;
+      if (G.riichi) return; // リーチ後は摸牌のみ打てる
+      discard(i, false);
+    }, false));
+  });
+
+  if (G.drawn !== null) {
+    if (!sep) {
+      const s = document.createElement('div');
+      s.id = 'draw-separator';
+      el.parentNode.insertBefore(s, el);
+    }
+    document.getElementById('draw-separator').classList.add('visible');
+    el.appendChild(makeTile(G.drawn, false, () => {
+      if (G.phase !== 'discard') return;
+      discard(-1, true);
+    }, true));
+  } else {
+    const s = document.getElementById('draw-separator');
+    if (s) s.classList.remove('visible');
+  }
+
+  // テンパイ牌表示
+  if (G.phase === 'draw' || G.phase === 'discard') {
+    const waits = tenpaiList(G.hand);
+    if (waits.length > 0 && !G.drawn) {
+      const info = document.createElement('div');
+      info.style.cssText = 'width:100%;margin-top:8px;font-size:0.8rem;color:#a5d6a7;';
+      info.textContent = '待ち牌: ' + waits.map(tileName).join(' ');
+      el.appendChild(info);
+    }
+  }
+}
+
+function makeTile(id, small, onClick, isDrawn) {
+  const div = document.createElement('div');
+  const d   = tileDisplay(id);
+  div.className = 'tile ' + tileClass(id) + (small ? ' small' : ' in-hand') + (isDrawn ? ' drawn' : '');
+
+  const num  = document.createElement('div');
+  num.className = 'tile-num';
+  num.textContent = d.num;
+
+  div.appendChild(num);
+  if (d.suit) {
+    const suit = document.createElement('div');
+    suit.className = 'tile-suit';
+    suit.textContent = d.suit;
+    div.appendChild(suit);
+  }
+  if (onClick) div.addEventListener('click', onClick);
+  return div;
+}
+
+function renderDiscards() {
+  const el = document.getElementById('discard-tiles');
+  el.innerHTML = '';
+  G.discards.forEach(t => el.appendChild(makeTile(t, true, null, false)));
+}
+
+function renderDora() {
+  const el = document.getElementById('dora-area');
+  el.innerHTML = '';
+  G.dora.forEach(t => el.appendChild(makeTile(t, false, null, false)));
+}
+
+function renderWallCount() {
+  document.getElementById('wall-num').textContent = Math.max(0, G.wall.length - G.wallIdx - 14);
+}
+
+function renderScoreBoard() {
+  document.getElementById('pts').textContent = G.pts.toLocaleString();
+  const rounds = ['東1局','東2局','東3局','東4局','南1局','南2局','南3局','南4局'];
+  document.getElementById('round-label').textContent = rounds[Math.min(G.round - 1, 7)] || '東1局';
+  document.getElementById('honba').textContent = G.honba;
+}
+
+/* ============================================================
+   UI ユーティリティ
+   ============================================================ */
+function setStatus(html) {
+  document.getElementById('status-bar').innerHTML = html;
+}
+
+function updateButtons() {
+  const s = G.phase;
+  document.getElementById('btn-start').textContent  = (s === 'idle' || s === 'over') ? '新局スタート' : '新局（リセット）';
+  document.getElementById('btn-draw').disabled      = s !== 'draw';
+  document.getElementById('btn-tsumo').disabled     = !(s === 'discard' && G.drawn !== null && canWin([...G.hand, G.drawn]));
+  document.getElementById('btn-riichi').disabled    = !(s === 'discard' && G.drawn !== null && !G.riichi && isTenpai(G.hand) && G.pts >= 1000);
+  document.getElementById('btn-sort').disabled      = s === 'idle' || s === 'over';
+}
+
+/* ===== モーダル ===== */
+function showModal(result) {
+  document.getElementById('modal-title').textContent = result.isTsumo ? 'ツモ和了！' : '和了！';
+  const list = document.getElementById('yaku-list');
+  list.innerHTML = '';
+  result.yaku.forEach(y => {
+    const item = document.createElement('div');
+    item.className = 'yaku-item';
+    item.innerHTML = `<span class="yaku-name">${y.name}</span><span class="yaku-han">${y.han}飜</span>`;
+    list.appendChild(item);
+  });
+  const totalHanEl = document.createElement('div');
+  totalHanEl.className = 'yaku-item';
+  totalHanEl.innerHTML = `<span class="yaku-name">合計</span><span class="yaku-han">${result.totalHan}飜</span>`;
+  list.appendChild(totalHanEl);
+
+  document.getElementById('total-points').textContent = result.points.toLocaleString() + '点';
+  document.getElementById('modal-overlay').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('show');
+  G.round++;
+  G.honba++;
+  G.phase = 'idle';
+  render();
+  updateButtons();
+  setStatus('新局スタートボタンで次の局を始めてください。');
+}
+
+/* ============================================================
+   イベント登録
+   ============================================================ */
+document.getElementById('btn-start').addEventListener('click', startGame);
+document.getElementById('btn-draw').addEventListener('click', draw);
+document.getElementById('btn-tsumo').addEventListener('click', tsumoWin);
+document.getElementById('btn-riichi').addEventListener('click', declareRiichi);
+document.getElementById('btn-sort').addEventListener('click', () => { sortHand(); render(); });
+
+/* 初期表示 */
+render();
+updateButtons();
+setStatus('「新局スタート」ボタンを押してゲームを開始してください。');
+</script>
+</body>
+</html>

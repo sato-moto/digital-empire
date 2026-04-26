@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【承認依頼】4月ウェビナー企画書</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+      background: #f5f6f8;
+      color: #1a1a2e;
+      line-height: 1.75;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* ヘッダー */
+    .doc-header {
+      background: #1a1a2e;
+      color: #fff;
+      border-radius: 12px;
+      padding: 36px 40px;
+      margin-bottom: 24px;
+    }
+
+    .doc-header .badge {
+      display: inline-block;
+      background: #e63946;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 4px 12px;
+      border-radius: 4px;
+      margin-bottom: 14px;
+    }
+
+    .doc-header h1 {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .doc-header .subtitle {
+      font-size: 13px;
+      color: #a0aec0;
+    }
+
+    /* 承認ブロック */
+    .approval-block {
+      background: #fff8f0;
+      border-left: 4px solid #e63946;
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+
+    .approval-block .label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #e63946;
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+    }
+
+    .approval-block ol {
+      padding-left: 20px;
+    }
+
+    .approval-block ol li {
+      font-size: 14px;
+      font-weight: 600;
+      padding: 4px 0;
+      color: #1a1a2e;
+    }
+
+    /* セクション共通 */
+    .section {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+    }
+
+    .section h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a2e;
+      border-bottom: 2px solid #e8eaf0;
+      padding-bottom: 10px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section h2::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 18px;
+      background: #4361ee;
+      border-radius: 2px;
+    }
+
+    .section p {
+      font-size: 14px;
+      color: #2d3748;
+      line-height: 1.85;
+    }
+
+    /* テーブル共通 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      margin-top: 8px;
+    }
+
+    thead tr {
+      background: #f0f3ff;
+    }
+
+    thead th {
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 700;
+      color: #4361ee;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid #e8eaf0;
+    }
+
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    tbody td {
+      padding: 10px 14px;
+      color: #2d3748;
+      vertical-align: top;
+    }
+
+    tbody tr:hover {
+      background: #fafbff;
+    }
+
+    /* Before/After テーブル */
+    .before-after thead th:first-child { color: #718096; }
+    .before-after thead th:last-child { color: #4361ee; }
+    .before-after tbody td:first-child { color: #718096; }
+    .before-after tbody td:last-child { color: #2d3748; font-weight: 500; }
+
+    /* 箇条書き */
+    .section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .section ul li {
+      font-size: 14px;
+      color: #2d3748;
+      padding: 5px 0 5px 20px;
+      position: relative;
+    }
+
+    .section ul li::before {
+      content: "▸";
+      color: #4361ee;
+      position: absolute;
+      left: 0;
+    }
+
+    .section ul li strong {
+      color: #1a1a2e;
+    }
+
+    /* チェックリスト */
+    .checklist {
+      list-style: none;
+      padding: 0;
+    }
+
+    .checklist li {
+      font-size: 14px;
+      color: #2d3748;
+      padding: 7px 0 7px 28px;
+      position: relative;
+      border-bottom: 1px dashed #e8eaf0;
+    }
+
+    .checklist li:last-child {
+      border-bottom: none;
+    }
+
+    .checklist li::before {
+      content: "☐";
+      color: #4361ee;
+      position: absolute;
+      left: 0;
+      font-size: 16px;
+    }
+
+    code {
+      background: #f0f3ff;
+      color: #4361ee;
+      font-family: monospace;
+      font-size: 12px;
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    /* KPI バッジ */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .kpi-card {
+      background: #f7f9ff;
+      border: 1px solid #e0e4f8;
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+
+    .kpi-card .kpi-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #4361ee;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+
+    .kpi-card .kpi-value {
+      font-size: 13px;
+      color: #1a1a2e;
+      font-weight: 600;
+    }
+
+    /* フッター */
+    .doc-footer {
+      text-align: center;
+      font-size: 12px;
+      color: #a0aec0;
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid #e8eaf0;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ヘッダー -->
+  <div class="doc-header">
+    <div class="badge">承認依頼</div>
+    <h1>4月ウェビナー「一人でできるAI動画制作」企画書</h1>
+    <div class="subtitle">企画から公開まで全工程を実演｜2026年4月開催</div>
+  </div>
+
+  <!-- 承認ブロック -->
+  <div class="approval-block">
+    <div class="label">確認・判断いただきたいこと</div>
+    <ol>
+      <li>開催日程の確定（推奨：4月第2〜3週）</li>
+      <li>告知開始の承認（準備完了：3月28日〜）</li>
+      <li>配布特典PDF制作への着手承認</li>
+    </ol>
+  </div>
+
+  <!-- 企画概要 -->
+  <div class="section">
+    <h2>企画概要</h2>
+    <p>
+      機材・予算・専門知識がゼロの状態でも、AIを使えば動画コンテンツを制作・公開できる。
+      本ウェビナーは、その事実をリアルタイム実演で証明するイベントである。
+      「日本をAI先進国に」というミッションのもと、参加者一人ひとりが翌日から動画制作に踏み出せる状態をゴールとする。
+      企画・台本・アバター生成・編集・公開までの全7工程を75分で体験させる。
+    </p>
+  </div>
+
+  <!-- 目的 -->
+  <div class="section">
+    <h2>目的（MVVとの接続）</h2>
+    <table>
+      <thead>
+        <tr><th>MVV要素</th><th>接続ポイント</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Mission「日本をAI先進国に」</td><td>AI動画制作の実践者を一人でも多く生み出す</td></tr>
+        <tr><td>Vision「年間100万人のAI人材」</td><td>ウェビナー参加者をAI活用者として輩出する</td></tr>
+        <tr><td>Value「w/AI」</td><td>AI前提の制作フローを日常業務に実装させる</td></tr>
+        <tr><td>Value「SHIFT」</td><td>従来の動画制作の常識を覆すことを体験させる</td></tr>
+        <tr><td>Value「Impact driven」</td><td>ツール紹介ではなく「翌日から動ける状態」を目的とする</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ターゲット -->
+  <div class="section">
+    <h2>ターゲット</h2>
+    <ul>
+      <li><strong>対象者</strong>：AIを使いたいが何から始めるかわからない個人事業主・フリーランス・社会人（動画発信に興味あり）</li>
+      <li><strong>課題</strong>：動画制作＝機材・編集スキル・時間・お金が必要だという思い込みから踏み出せていない</li>
+    </ul>
+  </div>
+
+  <!-- Before / After -->
+  <div class="section">
+    <h2>Before / After</h2>
+    <table class="before-after">
+      <thead>
+        <tr><th>Before（参加前）</th><th>After（参加後）</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>動画制作＝難しい・高コストだと思っている</td>
+          <td>AIツールで一人・無料・当日から始められると体感している</td>
+        </tr>
+        <tr>
+          <td>どのツールを使えばいいかわからない</td>
+          <td>企画〜公開までの7ステップとツールセットが手元にある</td>
+        </tr>
+        <tr>
+          <td>「自分には無理かも」で止まっている</td>
+          <td>ウェビナー当日中に最初のプロジェクトを立ち上げている</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- プログラム -->
+  <div class="section">
+    <h2>内容・プログラム（75分）</h2>
+    <table>
+      <thead>
+        <tr><th>時間</th><th>パート</th><th>内容</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>0:00〜0:05</td><td>オープニング</td><td>自己紹介・今日のゴール提示・チャット自己紹介</td></tr>
+        <tr><td>0:05〜0:15</td><td>Part 1：なぜ今AIで動画か</td><td>動画コンテンツの現実・AI登場で制作コストの壁が消えた理由</td></tr>
+        <tr><td>0:15〜0:30</td><td>Part 2：全体フロー解説</td><td>企画→台本→アバター→スライド→編集→サムネイル→公開の7ステップマップ</td></tr>
+        <tr><td>0:30〜0:55</td><td>Part 3：ライブ実演</td><td>「熊取町の魅力を伝える1分動画」をゼロからリアルタイム制作</td></tr>
+        <tr><td>0:55〜1:05</td><td>Part 4：公開・運用戦略</td><td>プラットフォーム選定・投稿頻度・タイトル/サムネイル最適化</td></tr>
+        <tr><td>1:05〜1:15</td><td>Q&amp;A</td><td>チャットから事前・当日質問を受付</td></tr>
+        <tr><td>1:15〜1:20</td><td>クロージング</td><td>まとめ・特典案内・「明日やること1つ」宣言</td></tr>
+      </tbody>
+    </table>
+
+    <h2 style="margin-top:24px;">ライブ実演：ツールスタック</h2>
+    <table>
+      <thead>
+        <tr><th>ステップ</th><th>ツール</th><th>コスト</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>台本生成</td><td>Claude</td><td>無料〜</td></tr>
+        <tr><td>スライド生成</td><td>Gamma</td><td>無料〜</td></tr>
+        <tr><td>アバター・音声</td><td>HeyGen / ElevenLabs</td><td>無料プランあり</td></tr>
+        <tr><td>動画編集</td><td>CapCut</td><td>無料</td></tr>
+        <tr><td>サムネイル</td><td>Canva AI</td><td>無料〜</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 成功条件 -->
+  <div class="section">
+    <h2>成功条件</h2>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">定量目標</div>
+        <div class="kpi-value">申込 50名 ／ 当日参加 30名以上<br>アンケート回答率 50%以上<br>次回申込転換率 20%以上</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">定性目標</div>
+        <div class="kpi-value">参加者が「明日やること1つ」を宣言して終了。アンケートに「やってみます」「早速試した」が複数件含まれている</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- タイムライン -->
+  <div class="section">
+    <h2>想定タイムライン</h2>
+    <table>
+      <thead>
+        <tr><th>時期</th><th>タスク</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>3月28日（3週間前）</td><td>申込フォーム・告知文作成、特典PDF（ツールマップ）作成</td></tr>
+        <tr><td>3月30日（3週間前）</td><td>stand.fm・note・SNSで第1弾告知開始</td></tr>
+        <tr><td>4月第1週</td><td>毎日1〜2投稿でリマインド告知</td></tr>
+        <tr><td>開催3日前</td><td>申込者へリマインドメール送信</td></tr>
+        <tr><td>開催前日</td><td>参加URL・特典PDF送付</td></tr>
+        <tr><td>開催当日</td><td>30分前にZoom開放・本番実施</td></tr>
+        <tr><td>翌日</td><td>アーカイブ配信・感想募集・次回ウェビナー案内</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 必要リソース -->
+  <div class="section">
+    <h2>必要リソース</h2>
+    <ul>
+      <li><strong>人</strong>：登壇・進行・チャット対応（全て単独で完結可能）</li>
+      <li><strong>場所・ツール</strong>：Zoom ウェビナー or YouTube Live、Claude・HeyGen・Gamma・CapCut・Canva（全て無料プランで実施可能）</li>
+      <li><strong>予算</strong>：実質ゼロ（Zoomを使う場合は有料プラン要検討。代替としてYouTube Liveなら無料）</li>
+    </ul>
+  </div>
+
+  <!-- 次のアクション -->
+  <div class="section">
+    <h2>次のアクション</h2>
+    <ul class="checklist">
+      <li>開催日程を確定（マスター判断）</li>
+      <li>申込フォーム作成（Googleフォーム）</li>
+      <li>特典PDF「AI動画制作ツールマップ」をCanvaで作成</li>
+      <li><code>02_outline/</code> にウェビナーアウトライン展開</li>
+      <li><code>04_script/</code> にトークスクリプト作成</li>
+      <li>告知文（stand.fm・note・X）を生成</li>
+    </ul>
+  </div>
+
+  <!-- フッター -->
+  <div class="doc-footer">
+    作成日：2026-03-27 ｜ 改訂：2026-03-27 ｜ MVV参照：kikaku/references/mvv.md ｜ 担当：動画制作ディレクター
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+﻿[Script Info]
+Title: MATH-D-04-A Ch2 Telop
+ScriptType: v4.00+
+WrapStyle: 0
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Telop,Noto Sans JP,60,&H00303030,&H000000FF,&H00FFFFFF,&H80000000,-1,0,1,4,2,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.00,0:00:01.40,Telop,,0,0,0,,{\pos(1115,955)}ここまでの流れを
+Dialogue: 0,0:00:01.40,0:00:02.45,Telop,,0,0,0,,{\pos(1115,955)}振り返ろう。
+Dialogue: 0,0:00:02.45,0:00:03.32,Telop,,0,0,0,,{\pos(1115,955)}まず自分で
+Dialogue: 0,0:00:03.32,0:00:04.54,Telop,,0,0,0,,{\pos(1115,955)}仮説を立てて、
+Dialogue: 0,0:00:04.54,0:00:05.42,Telop,,0,0,0,,{\pos(1115,955)}解法検証で
+Dialogue: 0,0:00:05.42,0:00:06.81,Telop,,0,0,0,,{\pos(1115,955)}方針を確かめた。
+Dialogue: 0,0:00:06.81,0:00:08.04,Telop,,0,0,0,,{\pos(1115,955)}次に構造発見で
+Dialogue: 0,0:00:08.04,0:00:08.91,Telop,,0,0,0,,{\pos(1115,955)}2つの式の
+Dialogue: 0,0:00:08.91,0:00:10.83,Telop,,0,0,0,,{\pos(1115,955)}構造の違いを見抜いた。
+Dialogue: 0,0:00:10.83,0:00:12.05,Telop,,0,0,0,,{\pos(1115,955)}特に「私は何に
+Dialogue: 0,0:00:12.05,0:00:13.80,Telop,,0,0,0,,{\pos(1115,955)}つまずいている？」の
+Dialogue: 0,0:00:13.80,0:00:14.50,Telop,,0,0,0,,{\pos(1115,955)}一言で、
+Dialogue: 0,0:00:14.50,0:00:15.90,Telop,,0,0,0,,{\pos(1115,955)}AIが思考の穴に
+Dialogue: 0,0:00:15.90,0:00:17.12,Telop,,0,0,0,,{\pos(1115,955)}フォーカスして
+Dialogue: 0,0:00:17.12,0:00:18.52,Telop,,0,0,0,,{\pos(1115,955)}説明してくれた。
+Dialogue: 0,0:00:18.52,0:00:19.91,Telop,,0,0,0,,{\pos(1115,955)}最後に型抽出で、
+Dialogue: 0,0:00:19.91,0:00:21.66,Telop,,0,0,0,,{\pos(1115,955)}判断フローチャートを
+Dialogue: 0,0:00:21.66,0:00:22.36,Telop,,0,0,0,,{\pos(1115,955)}作った。

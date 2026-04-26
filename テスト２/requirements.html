@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>麻雀アプリ 要件定義書 v1.0.0</title>
+<style>
+  /* ===== リセット・ベース ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0d0f14;
+    --bg2: #161922;
+    --bg3: #1e2330;
+    --border: #2a3045;
+    --accent: #c9a84c;
+    --accent2: #e8c96d;
+    --red: #e05555;
+    --green: #4caf7d;
+    --blue: #5b8de0;
+    --purple: #9b6de0;
+    --text: #e2e8f0;
+    --text2: #94a3b8;
+    --text3: #64748b;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* ===== スクロールバー ===== */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg2); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* ===== レイアウト ===== */
+  .layout { display: flex; min-height: 100vh; }
+
+  /* ===== サイドナビ ===== */
+  .sidenav {
+    position: fixed;
+    top: 0; left: 0;
+    width: 240px;
+    height: 100vh;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    z-index: 100;
+    padding: 24px 0;
+  }
+  .sidenav-logo {
+    padding: 0 20px 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+  .sidenav-logo h2 {
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .sidenav-logo p { font-size: 11px; color: var(--text3); margin-top: 4px; }
+  .nav-item {
+    display: block;
+    padding: 8px 20px;
+    color: var(--text2);
+    text-decoration: none;
+    font-size: 13px;
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+  }
+  .nav-item:hover, .nav-item.active {
+    color: var(--accent2);
+    background: rgba(201,168,76,0.08);
+    border-left-color: var(--accent);
+  }
+  .nav-section {
+    font-size: 10px;
+    color: var(--text3);
+    padding: 12px 20px 4px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ===== メインコンテンツ ===== */
+  .main {
+    margin-left: 240px;
+    flex: 1;
+    max-width: calc(100vw - 240px);
+  }
+
+  /* ===== ヘッダー ===== */
+  .hero {
+    background: linear-gradient(135deg, #1a1f2e 0%, #0d1520 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 56px 48px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '🀄';
+    position: absolute;
+    right: 48px; top: 40px;
+    font-size: 80px;
+    opacity: 0.15;
+  }
+  .badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--accent2);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+  }
+  .hero h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero p { color: var(--text2); font-size: 15px; max-width: 600px; }
+  .meta-row {
+    display: flex; gap: 24px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .meta-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text3); }
+  .meta-item strong { color: var(--text2); }
+
+  /* ===== セクション ===== */
+  .content { padding: 0 48px 80px; }
+  .section {
+    padding: 48px 0 0;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 40px;
+  }
+  .section:last-child { border-bottom: none; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .section-num {
+    background: var(--accent);
+    color: #000;
+    font-size: 11px;
+    font-weight: 800;
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 20px; font-weight: 700; color: #fff; }
+
+  /* ===== サブセクション ===== */
+  .sub-section { margin-bottom: 32px; }
+  .sub-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 14px;
+    padding-left: 10px;
+    border-left: 2px solid var(--accent);
+  }
+
+  /* ===== テーブル ===== */
+  .table-wrap { overflow-x: auto; margin-bottom: 20px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead tr { background: var(--bg3); }
+  thead th {
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
+  }
+  tbody tr:hover { background: rgba(255,255,255,0.03); }
+  tbody td {
+    padding: 9px 14px;
+    color: var(--text2);
+    vertical-align: top;
+  }
+  tbody td:first-child { color: var(--text); font-weight: 500; }
+
+  /* ===== バッジ類 ===== */
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .tag-mvp { background: rgba(76,175,125,0.15); color: var(--green); border: 1px solid rgba(76,175,125,0.3); }
+  .tag-p2 { background: rgba(91,141,224,0.15); color: var(--blue); border: 1px solid rgba(91,141,224,0.3); }
+  .tag-p3 { background: rgba(155,109,224,0.15); color: var(--purple); border: 1px solid rgba(155,109,224,0.3); }
+  .tag-free { background: rgba(100,116,139,0.2); color: var(--text2); border: 1px solid var(--border); }
+  .tag-std { background: rgba(91,141,224,0.15); color: var(--blue); border: 1px solid rgba(91,141,224,0.3); }
+  .tag-prem { background: rgba(201,168,76,0.15); color: var(--accent2); border: 1px solid rgba(201,168,76,0.3); }
+  .tag-high { background: rgba(224,85,85,0.15); color: var(--red); border: 1px solid rgba(224,85,85,0.3); }
+  .tag-mid { background: rgba(201,168,76,0.15); color: var(--accent2); border: 1px solid rgba(201,168,76,0.3); }
+  .tag-low { background: rgba(76,175,125,0.1); color: var(--green); border: 1px solid rgba(76,175,125,0.3); }
+  .tag-must { background: rgba(224,85,85,0.15); color: var(--red); border: 1px solid rgba(224,85,85,0.3); }
+
+  /* ===== KPIカード ===== */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .kpi-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .kpi-card .label { font-size: 11px; color: var(--text3); margin-bottom: 8px; letter-spacing: 0.05em; }
+  .kpi-card .val { font-size: 22px; font-weight: 800; color: var(--accent2); line-height: 1; }
+  .kpi-card .sub { font-size: 11px; color: var(--text3); margin-top: 4px; }
+
+  /* ===== 収益モデル ===== */
+  .revenue-model {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .revenue-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .revenue-row:last-child { margin-bottom: 0; }
+  .revenue-label { width: 160px; font-size: 13px; font-weight: 600; color: var(--text); }
+  .revenue-bar-wrap { flex: 1; background: var(--bg3); border-radius: 4px; height: 22px; overflow: hidden; }
+  .revenue-bar { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 700; color: rgba(0,0,0,0.8); }
+  .revenue-pct { width: 40px; text-align: right; font-size: 13px; font-weight: 700; color: var(--text2); }
+
+  /* ===== フェーズタイムライン ===== */
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .timeline-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 10px 10px 0 0;
+  }
+  .timeline-item.p0::before { background: var(--text3); }
+  .timeline-item.p1::before { background: var(--green); }
+  .timeline-item.p2::before { background: var(--blue); }
+  .timeline-item.p3::before { background: var(--purple); }
+  .tl-phase { font-size: 11px; font-weight: 700; margin-bottom: 8px; letter-spacing: 0.05em; }
+  .p0 .tl-phase { color: var(--text3); }
+  .p1 .tl-phase { color: var(--green); }
+  .p2 .tl-phase { color: var(--blue); }
+  .p3 .tl-phase { color: var(--purple); }
+  .tl-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .tl-period { font-size: 12px; color: var(--text3); margin-bottom: 12px; }
+  .tl-milestone {
+    font-size: 12px;
+    background: var(--bg3);
+    border-radius: 6px;
+    padding: 8px 10px;
+    color: var(--text2);
+    margin-top: 12px;
+  }
+  .tl-milestone strong { display: block; font-size: 10px; color: var(--text3); margin-bottom: 3px; letter-spacing: 0.05em; }
+
+  /* ===== リスクマトリクス ===== */
+  .risk-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 12px;
+    align-items: start;
+  }
+  .risk-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .risk-action { font-size: 12px; color: var(--text3); }
+  .risk-badges { display: flex; gap: 6px; white-space: nowrap; }
+
+  /* ===== 技術スタック ===== */
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .tech-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .tech-card .tc-label { font-size: 10px; color: var(--text3); margin-bottom: 6px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .tech-card .tc-name { font-size: 15px; font-weight: 700; color: var(--accent2); margin-bottom: 4px; }
+  .tech-card .tc-desc { font-size: 12px; color: var(--text3); }
+
+  /* ===== データスキーマ ===== */
+  .schema-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+  .schema-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .schema-header {
+    background: var(--bg3);
+    padding: 12px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent2);
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.05em;
+  }
+  .schema-field {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .schema-field:last-child { border-bottom: none; }
+  .sf-name { color: var(--text); font-family: 'Consolas', monospace; }
+  .sf-type { color: var(--blue); font-family: 'Consolas', monospace; font-size: 11px; }
+  .sf-desc { color: var(--text3); font-size: 11px; margin-top: 1px; }
+
+  /* ===== ロードマップチャート ===== */
+  .roadmap {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .roadmap-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .roadmap-label { width: 80px; font-size: 12px; color: var(--text3); text-align: right; flex-shrink: 0; }
+  .roadmap-months { display: flex; flex: 1; gap: 4px; }
+  .roadmap-month {
+    flex: 1;
+    height: 28px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .rm-header { background: transparent; color: var(--text3); }
+  .rm-p0 { background: rgba(100,116,139,0.3); color: var(--text2); }
+  .rm-p1 { background: rgba(76,175,125,0.3); color: var(--green); }
+  .rm-p2 { background: rgba(91,141,224,0.3); color: var(--blue); }
+  .rm-p3 { background: rgba(155,109,224,0.3); color: var(--purple); }
+  .rm-empty { background: transparent; }
+
+  /* ===== インフォボックス ===== */
+  .info-box {
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: var(--text2);
+  }
+  .info-box strong { color: var(--accent2); }
+
+  /* ===== ビジョン引用 ===== */
+  blockquote {
+    border-left: 3px solid var(--accent);
+    padding: 16px 20px;
+    background: rgba(201,168,76,0.05);
+    border-radius: 0 8px 8px 0;
+    color: var(--text2);
+    font-size: 14px;
+    font-style: italic;
+    margin-bottom: 24px;
+  }
+
+  /* ===== レスポンシブ ===== */
+  @media (max-width: 900px) {
+    .sidenav { display: none; }
+    .main { margin-left: 0; max-width: 100vw; }
+    .hero { padding: 32px 24px; }
+    .content { padding: 0 24px 60px; }
+    .timeline { grid-template-columns: 1fr 1fr; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .timeline { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: 1fr; }
+    .schema-grid { grid-template-columns: 1fr; }
+    .tech-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== サイドナビ ===== -->
+<nav class="sidenav">
+  <div class="sidenav-logo">
+    <h2>🀄 天鳳道 要件定義書</h2>
+    <p>v1.0.0 · Draft · 2026-03-31</p>
+  </div>
+  <span class="nav-section">ドキュメント</span>
+  <a class="nav-item active" href="#overview">1. プロダクト概要</a>
+  <a class="nav-item" href="#monetize">2. マネタイズ戦略</a>
+  <a class="nav-item" href="#features">3. 機能要件</a>
+  <a class="nav-item" href="#nonfunc">4. 非機能要件</a>
+  <a class="nav-item" href="#tech">5. 技術スタック</a>
+  <a class="nav-item" href="#screens">6. 画面設計</a>
+  <a class="nav-item" href="#data">7. データ設計</a>
+  <a class="nav-item" href="#phases">8. フェーズ計画</a>
+  <a class="nav-item" href="#risks">9. リスクと対策</a>
+</nav>
+
+<!-- ===== メイン ===== -->
+<div class="main">
+
+  <!-- ヒーロー -->
+  <div class="hero">
+    <div class="badge">REQUIREMENTS v1.0.0 · DRAFT</div>
+    <h1>麻雀アプリ<br><span>要件定義書</span></h1>
+    <p>マネタイズを前提とした、日本麻雀アプリのプロダクト要件定義書。一人運営でも収益最大化できる設計を目指す。</p>
+    <div class="meta-row">
+      <div class="meta-item">📅 <strong>2026-03-31</strong></div>
+      <div class="meta-item">👤 <strong>motok</strong></div>
+      <div class="meta-item">🎯 <strong>12ヶ月 MRR ¥1,000,000 目標</strong></div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ===== 1. プロダクト概要 ===== -->
+    <section class="section" id="overview">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <h2 class="section-title">プロダクト概要</h2>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">ビジョン</div>
+        <blockquote>「最もUI/UXが洗練された日本麻雀アプリとして、一人のクリエイターが運営するにもかかわらず、業界トップクラスの収益を生み出すプラットフォームを構築する」</blockquote>
+        <div class="info-box"><strong>プロダクト名（仮）：天鳳道（テンホウドウ）</strong><br>クリエイター自身のブランド力を武器に、「遊びたくなるUI」「続けたくなる設計」「課金したくなる価値提供」を三位一体で実現する。</div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">ターゲットユーザー</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>セグメント</th><th>属性</th><th>ニーズ</th><th>収益貢献度</th></tr></thead>
+            <tbody>
+              <tr><td>コア層</td><td>20〜40代・麻雀経験者</td><td>本格ルール・快適な操作</td><td><span class="tag tag-high">高（課金メイン）</span></td></tr>
+              <tr><td>ライト層</td><td>麻雀初心者〜中級者</td><td>学習・暇つぶし</td><td><span class="tag tag-mid">中（広告＋小課金）</span></td></tr>
+              <tr><td>競技層</td><td>雀荘通い・大会参加者</td><td>統計・段位・対戦</td><td><span class="tag tag-high">最高（プレミアム）</span></td></tr>
+              <tr><td>配信者層</td><td>ゲーム実況・麻雀YouTuber</td><td>見栄えするUI・共有機能</td><td><span class="tag tag-mid">中（UGC流入）</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">競合差別化</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>競合</th><th>課題</th><th>本アプリの解決策</th></tr></thead>
+            <tbody>
+              <tr><td>雀魂 / 天鳳</td><td>UI古め・PC寄り</td><td>モバイルファーストの洗練されたUI</td></tr>
+              <tr><td>MJモバイル</td><td>広告過多・課金圧が強い</td><td>体験を壊さない課金設計（選択式）</td></tr>
+              <tr><td>ジャラン</td><td>ルール限定</td><td>フル日本ルール対応＋カスタムルール</td></tr>
+              <tr><td>一般麻雀アプリ</td><td>クリエイター性ゼロ</td><td>クリエイター自身のキャラ・ストーリー</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 2. マネタイズ戦略 ===== -->
+    <section class="section" id="monetize">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <h2 class="section-title">マネタイズ戦略</h2>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">収益モデル全体像</div>
+        <div class="revenue-model">
+          <div class="revenue-row">
+            <div class="revenue-label">サブスクリプション</div>
+            <div class="revenue-bar-wrap"><div class="revenue-bar" style="width:25%;background:#c9a84c;">25%</div></div>
+            <div class="revenue-pct">25%</div>
+          </div>
+          <div class="revenue-row">
+            <div class="revenue-label">コスメ課金（IAP）</div>
+            <div class="revenue-bar-wrap"><div class="revenue-bar" style="width:15%;background:#e8a84c;">15%</div></div>
+            <div class="revenue-pct">15%</div>
+          </div>
+          <div class="revenue-row">
+            <div class="revenue-label">ガチャ / くじ</div>
+            <div class="revenue-bar-wrap"><div class="revenue-bar" style="width:5%;background:#e87a4c;">5%</div></div>
+            <div class="revenue-pct">5%</div>
+          </div>
+          <div class="revenue-row">
+            <div class="revenue-label">動画リワード広告</div>
+            <div class="revenue-bar-wrap"><div class="revenue-bar" style="width:20%;background:#5b8de0;">20%</div></div>
+            <div class="revenue-pct">20%</div>
+          </div>
+          <div class="revenue-row">
+            <div class="revenue-label">インタースティシャル</div>
+            <div class="revenue-bar-wrap"><div class="revenue-bar" style="width:10%;background:#4ca8d8;">10%</div></div>
+            <div class="revenue-pct">10%</div>
+          </div>
+          <div class="revenue-row">
+            <div class="revenue-label">テーマパック販売</div>
+            <div class="revenue-bar-wrap"><div class="revenue-bar" style="width:10%;background:#4caf7d;">10%</div></div>
+            <div class="revenue-pct">10%</div>
+          </div>
+          <div class="revenue-row">
+            <div class="revenue-label">外部連携</div>
+            <div class="revenue-bar-wrap"><div class="revenue-bar" style="width:10%;background:#7d7d7d;">10%</div></div>
+            <div class="revenue-pct">10%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">サブスクリプション設計</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>プラン</th><th>月額</th><th>主な内容</th><th>対象</th></tr></thead>
+            <tbody>
+              <tr><td><span class="tag tag-free">無料</span></td><td>¥0</td><td>基本対戦・広告あり・限定コスメなし</td><td>ライト層獲得</td></tr>
+              <tr><td><span class="tag tag-std">スタンダード</span></td><td><strong>¥480/月</strong></td><td>広告なし・基本テーマ全解放・段位戦参加</td><td>コア層</td></tr>
+              <tr><td><span class="tag tag-prem">プレミアム</span></td><td><strong>¥980/月</strong></td><td>全機能＋詳細統計＋限定コスメ毎月付与</td><td>競技層</td></tr>
+              <tr><td><span class="tag tag-prem">年間プレミアム</span></td><td><strong>¥7,800/年 (34%OFF)</strong></td><td>プレミアム全機能・年間限定テーマ</td><td>ヘビーユーザー</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">仮想通貨（牌石）設計</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>購入パック</th><th>価格</th><th>付与量</th><th>ボーナス</th></tr></thead>
+            <tbody>
+              <tr><td>少量</td><td>¥120</td><td>60個</td><td>-</td></tr>
+              <tr><td>標準</td><td>¥490</td><td>250個</td><td>+10個</td></tr>
+              <tr><td>中量</td><td>¥980</td><td>520個</td><td>+30個</td></tr>
+              <tr><td>大量</td><td>¥2,440</td><td>1,400個</td><td>+200個</td></tr>
+              <tr><td>まとめ買い</td><td>¥4,900</td><td>3,000個</td><td>+600個</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">KPI目標</div>
+        <div class="kpi-grid">
+          <div class="kpi-card"><div class="label">12ヶ月 MRR目標</div><div class="val">¥100万</div><div class="sub">月間サブスク収益</div></div>
+          <div class="kpi-card"><div class="label">12ヶ月 MAU目標</div><div class="val">80,000</div><div class="sub">月間アクティブユーザー</div></div>
+          <div class="kpi-card"><div class="label">課金転換率目標</div><div class="val">8%</div><div class="sub">12ヶ月時点</div></div>
+          <div class="kpi-card"><div class="label">D30リテンション</div><div class="val">15%+</div><div class="sub">30日継続率</div></div>
+          <div class="kpi-card"><div class="label">ARPPU目標</div><div class="val">¥1,500</div><div class="sub">課金ユーザー月平均</div></div>
+          <div class="kpi-card"><div class="label">LTV（30日）</div><div class="val">¥500</div><div class="sub">12ヶ月時点</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3. 機能要件 ===== -->
+    <section class="section" id="features">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <h2 class="section-title">機能要件</h2>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">対局モード</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>モード</th><th>説明</th><th>フェーズ</th></tr></thead>
+            <tbody>
+              <tr><td>一人用 vs AI</td><td>1人〜3人のAI対戦。強さ5段階</td><td><span class="tag tag-mvp">MVP</span></td></tr>
+              <tr><td>フリー対局</td><td>ルール自由設定での練習</td><td><span class="tag tag-mvp">MVP</span></td></tr>
+              <tr><td>チュートリアル対局</td><td>初心者向け解説付き</td><td><span class="tag tag-mvp">MVP</span></td></tr>
+              <tr><td>段位戦（ランク戦）</td><td>ポイント制・段位昇降</td><td><span class="tag tag-p2">Phase2</span></td></tr>
+              <tr><td>リアルタイム対人</td><td>マルチプレイヤー（最大4人）</td><td><span class="tag tag-p2">Phase2</span></td></tr>
+              <tr><td>日替わり道場</td><td>特定局面からのパズル形式</td><td><span class="tag tag-p2">Phase2</span></td></tr>
+              <tr><td>大会・トーナメント</td><td>期間限定イベント対局</td><td><span class="tag tag-p3">Phase3</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">AIエンジン要件</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>レベル</th><th>強さ感</th><th>実装方法</th></tr></thead>
+            <tbody>
+              <tr><td>Lv1（入門）</td><td>初心者と同程度</td><td>ルールベースAI（牌効率なし）</td></tr>
+              <tr><td>Lv2（初級）</td><td>基本牌効率</td><td>ルールベースAI（シャンテン計算）</td></tr>
+              <tr><td>Lv3（中級）</td><td>安全牌意識・鳴き判断</td><td>ルールベースAI＋統計テーブル</td></tr>
+              <tr><td>Lv4（上級）</td><td>状況判断・読み</td><td>強化学習 or モンテカルロ木探索</td></tr>
+              <tr><td>Lv5（最強）</td><td>天鳳位相当</td><td>ML モデル（Phase2以降）</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">アシスト機能（課金ティア別）</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>機能</th><th>説明</th><th>課金要否</th></tr></thead>
+            <tbody>
+              <tr><td>シャンテン表示</td><td>現在のシャンテン数をリアルタイム表示</td><td><span class="tag tag-free">無料</span></td></tr>
+              <tr><td>自動ソート</td><td>ツモ後の手牌自動整列</td><td><span class="tag tag-free">無料（ON/OFF）</span></td></tr>
+              <tr><td>有効牌ハイライト</td><td>ツモ切り以外の選択肢をハイライト</td><td><span class="tag tag-std">スタンダード以上</span></td></tr>
+              <tr><td>危険牌警告</td><td>放銃リスクの高い牌を色表示</td><td><span class="tag tag-prem">プレミアム</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">クリエイター連動機能</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>機能</th><th>内容</th><th>マネタイズ効果</th></tr></thead>
+            <tbody>
+              <tr><td>クリエイター限定コンテンツ</td><td>オリジナルキャラ・ボイス・背景</td><td>ファン課金動機</td></tr>
+              <tr><td>クリエイターコメント</td><td>対局中にランダム出現するオリジナル台詞</td><td>エンゲージメント向上</td></tr>
+              <tr><td>クリエイター配信連携</td><td>YouTubeライブ・TikTokと連動した応援機能</td><td>流入獲得</td></tr>
+              <tr><td>ファンランキング</td><td>累積課金額によるファンランク表示</td><td>課金競争促進</td></tr>
+              <tr><td>限定イベント通知</td><td>クリエイターからのプッシュ通知</td><td>リテンション向上</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4. 非機能要件 ===== -->
+    <section class="section" id="nonfunc">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <h2 class="section-title">非機能要件</h2>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">パフォーマンス要件</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>項目</th><th>要件</th></tr></thead>
+            <tbody>
+              <tr><td>アプリ起動時間</td><td>コールドスタート 3秒以内</td></tr>
+              <tr><td>画面遷移</td><td>300ms以内</td></tr>
+              <tr><td>対局応答（AI思考）</td><td>Lv1〜3: 1秒以内 / Lv4〜5: 3秒以内</td></tr>
+              <tr><td>フレームレート</td><td>60fps維持（対局中アニメーション）</td></tr>
+              <tr><td>メモリ使用量</td><td>300MB以下（iOS/Android中低スペック機対応）</td></tr>
+              <tr><td>オフライン対応</td><td>AI対戦はオフライン動作</td></tr>
+              <tr><td>APKサイズ</td><td>初回DL 100MB以下</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">セキュリティ要件</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>項目</th><th>要件</th></tr></thead>
+            <tbody>
+              <tr><td>通信</td><td>HTTPS/TLS 1.3 必須</td></tr>
+              <tr><td>認証</td><td>JWT + リフレッシュトークン</td></tr>
+              <tr><td>課金検証</td><td>サーバーサイドレシート検証（Apple/Google API）</td></tr>
+              <tr><td>不正対策</td><td>チート・改ざん検知（対人戦）</td></tr>
+              <tr><td>データ保護</td><td>パスワード不保持（OAuth2 ソーシャルログイン）</td></tr>
+              <tr><td>課金不正</td><td>チャージバック検知・アカウント停止フロー</td></tr>
+              <tr><td>レート制限</td><td>APIエンドポイントにリクエスト制限</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">対応環境</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>プラットフォーム</th><th>バージョン</th></tr></thead>
+            <tbody>
+              <tr><td>iOS</td><td>15.0以上</td></tr>
+              <tr><td>Android</td><td>9.0（API 28）以上</td></tr>
+              <tr><td>Web（PWA）</td><td>Chrome / Safari 最新2バージョン（Phase2）</td></tr>
+              <tr><td>画面サイズ</td><td>4.7インチ〜タブレット対応</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 5. 技術スタック ===== -->
+    <section class="section" id="tech">
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <h2 class="section-title">技術スタック</h2>
+      </div>
+      <div class="info-box"><strong>推奨プラットフォーム: React Native（Expo管理ワークフロー）</strong><br>一人開発のコスト効率・JSエコシステム活用・Webへの横展開容易性を重視して選定。ゲームロジックはTypeScript + WASM（Rust）に分離する。</div>
+
+      <div class="sub-section">
+        <div class="sub-title">フロントエンド</div>
+        <div class="tech-grid">
+          <div class="tech-card"><div class="tc-label">Framework</div><div class="tc-name">React Native (Expo)</div><div class="tc-desc">Expo SDK 51+。EASビルド・OTA更新対応</div></div>
+          <div class="tech-card"><div class="tc-label">State</div><div class="tc-name">Zustand</div><div class="tc-desc">軽量・一人開発向き。グローバル状態管理</div></div>
+          <div class="tech-card"><div class="tc-label">Animation</div><div class="tc-name">React Native Reanimated 3</div><div class="tc-desc">牌アニメーション・リーチ演出</div></div>
+          <div class="tech-card"><div class="tc-label">Graphics</div><div class="tc-name">React Native Skia</div><div class="tc-desc">高品質2Dグラフィック描画</div></div>
+          <div class="tech-card"><div class="tc-label">Game Logic</div><div class="tc-name">TypeScript + WASM (Rust)</div><div class="tc-desc">シャンテン計算など重い処理はWebAssembly化</div></div>
+          <div class="tech-card"><div class="tc-label">Navigation</div><div class="tc-name">Expo Router</div><div class="tc-desc">ファイルベースルーティング</div></div>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">バックエンド</div>
+        <div class="tech-grid">
+          <div class="tech-card"><div class="tc-label">API Server</div><div class="tc-name">Hono (Cloudflare Workers)</div><div class="tc-desc">エッジ実行・低コスト・スケール自動</div></div>
+          <div class="tech-card"><div class="tc-label">Realtime</div><div class="tc-name">Cloudflare Durable Objects</div><div class="tc-desc">WebSocketステート管理・リアルタイム対戦</div></div>
+          <div class="tech-card"><div class="tc-label">Database</div><div class="tc-name">Turso (LibSQL)</div><div class="tc-desc">一人運営コスト最小・エッジ展開対応</div></div>
+          <div class="tech-card"><div class="tc-label">Auth</div><div class="tc-name">Clerk / Supabase Auth</div><div class="tc-desc">ソーシャルログイン設定容易</div></div>
+          <div class="tech-card"><div class="tc-label">Storage</div><div class="tc-name">Cloudflare R2</div><div class="tc-desc">コスト最小・CDN統合・アセット配信</div></div>
+          <div class="tech-card"><div class="tc-label">Analytics</div><div class="tc-name">Mixpanel + Sentry</div><div class="tc-desc">行動分析＋エラー追跡。無料枠あり</div></div>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">マネタイズ関連SDK</div>
+        <div class="tech-grid">
+          <div class="tech-card"><div class="tc-label">課金管理（IAP）</div><div class="tc-name">RevenueCat</div><div class="tc-desc">iOS/Android統合課金管理。サブスクも対応</div></div>
+          <div class="tech-card"><div class="tc-label">広告（リワード）</div><div class="tc-name">Google AdMob</div><div class="tc-desc">動画リワード・バナー・インタースティシャル</div></div>
+          <div class="tech-card"><div class="tc-label">広告メディエーション</div><div class="tc-name">MAX by AppLovin</div><div class="tc-desc">複数ネットワーク最適化で広告収益最大化</div></div>
+          <div class="tech-card"><div class="tc-label">プッシュ通知</div><div class="tc-name">Expo Push Notifications</div><div class="tc-desc">無料・SDK統合済み・クロスプラットフォーム</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 6. 画面設計 ===== -->
+    <section class="section" id="screens">
+      <div class="section-header">
+        <div class="section-num">6</div>
+        <h2 class="section-title">画面設計概要</h2>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">主要画面一覧</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>画面ID</th><th>画面名</th><th>概要</th><th>収益関連</th></tr></thead>
+            <tbody>
+              <tr><td>SCR-001</td><td>スプラッシュ</td><td>ロゴ・ローディング</td><td>-</td></tr>
+              <tr><td>SCR-002</td><td>オンボーディング</td><td>初回チュートリアル（3画面）</td><td>スターターパック訴求</td></tr>
+              <tr><td>SCR-003</td><td>ホームロビー</td><td>モード選択・イベント告知</td><td><span class="tag tag-high">課金導線</span></td></tr>
+              <tr><td>SCR-004</td><td>対局設定</td><td>ルール・AI強さ・場設定</td><td>-</td></tr>
+              <tr><td>SCR-005</td><td>対局メイン</td><td>卓面・手牌・操作ボタン</td><td>広告（対局後）</td></tr>
+              <tr><td>SCR-006</td><td>対局結果</td><td>スコア・役一覧・獲得ポイント</td><td>動画リワード誘導</td></tr>
+              <tr><td>SCR-007</td><td>成績ダッシュボード</td><td>統計グラフ・段位推移</td><td>プレミアム訴求</td></tr>
+              <tr><td>SCR-008</td><td>ショップTOP</td><td>牌石・サブスク・特集</td><td><span class="tag tag-high">課金メイン</span></td></tr>
+              <tr><td>SCR-009</td><td>牌石購入</td><td>パック選択・決済</td><td><span class="tag tag-high">IAP</span></td></tr>
+              <tr><td>SCR-010</td><td>サブスク購入</td><td>プラン比較・決済</td><td><span class="tag tag-high">サブスク</span></td></tr>
+              <tr><td>SCR-011</td><td>アイテムショップ</td><td>コスメ一覧・プレビュー</td><td>コスメ課金</td></tr>
+              <tr><td>SCR-012</td><td>ガチャ画面</td><td>演出・結果表示</td><td>ガチャ課金</td></tr>
+              <tr><td>SCR-013</td><td>プロフィール</td><td>アバター・称号・実績</td><td>-</td></tr>
+              <tr><td>SCR-014</td><td>段位ランキング</td><td>全国・フレンドランキング</td><td>-</td></tr>
+              <tr><td>SCR-015</td><td>イベント一覧</td><td>期間限定イベント・大会</td><td>イベント課金</td></tr>
+              <tr><td>SCR-016</td><td>設定</td><td>音量・通知・アカウント管理</td><td>-</td></tr>
+              <tr><td>SCR-017</td><td>チュートリアル</td><td>役説明・操作方法</td><td>-</td></tr>
+              <tr><td>SCR-018</td><td>パスオファー</td><td>解約時引き止め画面</td><td>解約防止</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 7. データ設計 ===== -->
+    <section class="section" id="data">
+      <div class="section-header">
+        <div class="section-num">7</div>
+        <h2 class="section-title">データ設計概要</h2>
+      </div>
+
+      <div class="schema-grid">
+        <div class="schema-card">
+          <div class="schema-header">users — ユーザー</div>
+          <div class="schema-field"><span class="sf-name">id</span><span><span class="sf-type">UUID</span></span></div>
+          <div class="schema-field"><span class="sf-name">display_name</span><span><span class="sf-type">VARCHAR(20)</span></span></div>
+          <div class="schema-field"><span class="sf-name">gems</span><span><span class="sf-type">INTEGER</span></span></div>
+          <div class="schema-field"><span class="sf-name">subscription_tier</span><span><span class="sf-type">ENUM</span></span></div>
+          <div class="schema-field"><span class="sf-name">subscription_expires_at</span><span><span class="sf-type">TIMESTAMP</span></span></div>
+          <div class="schema-field"><span class="sf-name">rank_points</span><span><span class="sf-type">INTEGER</span></span></div>
+          <div class="schema-field"><span class="sf-name">rank_level</span><span><span class="sf-type">INTEGER</span></span></div>
+          <div class="schema-field"><span class="sf-name">last_login_at</span><span><span class="sf-type">TIMESTAMP</span></span></div>
+        </div>
+        <div class="schema-card">
+          <div class="schema-header">games — 対局記録</div>
+          <div class="schema-field"><span class="sf-name">id</span><span><span class="sf-type">UUID</span></span></div>
+          <div class="schema-field"><span class="sf-name">user_id</span><span><span class="sf-type">UUID FK</span></span></div>
+          <div class="schema-field"><span class="sf-name">mode</span><span><span class="sf-type">ENUM</span></span></div>
+          <div class="schema-field"><span class="sf-name">rule_config</span><span><span class="sf-type">JSON</span></span></div>
+          <div class="schema-field"><span class="sf-name">result_score</span><span><span class="sf-type">INTEGER</span></span></div>
+          <div class="schema-field"><span class="sf-name">rank_point_delta</span><span><span class="sf-type">INTEGER</span></span></div>
+          <div class="schema-field"><span class="sf-name">played_at</span><span><span class="sf-type">TIMESTAMP</span></span></div>
+        </div>
+        <div class="schema-card">
+          <div class="schema-header">items — アイテムマスタ</div>
+          <div class="schema-field"><span class="sf-name">id</span><span><span class="sf-type">UUID</span></span></div>
+          <div class="schema-field"><span class="sf-name">name</span><span><span class="sf-type">VARCHAR</span></span></div>
+          <div class="schema-field"><span class="sf-name">category</span><span><span class="sf-type">ENUM</span></span></div>
+          <div class="schema-field"><span class="sf-name">rarity</span><span><span class="sf-type">ENUM</span></span></div>
+          <div class="schema-field"><span class="sf-name">gem_price</span><span><span class="sf-type">INTEGER</span></span></div>
+          <div class="schema-field"><span class="sf-name">is_limited</span><span><span class="sf-type">BOOLEAN</span></span></div>
+          <div class="schema-field"><span class="sf-name">available_until</span><span><span class="sf-type">TIMESTAMP</span></span></div>
+        </div>
+        <div class="schema-card">
+          <div class="schema-header">purchases — 購入履歴</div>
+          <div class="schema-field"><span class="sf-name">id</span><span><span class="sf-type">UUID</span></span></div>
+          <div class="schema-field"><span class="sf-name">user_id</span><span><span class="sf-type">UUID FK</span></span></div>
+          <div class="schema-field"><span class="sf-name">product_id</span><span><span class="sf-type">VARCHAR</span></span></div>
+          <div class="schema-field"><span class="sf-name">amount_jpy</span><span><span class="sf-type">INTEGER</span></span></div>
+          <div class="schema-field"><span class="sf-name">platform</span><span><span class="sf-type">ENUM</span></span></div>
+          <div class="schema-field"><span class="sf-name">status</span><span><span class="sf-type">ENUM</span></span></div>
+          <div class="schema-field"><span class="sf-name">verified_at</span><span><span class="sf-type">TIMESTAMP</span></span></div>
+        </div>
+        <div class="schema-card">
+          <div class="schema-header">statistics — 統計サマリ</div>
+          <div class="schema-field"><span class="sf-name">user_id</span><span><span class="sf-type">UUID PK</span></span></div>
+          <div class="schema-field"><span class="sf-name">total_games</span><span><span class="sf-type">INTEGER</span></span></div>
+          <div class="schema-field"><span class="sf-name">total_wins</span><span><span class="sf-type">INTEGER</span></span></div>
+          <div class="schema-field"><span class="sf-name">total_deal_in</span><span><span class="sf-type">INTEGER</span></span></div>
+          <div class="schema-field"><span class="sf-name">win_rate</span><span><span class="sf-type">FLOAT</span></span></div>
+          <div class="schema-field"><span class="sf-name">deal_in_rate</span><span><span class="sf-type">FLOAT</span></span></div>
+          <div class="schema-field"><span class="sf-name">yakuman_count</span><span><span class="sf-type">INTEGER</span></span></div>
+        </div>
+        <div class="schema-card">
+          <div class="schema-header">gacha_history — ガチャ履歴</div>
+          <div class="schema-field"><span class="sf-name">id</span><span><span class="sf-type">UUID</span></span></div>
+          <div class="schema-field"><span class="sf-name">user_id</span><span><span class="sf-type">UUID FK</span></span></div>
+          <div class="schema-field"><span class="sf-name">gacha_pool_id</span><span><span class="sf-type">UUID FK</span></span></div>
+          <div class="schema-field"><span class="sf-name">item_id</span><span><span class="sf-type">UUID FK</span></span></div>
+          <div class="schema-field"><span class="sf-name">is_guaranteed</span><span><span class="sf-type">BOOLEAN</span></span></div>
+          <div class="schema-field"><span class="sf-name">pulled_at</span><span><span class="sf-type">TIMESTAMP</span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 8. フェーズ計画 ===== -->
+    <section class="section" id="phases">
+      <div class="section-header">
+        <div class="section-num">8</div>
+        <h2 class="section-title">フェーズ計画</h2>
+      </div>
+
+      <div class="sub-section">
+        <div class="timeline">
+          <div class="timeline-item p0">
+            <div class="tl-phase">PHASE 0</div>
+            <div class="tl-title">基盤構築</div>
+            <div class="tl-period">Month 1〜2</div>
+            <ul style="font-size:12px;color:var(--text2);padding-left:16px;line-height:2;">
+              <li>開発環境構築</li>
+              <li>ゲームロジック実装</li>
+              <li>点数計算エンジン</li>
+              <li>AI対戦（Lv1〜3）</li>
+              <li>バックエンドAPI基盤</li>
+            </ul>
+            <div class="tl-milestone"><strong>MILESTONE</strong>AI対局が一局通しで遊べる状態</div>
+          </div>
+          <div class="timeline-item p1">
+            <div class="tl-phase">PHASE 1 · MVP</div>
+            <div class="tl-title">ストア公開</div>
+            <div class="tl-period">Month 3〜4</div>
+            <ul style="font-size:12px;color:var(--text2);padding-left:16px;line-height:2;">
+              <li>全画面UI実装</li>
+              <li>AdMob広告統合</li>
+              <li>RevenueCat + IAP</li>
+              <li>サブスク実装</li>
+              <li>ストア申請</li>
+              <li>クリエイターIP素材</li>
+            </ul>
+            <div class="tl-milestone"><strong>MILESTONE</strong>MRR ¥50,000達成</div>
+          </div>
+          <div class="timeline-item p2">
+            <div class="tl-phase">PHASE 2 · GROWTH</div>
+            <div class="tl-title">拡張</div>
+            <div class="tl-period">Month 5〜8</div>
+            <ul style="font-size:12px;color:var(--text2);padding-left:16px;line-height:2;">
+              <li>リアルタイム対人</li>
+              <li>段位戦システム</li>
+              <li>詳細統計ダッシュボード</li>
+              <li>プレミアムサブスク</li>
+              <li>ガチャシステム</li>
+              <li>期間限定イベント</li>
+            </ul>
+            <div class="tl-milestone"><strong>MILESTONE</strong>MAU 20,000 / MRR ¥300,000</div>
+          </div>
+          <div class="timeline-item p3">
+            <div class="tl-phase">PHASE 3 · SCALE</div>
+            <div class="tl-title">スケール</div>
+            <div class="tl-period">Month 9〜12</div>
+            <ul style="font-size:12px;color:var(--text2);padding-left:16px;line-height:2;">
+              <li>Web版（PWA）公開</li>
+              <li>トーナメント機能</li>
+              <li>コラボ機能</li>
+              <li>ギルド機能</li>
+              <li>スポンサーシップ</li>
+            </ul>
+            <div class="tl-milestone"><strong>MILESTONE</strong>MAU 80,000 / MRR ¥1,000,000</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">月別ロードマップ</div>
+        <div class="roadmap">
+          <div class="roadmap-row">
+            <div class="roadmap-label"></div>
+            <div class="roadmap-months">
+              <div class="roadmap-month rm-header">M1</div><div class="roadmap-month rm-header">M2</div>
+              <div class="roadmap-month rm-header">M3</div><div class="roadmap-month rm-header">M4</div>
+              <div class="roadmap-month rm-header">M5</div><div class="roadmap-month rm-header">M6</div>
+              <div class="roadmap-month rm-header">M7</div><div class="roadmap-month rm-header">M8</div>
+              <div class="roadmap-month rm-header">M9</div><div class="roadmap-month rm-header">M10</div>
+              <div class="roadmap-month rm-header">M11</div><div class="roadmap-month rm-header">M12</div>
+            </div>
+          </div>
+          <div class="roadmap-row">
+            <div class="roadmap-label">フェーズ</div>
+            <div class="roadmap-months">
+              <div class="roadmap-month rm-p0">P0</div><div class="roadmap-month rm-p0">P0</div>
+              <div class="roadmap-month rm-p1">P1</div><div class="roadmap-month rm-p1">P1</div>
+              <div class="roadmap-month rm-p2">P2</div><div class="roadmap-month rm-p2">P2</div>
+              <div class="roadmap-month rm-p2">P2</div><div class="roadmap-month rm-p2">P2</div>
+              <div class="roadmap-month rm-p3">P3</div><div class="roadmap-month rm-p3">P3</div>
+              <div class="roadmap-month rm-p3">P3</div><div class="roadmap-month rm-p3">P3</div>
+            </div>
+          </div>
+          <div class="roadmap-row">
+            <div class="roadmap-label">MAU</div>
+            <div class="roadmap-months">
+              <div class="roadmap-month rm-empty">-</div><div class="roadmap-month rm-empty">-</div>
+              <div class="roadmap-month rm-p1">1K</div><div class="roadmap-month rm-p1">5K</div>
+              <div class="roadmap-month rm-p2">10K</div><div class="roadmap-month rm-p2">20K</div>
+              <div class="roadmap-month rm-p2">35K</div><div class="roadmap-month rm-p2">50K</div>
+              <div class="roadmap-month rm-p3">60K</div><div class="roadmap-month rm-p3">70K</div>
+              <div class="roadmap-month rm-p3">75K</div><div class="roadmap-month rm-p3">80K</div>
+            </div>
+          </div>
+          <div class="roadmap-row">
+            <div class="roadmap-label">MRR(万)</div>
+            <div class="roadmap-months">
+              <div class="roadmap-month rm-empty">-</div><div class="roadmap-month rm-empty">-</div>
+              <div class="roadmap-month rm-p1">5</div><div class="roadmap-month rm-p1">15</div>
+              <div class="roadmap-month rm-p2">25</div><div class="roadmap-month rm-p2">30</div>
+              <div class="roadmap-month rm-p2">50</div><div class="roadmap-month rm-p2">80</div>
+              <div class="roadmap-month rm-p3">100</div><div class="roadmap-month rm-p3">150</div>
+              <div class="roadmap-month rm-p3">180</div><div class="roadmap-month rm-p3">200</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 9. リスクと対策 ===== -->
+    <section class="section" id="risks">
+      <div class="section-header">
+        <div class="section-num">9</div>
+        <h2 class="section-title">リスクと対策</h2>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">事業リスク</div>
+        <div class="risk-item"><div><div class="risk-title">ストア審査リジェクト（課金・ガチャ）</div><div class="risk-action">ガイドライン事前確認・確率明示・弁護士確認</div></div><div class="risk-badges"><span class="tag tag-high">影響: 高</span></div><div class="risk-badges"><span class="tag tag-mid">確率: 中</span></div></div>
+        <div class="risk-item"><div><div class="risk-title">競合大手の新機能投入</div><div class="risk-action">クリエイターIP差別化の徹底・コミュニティ深耕</div></div><div class="risk-badges"><span class="tag tag-high">影響: 高</span></div><div class="risk-badges"><span class="tag tag-high">確率: 高</span></div></div>
+        <div class="risk-item"><div><div class="risk-title">収益未達（課金転換率未達）</div><div class="risk-action">MVPでA/Bテスト・価格帯調整・初回オファー強化</div></div><div class="risk-badges"><span class="tag tag-high">影響: 高</span></div><div class="risk-badges"><span class="tag tag-mid">確率: 中</span></div></div>
+        <div class="risk-item"><div><div class="risk-title">一人運営による開発遅延</div><div class="risk-action">フェーズ分割・OSSコンポーネント活用・外注部分明確化</div></div><div class="risk-badges"><span class="tag tag-mid">影響: 中</span></div><div class="risk-badges"><span class="tag tag-high">確率: 高</span></div></div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">技術リスク</div>
+        <div class="risk-item"><div><div class="risk-title">リアルタイム対戦の同期ズレ</div><div class="risk-action">Cloudflare Durable Objectsでサーバー権威型実装</div></div><div class="risk-badges"><span class="tag tag-high">影響: 高</span></div><div class="risk-badges"><span class="tag tag-mid">確率: 中</span></div></div>
+        <div class="risk-item"><div><div class="risk-title">課金二重付与バグ</div><div class="risk-action">冪等性設計・サーバーサイド検証・トランザクション管理</div></div><div class="risk-badges"><span class="tag tag-must">影響: 最高</span></div><div class="risk-badges"><span class="tag tag-low">確率: 低</span></div></div>
+        <div class="risk-item"><div><div class="risk-title">アプリサイズ肥大化（コスメ増加）</div><div class="risk-action">CDN動的配信・On-demand asset loading</div></div><div class="risk-badges"><span class="tag tag-mid">影響: 中</span></div><div class="risk-badges"><span class="tag tag-high">確率: 高</span></div></div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">法務リスク</div>
+        <div class="risk-item"><div><div class="risk-title">ガチャ規制強化</div><div class="risk-action">確率表示徹底・コンプガチャ回避・弁護士顧問契約</div></div><div class="risk-badges"><span class="tag tag-high">影響: 高</span></div><div class="risk-badges"><span class="tag tag-mid">確率: 中</span></div></div>
+        <div class="risk-item"><div><div class="risk-title">資金決済法（仮想通貨扱い）</div><div class="risk-action">牌石の失効設計・未使用残高上限5万円以内の設計</div></div><div class="risk-badges"><span class="tag tag-high">影響: 高</span></div><div class="risk-badges"><span class="tag tag-low">確率: 低</span></div></div>
+        <div class="risk-item"><div><div class="risk-title">未成年課金トラブル</div><div class="risk-action">月額上限設定・保護者確認フロー・年齢確認</div></div><div class="risk-badges"><span class="tag tag-high">影響: 高</span></div><div class="risk-badges"><span class="tag tag-mid">確率: 中</span></div></div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">開発費用概算</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>フェーズ</th><th>費用目安</th><th>内訳</th></tr></thead>
+            <tbody>
+              <tr><td>Phase0〜1</td><td>¥0〜200,000</td><td>素材費・ツール費（開発は自己実装）</td></tr>
+              <tr><td>Phase2</td><td>¥200,000〜500,000</td><td>外注素材・マーケティング費</td></tr>
+              <tr><td>Phase3</td><td>¥500,000〜1,500,000</td><td>コラボ制作費・広告費</td></tr>
+              <tr><td>インフラ（月額）</td><td>¥1,000〜5,000</td><td>Cloudflare Workers（MAU 20,000規模まで）</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<script>
+// アクティブナビ制御
+const sections = document.querySelectorAll('section[id]');
+const navItems = document.querySelectorAll('.nav-item');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) current = s.id;
+  });
+  navItems.forEach(n => {
+    n.classList.toggle('active', n.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+</body>
+</html>

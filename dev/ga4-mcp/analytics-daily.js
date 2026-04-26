@@ -30,7 +30,7 @@ if (existsSync(configPath)) config = JSON.parse(readFileSync(configPath, 'utf8')
 const METHOD_PATH = join(__dirname, 'analytics-method.json');
 let method = JSON.parse(readFileSync(METHOD_PATH, 'utf8'));
 
-const NOTION_TOKEN   = process.env.NOTION_TOKEN   || '';
+const NOTION_TOKEN   = process.env.NOTION_TOKEN   || config.notion_token || '';
 const NOTION_PAGE_ID = '34018b0b-fabc-8158-909a-e53f133f3646';
 const GA4_PROPERTY   = `properties/${process.env.GA4_PROPERTY_ID   || config.ga4_property_id}`;
 const SC_SITE        =              process.env.SC_SITE_URL         || config.sc_site_url;

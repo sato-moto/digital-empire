@@ -1,0 +1,22 @@
+# Environment
+.env
+.env.*
+
+# Claude Code local settings
+.claude/settings.json
+.claude/settings.local.json
+
+# IDE
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+
+# Output
+output/
+rejected/
+
+# OS
+.DS_Store
+Thumbs.db

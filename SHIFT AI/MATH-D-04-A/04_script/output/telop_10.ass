@@ -1,0 +1,44 @@
+﻿[Script Info]
+Title: MATH-D-04-A Ch2 Telop
+ScriptType: v4.00+
+WrapStyle: 0
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Telop,Noto Sans JP,60,&H00303030,&H000000FF,&H00FFFFFF,&H80000000,-1,0,1,4,2,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.00,0:00:00.77,Telop,,0,0,0,,{\pos(1115,955)}Geminiが
+Dialogue: 0,0:00:00.77,0:00:01.43,Telop,,0,0,0,,{\pos(1115,955)}「最強の判断
+Dialogue: 0,0:00:01.43,0:00:02.42,Telop,,0,0,0,,{\pos(1115,955)}フローチャート」を
+Dialogue: 0,0:00:02.42,0:00:03.19,Telop,,0,0,0,,{\pos(1115,955)}作ってくれた。
+Dialogue: 0,0:00:03.19,0:00:03.84,Telop,,0,0,0,,{\pos(1115,955)}見てみよう。
+Dialogue: 0,0:00:03.84,0:00:04.61,Telop,,0,0,0,,{\pos(1115,955)}STEP 1、
+Dialogue: 0,0:00:04.61,0:00:05.71,Telop,,0,0,0,,{\pos(1115,955)}まず共通因数がないか
+Dialogue: 0,0:00:05.71,0:00:06.26,Telop,,0,0,0,,{\pos(1115,955)}チェック。
+Dialogue: 0,0:00:06.26,0:00:07.03,Telop,,0,0,0,,{\pos(1115,955)}STEP 2、
+Dialogue: 0,0:00:07.03,0:00:07.91,Telop,,0,0,0,,{\pos(1115,955)}項の数を数える。
+Dialogue: 0,0:00:07.91,0:00:08.35,Telop,,0,0,0,,{\pos(1115,955)}2項なら
+Dialogue: 0,0:00:08.35,0:00:09.45,Telop,,0,0,0,,{\pos(1115,955)}「2乗−2乗」の形を
+Dialogue: 0,0:00:09.45,0:00:10.54,Telop,,0,0,0,,{\pos(1115,955)}確認して和と差の積。
+Dialogue: 0,0:00:10.54,0:00:10.98,Telop,,0,0,0,,{\pos(1115,955)}3項なら
+Dialogue: 0,0:00:10.98,0:00:12.30,Telop,,0,0,0,,{\pos(1115,955)}両端が2乗かチェックして
+Dialogue: 0,0:00:12.30,0:00:12.96,Telop,,0,0,0,,{\pos(1115,955)}完全平方式。
+Dialogue: 0,0:00:12.96,0:00:13.62,Telop,,0,0,0,,{\pos(1115,955)}それ以外なら
+Dialogue: 0,0:00:13.62,0:00:14.94,Telop,,0,0,0,,{\pos(1115,955)}「たして○、かけて△」の
+Dialogue: 0,0:00:14.94,0:00:15.82,Telop,,0,0,0,,{\pos(1115,955)}パターンを探す。
+Dialogue: 0,0:00:15.82,0:00:17.02,Telop,,0,0,0,,{\pos(1115,955)}さらに判断マップとして
+Dialogue: 0,0:00:17.02,0:00:18.34,Telop,,0,0,0,,{\pos(1115,955)}表にまとめてくれている。
+Dialogue: 0,0:00:18.34,0:00:19.55,Telop,,0,0,0,,{\pos(1115,955)}項の数、注目ポイント、
+Dialogue: 0,0:00:19.55,0:00:20.10,Telop,,0,0,0,,{\pos(1115,955)}使う公式。
+Dialogue: 0,0:00:20.10,0:00:20.76,Telop,,0,0,0,,{\pos(1115,955)}これが一覧に
+Dialogue: 0,0:00:20.76,0:00:21.75,Telop,,0,0,0,,{\pos(1115,955)}なっているだけで、
+Dialogue: 0,0:00:21.75,0:00:22.96,Telop,,0,0,0,,{\pos(1115,955)}次に因数分解を見たとき
+Dialogue: 0,0:00:22.96,0:00:24.16,Telop,,0,0,0,,{\pos(1115,955)}「まず項の数を数える」
+Dialogue: 0,0:00:24.16,0:00:25.15,Telop,,0,0,0,,{\pos(1115,955)}という最初の一手が
+Dialogue: 0,0:00:25.15,0:00:25.81,Telop,,0,0,0,,{\pos(1115,955)}固定される。
+Dialogue: 0,0:00:25.81,0:00:26.80,Telop,,0,0,0,,{\pos(1115,955)}迷いが一気に減る。

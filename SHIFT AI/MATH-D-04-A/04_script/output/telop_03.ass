@@ -1,0 +1,40 @@
+﻿[Script Info]
+Title: MATH-D-04-A Ch2 Telop
+ScriptType: v4.00+
+WrapStyle: 0
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Telop,Noto Sans JP,60,&H00303030,&H000000FF,&H00FFFFFF,&H80000000,-1,0,1,4,2,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.00,0:00:00.79,Telop,,0,0,0,,{\pos(1115,955)}まず1つ目、
+Dialogue: 0,0:00:00.79,0:00:02.11,Telop,,0,0,0,,{\pos(1115,955)}解法検証プロンプト。
+Dialogue: 0,0:00:02.11,0:00:03.30,Telop,,0,0,0,,{\pos(1115,955)}画面のプロンプトを
+Dialogue: 0,0:00:03.30,0:00:04.09,Telop,,0,0,0,,{\pos(1115,955)}見てほしい。
+Dialogue: 0,0:00:04.09,0:00:05.15,Telop,,0,0,0,,{\pos(1115,955)}「壁打ちしたい。
+Dialogue: 0,0:00:05.15,0:00:05.81,Telop,,0,0,0,,{\pos(1115,955)}因数分解で
+Dialogue: 0,0:00:05.81,0:00:06.86,Telop,,0,0,0,,{\pos(1115,955)}どの公式を使うか
+Dialogue: 0,0:00:06.86,0:00:07.79,Telop,,0,0,0,,{\pos(1115,955)}迷っている」と
+Dialogue: 0,0:00:07.79,0:00:08.97,Telop,,0,0,0,,{\pos(1115,955)}状況を伝えた上で、
+Dialogue: 0,0:00:08.97,0:00:09.77,Telop,,0,0,0,,{\pos(1115,955)}「x²−9は
+Dialogue: 0,0:00:09.77,0:00:11.08,Telop,,0,0,0,,{\pos(1115,955)}a²−b²の形だから
+Dialogue: 0,0:00:11.08,0:00:11.88,Telop,,0,0,0,,{\pos(1115,955)}和と差の積を
+Dialogue: 0,0:00:11.88,0:00:13.06,Telop,,0,0,0,,{\pos(1115,955)}使えばいいと思う。
+Dialogue: 0,0:00:13.06,0:00:14.65,Telop,,0,0,0,,{\pos(1115,955)}この方針で合ってる？」と
+Dialogue: 0,0:00:14.65,0:00:15.44,Telop,,0,0,0,,{\pos(1115,955)}自分の仮説を
+Dialogue: 0,0:00:15.44,0:00:16.36,Telop,,0,0,0,,{\pos(1115,955)}ぶつけている。
+Dialogue: 0,0:00:16.36,0:00:17.42,Telop,,0,0,0,,{\pos(1115,955)}ポイントは2つ。
+Dialogue: 0,0:00:17.42,0:00:18.21,Telop,,0,0,0,,{\pos(1115,955)}自分の仮説を
+Dialogue: 0,0:00:18.21,0:00:19.53,Telop,,0,0,0,,{\pos(1115,955)}先に出していること。
+Dialogue: 0,0:00:19.53,0:00:20.98,Telop,,0,0,0,,{\pos(1115,955)}そして方針の確認だけを
+Dialogue: 0,0:00:20.98,0:00:22.04,Telop,,0,0,0,,{\pos(1115,955)}聞いていること。
+Dialogue: 0,0:00:22.04,0:00:23.23,Telop,,0,0,0,,{\pos(1115,955)}答えを教えてもらう
+Dialogue: 0,0:00:23.23,0:00:24.15,Telop,,0,0,0,,{\pos(1115,955)}んじゃなくて、
+Dialogue: 0,0:00:24.15,0:00:24.94,Telop,,0,0,0,,{\pos(1115,955)}自分の考えが
+Dialogue: 0,0:00:24.94,0:00:25.86,Telop,,0,0,0,,{\pos(1115,955)}合っているかを
+Dialogue: 0,0:00:25.86,0:00:26.92,Telop,,0,0,0,,{\pos(1115,955)}検証させている。

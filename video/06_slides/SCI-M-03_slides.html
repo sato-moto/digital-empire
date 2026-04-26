@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCI-M-03 生物（細胞・遺伝・植物・動物）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: #111;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  #deck {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    transform-origin: top left;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 1920px;
+    height: 1080px;
+    background: #FFFFFF;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .slide.active { display: flex; }
+
+  .header-band {
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(90deg, #FF5757, #8C52FF);
+    display: flex;
+    align-items: center;
+    padding: 0 80px;
+    flex-shrink: 0;
+  }
+  .header-band h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: 0.02em;
+  }
+  .slide-num {
+    margin-left: auto;
+    font-size: 24px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 500;
+  }
+
+  .content {
+    flex: 1;
+    padding: 64px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .title-xl  { font-size: 64px; font-weight: 900; color: #333333; line-height: 1.2; }
+  .title-lg  { font-size: 56px; font-weight: 900; color: #333333; line-height: 1.2; }
+  .title-md  { font-size: 48px; font-weight: 700; color: #333333; line-height: 1.3; }
+  .title-sm  { font-size: 40px; font-weight: 700; color: #333333; line-height: 1.3; }
+  .body-lg   { font-size: 36px; font-weight: 400; color: #333333; line-height: 1.6; }
+  .body-md   { font-size: 28px; font-weight: 400; color: #333333; line-height: 1.6; }
+  .body-sm   { font-size: 24px; font-weight: 400; color: #333333; line-height: 1.6; }
+  .accent    { color: #A51E6D; }
+  .accent-g  { color: #039578; }
+  .white     { color: #FFFFFF; }
+  .bold      { font-weight: 700; }
+
+  .card        { background: #F6E9F0; border-radius: 16px; padding: 40px 48px; border-left: 8px solid #A51E6D; }
+  .card-green  { background: #E6F4F2; border-radius: 16px; padding: 40px 48px; border-left: 8px solid #039578; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 32px; }
+  .flex-row { display: flex; gap: 48px; align-items: flex-start; }
+  .flex-col { display: flex; flex-direction: column; gap: 32px; }
+
+  .num-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 72px; height: 72px; border-radius: 50%;
+    background: linear-gradient(135deg, #A51E6D, #8C52FF);
+    color: #fff; font-size: 36px; font-weight: 900; flex-shrink: 0;
+  }
+  .num-badge-green { background: linear-gradient(135deg, #039578, #32BED2); }
+
+  .check::before { content: "✓"; color: #039578; font-weight: 900; margin-right: 16px; font-size: 32px; }
+
+  .tag        { display: inline-block; background: #A51E6D; color: #fff; border-radius: 8px; padding: 8px 24px; font-size: 24px; font-weight: 700; }
+  .tag-green  { background: #039578; }
+  .tag-purple { background: #8C52FF; }
+
+  .hierarchy-item {
+    display: flex; align-items: center; gap: 24px; padding: 24px 40px;
+    border-radius: 12px; font-size: 32px; font-weight: 700;
+    color: #333333; background: #EBEBEB; margin-bottom: 8px;
+  }
+  .hierarchy-item.highlight {
+    background: linear-gradient(135deg, #F6E9F0, #EDD2E2);
+    border: 3px solid #A51E6D; color: #A51E6D;
+  }
+
+  .screen-placeholder { background: #1a1a2e; border-radius: 16px; padding: 40px; flex: 1; display: flex; flex-direction: column; }
+  .chat-prompt {
+    background: #0f3460; border-radius: 12px; padding: 24px 32px;
+    color: #87CEEB; font-size: 26px; line-height: 1.5; margin-bottom: 20px;
+    border-left: 4px solid #4FC3F7;
+  }
+  .chat-response {
+    background: #1e3d59; border-radius: 12px; padding: 24px 32px;
+    color: #e0e0e0; font-size: 22px; line-height: 1.6; flex: 1;
+  }
+  .response-title { color: #4FC3F7; font-weight: 700; font-size: 26px; margin-bottom: 16px; }
+  .gemini-logo { font-size: 28px; color: #4285f4; font-weight: 700; background: #FFFFFF; padding: 8px 24px; border-radius: 8px; }
+  .prompt-label { font-size: 20px; font-weight: 700; color: #87CEEB; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+  .tip-bar { background: #1e3d59; border-radius: 12px; padding: 20px 32px; margin-top: 16px; }
+
+  .bg-dark-green  { background: linear-gradient(135deg, #0d2b20, #1a4a35); }
+  .bg-green-vivid { background: #039578; }
+  .bg-orange-vivid{ background: #e67e22; }
+  .bg-dark-blue   { background: linear-gradient(135deg, #0d1b2e, #1a3a5c); }
+  .bg-blue-phase  { background: linear-gradient(135deg, #0d1e35, #1a3a6e); }
+  .bg-purple-phase{ background: linear-gradient(135deg, #2d1b4e, #1a3a5c); }
+  .bg-end         { background: linear-gradient(135deg, #0d1b2e, #1a0a2e); }
+
+  .rule-item { display: flex; align-items: flex-start; gap: 32px; padding: 32px 40px; border-radius: 16px; background: #FFFFFF; border: 2px solid #D6D6D6; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+
+  .divider { width: 100%; height: 4px; background: linear-gradient(90deg, #FF5757, #8C52FF); border-radius: 2px; margin: 32px 0; }
+  .arrow-down { font-size: 40px; color: #A51E6D; text-align: center; padding: 4px 0; }
+
+  .prompt-box { background: #EBEBEB; border-radius: 12px; padding: 32px 40px; font-size: 28px; color: #333333; line-height: 1.6; border-left: 6px solid #A51E6D; }
+
+  #nav { position: fixed; bottom: 20px; display: flex; align-items: center; gap: 24px; z-index: 100; }
+  #nav button { background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.4); color: #fff; border-radius: 8px; padding: 12px 32px; font-size: 18px; cursor: pointer; transition: background 0.2s; }
+  #nav button:hover { background: rgba(255,255,255,0.3); }
+  #counter { color: rgba(255,255,255,0.7); font-size: 18px; min-width: 80px; text-align: center; }
+</style>
+</head>
+<body>
+<div id="deck">
+
+<!-- ==== 01: タイトル ==== -->
+<section class="slide bg-dark-green active">
+  <div style="width:100%;height:8px;background:linear-gradient(90deg,#FF5757,#8C52FF);flex-shrink:0;"></div>
+  <div class="content" style="justify-content:center;align-items:center;text-align:center;gap:40px;">
+    <div>
+      <p style="font-size:28px;color:rgba(255,255,255,0.6);letter-spacing:0.15em;margin-bottom:16px;">SHIFT AI｜中学理科</p>
+      <h1 style="font-size:80px;font-weight:900;color:#FFFFFF;margin-bottom:16px;">SCI-M-03</h1>
+      <h2 style="font-size:56px;font-weight:700;color:#FFFFFF;margin-bottom:32px;">生物（細胞・遺伝・植物・動物）</h2>
+      <div style="width:400px;height:4px;background:linear-gradient(90deg,#FF5757,#8C52FF);border-radius:2px;margin:0 auto 40px;"></div>
+      <p style="font-size:40px;color:#A3E8D8;font-weight:500;">AIと一緒に、生物をぶち抜く 30分</p>
+    </div>
+    <div style="display:flex;gap:40px;">
+      <span style="font-size:64px;">🌿</span><span style="font-size:64px;">🧬</span><span style="font-size:64px;">🔬</span><span style="font-size:64px;">🍃</span>
+    </div>
+    <p style="font-size:24px;color:rgba(255,255,255,0.4);">対象：中学生｜使用ツール：Gemini｜30分</p>
+  </div>
+</section>
+
+<!-- ==== 02: 学習マップ ==== -->
+<section class="slide">
+  <div class="header-band"><h1>今日の学習マップ</h1><span class="slide-num">02 / 26</span></div>
+  <div class="content">
+    <p class="body-md" style="color:#858585;margin-bottom:40px;">この30分で、4ステップを一気に駆け抜ける。</p>
+    <div class="grid-4">
+      <div class="card" style="text-align:center;">
+        <div class="num-badge" style="margin:0 auto 24px;">①</div>
+        <p class="body-md bold accent" style="margin-bottom:16px;">なぜAI×生物？</p>
+        <p class="body-sm" style="color:#858585;">暗記の限界と<br>つながりの力</p>
+      </div>
+      <div class="card-green" style="text-align:center;">
+        <div class="num-badge num-badge-green" style="margin:0 auto 24px;">②</div>
+        <p class="body-md bold accent-g" style="margin-bottom:16px;">光合成・呼吸<br>を図解</p>
+        <p class="body-sm" style="color:#858585;">Geminiで<br>テキスト図解</p>
+      </div>
+      <div style="background:#EEF0FF;border-radius:16px;padding:40px 48px;border-left:8px solid #8C52FF;text-align:center;">
+        <div class="num-badge" style="background:linear-gradient(135deg,#8C52FF,#FF5757);margin:0 auto 24px;">③</div>
+        <p class="body-md bold" style="color:#8C52FF;margin-bottom:16px;">遺伝の法則<br>を深掘り</p>
+        <p class="body-sm" style="color:#858585;">コイントスで<br>メンデルを理解</p>
+      </div>
+      <div style="background:#FEF3E2;border-radius:16px;padding:40px 48px;border-left:8px solid #e67e22;text-align:center;">
+        <div class="num-badge" style="background:linear-gradient(135deg,#e67e22,#FF5757);margin:0 auto 24px;">④</div>
+        <p class="body-md bold" style="color:#e67e22;margin-bottom:16px;">自分専用メモ<br>を生成</p>
+        <p class="body-sm" style="color:#858585;">ワンアクションで<br>参考書が完成</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <p class="body-lg accent bold">「終わる頃には、AIを使った生物学習の型が手に入っている。」</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 03: 暗記vsつながり ==== -->
+<section class="slide">
+  <div class="header-band"><h1>【教養】「暗記の生物」は終わりにしよう</h1><span class="slide-num">03 / 26</span></div>
+  <div class="content">
+    <div class="grid-2" style="align-items:stretch;">
+      <div style="background:#f8f8f8;border-radius:16px;padding:56px;border:3px solid #EBEBEB;text-align:center;">
+        <p style="font-size:64px;margin-bottom:24px;">❌</p>
+        <p class="title-sm" style="color:#c0392b;margin-bottom:24px;">暗記の生物</p>
+        <div style="width:200px;height:4px;background:linear-gradient(90deg,#c0392b,#e74c3c);border-radius:2px;margin:0 auto 32px;"></div>
+        <p class="body-md" style="color:#858585;line-height:1.9;">単語を片っ端から覚える<br>教科書をそのまま丸暗記<br>テスト後には全部忘れる<br><br>→「また覚え直し」の無限ループ</p>
+      </div>
+      <div style="background:linear-gradient(135deg,#E6F4F2,#CDEAE4);border-radius:16px;padding:56px;border:3px solid #039578;text-align:center;">
+        <p style="font-size:64px;margin-bottom:24px;">⭕</p>
+        <p class="title-sm accent-g" style="margin-bottom:24px;">つながりの生物</p>
+        <div style="width:200px;height:4px;background:linear-gradient(90deg,#039578,#32BED2);border-radius:2px;margin:0 auto 32px;"></div>
+        <p class="body-md" style="line-height:1.9;">仕組みと理由で理解する<br>なぜそうなるのかを問う<br>一度理解したら一生モノ<br><br>→ AIが「見えないつながり」を教えてくれる</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <p class="body-lg accent bold">AIはつながりを教えてくれる最強の相棒</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 04: 生物の階層マップ ==== -->
+<section class="slide">
+  <div class="header-band"><h1>生物の階層マップ（全体像）</h1><span class="slide-num">04 / 26</span></div>
+  <div class="content">
+    <div class="flex-row" style="gap:64px;">
+      <div style="flex:1;">
+        <p class="body-md" style="color:#858585;margin-bottom:32px;">生物学には「スケール」がある。どこにいるか分かると、勉強が迷子にならない。</p>
+        <div class="hierarchy-item" style="background:#EBEBEB;color:#858585;">🧪 原子・分子</div>
+        <div class="arrow-down">↓</div>
+        <div class="hierarchy-item highlight">🔬 細胞　← <span style="font-size:24px;font-weight:400;">今日ここに集中！</span></div>
+        <div class="arrow-down">↓</div>
+        <div class="hierarchy-item" style="background:#EBEBEB;color:#858585;">🫀 組織・器官</div>
+        <div class="arrow-down">↓</div>
+        <div class="hierarchy-item highlight">🌿 個体（植物・動物）← <span style="font-size:24px;font-weight:400;">ここも！</span></div>
+        <div class="arrow-down">↓</div>
+        <div class="hierarchy-item" style="background:#EBEBEB;color:#858585;">🌍 生態系</div>
+      </div>
+      <div style="width:480px;display:flex;flex-direction:column;gap:24px;">
+        <div class="card">
+          <p class="body-sm bold accent" style="margin-bottom:8px;">🌿 光合成</p>
+          <p class="body-sm">細胞レベルで起きる<br>エネルギー生産プロセス</p>
+        </div>
+        <div class="card-green">
+          <p class="body-sm bold accent-g" style="margin-bottom:8px;">🌬️ 呼吸</p>
+          <p class="body-sm">細胞レベルで起きる<br>エネルギー利用プロセス</p>
+        </div>
+        <div style="background:#EEF0FF;border-radius:16px;padding:40px 48px;border-left:8px solid #8C52FF;">
+          <p class="body-sm bold" style="color:#8C52FF;margin-bottom:8px;">🧬 遺伝</p>
+          <p class="body-sm">個体レベルの<br>「設計図の受け継ぎ」</p>
+        </div>
+        <div style="background:#f8f8f8;border-radius:16px;padding:32px 40px;border-left:8px solid #D6D6D6;">
+          <p class="body-sm bold" style="margin-bottom:8px;">今日の範囲</p>
+          <p class="body-sm accent bold">細胞レベル ＋ 個体レベル</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 05: 4大テーマ×つながり ==== -->
+<section class="slide">
+  <div class="header-band"><h1>4大テーマ × つながり図</h1><span class="slide-num">05 / 26</span></div>
+  <div class="content" style="padding-top:32px;">
+    <p class="body-md" style="color:#858585;text-align:center;margin-bottom:24px;">細胞・遺伝・植物・動物、この4つはバラバラじゃない。全部「生命活動」という一つの軸でつながっている。</p>
+    <div style="position:relative;width:100%;height:600px;display:flex;align-items:center;justify-content:center;">
+      <div style="position:absolute;background:linear-gradient(135deg,#A51E6D,#8C52FF);color:#fff;border-radius:50%;width:220px;height:220px;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:900;text-align:center;z-index:10;box-shadow:0 8px 32px rgba(165,30,109,0.4);">生命<br>活動</div>
+      <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);background:#E6F4F2;border:3px solid #039578;border-radius:16px;padding:24px 40px;font-size:28px;font-weight:700;color:#039578;text-align:center;min-width:280px;">
+        🌿 光合成<br><span style="font-size:20px;color:#858585;">葉緑体でエネルギーを作る</span>
+      </div>
+      <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);background:#F6E9F0;border:3px solid #A51E6D;border-radius:16px;padding:24px 40px;font-size:28px;font-weight:700;color:#A51E6D;text-align:center;min-width:280px;">
+        🧬 遺伝<br><span style="font-size:20px;color:#858585;">設計図は細胞核にある</span>
+      </div>
+      <div style="position:absolute;left:0;top:50%;transform:translateY(-50%);background:#FEF3E2;border:3px solid #e67e22;border-radius:16px;padding:24px 40px;font-size:28px;font-weight:700;color:#e67e22;text-align:center;min-width:240px;">
+        🔬 細胞<br><span style="font-size:20px;color:#858585;">全ての基本単位</span>
+      </div>
+      <div style="position:absolute;right:0;top:50%;transform:translateY(-50%);background:#EEF0FF;border:3px solid #8C52FF;border-radius:16px;padding:24px 40px;font-size:28px;font-weight:700;color:#8C52FF;text-align:center;min-width:240px;">
+        🫁 動物（呼吸）<br><span style="font-size:20px;color:#858585;">ミトコンドリアでATPを作る</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 06: AIとの付き合い方 ==== -->
+<section class="slide">
+  <div class="header-band"><h1>AIとの付き合い方：3つのルール</h1><span class="slide-num">06 / 26</span></div>
+  <div class="content">
+    <div class="flex-col">
+      <div class="rule-item">
+        <div class="num-badge">①</div>
+        <div>
+          <p class="body-lg bold" style="margin-bottom:8px;">丸投げしない。問いを自分で立てる</p>
+          <p class="body-sm" style="color:#858585;">「教えて」だけでは何も身につかない。自分で軸を決めてから聞く。</p>
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="num-badge">②</div>
+        <div>
+          <p class="body-lg bold" style="margin-bottom:8px;">AIの答えに納得したら、自分の言葉で言い直す</p>
+          <p class="body-sm" style="color:#858585;">読んで「わかった気」になるのが一番危険。必ず自分で説明できるか確認する。</p>
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="num-badge">③</div>
+        <div>
+          <p class="body-lg bold" style="margin-bottom:8px;">わからなくなったらAIに聞く。でも答えをそのままコピーしない</p>
+          <p class="body-sm" style="color:#858585;">主導権は常に自分にある。回答だけでなく理由まで言えて初めて本当の理解。</p>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px;">
+      <p class="body-md accent bold">「主導権はあなたです。回答だけでなくその理由まで言えて初めて立派な大人です。」</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 07: 丸投げ禁止宣言 ==== -->
+<section class="slide bg-green-vivid">
+  <div style="width:100%;height:8px;background:linear-gradient(90deg,#FF5757,#8C52FF);flex-shrink:0;"></div>
+  <div class="content" style="justify-content:center;align-items:center;text-align:center;">
+    <p class="white" style="font-size:40px;font-weight:700;letter-spacing:0.1em;margin-bottom:32px;opacity:0.85;">TODAY'S RULE</p>
+    <h2 class="white" style="font-size:72px;font-weight:900;line-height:1.3;margin-bottom:48px;">今日のあなたは、<br>AIに問いを投げる側</h2>
+    <p class="white" style="font-size:36px;opacity:0.9;margin-bottom:56px;">答えをもらうだけじゃない。自分で考えて、AIを動かす。</p>
+    <div style="background:rgba(255,255,255,0.2);border-radius:16px;padding:32px 64px;display:inline-block;">
+      <p class="white" style="font-size:32px;font-weight:700;">準備はいい？　次は実演に入る。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 08: フェーズ1 導入 ==== -->
+<section class="slide bg-dark-green">
+  <div style="width:100%;height:8px;background:linear-gradient(90deg,#FF5757,#8C52FF);flex-shrink:0;"></div>
+  <div class="content" style="flex-direction:row;align-items:center;gap:80px;">
+    <div style="flex-shrink:0;">
+      <p class="white" style="font-size:32px;font-weight:700;opacity:0.7;margin-bottom:16px;">PHASE</p>
+      <p class="white" style="font-size:200px;font-weight:900;line-height:1;opacity:0.9;">1</p>
+    </div>
+    <div style="flex:1;">
+      <span class="tag tag-green" style="margin-bottom:32px;display:inline-block;font-size:28px;">実演パート</span>
+      <h2 class="white" style="font-size:56px;font-weight:900;margin-bottom:32px;">光合成と呼吸を、<br>Geminiで図解してみる</h2>
+      <div style="width:100%;height:4px;background:linear-gradient(90deg,#FF5757,#8C52FF);border-radius:2px;margin:0 0 32px;"></div>
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        <div style="display:flex;align-items:center;gap:24px;"><span style="font-size:32px;">🎯</span><p class="white" style="font-size:28px;opacity:0.9;">テキストの図を自分の問いで再現できるようになる</p></div>
+        <div style="display:flex;align-items:center;gap:24px;"><span style="font-size:32px;">🛠️</span><p class="white" style="font-size:28px;opacity:0.9;">使用ツール：<span style="color:#A3E8D8;font-weight:700;">Gemini</span>（画面収録）</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 09: Gemini 光合成① ==== -->
+<section class="slide" style="background:#0d1117;">
+  <div class="header-band">
+    <span class="gemini-logo">Gemini</span>
+    <h1 style="margin-left:24px;">【実演】光合成の仕組みを図解する ①</h1>
+    <span class="slide-num">09 / 26</span>
+  </div>
+  <div class="content" style="background:#0d1117;padding:40px 80px;">
+    <div class="screen-placeholder">
+      <div class="prompt-label">▶ 受講者のプロンプト</div>
+      <div class="chat-prompt">「光合成の仕組みを中学生向けに、<strong>材料・場所・生産物</strong>の3点で説明して」</div>
+      <div class="prompt-label" style="margin-top:16px;">💬 Geminiの回答</div>
+      <div class="chat-response">
+        <div class="response-title">🌿 光合成の仕組み（材料・場所・生産物）</div>
+        <p>📦 <strong>材料：</strong>二酸化炭素（CO₂）＋ 水（H₂O）＋ 光エネルギー</p>
+        <p style="margin-top:12px;">🏭 <strong>場所：</strong>葉緑体（細胞の中にある「工場」）</p>
+        <p style="margin-top:12px;">✅ <strong>生産物：</strong>ブドウ糖（グルコース）＋ 酸素（O₂）</p>
+        <p style="margin-top:20px;color:#858585;font-size:20px;">葉緑体はまるで太陽光を受けてエネルギーを作る「ソーラーパネル工場」のようなもの。</p>
+      </div>
+    </div>
+    <div class="tip-bar">
+      <p style="color:#FFD700;font-size:24px;font-weight:700;">💡 「プロンプトのポイントは『材料・場所・生産物』という3つの軸を自分で指定したこと。軸を決めてから聞くのが鉄則。」</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 10: Gemini 光合成② 深掘り ==== -->
+<section class="slide" style="background:#0d1117;">
+  <div class="header-band">
+    <span class="gemini-logo">Gemini</span>
+    <h1 style="margin-left:24px;">【実演】光合成 ② 深掘り → 呼吸との比較</h1>
+    <span class="slide-num">10 / 26</span>
+  </div>
+  <div class="content" style="background:#0d1117;padding:40px 80px;">
+    <div class="screen-placeholder">
+      <div class="prompt-label">▶ 深掘りプロンプト</div>
+      <div class="chat-prompt">「光合成と呼吸の違いを、<strong>表形式で比較して</strong>」</div>
+      <div class="prompt-label" style="margin-top:16px;">💬 Geminiの比較表</div>
+      <div class="chat-response" style="flex:1;">
+        <table style="width:100%;border-collapse:collapse;font-size:22px;">
+          <tr style="border-bottom:2px solid #4FC3F7;">
+            <th style="padding:12px;text-align:left;color:#4FC3F7;width:180px;">項目</th>
+            <th style="padding:12px;text-align:center;color:#4FC3F7;">光合成（植物）</th>
+            <th style="padding:12px;text-align:center;color:#4FC3F7;">細胞呼吸（全生物）</th>
+          </tr>
+          <tr style="border-bottom:1px solid #333;">
+            <td style="padding:12px;">場所</td>
+            <td style="padding:12px;text-align:center;">葉緑体（工場）</td>
+            <td style="padding:12px;text-align:center;">ミトコンドリア（発電所）</td>
+          </tr>
+          <tr style="border-bottom:1px solid #333;">
+            <td style="padding:12px;">材料</td>
+            <td style="padding:12px;text-align:center;">CO₂ ＋ H₂O ＋ 光</td>
+            <td style="padding:12px;text-align:center;">グルコース ＋ O₂</td>
+          </tr>
+          <tr>
+            <td style="padding:12px;">生産物</td>
+            <td style="padding:12px;text-align:center;">グルコース ＋ O₂</td>
+            <td style="padding:12px;text-align:center;">CO₂ ＋ H₂O ＋ ATP</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="tip-bar">
+      <p style="color:#FFD700;font-size:24px;font-weight:700;">💡 「この比較表、自分でノートに書こうとしたら10分かかる。AIなら10秒。でも大事なのは、この表を自分の頭で読むこと。」</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 11: オオカナダモ問題 ==== -->
+<section class="slide" style="background:#0d1117;">
+  <div class="header-band">
+    <span class="gemini-logo">Gemini</span>
+    <h1 style="margin-left:24px;">【実演】オオカナダモ問題を深掘りする</h1>
+    <span class="slide-num">11 / 26</span>
+  </div>
+  <div class="content" style="background:#0d1117;padding:40px 80px;">
+    <div class="screen-placeholder">
+      <div class="prompt-label">📝 演習素材（定期テスト頻出）</div>
+      <div style="background:#2d3748;border-radius:12px;padding:20px 32px;margin-bottom:20px;border-left:4px solid #e67e22;">
+        <p style="color:#FFC107;font-size:24px;font-weight:700;">試験管にオオカナダモを入れて…</p>
+        <p style="color:#e0e0e0;font-size:22px;margin-top:8px;">① 光を当てたとき → 試験管内の気体はどう変化する？<br>② 暗所においたとき → 気体はどう変化する？</p>
+      </div>
+      <div class="prompt-label">▶ 受講者のプロンプト</div>
+      <div class="chat-prompt">「この結果になる理由を、光合成と呼吸の仕組みを使って説明して」</div>
+      <div class="chat-response" style="margin-top:16px;flex:1;">
+        <div class="response-title">Gemini の回答</div>
+        <p style="font-size:22px;line-height:1.8;">
+          ①光あり：光合成 ＞ 呼吸 → <strong style="color:#4FC3F7;">O₂増加、CO₂減少</strong><br>
+          ②暗所：光合成=0、呼吸のみ → <strong style="color:#e74c3c;">CO₂増加、O₂減少</strong><br><br>
+          → 光合成と呼吸は「<strong style="color:#FFD700;">逆反応</strong>」の関係！
+        </p>
+      </div>
+    </div>
+    <div class="tip-bar">
+      <p style="color:#FFD700;font-size:24px;font-weight:700;">💡 「まず解（結論）を提示して、なぜそうなるかを自分で問い返す。これが演習アプローチの鉄則。」</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 12: フェーズ1 振り返り ==== -->
+<section class="slide">
+  <div class="header-band"><h1>フェーズ1 ふりかえり ＋ 自分で試すポイント</h1><span class="slide-num">12 / 26</span></div>
+  <div class="content">
+    <div class="grid-2" style="gap:48px;align-items:flex-start;">
+      <div>
+        <p class="body-lg bold accent" style="margin-bottom:32px;">今回使った「問いの型」</p>
+        <div class="flex-col">
+          <div class="rule-item">
+            <p style="font-size:36px;">🎯</p>
+            <div><p class="body-md bold check">軸を指定して聞いた</p><p class="body-sm" style="color:#858585;">材料・場所・生産物など自分で軸を決める</p></div>
+          </div>
+          <div class="rule-item">
+            <p style="font-size:36px;">🔍</p>
+            <div><p class="body-md bold check">深掘り質問で解像度を上げた</p><p class="body-sm" style="color:#858585;">最初の答えで終わらず「さらに聞く」</p></div>
+          </div>
+          <div class="rule-item">
+            <p style="font-size:36px;">📊</p>
+            <div><p class="body-md bold check">比較表でつながりを可視化した</p><p class="body-sm" style="color:#858585;">「比較して」で一気に構造が見える</p></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:linear-gradient(135deg,#E6F4F2,#CDEAE4);border-radius:16px;padding:48px;border:3px solid #039578;display:flex;flex-direction:column;gap:24px;">
+        <p class="body-lg bold accent-g">✋ 自分で試すポイント</p>
+        <p class="body-md">今見た問いを真似して、<br>自分でGeminiに投げてみよう</p>
+        <div class="prompt-box">
+          <div style="font-size:20px;font-weight:700;color:#858585;margin-bottom:8px;">試してみるプロンプト例</div>
+          「細胞呼吸の仕組みを<br>材料・場所・生産物の3点で説明して」
+        </div>
+        <p class="body-sm" style="color:#858585;">コピーじゃなく、真似から始める。それだけで力がつく。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 13: チェックポイント ==== -->
+<section class="slide bg-orange-vivid">
+  <div style="width:100%;height:8px;background:linear-gradient(90deg,#FF5757,#8C52FF);flex-shrink:0;"></div>
+  <div class="content" style="justify-content:center;align-items:center;text-align:center;">
+    <p class="white" style="font-size:40px;font-weight:700;letter-spacing:0.1em;margin-bottom:32px;opacity:0.85;">CHECKPOINT</p>
+    <h2 class="white" style="font-size:64px;font-weight:900;line-height:1.3;margin-bottom:48px;">AIの答えを読んだ。<br>次は自分の言葉で言い直せるか？</h2>
+    <p class="white" style="font-size:32px;opacity:0.9;margin-bottom:48px;">理解の確認は、自分で言い直すこと。それだけ。</p>
+    <div style="background:rgba(255,255,255,0.2);border-radius:16px;padding:32px 64px;display:inline-block;">
+      <p class="white" style="font-size:28px;font-weight:700;">「光合成とは何か、30秒で自分の言葉で言えるか？」</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 14: フェーズ2 導入 ==== -->
+<section class="slide bg-blue-phase">
+  <div style="width:100%;height:8px;background:linear-gradient(90deg,#FF5757,#8C52FF);flex-shrink:0;"></div>
+  <div class="content" style="flex-direction:row;align-items:center;gap:80px;">
+    <div style="flex-shrink:0;">
+      <p class="white" style="font-size:32px;font-weight:700;opacity:0.7;margin-bottom:16px;">PHASE</p>
+      <p class="white" style="font-size:200px;font-weight:900;line-height:1;opacity:0.9;">2</p>
+    </div>
+    <div style="flex:1;">
+      <span class="tag tag-purple" style="margin-bottom:32px;display:inline-block;font-size:28px;">実演パート</span>
+      <h2 class="white" style="font-size:56px;font-weight:900;margin-bottom:32px;">遺伝の法則を、<br>コインで深掘りする</h2>
+      <div style="width:100%;height:4px;background:linear-gradient(90deg,#FF5757,#8C52FF);border-radius:2px;margin:0 0 32px;"></div>
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        <div style="display:flex;align-items:center;gap:24px;"><span style="font-size:32px;">🎯</span><p class="white" style="font-size:28px;opacity:0.9;">確率の感覚でメンデルの法則を理解する</p></div>
+        <div style="display:flex;align-items:center;gap:24px;"><span style="font-size:32px;">🪙</span><p class="white" style="font-size:28px;opacity:0.9;">コイントスと同じ構造 → 難しくない！</p></div>
+        <div style="display:flex;align-items:center;gap:24px;"><span style="font-size:32px;">🛠️</span><p class="white" style="font-size:28px;opacity:0.9;">使用ツール：<span style="color:#A3E8D8;font-weight:700;">Gemini</span>（画面収録）</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 15: メンデル×コイン ==== -->
+<section class="slide" style="background:#0d1117;">
+  <div class="header-band">
+    <span class="gemini-logo">Gemini</span>
+    <h1 style="margin-left:24px;">【実演】メンデルの法則をコイントスで理解する</h1>
+    <span class="slide-num">15 / 26</span>
+  </div>
+  <div class="content" style="background:#0d1117;padding:40px 80px;">
+    <div class="screen-placeholder">
+      <div class="prompt-label">▶ 受講者のプロンプト</div>
+      <div class="chat-prompt">「メンデルの分離の法則を、<strong>コイントスの確率で例えて</strong>中学生に説明して。丸（A）としわ（a）が3:1になる理由をコインの裏表で見せて」</div>
+      <div class="prompt-label" style="margin-top:16px;">💬 Geminiの回答</div>
+      <div class="chat-response" style="flex:1;">
+        <div class="response-title">🪙 コイントスで考えるメンデルの法則</div>
+        <p style="font-size:22px;line-height:1.9;">
+          親（Aa × Aa）= コインを2枚同時に投げる<br>
+          ・表（A）= 優性遺伝子　・裏（a）= 劣性遺伝子<br><br>
+          子どもの組み合わせ：<br>
+          　<strong style="color:#4FC3F7;">AA（表表）</strong> → 丸 ①　<strong style="color:#4FC3F7;">Aa（表裏）</strong> → 丸 ②　<strong style="color:#4FC3F7;">Aa（裏表）</strong> → 丸 ③<br>
+          　<strong style="color:#e74c3c;">aa（裏裏）</strong> → しわ ④<br><br>
+          → 丸:しわ = <strong style="color:#FFD700;font-size:32px;">3 : 1</strong>
+        </p>
+      </div>
+    </div>
+    <div class="tip-bar">
+      <p style="color:#FFD700;font-size:24px;font-weight:700;">💡 「『コイントスで例えて』という一言で、抽象的な法則が具体的になる。比喩は最強の質問テクニック。」</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 16: パンネット方格 ==== -->
+<section class="slide" style="background:#0d1117;">
+  <div class="header-band">
+    <span class="gemini-logo">Gemini</span>
+    <h1 style="margin-left:24px;">【実演】交配パターンを表で整理する</h1>
+    <span class="slide-num">16 / 26</span>
+  </div>
+  <div class="content" style="background:#0d1117;padding:40px 80px;">
+    <div style="display:flex;gap:48px;flex:1;align-items:stretch;">
+      <div class="screen-placeholder" style="flex:1;">
+        <div class="prompt-label">▶ 受講者のプロンプト</div>
+        <div class="chat-prompt" style="font-size:24px;">「Aa×Aaの交配結果をパンネット方格で表示して。遺伝子型と表現型の比率も出して」</div>
+        <div class="chat-response" style="margin-top:16px;flex:1;">
+          <div class="response-title">🧬 パンネット方格（Aa × Aa）</div>
+          <div style="display:grid;grid-template-columns:80px 1fr 1fr;grid-template-rows:56px 1fr 1fr;gap:4px;width:360px;height:260px;margin:16px auto;">
+            <div></div>
+            <div style="background:#8C52FF;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:32px;font-weight:700;">A</div>
+            <div style="background:#8C52FF;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:32px;font-weight:700;">a</div>
+            <div style="background:#8C52FF;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:32px;font-weight:700;">A</div>
+            <div style="background:#1e3d59;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#4FC3F7;font-size:32px;font-weight:700;">AA</div>
+            <div style="background:#1e3d59;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#4FC3F7;font-size:32px;font-weight:700;">Aa</div>
+            <div style="background:#8C52FF;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:32px;font-weight:700;">a</div>
+            <div style="background:#1e3d59;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#4FC3F7;font-size:32px;font-weight:700;">Aa</div>
+            <div style="background:#2d1b4e;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#e74c3c;font-size:32px;font-weight:700;">aa</div>
+          </div>
+          <p style="font-size:22px;margin-top:8px;">遺伝子型比：AA:Aa:aa = <strong style="color:#4FC3F7;">1:2:1</strong>　表現型比：丸:しわ = <strong style="color:#FFD700;">3:1</strong></p>
+        </div>
+      </div>
+      <div style="width:480px;display:flex;flex-direction:column;gap:24px;">
+        <div style="background:#1e3d59;border-radius:16px;padding:32px;flex:1;">
+          <p style="color:#FFD700;font-size:24px;font-weight:700;margin-bottom:16px;">💡 ポイント</p>
+          <p style="color:#e0e0e0;font-size:22px;line-height:1.7;">教科書の図と照らし合わせると自分で確認できる。理解の答え合わせにAIを使う。</p>
+        </div>
+        <div style="background:#2d3748;border-radius:16px;padding:32px;flex:1;">
+          <p style="color:#FFC107;font-size:24px;font-weight:700;margin-bottom:16px;">📝 入試頻出問題</p>
+          <p style="color:#e0e0e0;font-size:20px;line-height:1.7;">「孫の代で現れる形質の割合を求めよ」<br><br>→ AIに「先ほどのコインの例えを使って説明して」と問い返す！</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 17: 共優性・深掘り ==== -->
+<section class="slide" style="background:#0d1117;">
+  <div class="header-band">
+    <span class="gemini-logo">Gemini</span>
+    <h1 style="margin-left:24px;">【実演】深掘り：優性・劣性を超えた質問</h1>
+    <span class="slide-num">17 / 26</span>
+  </div>
+  <div class="content" style="background:#0d1117;padding:40px 80px;">
+    <div class="screen-placeholder">
+      <div class="prompt-label">▶ 受講者の深掘りプロンプト</div>
+      <div class="chat-prompt" style="font-size:24px;">「血液型のABOは優性・劣性で説明できないって聞いた。なぜ？<br>共優性について教えて。遺伝子と染色体の関係も図解して」</div>
+      <div class="grid-2" style="gap:16px;margin-top:16px;flex:1;">
+        <div class="chat-response">
+          <div class="response-title">🩸 共優性とは？</div>
+          <p style="font-size:20px;line-height:1.8;">AB型 = AもBも両方「優性」<br>どちらかが隠れない→両方発現<br><br>ABO式血液型：<br>・A型：I<sup>A</sup>I<sup>A</sup> または I<sup>A</sup>i<br>・B型：I<sup>B</sup>I<sup>B</sup> または I<sup>B</sup>i<br>・AB型：I<sup>A</sup>I<sup>B</sup>（共優性！）<br>・O型：ii（劣性のみ）</p>
+        </div>
+        <div class="chat-response">
+          <div class="response-title">🧬 遺伝子と染色体の関係</div>
+          <p style="font-size:20px;line-height:1.8;">染色体 → 「本棚」<br>遺伝子 → 「本（設計図）」<br>DNA　 → 「文字が書かれた紐」<br><br>ヒトの染色体は46本（23対）<br>1本の染色体に多くの遺伝子が並んでいる</p>
+        </div>
+      </div>
+    </div>
+    <div class="tip-bar">
+      <p style="color:#FFD700;font-size:24px;font-weight:700;">💡 「メンデルの法則の"例外"まで踏み込んだ。これが深掘り質問の力。自分の好奇心で教科書の外まで掘れる。でもメモは必ず自分の言葉で。」</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 18: フェーズ2 振り返り ==== -->
+<section class="slide">
+  <div class="header-band"><h1>フェーズ2 ふりかえり</h1><span class="slide-num">18 / 26</span></div>
+  <div class="content">
+    <div class="grid-2" style="gap:48px;align-items:flex-start;">
+      <div>
+        <p class="body-lg bold accent" style="margin-bottom:32px;">遺伝フェーズで使った3つのパターン</p>
+        <div class="flex-col">
+          <div class="rule-item">
+            <p style="font-size:36px;">🪙</p>
+            <div><p class="body-md bold check">比喩質問で抽象法則を具体化した</p><p class="body-sm" style="color:#858585;">「コイントスで例えて」→ メンデル法則が見える化</p></div>
+          </div>
+          <div class="rule-item">
+            <p style="font-size:36px;">📊</p>
+            <div><p class="body-md bold check">表形式で組み合わせを網羅した</p><p class="body-sm" style="color:#858585;">パンネット方格 → 全パターンが一目瞭然</p></div>
+          </div>
+          <div class="rule-item">
+            <p style="font-size:36px;">🔬</p>
+            <div><p class="body-md bold check">例外を聞いて理解を深化させた</p><p class="body-sm" style="color:#858585;">共優性（血液型AB型）→ 法則の限界まで把握</p></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:linear-gradient(135deg,#EEF0FF,#dde0ff);border-radius:16px;padding:48px;border:3px solid #8C52FF;display:flex;flex-direction:column;justify-content:center;gap:24px;">
+        <p class="body-lg bold" style="color:#8C52FF;">🧐 確認クエスチョン</p>
+        <div style="background:#FFFFFF;border-radius:12px;padding:32px;border:2px dashed #8C52FF;">
+          <p class="body-md bold" style="margin-bottom:16px;">Aa × Aa の子どもの</p>
+          <p class="title-sm accent">遺伝子型の比率は？</p>
+          <p class="body-sm" style="color:#858585;margin-top:16px;">（先ほどのパンネット方格を思い出して、自分で答えてみよう）</p>
+        </div>
+        <p class="body-sm accent-g bold">「比喩・表・例外、この3つの問い方は<br>生物以外でも使える汎用テクニック。」</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 19: Section4 導入 ==== -->
+<section class="slide bg-purple-phase">
+  <div style="width:100%;height:8px;background:linear-gradient(90deg,#FF5757,#8C52FF);flex-shrink:0;"></div>
+  <div class="content" style="flex-direction:row;align-items:center;gap:80px;">
+    <div style="flex-shrink:0;text-align:center;">
+      <p class="white" style="font-size:32px;font-weight:700;opacity:0.7;margin-bottom:16px;">FINAL</p>
+      <p style="font-size:160px;line-height:1;">🎁</p>
+    </div>
+    <div style="flex:1;">
+      <span class="tag tag-purple" style="margin-bottom:32px;display:inline-block;font-size:28px;">成果物パート</span>
+      <h2 class="white" style="font-size:56px;font-weight:900;margin-bottom:32px;">今日の学びをワンアクションで<br>自分専用メモにする</h2>
+      <div style="width:100%;height:4px;background:linear-gradient(90deg,#FF5757,#8C52FF);border-radius:2px;margin:0 0 32px;"></div>
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        <div style="display:flex;align-items:center;gap:24px;"><span style="font-size:32px;">🎯</span><p class="white" style="font-size:28px;opacity:0.9;">Gemini → Google Docs への出力フローを習得する</p></div>
+        <div style="display:flex;align-items:center;gap:24px;"><span style="font-size:32px;">⚡</span><p class="white" style="font-size:28px;opacity:0.9;"><strong style="color:#A3E8D8;">一言打つだけ</strong>で自分専用の参考書が完成</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 20: まとめメモ生成 ==== -->
+<section class="slide" style="background:#0d1117;">
+  <div class="header-band">
+    <span class="gemini-logo">Gemini</span>
+    <h1 style="margin-left:24px;">【実演】自分専用まとめメモのプロンプト入力</h1>
+    <span class="slide-num">20 / 26</span>
+  </div>
+  <div class="content" style="background:#0d1117;padding:40px 80px;">
+    <div class="screen-placeholder">
+      <div class="prompt-label">▶ ワンアクション・プロンプト（これを一言打つだけ！）</div>
+      <div class="chat-prompt" style="font-size:24px;border:2px solid #4FC3F7;">
+        「今日の会話で学んだ『光合成・細胞呼吸・遺伝の法則（メンデル）』について、<br>
+        中学生がテスト前に見返すための要点メモを作って。<br>
+        各テーマを<strong>3行以内</strong>でまとめ、重要用語は<strong>【】で囲んで</strong>ね。<br>
+        最後に『よく出る問題パターン』を1つずつ添えて。」
+      </div>
+      <div class="prompt-label" style="margin-top:16px;">💬 Geminiの出力（イメージ）</div>
+      <div class="grid-2" style="gap:12px;flex:1;">
+        <div style="background:#0d2b20;border-radius:8px;padding:16px 20px;">
+          <p style="color:#4FC3F7;font-weight:700;font-size:20px;margin-bottom:8px;">🌿 光合成</p>
+          <p style="color:#e0e0e0;font-size:18px;line-height:1.7;">材料：CO₂＋H₂O＋光。場所：【葉緑体】。生産物：グルコース＋O₂。<br>よく出る問題：光の有無での気体変化</p>
+        </div>
+        <div style="background:#0d1e35;border-radius:8px;padding:16px 20px;">
+          <p style="color:#4FC3F7;font-weight:700;font-size:20px;margin-bottom:8px;">🫁 細胞呼吸</p>
+          <p style="color:#e0e0e0;font-size:18px;line-height:1.7;">材料：グルコース＋O₂。場所：【ミトコンドリア】。生産物：CO₂＋H₂O＋ATP。<br>よく出る問題：光合成との違い</p>
+        </div>
+        <div style="background:#2d1b4e;border-radius:8px;padding:16px 20px;">
+          <p style="color:#4FC3F7;font-weight:700;font-size:20px;margin-bottom:8px;">🧬 遺伝の法則（メンデル）</p>
+          <p style="color:#e0e0e0;font-size:18px;line-height:1.7;">【優性形質】が劣性を隠す。Aa×Aa→3:1。【分離の法則】：親の遺伝子は分かれて子へ。<br>よく出る問題：孫世代の表現型比率</p>
+        </div>
+        <div style="background:#1e3d59;border-radius:8px;padding:16px 20px;">
+          <p style="color:#FFD700;font-weight:700;font-size:20px;margin-bottom:8px;">⭐ このメモの使い方</p>
+          <p style="color:#e0e0e0;font-size:18px;line-height:1.7;">Google Docsに貼り付けて保存するだけ。テスト前日に開くだけで今日の理解が蘇る。</p>
+        </div>
+      </div>
+    </div>
+    <div class="tip-bar">
+      <p style="color:#FFD700;font-size:24px;font-weight:700;">💡 「①目的（テスト前の見返し）②形式（3行以内）③装飾（【】囲み）を全部指定。ここまで指定して初めて、自分専用になる。」</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 21: Google Docs保存 ==== -->
+<section class="slide" style="background:#0d1117;">
+  <div class="header-band">
+    <h1>【実演】Google Docs へコピー＆保存</h1>
+    <span class="slide-num">21 / 26</span>
+  </div>
+  <div class="content" style="background:#0d1117;padding:40px 80px;">
+    <div style="display:flex;gap:48px;flex:1;align-items:stretch;">
+      <div style="flex:1;display:flex;flex-direction:column;gap:16px;">
+        <div style="background:#1a1a2e;border-radius:16px;padding:32px;flex:1;">
+          <p style="color:#87CEEB;font-weight:700;font-size:24px;margin-bottom:16px;">STEP 1：Geminiの出力を全選択</p>
+          <div style="background:#0f3460;border-radius:8px;padding:16px 24px;color:#e0e0e0;font-size:20px;">Geminiのチャット画面で出力テキストを全選択 → コピー（Ctrl+C）</div>
+        </div>
+        <div style="background:#1a1a2e;border-radius:16px;padding:32px;flex:1;">
+          <p style="color:#87CEEB;font-weight:700;font-size:24px;margin-bottom:16px;">STEP 2：Google Docsに貼り付け</p>
+          <div style="background:#0f3460;border-radius:8px;padding:16px 24px;color:#e0e0e0;font-size:20px;">新規ドキュメントを開く → 貼り付け（Ctrl+V）</div>
+        </div>
+        <div style="background:#1a1a2e;border-radius:16px;padding:32px;flex:1;">
+          <p style="color:#87CEEB;font-weight:700;font-size:24px;margin-bottom:16px;">STEP 3：ファイル名をつけて保存</p>
+          <div style="background:#0f3460;border-radius:8px;padding:16px 24px;color:#e0e0e0;font-size:20px;">タイトル：<strong style="color:#4FC3F7;">「生物まとめ SCI-M-03」</strong></div>
+        </div>
+      </div>
+      <div style="width:520px;background:#ffffff;border-radius:16px;padding:40px;display:flex;flex-direction:column;">
+        <div style="border-bottom:2px solid #EBEBEB;padding-bottom:16px;margin-bottom:24px;">
+          <p style="font-size:20px;color:#858585;">📄 Google ドキュメント</p>
+          <p style="font-size:28px;font-weight:700;color:#333333;margin-top:8px;">生物まとめ SCI-M-03</p>
+        </div>
+        <div style="background:#E6F4F2;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+          <p style="font-size:18px;font-weight:700;color:#039578;">🌿 光合成</p>
+          <p style="font-size:16px;color:#333333;margin-top:4px;">材料：CO₂＋H₂O＋光。場所：【葉緑体】…</p>
+        </div>
+        <div style="background:#F6E9F0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+          <p style="font-size:18px;font-weight:700;color:#A51E6D;">🫁 細胞呼吸</p>
+          <p style="font-size:16px;color:#333333;margin-top:4px;">場所：【ミトコンドリア】…</p>
+        </div>
+        <div style="background:#EEF0FF;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+          <p style="font-size:18px;font-weight:700;color:#8C52FF;">🧬 遺伝の法則（メンデル）</p>
+          <p style="font-size:16px;color:#333333;margin-top:4px;">【優性形質】が劣性を隠す…</p>
+        </div>
+        <div style="margin-top:auto;padding-top:24px;border-top:2px solid #EBEBEB;">
+          <p style="font-size:22px;font-weight:700;color:#039578;text-align:center;">✅ 自分専用の参考書　完成！</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 22: 成果物確認 ==== -->
+<section class="slide">
+  <div class="header-band"><h1>成果物確認 ＋ 次への応用</h1><span class="slide-num">22 / 26</span></div>
+  <div class="content">
+    <div class="grid-2" style="gap:64px;align-items:stretch;">
+      <div style="background:linear-gradient(135deg,#EEF0FF,#dde0ff);border-radius:16px;padding:48px;border:3px solid #8C52FF;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:24px;">
+        <p style="font-size:80px;">🎁</p>
+        <p class="title-sm" style="color:#8C52FF;">今日の成果物</p>
+        <div style="width:200px;height:4px;background:linear-gradient(90deg,#8C52FF,#FF5757);border-radius:2px;"></div>
+        <p class="body-lg bold">自分専用の<br>「生物まとめメモ」</p>
+        <p class="body-sm" style="color:#858585;">Google Docs に保存済み<br>テスト前日に開くだけ</p>
+        <div style="background:#8C52FF;border-radius:12px;padding:16px 32px;">
+          <p style="color:#fff;font-size:24px;font-weight:700;">生物まとめ SCI-M-03</p>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:24px;justify-content:center;">
+        <p class="body-lg bold accent" style="margin-bottom:8px;">🚀 このフロー、他の教科にも使える</p>
+        <div class="rule-item"><p style="font-size:36px;">📐</p><p class="body-md">数学：公式の導き方メモ</p></div>
+        <div class="rule-item"><p style="font-size:36px;">📖</p><p class="body-md">英語：文法ルール整理メモ</p></div>
+        <div class="rule-item"><p style="font-size:36px;">🏯</p><p class="body-md">歴史：出来事のつながりメモ</p></div>
+        <div class="card-green" style="margin-top:16px;">
+          <p class="body-md bold accent-g">「このフローを持っているかどうかで、勉強の効率がまるで変わる。」</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 23: 今日のまとめ ==== -->
+<section class="slide">
+  <div class="header-band"><h1>今日の学びのまとめ</h1><span class="slide-num">23 / 26</span></div>
+  <div class="content" style="justify-content:center;">
+    <div class="flex-col" style="gap:40px;">
+      <div style="background:linear-gradient(135deg,#F6E9F0,#EDD2E2);border-radius:16px;padding:48px;border-left:8px solid #A51E6D;display:flex;align-items:center;gap:32px;">
+        <p style="font-size:48px;flex-shrink:0;">✅</p>
+        <p class="body-lg bold">生物は暗記じゃなく、<span class="accent">つながりで理解する</span>科目</p>
+      </div>
+      <div style="background:linear-gradient(135deg,#E6F4F2,#CDEAE4);border-radius:16px;padding:48px;border-left:8px solid #039578;display:flex;align-items:center;gap:32px;">
+        <p style="font-size:48px;flex-shrink:0;">✅</p>
+        <p class="body-lg bold">AIへの<span class="accent-g">問い方（軸指定・深掘り・比喩）</span>で理解の深さが変わる</p>
+      </div>
+      <div style="background:linear-gradient(135deg,#EEF0FF,#dde0ff);border-radius:16px;padding:48px;border-left:8px solid #8C52FF;display:flex;align-items:center;gap:32px;">
+        <p style="font-size:48px;flex-shrink:0;">✅</p>
+        <p class="body-lg bold"><span style="color:#8C52FF;">ワンアクションで自分専用メモ</span>を作る習慣を持つ</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 24: 行動コール ==== -->
+<section class="slide bg-green-vivid">
+  <div style="width:100%;height:8px;background:linear-gradient(90deg,#FF5757,#8C52FF);flex-shrink:0;"></div>
+  <div class="content" style="justify-content:center;align-items:center;text-align:center;">
+    <p class="white" style="font-size:40px;font-weight:700;letter-spacing:0.1em;margin-bottom:40px;opacity:0.85;">TODAY'S ACTION</p>
+    <h2 class="white" style="font-size:64px;font-weight:900;margin-bottom:48px;">今日中にやること</h2>
+    <div style="display:flex;flex-direction:column;gap:24px;text-align:left;max-width:900px;width:100%;">
+      <div style="background:rgba(255,255,255,0.2);border-radius:16px;padding:32px 48px;display:flex;align-items:center;gap:32px;">
+        <span class="white" style="font-size:56px;font-weight:900;">1</span>
+        <p class="white" style="font-size:36px;font-weight:700;">Geminiを開く</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.2);border-radius:16px;padding:32px 48px;display:flex;align-items:center;gap:32px;">
+        <span class="white" style="font-size:56px;font-weight:900;">2</span>
+        <p class="white" style="font-size:36px;font-weight:700;">今日見た問いを1つ真似して投げる</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.2);border-radius:16px;padding:32px 48px;display:flex;align-items:center;gap:32px;">
+        <span class="white" style="font-size:56px;font-weight:900;">3</span>
+        <p class="white" style="font-size:36px;font-weight:700;">自分の言葉でメモを作る</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==== 25: 次回予告 ==== -->
+<section class="slide bg-dark-blue">
+  <div style="width:100%;height:8px;background:linear-gradient(90deg,#FF5757,#8C52FF);flex-shrink:0;"></div>
+  <div class="content" style="justify-content:center;align-items:center;text-align:center;">
+    <p class="white" style="font-size:32px;font-weight:700;letter-spacing:0.15em;margin-bottom:32px;opacity:0.7;">NEXT SESSION</p>
+    <div style="background:rgba(255,255,255,0.1);border-radius:24px;padding:64px 96px;margin-bottom:48px;">
+      <p class="white" style="font-size:32px;font-weight:500;opacity:0.8;margin-bottom:16px;">SCI-M-04</p>
+      <h2 class="white" style="font-size:64px;font-weight:900;margin-bottom:32px;">物理（光・音・力・電気）</h2>
+      <div style="width:300px;height:4px;background:linear-gradient(90deg,#FF5757,#8C52FF);border-radius:2px;margin:0 auto 32px;"></div>
+      <p class="white" style="font-size:36px;opacity:0.9;">物理の公式を、AIでビジュアル化する</p>
+    </div>
+    <p class="white" style="font-size:28px;opacity:0.6;">公式の丸暗記をやめて、仕組みから理解する方法をやる。</p>
+  </div>
+</section>
+
+<!-- ==== 26: エンドカード ==== -->
+<section class="slide bg-end">
+  <div style="width:100%;height:8px;background:linear-gradient(90deg,#FF5757,#8C52FF);flex-shrink:0;"></div>
+  <div class="content" style="justify-content:center;align-items:center;text-align:center;gap:40px;">
+    <div>
+      <p class="white" style="font-size:32px;font-weight:700;opacity:0.6;letter-spacing:0.15em;margin-bottom:16px;">MISSION</p>
+      <h2 class="white" style="font-size:56px;font-weight:900;margin-bottom:16px;">日本をAI先進国に。</h2>
+      <p class="white" style="font-size:36px;font-weight:500;opacity:0.85;margin-bottom:24px;">年間100万人のAI人材を生み出す。</p>
+      <div style="width:400px;height:4px;background:linear-gradient(90deg,#FF5757,#8C52FF);border-radius:2px;margin:0 auto 32px;"></div>
+      <p style="font-size:32px;color:#A3E8D8;font-weight:500;">その一歩が、今日のあなたの30分だった。</p>
+    </div>
+    <div style="display:flex;gap:40px;align-items:center;margin-top:16px;">
+      <div style="background:rgba(255,255,255,0.1);border-radius:16px;padding:24px 48px;border:2px solid rgba(255,255,255,0.2);">
+        <p class="white" style="font-size:24px;opacity:0.8;">SCI-M-03｜生物　完了</p>
+      </div>
+      <p style="font-size:40px;color:rgba(255,255,255,0.4);">→</p>
+      <div style="background:linear-gradient(135deg,#A51E6D,#8C52FF);border-radius:16px;padding:24px 48px;">
+        <p class="white" style="font-size:24px;font-weight:700;">次回：SCI-M-04 物理</p>
+      </div>
+    </div>
+    <p style="color:rgba(255,255,255,0.4);font-size:24px;margin-top:8px;">また次回。</p>
+  </div>
+</section>
+
+</div><!-- /#deck -->
+
+<div id="nav">
+  <button onclick="prev()">← 前へ</button>
+  <span id="counter">1 / 26</span>
+  <button onclick="next()">次へ →</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+
+  function scale() {
+    const deck = document.getElementById('deck');
+    const s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+    deck.style.transform = `scale(${s})`;
+    deck.style.marginLeft = ((window.innerWidth  - 1920 * s) / 2) + 'px';
+    deck.style.marginTop  = ((window.innerHeight - 1080 * s) / 2) + 'px';
+  }
+  window.addEventListener('resize', scale);
+  scale();
+
+  function show(n) {
+    slides[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    document.getElementById('counter').textContent = (current + 1) + ' / ' + slides.length;
+  }
+  function next() { show(current + 1); }
+  function prev() { show(current - 1); }
+
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight','ArrowDown',' '].includes(e.key)) { e.preventDefault(); next(); }
+    if (['ArrowLeft','ArrowUp'].includes(e.key))        { e.preventDefault(); prev(); }
+  });
+</script>
+</body>
+</html>

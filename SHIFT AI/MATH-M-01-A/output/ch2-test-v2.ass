@@ -1,0 +1,19 @@
+[Script Info]
+Title: Telop Test v2
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Telop,Noto Sans JP,32,&H00FFFFFF,&H000000FF,&H00333333,&H80000000,-1,0,0,0,100,100,0,0,1,0,0,4,320,60,40,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:03.50,Telop,,0,0,0,,ここからは実演だ。
+Dialogue: 0,0:00:03.50,0:00:07.50,Telop,,0,0,0,,前の章で学んだ3つのプロンプトパターンを、
+Dialogue: 0,0:00:07.50,0:00:10.50,Telop,,0,0,0,,実際にGeminiで使っている画面を見せる。
+Dialogue: 0,0:00:10.50,0:00:14.50,Telop,,0,0,0,,テーマは「マイナス×マイナスはなぜプラスになるのか」。
+Dialogue: 0,0:00:14.50,0:00:18.00,Telop,,0,0,0,,暗記で済ませている人が最も多い計算ルールの一つだ。
+Dialogue: 0,0:00:18.00,0:00:21.76,Telop,,0,0,0,,これをAIにどう聞けば仕組みが引き出せるのか、\Nリアルなやり取りを見てほしい。

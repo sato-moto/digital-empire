@@ -1,0 +1,21 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Telop,Noto Sans JP,80,&H00333333,&H000000FF,&H00333333,&H00000000,-1,0,0,0,100,100,1,0,1,2,0,5,310,90,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:03.12,Telop,,0,0,0,,{\pos(1050,940)}Geminiは「大正解」と返した
+Dialogue: 0,0:00:03.12,0:00:09.95,Telop,,0,0,0,,{\pos(1050,940)}さらに数直線を使って\N自分の理解が正しいことを\N視覚的に検証してくれている
+Dialogue: 0,0:00:09.95,0:00:13.66,Telop,,0,0,0,,{\pos(1050,940)}ここでもう一度\N自分の言葉で確認を入れた
+Dialogue: 0,0:00:13.66,0:00:18.93,Telop,,0,0,0,,{\pos(1050,940)}「マイナスの逆方向に進むから\Nプラスになるということ？」
+Dialogue: 0,0:00:18.93,0:00:27.32,Telop,,0,0,0,,{\pos(1050,940)}Geminiは「その通り」と返し\N「マイナスを掛ける＝\N今の状態をひっくり返す」とまとめた
+Dialogue: 0,0:00:27.32,0:00:29.08,Telop,,0,0,0,,{\pos(1050,940)}これで壁打ち完了だ
+Dialogue: 0,0:00:29.08,0:00:36.69,Telop,,0,0,0,,{\pos(1050,940)}パターン1で仕組みを聞き\Nパターン2で角度を変え\Nパターン3で自分の理解を検証した
+Dialogue: 0,0:00:36.69,0:00:43.33,Telop,,0,0,0,,{\pos(1050,940)}この流れで\N「マイナス×マイナス＝プラス」の\N仕組みが自分のものになった
+Dialogue: 0,0:00:43.33,0:00:45.28,Telop,,0,0,0,,{\pos(1050,940)}暗記じゃなくて理解だ

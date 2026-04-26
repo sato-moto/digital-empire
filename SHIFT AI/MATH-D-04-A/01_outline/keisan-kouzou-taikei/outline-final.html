@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MATH-D-04-A — 計算の構造をAIで体系化する独学法をマスター</title>
+<style>
+  :root {
+    --primary: #1a1a2e;
+    --accent: #e94560;
+    --accent2: #0f3460;
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --text: #2d2d2d;
+    --muted: #6c757d;
+    --border: #dee2e6;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+
+  /* ヘッダー */
+  .header {
+    background: linear-gradient(135deg, var(--primary), var(--accent2));
+    color: #fff;
+    padding: 2.5rem 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  .header .tag {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+  .header h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.5rem; }
+  .header p { font-size: 0.9rem; opacity: 0.85; }
+
+  /* チャプターカード */
+  .chapter {
+    background: var(--card);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+  .chapter-head {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .chapter-head .ch-num {
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .chapter-head h2 { font-size: 1.15rem; font-weight: 700; }
+  .chapter-head .meta {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .chapter-body { padding: 1.5rem; }
+  .action-label {
+    display: inline-block;
+    background: #eef2ff;
+    color: var(--accent2);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.3rem 0.75rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+  }
+
+  /* セクション */
+  .section { margin-bottom: 1.5rem; }
+  .section:last-child { margin-bottom: 0; }
+  .section-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent2);
+    border-left: 3px solid var(--accent);
+    padding-left: 0.6rem;
+    margin-bottom: 0.75rem;
+  }
+  .section-title .icon { margin-right: 0.3rem; }
+
+  /* スライドポイント */
+  .slide-points {
+    background: #f1f3f5;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  .slide-points h4 {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+  .slide-points ul { list-style: none; }
+  .slide-points li {
+    font-size: 0.88rem;
+    padding: 0.25rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .slide-points li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ミニ台本 */
+  .mini-script {
+    background: #fffbf0;
+    border-left: 3px solid #f0ad4e;
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.25rem;
+    font-size: 0.9rem;
+  }
+  .mini-script h4 {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #b8860b;
+    margin-bottom: 0.5rem;
+  }
+  .mini-script p { margin-bottom: 0.75rem; }
+  .mini-script p:last-child { margin-bottom: 0; }
+
+  /* 空白チャプター */
+  .blank-chapter {
+    background: #f8f9fa;
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 2rem;
+    text-align: center;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+  .blank-chapter h2 { font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--text); }
+  .blank-chapter p { font-size: 0.85rem; }
+
+  /* 注意書き */
+  .note {
+    background: #e8f4fd;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 0.82rem;
+    color: var(--accent2);
+    margin-bottom: 1rem;
+  }
+
+  /* エール */
+  .yell {
+    background: linear-gradient(135deg, var(--primary), var(--accent2));
+    color: #fff;
+    text-align: center;
+    padding: 2rem;
+    border-radius: 10px;
+    margin-top: 1rem;
+  }
+  .yell p { font-size: 1.3rem; font-weight: 800; letter-spacing: 0.05em; }
+
+  @media (max-width: 600px) {
+    body { padding: 1rem 0.5rem; }
+    .header h1 { font-size: 1.25rem; }
+    .chapter-head { flex-wrap: wrap; }
+    .chapter-head .meta { margin-left: 0; margin-top: 0.25rem; width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ===== ヘッダー ===== -->
+  <div class="header">
+    <span class="tag">MATH-D-04-A</span>
+    <h1>計算の構造をAIで体系化する独学法をマスター</h1>
+    <p>章アウトライン（最終版）</p>
+  </div>
+
+  <!-- ===== Ch0 ===== -->
+  <div class="chapter">
+    <div class="chapter-head">
+      <span class="ch-num">Ch0</span>
+      <h2>暗記から「構造ハック」へ</h2>
+      <span class="meta">60秒以内</span>
+    </div>
+    <div class="chapter-body">
+      <div class="note">※ Ch0はイントロ（フック＋ベネフィット提示）。Why/What/How/Wrapの4パート構造は適用しない。</div>
+
+      <div class="slide-points">
+        <h4>スライド用ポイント</h4>
+        <ul>
+          <li>公式は知ってる。でも初見問題で手が止まる。その原因は暗記じゃなく「構造」</li>
+          <li>中学版で「なぜ？」を聞く力を手に入れた。次は「構造を見抜いて体系化する」段階</li>
+          <li>この動画を見終わったら、AIに自分の仮説をぶつけて、計算の「型」を自分で作れるようになっている</li>
+        </ul>
+      </div>
+
+      <div class="mini-script">
+        <h4>ミニ台本</h4>
+        <p>高校の計算、公式は覚えた。解法パターンも頭に入れた。でも模試で初見の問題が出た瞬間、手が止まる。それは暗記が足りないんじゃない。計算の「構造」が見えていないからだ。</p>
+        <p>中学版では、AIに「なぜ？」を聞いて仕組みをつかむ方法を身につけた。今回はその先に進む。自分で仮説を立てて、AIに検証させて、計算の「型」として体系化する。この動画を最後まで見れば、その力が手に入る。</p>
+        <p>もしまだ中学版を見ていないなら、先にそっちを見てから戻ってきてほしい。理解の深さがまるで変わる。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Ch1 ===== -->
+  <div class="chapter">
+    <div class="chapter-head">
+      <span class="ch-num">Ch1</span>
+      <h2>計算の構造を見抜くためのAIへの聞き方</h2>
+      <span class="meta">8〜12分</span>
+    </div>
+    <div class="chapter-body">
+      <div class="action-label">行動：3種のプロンプト（解法検証・構造発見・型抽出）を使い分け、AIを壁打ち相手に構造を見抜く対話ができる</div>
+
+      <!-- Why -->
+      <div class="section">
+        <div class="section-title"><span class="icon">&#129513;</span>Why（なぜ学ぶのか）</div>
+        <div class="slide-points">
+          <h4>スライド用ポイント</h4>
+          <ul>
+            <li>「とりあえず展開する」「公式に当てはめる」は中学で通用しても高校では破綻する</li>
+            <li>因数分解で22個以上のパターン。全部暗記するのは非効率で、しかも初見問題には通用しない</li>
+            <li>必要なのは「どのパターンを使うか判断する基準」— それが計算の「構造」</li>
+          </ul>
+        </div>
+        <div class="mini-script">
+          <h4>ミニ台本</h4>
+          <p>高校の因数分解には22個以上の公式パターンがある。全部暗記して、問題を見た瞬間にどれを使うか判断しろ。正直、これは無理ゲーだ。青チャートのコンパス3までの例題は解けても、模試になると手が止まる。そういう経験がある人は多いはず。</p>
+          <p>原因はシンプルで、「公式を知っている」ことと「どの場面でどう使うか判断できる」ことはまったく別の能力だからだ。パターンを暗記しただけでは、初見問題にぶつかったときに判断基準がない。</p>
+          <p>中学版では「なぜそうなるのか」をAIに聞く力を身につけた。高校ではその先が必要になる。「なぜ」だけじゃなく、「この問題はどう攻めるべきか」「この変形にはどんな構造があるか」をAIに検証させる。つまり、AIとの対話を「教えてもらう」段階から「自分の思考を検証する」段階へ引き上げる。それがこの章の核だ。</p>
+        </div>
+      </div>
+
+      <!-- What -->
+      <div class="section">
+        <div class="section-title"><span class="icon">&#129504;</span>What（何を学ぶのか）</div>
+        <div class="slide-points">
+          <h4>スライド用ポイント</h4>
+          <ul>
+            <li>高校計算分野でAIに構造を見抜かせる3種のプロンプト</li>
+            <li>プロンプト1：解法検証 — 自分の方針をAIに検証させる</li>
+            <li>プロンプト2：構造発見 — 計算の工夫やスマートな視点を引き出す</li>
+            <li>プロンプト3：型抽出 — 解法パターンを一般化して自分専用マニュアルにする</li>
+          </ul>
+        </div>
+        <div class="mini-script">
+          <h4>ミニ台本</h4>
+          <p>この章で身につけるのは、高校計算分野に特化した3つのプロンプトパターンだ。中学版の「なぜ？」「別の視点で」「検証して」をさらに進化させたものになる。</p>
+          <p>1つ目は「解法検証プロンプト」。自分なりに「この問題はこう攻めるのがいいんじゃないか」と仮説を立てて、AIにその方針のメリット・デメリットを聞く。答えは教えてもらわない。方針の妥当性だけを検証する。</p>
+          <p>2つ目は「構造発見プロンプト」。力技でも解けるけど時間がかかる問題に対して、「もっとスマートに解くための工夫の視点」をAIに提案させる。置き換えのコツや、見落としがちな共通構造を引き出す。</p>
+          <p>3つ目は「型抽出プロンプト」。解き終わった問題に対して、場合分けのパターンや変形の手順を一般化させ、「他の問題にも使える自分専用の解法マニュアル」としてまとめさせる。</p>
+          <p>ゲームに例えるなら、解法検証はボスに挑む前の装備と作戦のチェック。構造発見は、どうしても突破できない場面での弱点のヒント探し。型抽出は、クリア後にドロップしたレアアイテムを自分の武器庫に登録する作業だ。この3つを状況に応じて使い分けられれば、高校計算分野のどんな問題に出会っても、構造を見抜いて攻略できる。</p>
+        </div>
+      </div>
+
+      <!-- How -->
+      <div class="section">
+        <div class="section-title"><span class="icon">&#9881;&#65039;</span>How（どうやるのか）</div>
+        <div class="slide-points">
+          <h4>スライド用ポイント</h4>
+          <ul>
+            <li>プロンプト1の実例：因数分解の方針検証</li>
+            <li>プロンプト2の実例：数列の和の計算工夫</li>
+            <li>プロンプト3の実例：絶対値方程式の場合分けパターンを一般化</li>
+            <li>3種を組み合わせた壁打ちの流れ</li>
+          </ul>
+        </div>
+        <div class="mini-script">
+          <h4>ミニ台本</h4>
+          <p>具体的なプロンプト例を見ていこう。</p>
+          <p>まず解法検証プロンプト。たとえば複雑な因数分解の問題があったとする。「この式、まずはxについて整理して、最低次の文字に着目するのがいいと思うんだけど、この方針で合ってる？解答は言わずに、方針のメリット・デメリットだけ教えて。」ポイントは「解答は言わずに」の一言。これがあることで、AIは答えを出さずに方針の評価だけを返してくれる。自分で考える力を奪わない仕掛けだ。</p>
+          <p>次に構造発見プロンプト。数列の和の計算で「ゴリ押しで全部足せばいいけど、時間がかかりすぎる」という場面を想像してほしい。「この数列の和、もっとスマートに計算するための『工夫の視点』や『置き換えのコツ』を2つ提案して。」AIは部分分数分解の着眼点や、シグマの公式の使い分けの基準を返してくれる。「2つ提案して」と数を指定するのがコツだ。選択肢があると、自分の頭で「どっちがこの問題に合うか」を判断できる。</p>
+          <p>最後に型抽出プロンプト。絶対値を含む方程式を解き終わった後に使う。「今解いた絶対値方程式の問題、場合分けのパターンを一般化して『自分専用の解法マニュアル』としてまとめて。他の問題にも応用できるように箇条書きにして。」AIは「①境界値を求める ②数直線を区間に分割 ③各区間で絶対値を外す ④解を求めて条件と照合」のような手順を返してくれる。これが「型」だ。この型をストックしていけば、初見問題にも対応できる自分だけの武器になる。</p>
+          <p>3つを組み合わせた壁打ちの流れはこうなる。まず自分で方針を立てる→プロンプト1で検証する→解いてみる→詰まったらプロンプト2で工夫の視点をもらう→解き終わったらプロンプト3で型を抽出する。このサイクルを1問やるだけで、「暗記」ではなく「構造の理解」で計算を攻略する感覚がつかめる。</p>
+        </div>
+      </div>
+
+      <!-- Wrap -->
+      <div class="section">
+        <div class="section-title"><span class="icon">&#127873;</span>Wrap（まとめ）</div>
+        <div class="slide-points">
+          <h4>スライド用ポイント</h4>
+          <ul>
+            <li>3種のプロンプトで「暗記の計算」が「構造のパズル」に変わる</li>
+            <li>鍵は「自分で仮説を立ててからAIにぶつける」姿勢</li>
+            <li>次の章で実際にAIを使っている画面を見せる</li>
+          </ul>
+        </div>
+        <div class="mini-script">
+          <h4>ミニ台本</h4>
+          <p>ここまでで、高校計算分野の構造を見抜くための3つのプロンプトパターンを整理した。解法検証で方針を確かめる、構造発見で工夫の視点を引き出す、型抽出で解法を一般化する。</p>
+          <p>中学版との一番の違いは、「自分の仮説が先にある」ということだ。中学版ではAIに「なぜ？」と聞くことがスタートだった。高校版では、まず自分で「こう攻めるのが良さそうだ」と考えてから、AIにぶつける。受け身から能動に切り替わっている。これが「教えてもらう」から「検証する」への進化だ。</p>
+          <p>次の章では、今のプロンプトパターンを実際のAI画面で使っているところを見せる。リアルなやり取りを見て、自分でもやれるイメージをつかんでほしい。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Ch2（空白） ===== -->
+  <div class="blank-chapter">
+    <h2>Ch2：実演・計算編</h2>
+    <p>【空白チャプター】録画映像を後から差し込む構成<br>尺目安：10〜20分</p>
+  </div>
+
+  <!-- ===== Ch3 ===== -->
+  <div class="chapter">
+    <div class="chapter-head">
+      <span class="ch-num">Ch3</span>
+      <h2>NotebookLMで自分専用の数学コーチを作る</h2>
+      <span class="meta">5〜8分</span>
+    </div>
+    <div class="chapter-body">
+      <div class="action-label">行動：解法マニュアルや教材PDFをNotebookLMにアップロードし、自分専用の数学コーチとして日常的に活用できる</div>
+
+      <!-- Why -->
+      <div class="section">
+        <div class="section-title"><span class="icon">&#129513;</span>Why（なぜ学ぶのか）</div>
+        <div class="note">※ 章間接続：Ch2（実演）の結論→疑問→Ch3の必要性</div>
+        <div class="slide-points">
+          <h4>スライド用ポイント</h4>
+          <ul>
+            <li>実演で見た通り、AIとの壁打ちで「型」が抽出できる。でもそれをどこに蓄積する？</li>
+            <li>Geminiのチャット履歴に埋もれたら、結局また同じ問題で迷う</li>
+            <li>自分が作った「型」を一箇所に集めて、いつでも引き出せる仕組みが必要</li>
+          </ul>
+        </div>
+        <div class="mini-script">
+          <h4>ミニ台本</h4>
+          <p>前の章で、実際にAIと壁打ちしながら計算の構造を見抜く流れを見た。因数分解の方針を検証して、数列の工夫を引き出して、絶対値方程式の場合分けを「型」としてまとめる。あの一連のやり取りで、自分だけの解法マニュアルが1つできたことになる。</p>
+          <p>でも問題がある。あのやり取り、Geminiのチャット履歴に埋もれている。テスト前に「あのとき作った因数分解の型、どこだっけ」と探し回るのは非効率だし、そもそも見つからない可能性もある。</p>
+          <p>せっかく自分の頭で考えて、AIに検証させて、型として抽出した知識だ。脳の記憶力には限界がある。その限界を補い、抽出した型を必要なときに一瞬で引き出せる「最強の外部脳」が必要になる。それがNotebookLMだ。自分が入れた資料だけをベースに答えてくれるから、「自分専用の数学コーチ」として機能する。</p>
+        </div>
+      </div>
+
+      <!-- What -->
+      <div class="section">
+        <div class="section-title"><span class="icon">&#129504;</span>What（何を学ぶのか）</div>
+        <div class="slide-points">
+          <h4>スライド用ポイント</h4>
+          <ul>
+            <li>NotebookLMとは — 自分の資料だけをベースに答えるAI</li>
+            <li>普通のAI（Gemini/ChatGPT）との決定的な違い：ハルシネーションの抑制</li>
+            <li>計算学習での3つの活用パターン</li>
+          </ul>
+        </div>
+        <div class="mini-script">
+          <h4>ミニ台本</h4>
+          <p>NotebookLMは、Googleが提供している無料のAIツールだ。最大の特徴は「自分がアップロードした資料だけをベースに答える」こと。GeminiやChatGPTはインターネット上のあらゆる情報を元に回答するから、関係ない情報が混ざったり、存在しない公式を平気で作り出したりすることがある。NotebookLMにはそれがない。自分の教材の範囲でしか答えないから、回答の信頼性が高い。</p>
+          <p>計算学習での使い方は3つ。1つ目は、プロンプト3（型抽出）でまとめた解法マニュアルをNotebookLMに蓄積する。因数分解の型、数列の型、絶対値の型。これが積み上がると、自分だけの「解法パターン集」が完成する。2つ目は、学校のプリントや自分のノートをPDFにしてアップロードする。3つ目は、テスト前にNotebookLMに「この範囲の型で、間違えやすいポイントを整理して」と聞く。自分の教材ベースだから、的外れな答えが返ってこない。</p>
+        </div>
+      </div>
+
+      <!-- How -->
+      <div class="section">
+        <div class="section-title"><span class="icon">&#9881;&#65039;</span>How（どうやるのか）</div>
+        <div class="slide-points">
+          <h4>スライド用ポイント</h4>
+          <ul>
+            <li>NotebookLMの開き方・ノートブック作成手順</li>
+            <li>解法マニュアル（型）の蓄積方法</li>
+            <li>自分のノート・プリントのアップロード方法</li>
+            <li>テスト前の活用：「自分専用コーチ」への質問の仕方</li>
+          </ul>
+        </div>
+        <div class="mini-script">
+          <h4>ミニ台本</h4>
+          <p>手順を整理する。Googleで「NotebookLM」と検索して開く。Googleアカウントでログインしたら、「新しいノートブック」を作成する。名前は「高校数学・計算の型」とでもしておけばいい。</p>
+          <p>ここに「ソースを追加」で自分の教材を放り込んでいく。まずは、実演チャプターでAIとやり取りして作った解法マニュアルだ。Geminiの画面から型抽出の結果をコピーして、テキストとして貼り付ける。次に、学校のプリントや自分のノート。スマホで撮影してPDFにするか、データがあればそのままアップロードする。</p>
+          <p>ソースを入れたら、あとはNotebookLMに聞くだけだ。「因数分解で、どの文字に着目するか迷ったときの判断基準を整理して」「数列の和で使える工夫のパターンを、自分のノートから抜き出して」。NotebookLMは自分がアップした資料だけを見て答える。だから「自分が過去に理解したこと」をベースにした回答が返ってくる。これが「自分専用の数学コーチ」だ。</p>
+          <p>ポイントは、型を1つ作るたびにNotebookLMへ追加していくこと。テスト前にまとめて入れるんじゃなくて、日常的に積み上げる。そうすれば、テスト前にはすでに強力な解法パターン集が完成している。</p>
+        </div>
+      </div>
+
+      <!-- Wrap -->
+      <div class="section">
+        <div class="section-title"><span class="icon">&#127873;</span>Wrap（まとめ）</div>
+        <div class="slide-points">
+          <h4>スライド用ポイント</h4>
+          <ul>
+            <li>NotebookLMに型を蓄積すれば「自分専用の数学コーチ」が完成する</li>
+            <li>「構造を見抜く → 型を抽出する → ストックする → 必要なとき引き出す」のサイクル</li>
+            <li>型を積み上げるほどコーチが賢くなる「知識の複利効果」</li>
+          </ul>
+        </div>
+        <div class="mini-script">
+          <h4>ミニ台本</h4>
+          <p>NotebookLMを使えば、壁打ちで見抜いた構造、抽出した型、学校の教材をすべて一箇所に集めて、いつでも引き出せる環境が作れる。しかもこの仕組みには「複利効果」がある。型を1つ追加するたびに参照できる情報が増え、返ってくる回答の精度が上がっていく。解けば解くほど、自分専用のコーチが賢くなる。</p>
+          <p>サイクルを整理する。まず問題に出会ったら自分で仮説を立てる。解法検証プロンプトでAIに方針を確かめる。構造発見プロンプトで工夫の視点をもらう。解き終わったら型抽出プロンプトで一般化する。そしてNotebookLMにストックする。テスト前にはNotebookLMに「この範囲のポイントを整理して」と聞く。このサイクルが回れば、暗記に頼らない計算学習の仕組みが完成する。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Ch4 ===== -->
+  <div class="chapter">
+    <div class="chapter-head">
+      <span class="ch-num">Ch4</span>
+      <h2>ここからはあなたの番</h2>
+      <span class="meta">3〜5分</span>
+    </div>
+    <div class="chapter-body">
+      <div class="action-label">行動：学んだ内容を整理し、今日から計算の構造をAIに検証させて体系化する自走学習を開始する意志を持つ</div>
+
+      <!-- Why -->
+      <div class="section">
+        <div class="section-title"><span class="icon">&#129513;</span>Why（なぜ学ぶのか）</div>
+        <div class="note">※ 章間接続：Ch3の結論→疑問→Ch4の必要性</div>
+        <div class="slide-points">
+          <h4>スライド用ポイント</h4>
+          <ul>
+            <li>プロンプトも、ツールも、仕組みも、全部揃った</li>
+            <li>でも「揃っただけ」では構造は見えるようにならない</li>
+            <li>自分の手で仮説を立て、AIにぶつけて初めて力になる</li>
+          </ul>
+        </div>
+        <div class="mini-script">
+          <h4>ミニ台本</h4>
+          <p>ここまでで、計算の構造を見抜く3つのプロンプト、実際のAIとの壁打ち、NotebookLMでの環境構築。全部揃った。中学版で「なぜ？」を聞く力を手に入れた上に、高校版で「構造を見抜いて体系化する」力の使い方を覚えた。道具は完璧だ。</p>
+          <p>でも道具が揃っただけでは何も変わらない。バットの握り方を知っていても、素振りしなければヒットは打てない。ここから先は、自分の手で仮説を立てて、AIにぶつけて、型を作っていくフェーズだ。</p>
+        </div>
+      </div>
+
+      <!-- What -->
+      <div class="section">
+        <div class="section-title"><span class="icon">&#129504;</span>What（何を学ぶのか）</div>
+        <div class="slide-points">
+          <h4>スライド用ポイント</h4>
+          <ul>
+            <li>この動画で手に入れたもの（3つの整理）</li>
+            <li>1. 構造を見抜く3種のプロンプト（解法検証・構造発見・型抽出）</li>
+            <li>2. AIとの壁打ちで構造を見抜くリアルな流れ</li>
+            <li>3. NotebookLMで型を蓄積し「自分専用の数学コーチ」を構築する方法</li>
+          </ul>
+        </div>
+        <div class="mini-script">
+          <h4>ミニ台本</h4>
+          <p>整理する。この動画で手に入れたものは3つ。</p>
+          <p>1つ目は、計算の構造を見抜く3種のプロンプト。解法検証で方針を確かめる。構造発見で工夫の視点を引き出す。型抽出で解法を一般化する。この3つを使えば、パターン暗記から卒業できる。</p>
+          <p>2つ目は、実際のAIとの壁打ちの流れ。仮説を立てる→検証する→工夫をもらう→型にする。このサイクルをリアルに見た。</p>
+          <p>3つ目は、NotebookLMで自分専用の数学コーチを作る方法。型を蓄積して、必要なときに引き出せる環境が作れる。</p>
+          <p>この3つが揃っている状態は、かなり強い。</p>
+        </div>
+      </div>
+
+      <!-- How -->
+      <div class="section">
+        <div class="section-title"><span class="icon">&#9881;&#65039;</span>How（どうやるのか）</div>
+        <div class="slide-points">
+          <h4>スライド用ポイント</h4>
+          <ul>
+            <li>今日やること：1問だけでいい</li>
+            <li>今一番「どう攻めればいいかわからない」計算問題を1つ選ぶ</li>
+            <li>自分の仮説を立てて、解法検証プロンプトでAIにぶつける</li>
+            <li>そこから始まる</li>
+          </ul>
+        </div>
+        <div class="mini-script">
+          <h4>ミニ台本</h4>
+          <p>やることは1問だけでいい。この動画を見終わったら、今一番「どう攻めればいいかわからない」計算問題を1つ選んでほしい。教科書でも、青チャートでも、模試の復習でもいい。</p>
+          <p>まず自分で「この問題はこう攻めるのがいいんじゃないか」と仮説を立てる。正解じゃなくていい。間違っていてもいい。大事なのは自分で考えることだ。そしたら解法検証プロンプトでGeminiにぶつける。「この方針で合ってる？解答は言わずに、メリット・デメリットだけ教えて。」</p>
+          <p>返ってきた答えを読んで、方針を修正して、解いてみる。解き終わったら型抽出プロンプトで一般化する。最後にNotebookLMへストックする。これで最初の1サイクルが完成する。1問やれば、この仕組みが回る感覚がつかめる。</p>
+        </div>
+      </div>
+
+      <!-- Wrap -->
+      <div class="section">
+        <div class="section-title"><span class="icon">&#127873;</span>Wrap（まとめ）</div>
+        <div class="slide-points">
+          <h4>スライド用ポイント</h4>
+          <ul>
+            <li>暗記から「構造ハック」へ。計算の見え方が変わる</li>
+            <li>迷ったらこの動画を何度でも見返していい</li>
+            <li>全力でいってらっしゃい</li>
+          </ul>
+        </div>
+        <div class="mini-script">
+          <h4>ミニ台本</h4>
+          <p>今回は以上になる。ここからはあなたが前に踏み出す番だ。</p>
+          <p>計算は暗記ゲームじゃない。構造が見えれば、初見問題も「あ、このパターンか」と判断できるようになる。そしてその構造を見抜く道具は、もう全部手元にある。</p>
+          <p>迷ったらこの動画を見返してほしい。何度でも見ていい。見返すたびに新しい気づきがある。NotebookLMに蓄積した型を見返すのもいい。全部、自分のペースでやれる。</p>
+          <p>最後に1つだけ。AIは最強の壁打ち相手だけど、仮説を立てるのは自分だ。問いを投げるのも、構造を見抜くのも、型を作るのも、全部自分。主役はあなただ。</p>
+        </div>
+      </div>
+
+      <!-- エール（最終スライド） -->
+      <div class="yell">
+        <p>全力でいってらっしゃい。</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

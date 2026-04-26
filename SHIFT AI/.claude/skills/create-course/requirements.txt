@@ -1,0 +1,21 @@
+# === API clients ===
+anthropic>=0.39.0
+google-genai>=1.0.0
+requests>=2.31.0
+mcp>=1.1.0
+
+# === Image processing ===
+pillow>=10.0.0
+imageio>=2.31.0
+imageio-ffmpeg>=0.4.9
+numpy>=1.24.0
+
+# === Document processing ===
+pypdf>=4.0.0
+openpyxl>=3.1.0
+reportlab>=4.0.0
+pdfplumber>=0.10.0
+
+# === Utilities ===
+python-dotenv>=1.0.0
+PyJWT>=2.8.0

@@ -1,0 +1,17 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Telop,Noto Sans JP,60,&H00303030,&H000000FF,&H00FFFFFF,&H80000000,-1,0,0,0,100,100,0,0,1,4,2,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.29,Telop,,0,0,0,,{\pos(1115,955)}画面を見てほしい
+Dialogue: 0,0:00:01.29,0:00:04.03,Telop,,0,0,0,,{\pos(1115,955)}「CLIツールって何？」と聞いたら
+Dialogue: 0,0:00:04.03,0:00:08.71,Telop,,0,0,0,,{\pos(1115,955)}「コマンドで操作するための\N道具一式」と一言でまとめてくれた
+Dialogue: 0,0:00:08.71,0:00:15.48,Telop,,0,0,0,,{\pos(1115,955)}さらに「黒い画面で動かすアプリ\N＝CLIツール」という\N直感的な例えまで出してくれている
+Dialogue: 0,0:00:15.48,0:00:20.16,Telop,,0,0,0,,{\pos(1115,955)}難しそうに見える概念でも\N聞き方次第で\Nここまでシンプルになる

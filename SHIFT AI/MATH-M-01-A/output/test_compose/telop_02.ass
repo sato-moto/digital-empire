@@ -1,0 +1,18 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Telop,Noto Sans JP,60,&H00303030,&H000000FF,&H00FFFFFF,&H80000000,-1,0,0,0,100,100,0,0,1,4,2,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:05.26,Telop,,0,0,0,,{\pos(1115,955)}EC2やBashといった\N実務寄りの用語も\N同じ流れで壁打ちしている
+Dialogue: 0,0:00:05.26,0:00:07.88,Telop,,0,0,0,,{\pos(1115,955)}「なぜEC2が必要か」を聞いたら
+Dialogue: 0,0:00:07.88,0:00:12.98,Telop,,0,0,0,,{\pos(1115,955)}「自分のPCだと止まるから」\Nという身も蓋もない回答が返ってきた
+Dialogue: 0,0:00:12.98,0:00:16.75,Telop,,0,0,0,,{\pos(1115,955)}このレベルまで噛み砕いてくれるのが\NAIの強みだ
+Dialogue: 0,0:00:16.75,0:00:20.04,Telop,,0,0,0,,{\pos(1115,955)}わからない用語に出会ったら\Nまず聞いてみる
+Dialogue: 0,0:00:20.04,0:00:21.68,Telop,,0,0,0,,{\pos(1115,955)}それだけで前に進める

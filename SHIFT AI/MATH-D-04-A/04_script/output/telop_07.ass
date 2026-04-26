@@ -1,0 +1,42 @@
+﻿[Script Info]
+Title: MATH-D-04-A Ch2 Telop
+ScriptType: v4.00+
+WrapStyle: 0
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Telop,Noto Sans JP,60,&H00303030,&H000000FF,&H00FFFFFF,&H80000000,-1,0,1,4,2,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.00,0:00:00.87,Telop,,0,0,0,,{\pos(1115,955)}Geminiの返答を
+Dialogue: 0,0:00:00.87,0:00:01.39,Telop,,0,0,0,,{\pos(1115,955)}見てみよう。
+Dialogue: 0,0:00:01.39,0:00:01.82,Telop,,0,0,0,,{\pos(1115,955)}「式の形、
+Dialogue: 0,0:00:01.82,0:00:02.52,Telop,,0,0,0,,{\pos(1115,955)}つまり項の数」と
+Dialogue: 0,0:00:02.52,0:00:02.95,Telop,,0,0,0,,{\pos(1115,955)}「公式」の
+Dialogue: 0,0:00:02.95,0:00:03.65,Telop,,0,0,0,,{\pos(1115,955)}ミスマッチだ、と
+Dialogue: 0,0:00:03.65,0:00:04.69,Telop,,0,0,0,,{\pos(1115,955)}核心を突いてくれている。
+Dialogue: 0,0:00:04.69,0:00:05.56,Telop,,0,0,0,,{\pos(1115,955)}x²−9は項が2つ。
+Dialogue: 0,0:00:05.56,0:00:06.26,Telop,,0,0,0,,{\pos(1115,955)}x²−6x+9は
+Dialogue: 0,0:00:06.26,0:00:06.69,Telop,,0,0,0,,{\pos(1115,955)}項が3つ。
+Dialogue: 0,0:00:06.69,0:00:07.21,Telop,,0,0,0,,{\pos(1115,955)}和と差の積は
+Dialogue: 0,0:00:07.21,0:00:08.00,Telop,,0,0,0,,{\pos(1115,955)}2項の引き算にしか
+Dialogue: 0,0:00:08.00,0:00:08.43,Telop,,0,0,0,,{\pos(1115,955)}使えない。
+Dialogue: 0,0:00:08.43,0:00:09.30,Telop,,0,0,0,,{\pos(1115,955)}3項なら完全平方式を
+Dialogue: 0,0:00:09.30,0:00:09.56,Telop,,0,0,0,,{\pos(1115,955)}疑う。
+Dialogue: 0,0:00:09.56,0:00:10.43,Telop,,0,0,0,,{\pos(1115,955)}そして確認の手順まで
+Dialogue: 0,0:00:10.43,0:00:11.21,Telop,,0,0,0,,{\pos(1115,955)}教えてくれている。
+Dialogue: 0,0:00:11.21,0:00:11.82,Telop,,0,0,0,,{\pos(1115,955)}両端がそれぞれ
+Dialogue: 0,0:00:11.82,0:00:12.69,Telop,,0,0,0,,{\pos(1115,955)}2乗になっているか。
+Dialogue: 0,0:00:12.69,0:00:13.21,Telop,,0,0,0,,{\pos(1115,955)}真ん中の項が
+Dialogue: 0,0:00:13.21,0:00:14.17,Telop,,0,0,0,,{\pos(1115,955)}2abになっているか。
+Dialogue: 0,0:00:14.17,0:00:15.12,Telop,,0,0,0,,{\pos(1115,955)}実際にチェックすると、
+Dialogue: 0,0:00:15.12,0:00:15.82,Telop,,0,0,0,,{\pos(1115,955)}x²はxの2乗、
+Dialogue: 0,0:00:15.82,0:00:16.42,Telop,,0,0,0,,{\pos(1115,955)}9は3の2乗、
+Dialogue: 0,0:00:16.42,0:00:17.03,Telop,,0,0,0,,{\pos(1115,955)}真ん中の6xは
+Dialogue: 0,0:00:17.03,0:00:17.99,Telop,,0,0,0,,{\pos(1115,955)}2×x×3で一致する。
+Dialogue: 0,0:00:17.99,0:00:18.94,Telop,,0,0,0,,{\pos(1115,955)}だからx²−6x+9は
+Dialogue: 0,0:00:18.94,0:00:19.64,Telop,,0,0,0,,{\pos(1115,955)}(x−3)²だ。

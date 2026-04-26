@@ -1,0 +1,16 @@
+--- a/SHIFT AI/.claude/skills/subsuki/scripts/transform_text.py
++++ b/SHIFT AI/.claude/skills/subsuki/scripts/transform_text.py
+@@ -139,12 +139,11 @@ def transform_slide_design(src: Path, dst: Path, mappings, diffs):
+         if body_cell.value:
+             # Step 1: 辞書マッチで語彙置換
+             body_text = apply_dict(
+                 str(body_cell.value), mappings,
+                 slide_no=slide_no, field="Body", diffs=diffs,
+             )
+-            # Step 2: D-3案 Body 整形（行頭「・」＋句点削除）
+-            body_text = format_body_lines(body_text, slide_no=slide_no, diffs=diffs)
++            # Step 2: D-3案 Body 整形は無効化（マスター指示：「・」付与禁止）
+             body_cell.value = body_text
+         if script_cell.value:
+             script_cell.value = apply_dict(
+                 str(script_cell.value), mappings,

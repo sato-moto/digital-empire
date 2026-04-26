@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "project": "MATH-D-04-A Ch2 実演動画（マウス演出同期版）",
+    "screen_source": "C:/Users/motok/Videos/2026-04-15 10-27-05.mp4",
+    "avatar_source": "C:/Users/motok/Downloads/実演アバター/",
+    "crop": "crop=1920:911:0:120",
+    "canvas": "1920x1080",
+    "screen_overlay": {"x": 184, "y": 56, "w": 1552, "h": 770},
+    "avatar_overlay": {"x": 200, "y": 865, "w": 180, "h": 180},
+    "telop": {"x": 1115, "y": 955, "font_size": 60, "font": "Noto Sans JP Bold"},
+    "design_note": "映像区間はマウスポインタの演出挙動をアンカーにして配置。マウスがテキストを指している/ハイライトしているタイミングに該当ナレーションが乗るよう設計。"
+  },
+  "scenes": [
+    {
+      "id": 1,
+      "scene": "導入①",
+      "avatar": "avatar_slide1.mp4",
+      "avatar_duration": 35.28,
+      "screen_start": 0.0,
+      "screen_end": 8.0,
+      "screen_mode": "slowdown",
+      "speed": 0.23,
+      "note": "導入ナレーション。映像0-8秒（マウス不在→右端出現→プロンプト1へ接近）を35秒に引き伸ばし。マウスが画面外からゆっくり現れる動きが「これから画面を見せるよ」の導入と一致。"
+    },
+    {
+      "id": 2,
+      "scene": "導入②",
+      "avatar": "avatar_slide2.mp4",
+      "avatar_duration": 14.48,
+      "screen_start": 6.0,
+      "screen_end": 10.0,
+      "screen_mode": "slowdown",
+      "speed": 0.28,
+      "note": "「画面を見てほしい」ナレーション。映像6-10秒（マウスがプロンプト1に到達、テキスト上を動き始める直前）。マウスが「ここだよ」と指し示す瞬間。"
+    },
+    {
+      "id": 3,
+      "scene": "解法検証①",
+      "avatar": "avatar_slide3.mp4",
+      "avatar_duration": 26.92,
+      "screen_start": 8.0,
+      "screen_end": 22.0,
+      "screen_mode": "slowdown",
+      "speed": 0.52,
+      "note": "プロンプト1の内容解説。映像8-22秒=マウスがプロンプト1テキスト上を左右往復している区間。「壁打ちしたい」「仮説をぶつけている」の説明中、マウスがまさにそのテキストを指している。"
+    },
+    {
+      "id": 4,
+      "scene": "解法検証②",
+      "avatar": "avatar_slide4.mp4",
+      "avatar_duration": 22.56,
+      "screen_start": 22.0,
+      "screen_end": 38.0,
+      "screen_mode": "slowdown",
+      "speed": 0.71,
+      "note": "Gemini回答の解説。映像22-38秒=マウスがスクロールバーへ移動→下方スクロールで回答全体を確認する区間。「バッチリ合っています」「他の公式との見分け方」の解説中、画面が回答をスクロールで追っている。"
+    },
+    {
+      "id": 5,
+      "scene": "構造発見①",
+      "avatar": "avatar_slide5.mp4",
+      "avatar_duration": 17.20,
+      "screen_start": 36.0,
+      "screen_end": 46.0,
+      "screen_mode": "slowdown",
+      "speed": 0.58,
+      "note": "2問目への遷移+プロンプト2紹介。映像36-46秒=スクロールで2問目プロンプト出現→マウスが「私は何につまずいている？」テキスト上へ移動する区間。「画面を見てほしい」のナレーション時にちょうどプロンプト2が画面に入ってくる。"
+    },
+    {
+      "id": 6,
+      "scene": "構造発見②",
+      "avatar": "avatar_slide6.mp4",
+      "avatar_duration": 19.20,
+      "screen_start": 44.0,
+      "screen_end": 60.0,
+      "screen_mode": "slowdown",
+      "speed": 0.83,
+      "note": "★最重要同期ポイント★ 映像44-60秒=マウスが「私は何につまずいている？」テキスト上を往復→テキスト選択→青ハイライトする区間。ナレーション「この聞き方がものすごく強力」「ピンポイントで突いてくれやすくなる」が、マウスの強調動作とピタリと重なる。"
+    },
+    {
+      "id": 7,
+      "scene": "構造発見③",
+      "avatar": "avatar_slide7.mp4",
+      "avatar_duration": 19.64,
+      "screen_start": 58.0,
+      "screen_end": 70.0,
+      "screen_mode": "slowdown",
+      "speed": 0.61,
+      "note": "Gemini回答の解説。映像58-70秒=ハイライト解除後→回答テキスト（項の数の比較、完全平方式）をマウスが追う→スクロール準備。"
+    },
+    {
+      "id": 8,
+      "scene": "構造発見④",
+      "avatar": "avatar_slide8.mp4",
+      "avatar_duration": 18.80,
+      "screen_start": 60.0,
+      "screen_end": 70.0,
+      "screen_mode": "slowdown",
+      "speed": 0.53,
+      "note": "「何につまずいている？」の汎用性を語る。映像60-70秒=回答テキストが表示されたままマウスがゆっくり移動。因数分解以外にも使えるという抽象的な話なので、画面はゆっくりめの動き。"
+    },
+    {
+      "id": 9,
+      "scene": "型抽出①",
+      "avatar": "avatar_slide9.mp4",
+      "avatar_duration": 26.72,
+      "screen_start": 68.0,
+      "screen_end": 82.0,
+      "screen_mode": "slowdown",
+      "speed": 0.52,
+      "note": "型抽出への遷移。映像68-82秒=スクロールで型抽出プロンプト出現→「フローチャートにまとめて」テキスト→Gemini回答のフローチャートタイトルが見え始める。マウスがプロンプト3のテキストを指し示す。"
+    },
+    {
+      "id": 10,
+      "scene": "型抽出②",
+      "avatar": "avatar_slide10.mp4",
+      "avatar_duration": 26.80,
+      "screen_start": 80.0,
+      "screen_end": 108.0,
+      "screen_mode": "realtime_with_pause",
+      "note": "フローチャート全容+判断マップ表の解説。映像80-108秒=フローチャートSTEP1→STEP2→パターンA/B→判断マップ表が順次スクロールで表示される区間。マウスは右端付近で静止しスクロール操作。ナレーションの「STEP1」「STEP2」が画面のSTEP表示と同期。"
+    },
+    {
+      "id": 11,
+      "scene": "締め①",
+      "avatar": "avatar_slide11.mp4",
+      "avatar_duration": 22.36,
+      "screen_start": 106.0,
+      "screen_end": 120.0,
+      "screen_mode": "slowdown",
+      "speed": 0.63,
+      "note": "振り返りナレーション。映像106-120秒=判断マップ表が表示された状態でマウスが静止→最終部分へスクロール。テーブルが見えた状態で3つのプロンプトの成果を総括。"
+    },
+    {
+      "id": 12,
+      "scene": "締め②",
+      "avatar": "avatar_slide12.mp4",
+      "avatar_duration": 31.68,
+      "screen_start": 116.0,
+      "screen_end": 125.9,
+      "screen_mode": "slowdown",
+      "speed": 0.31,
+      "note": "最終ナレーション。映像116-126秒=判断マップ表+Geminiの追加コメントが表示された最終画面。マウスは右下で静止。映像をゆっくり引き伸ばして31秒のナレーションに合わせる。次章への橋渡し。"
+    }
+  ]
+}
