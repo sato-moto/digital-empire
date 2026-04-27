@@ -296,8 +296,7 @@ async function createNotionReport(analysis) {
 
   // Notion ブロック構築
   const blocks = [
-    heading2('💬 今日のひとこと'),
-    ...paragraph(r.today_summary || ''),
+    callout('💬', r.today_summary || '', 'blue_background'),
     divider(),
     heading2('📊 アクセス数（今週 vs 今月）'),
     notionTable(['指標', '直近7日', '直近28日', '増減', 'ひとこと'], trafficRows),
@@ -311,11 +310,9 @@ async function createNotionReport(analysis) {
     heading2('📡 集めると記事になる情報'),
     notionTable(['集める情報', '書ける記事', '入手方法'], infoRows),
     divider(),
-    heading2('✅ 今日やること'),
-    ...paragraph(r.one_action || ''),
+    callout('✅', r.one_action || '', 'green_background'),
     divider(),
-    heading2('⚠️ 気になること'),
-    ...paragraph(alertText),
+    callout('⚠️', alertText, 'red_background'),
   ];
 
   // Notion API でページ作成
@@ -396,6 +393,17 @@ function code(text) {
 }
 function divider() {
   return { object: 'block', type: 'divider', divider: {} };
+}
+// callout ブロック（色付き背景ボックス）
+function callout(emoji, text, color) {
+  return {
+    object: 'block', type: 'callout',
+    callout: {
+      rich_text: [{ type: 'text', text: { content: text } }],
+      icon: { type: 'emoji', emoji },
+      color
+    }
+  };
 }
 // Notion テーブルブロック（headers: 列名配列, rows: 値の2次元配列）
 function notionTable(headers, rows) {
