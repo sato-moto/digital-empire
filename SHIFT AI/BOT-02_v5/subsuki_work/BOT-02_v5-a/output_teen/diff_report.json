@@ -1,0 +1,117 @@
+{
+  "diffs": [
+    {
+      "slide": 3,
+      "field": "BodyFormat",
+      "before": "（従前の文章形式）",
+      "after": "（句点で改行分割＋句点削除）",
+      "context": "D-4案 句点分割ルール適用"
+    },
+    {
+      "slide": 4,
+      "field": "BodyFormat",
+      "before": "（従前の文章形式）",
+      "after": "（句点で改行分割＋句点削除）",
+      "context": "D-4案 句点分割ルール適用"
+    },
+    {
+      "slide": 6,
+      "field": "BodyFormat",
+      "before": "（従前の文章形式）",
+      "after": "（句点で改行分割＋句点削除）",
+      "context": "D-4案 句点分割ルール適用"
+    },
+    {
+      "slide": 8,
+      "field": "BodyFormat",
+      "before": "（従前の文章形式）",
+      "after": "（句点で改行分割＋句点削除）",
+      "context": "D-4案 句点分割ルール適用"
+    },
+    {
+      "slide": 10,
+      "field": "BodyFormat",
+      "before": "（従前の文章形式）",
+      "after": "（句点で改行分割＋句点削除）",
+      "context": "D-4案 句点分割ルール適用"
+    },
+    {
+      "slide": 11,
+      "field": "MiniScript",
+      "before": "仕事",
+      "after": "勉強",
+      "context": "活動"
+    },
+    {
+      "slide": 11,
+      "field": "MiniScript",
+      "before": "仕事",
+      "after": "勉強",
+      "context": "活動"
+    },
+    {
+      "slide": 12,
+      "field": "BodyFormat",
+      "before": "（従前の文章形式）",
+      "after": "（句点で改行分割＋句点削除）",
+      "context": "D-4案 句点分割ルール適用"
+    },
+    {
+      "slide": 14,
+      "field": "BodyFormat",
+      "before": "（従前の文章形式）",
+      "after": "（句点で改行分割＋句点削除）",
+      "context": "D-4案 句点分割ルール適用"
+    },
+    {
+      "slide": 16,
+      "field": "MiniScript",
+      "before": "仕事",
+      "after": "勉強",
+      "context": "活動"
+    },
+    {
+      "slide": 18,
+      "field": "BodyFormat",
+      "before": "（従前の文章形式）",
+      "after": "（句点で改行分割＋句点削除）",
+      "context": "D-4案 句点分割ルール適用"
+    },
+    {
+      "slide": 19,
+      "field": "BodyFormat",
+      "before": "（従前の文章形式）",
+      "after": "（句点で改行分割＋句点削除）",
+      "context": "D-4案 句点分割ルール適用"
+    },
+    {
+      "slide": 11,
+      "field": "Script",
+      "before": "仕事",
+      "after": "勉強",
+      "context": "活動"
+    },
+    {
+      "slide": 11,
+      "field": "Script",
+      "before": "仕事",
+      "after": "勉強",
+      "context": "活動"
+    },
+    {
+      "slide": 14,
+      "field": "Script",
+      "before": "仕事",
+      "after": "勉強",
+      "context": "活動"
+    },
+    {
+      "slide": 16,
+      "field": "Script",
+      "before": "仕事",
+      "after": "勉強",
+      "context": "活動"
+    }
+  ],
+  "total": 16
+}

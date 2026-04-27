@@ -1,0 +1,33 @@
+{
+  "diffs": [
+    {
+      "slide": "1",
+      "field": "MiniScript",
+      "before": "現場",
+      "after": "教室",
+      "context": "場所"
+    },
+    {
+      "slide": "3",
+      "field": "MiniScript",
+      "before": "現場",
+      "after": "教室",
+      "context": "場所"
+    },
+    {
+      "slide": "1",
+      "field": "Script",
+      "before": "現場",
+      "after": "教室",
+      "context": "場所"
+    },
+    {
+      "slide": "3",
+      "field": "Script",
+      "before": "現場",
+      "after": "教室",
+      "context": "場所"
+    }
+  ],
+  "total": 4
+}

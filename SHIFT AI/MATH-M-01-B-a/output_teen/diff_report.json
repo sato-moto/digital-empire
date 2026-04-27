@@ -1,0 +1,40 @@
+{
+  "diffs": [
+    {
+      "slide": "8",
+      "field": "Body",
+      "before": "仕事",
+      "after": "勉強",
+      "context": "活動"
+    },
+    {
+      "slide": "8",
+      "field": "MiniScript",
+      "before": "仕事",
+      "after": "勉強",
+      "context": "活動"
+    },
+    {
+      "slide": "9",
+      "field": "MiniScript",
+      "before": "仕事",
+      "after": "勉強",
+      "context": "活動"
+    },
+    {
+      "slide": "8",
+      "field": "Script",
+      "before": "仕事",
+      "after": "勉強",
+      "context": "活動"
+    },
+    {
+      "slide": "9",
+      "field": "Script",
+      "before": "仕事",
+      "after": "勉強",
+      "context": "活動"
+    }
+  ],
+  "total": 5
+}

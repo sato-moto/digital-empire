@@ -1,0 +1,40 @@
+{
+  "diffs": [
+    {
+      "slide": 10,
+      "field": "BodyFormat",
+      "before": "（従前の文章形式）",
+      "after": "（行頭「・」＋句点削除に整形）",
+      "context": "D-3案統一ルール適用"
+    },
+    {
+      "slide": 12,
+      "field": "BodyFormat",
+      "before": "（従前の文章形式）",
+      "after": "（行頭「・」＋句点削除に整形）",
+      "context": "D-3案統一ルール適用"
+    },
+    {
+      "slide": 14,
+      "field": "BodyFormat",
+      "before": "（従前の文章形式）",
+      "after": "（行頭「・」＋句点削除に整形）",
+      "context": "D-3案統一ルール適用"
+    },
+    {
+      "slide": 19,
+      "field": "BodyFormat",
+      "before": "（従前の文章形式）",
+      "after": "（行頭「・」＋句点削除に整形）",
+      "context": "D-3案統一ルール適用"
+    },
+    {
+      "slide": 30,
+      "field": "BodyFormat",
+      "before": "（従前の文章形式）",
+      "after": "（行頭「・」＋句点削除に整形）",
+      "context": "D-3案統一ルール適用"
+    }
+  ],
+  "total": 5
+}

@@ -1,2 +1,0 @@
-file 'clip_03.mp4'
-file 'freeze_vid_03.mp4'

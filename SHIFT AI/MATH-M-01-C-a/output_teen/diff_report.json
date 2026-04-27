@@ -1,0 +1,40 @@
+{
+  "diffs": [
+    {
+      "slide": 13,
+      "field": "BodyFormat",
+      "before": "（従前の文章形式）",
+      "after": "（行頭「・」＋句点削除に整形）",
+      "context": "D-3案統一ルール適用"
+    },
+    {
+      "slide": 16,
+      "field": "BodyFormat",
+      "before": "（従前の文章形式）",
+      "after": "（行頭「・」＋句点削除に整形）",
+      "context": "D-3案統一ルール適用"
+    },
+    {
+      "slide": 20,
+      "field": "BodyFormat",
+      "before": "（従前の文章形式）",
+      "after": "（行頭「・」＋句点削除に整形）",
+      "context": "D-3案統一ルール適用"
+    },
+    {
+      "slide": 26,
+      "field": "MiniScript",
+      "before": "現場",
+      "after": "教室",
+      "context": "場所"
+    },
+    {
+      "slide": "26",
+      "field": "Script",
+      "before": "現場",
+      "after": "教室",
+      "context": "場所"
+    }
+  ],
+  "total": 5
+}

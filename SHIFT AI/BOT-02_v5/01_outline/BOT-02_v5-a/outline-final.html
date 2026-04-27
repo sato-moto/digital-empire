@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIに教材を持たせる（思想と設計） — BOT-02_v5-a</title>
+<style>
+  :root {
+    --accent: #A51E6D;
+    --accent-light: #F5E6EF;
+    --text: #1A1A1A;
+    --sub: #555;
+    --bg: #FAFAFA;
+    --card: #FFFFFF;
+    --border: #E5E5E5;
+    --quote-bg: #FFF7F0;
+    --quote-border: #F4A261;
+    --code-bg: #F4F4F4;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.85;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 32px 96px;
+  }
+  .meta-bar {
+    background: var(--accent);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .meta-bar strong { font-weight: 600; }
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 16px;
+    color: var(--text);
+    border-bottom: 4px solid var(--accent);
+    padding-bottom: 16px;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 56px 0 20px;
+    color: var(--accent);
+    padding-left: 14px;
+    border-left: 6px solid var(--accent);
+    line-height: 1.4;
+  }
+  h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 40px 0 16px;
+    color: var(--text);
+    background: var(--accent-light);
+    padding: 10px 16px;
+    border-radius: 4px;
+  }
+  h4 {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 24px 0 10px;
+    color: var(--sub);
+    position: relative;
+    padding-left: 18px;
+  }
+  h4::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  h5 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 20px 0 8px;
+    color: var(--sub);
+    letter-spacing: 0.05em;
+  }
+  p { margin: 12px 0; }
+  strong { color: var(--accent); font-weight: 700; }
+  hr {
+    border: none;
+    border-top: 1px dashed var(--border);
+    margin: 40px 0;
+  }
+  ul, ol {
+    padding-left: 24px;
+    margin: 12px 0;
+  }
+  li { margin: 6px 0; }
+  ul li::marker { color: var(--accent); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: var(--card);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  thead { background: var(--accent); color: white; }
+  th, td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    vertical-align: top;
+  }
+  th { font-weight: 600; }
+  tbody tr:nth-child(even) { background: #FAFAFA; }
+  tbody tr:last-child td { border-bottom: none; }
+  blockquote {
+    margin: 16px 0;
+    padding: 18px 22px;
+    background: var(--quote-bg);
+    border-left: 4px solid var(--quote-border);
+    border-radius: 0 6px 6px 0;
+    font-size: 15.5px;
+    color: #333;
+    line-height: 1.9;
+  }
+  blockquote p { margin: 0; }
+  blockquote + blockquote { margin-top: 8px; }
+  .script-label {
+    display: inline-block;
+    background: var(--quote-border);
+    color: white;
+    font-size: 12px;
+    padding: 2px 10px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+  .toc {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 24px 0 48px;
+  }
+  .toc-title {
+    font-size: 14px;
+    color: var(--sub);
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .toc ol {
+    margin: 0;
+    padding-left: 20px;
+  }
+  .toc a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 15px;
+  }
+  .toc a:hover { color: var(--accent); text-decoration: underline; }
+  .section-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin: 16px 0 32px;
+  }
+  code {
+    background: var(--code-bg);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 14px;
+    font-family: "SFMono-Regular", Consolas, Monaco, monospace;
+  }
+  .footer {
+    text-align: center;
+    font-size: 13px;
+    color: var(--sub);
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  @media (max-width: 640px) {
+    .container { padding: 24px 16px 64px; }
+    h1 { font-size: 24px; }
+    h2 { font-size: 20px; }
+    h3 { font-size: 17px; }
+    th, td { padding: 10px 12px; font-size: 13px; }
+    blockquote { padding: 14px 16px; font-size: 14.5px; }
+  }
+  @media print {
+    body { background: white; }
+    .meta-bar { background: #333; }
+    .container { max-width: 100%; padding: 20px; }
+    h2, h3, blockquote { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="meta-bar">
+    <div><strong>BOT-02_v5-a</strong> ／ 教養編 ／ 10〜12分 ／ 座学</div>
+    <div>SET1「AIに教材を持たせる（NotebookLM編）」</div>
+  </div>
+
+  <h1>AIに教材を持たせる（思想と設計）</h1>
+
+  <div class="toc">
+    <div class="toc-title">目次</div>
+    <ol>
+      <li><a href="#goal">ゴール</a></li>
+      <li><a href="#ba">Before → After（4観点）</a></li>
+      <li><a href="#why">Why — なぜ専属家庭教師をAIで作るのか</a></li>
+      <li><a href="#what">What — NotebookLMの本質</a></li>
+      <li><a href="#how">How — ソース選び × 役割分担の設計思想</a>
+        <ol>
+          <li><a href="#how-a">3-A：ソース選びの原則</a></li>
+          <li><a href="#how-b">3-B：別事例（英単語帳×暗記ノート）</a></li>
+          <li><a href="#how-c">3-C：ツール役割分担（NotebookLM × Gems）</a></li>
+        </ol>
+      </li>
+      <li><a href="#wrap">Wrap — 実務編への橋渡し</a></li>
+      <li><a href="#lint">構造lint チェック結果</a></li>
+      <li><a href="#review">レビュー対応履歴</a></li>
+    </ol>
+  </div>
+
+  <h2 id="goal">ゴール</h2>
+  <div class="section-card">
+    <p>自分の教材だけを知っている専属AIが必要な理由と、<strong>NotebookLM×Gemsの役割分担</strong>、ソース選びの判断軸の3つを、<strong>自分の言葉で説明できる</strong>状態になる。</p>
+  </div>
+
+  <h2 id="ba">Before → After（4観点）</h2>
+  <table>
+    <thead>
+      <tr><th style="width:14%">観点</th><th style="width:43%">Before（受講前）</th><th style="width:43%">After（受講後）</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>感情</td><td>AIの答えがバラバラで不安。どれを信じればいいか分からない</td><td>自分で選んだ教材に"納得して託せる"安心感がある</td></tr>
+      <tr><td>知識</td><td>NotebookLM・Gems・汎用AIの違いが分からない</td><td>「NotebookLMは教材を持たせる役／Gemsは先生の人格を持たせる役」と1行で説明できる</td></tr>
+      <tr><td>スキル</td><td>何をソースに入れればいいか判断できない</td><td>「入れる（一次情報）／入れない（ノイズ）」の2段階で判断できる</td></tr>
+      <tr><td>行動</td><td>汎用AIに丸投げして振り回される</td><td>先に自分の教材を渡してから質問する側に回る</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <h2 id="why">Why — なぜ専属家庭教師をAIで作るのか</h2>
+
+  <h4>骨子</h4>
+  <ul>
+    <li>汎用AIで「合っているのに困った」経験の言語化（教科書と違う解き方／別解が並ぶ／範囲外の定理）</li>
+    <li>核フレーズ：<strong>「間違っているから困るんじゃない、合っているのに、今のあなたに合っていないから困る」</strong></li>
+    <li>発想転換：「AI選び」ではなく「<strong>AIに何を持たせるか</strong>」で結果が決まる</li>
+    <li>欲しいのは世界中を知る天才ではなく、あなたの教材だけを見て歩幅を合わせる相棒</li>
+    <li>次章への橋渡し：発想を入れたら、まずは道具の正体から</li>
+  </ul>
+
+  <h4>ミニ台本</h4>
+  <div class="script-label">SCRIPT</div>
+  <blockquote><p>「分からない問題をAIに聞いたら、答えは返ってくる。合ってはいる。——でも、学校で習った解き方と違う。参考書とも違う。別解が2つも3つも並んで、どれを信じればいいか分からない。間違っているから困るんじゃないんです。合っているのに、今のあなたに合っていないから困る。定期テストや入試が近づいてくるほど、このズレはじわじわ効いてきます。」</p></blockquote>
+  <blockquote><p>「原因はAIの性能じゃない。AIは賢すぎる。あなたが今どの教科書を使って、どの先生に習って、どこでつまずいているかを知らないまま、"優等生の答え"を返してくる。だから噛み合わない。」</p></blockquote>
+  <blockquote><p>「ここで発想を入れ替えよう。差がつくのは"どのAIを選ぶか"ではない。"AIに何を持たせるか"だ。あなたの教科書、ノート、先生が配ったプリント——これを先に渡してから聞く。それだけでAIは、あなたの歩幅で教えてくれる相棒に変わる。」</p></blockquote>
+  <blockquote><p>「この講座では、その思想と設計を話します。次の動画で実際に画面を開いて作るけれど、作る前に"なぜそうするか"が腹に落ちていないと、操作を真似するだけで終わる。まずは道具の正体から一緒に押さえよう。」</p></blockquote>
+
+  <hr>
+
+  <h2 id="what">What — NotebookLMの本質</h2>
+
+  <h4>骨子</h4>
+  <ul>
+    <li>使う道具：NotebookLM</li>
+    <li>例え話の基調：<strong>「世界中の図書館を暗記した天才」vs「渡した数冊の本だけを暗記した机上の助手」</strong></li>
+    <li>仕組み：渡したソースに限定して応答／引用スニペットで根拠追跡／ソース外は「資料にありません」と明示</li>
+    <li>強みと限界をフェアに：ハルシネーションを強力に抑えるが、ゼロではない。<strong>ソースの質が、そのまま返ってくる答えの質になる</strong></li>
+    <li>1行コピー：<strong>「汎用AIは世界を知っている。NotebookLMは、今のあなたの教材を知っている」</strong></li>
+    <li>次章への橋渡し：ソースの質が答えを決めるなら、何を渡すかが設計の本丸</li>
+  </ul>
+
+  <h4>ミニ台本</h4>
+  <div class="script-label">SCRIPT</div>
+  <blockquote><p>「ここで使う道具がNotebookLMです。名前くらいは聞いたことがある人も多いはず。ひとことで言うと、"あなたが渡した資料しか見ないAI"です。」</p></blockquote>
+  <blockquote><p>「例えます。汎用AIは、世界中の図書館を暗記している天才。何でも知ってる。でも、あなたの教科書のページをめくりながら答えてくれるわけじゃない。一方でNotebookLMは、あなたが渡した数冊の本だけを、完璧に暗記して机の上に置いている助手です。知識量では天才に負ける。でも、机の上の本のことは、どのページに何が書いてあるか完璧に分かっている。」</p></blockquote>
+  <blockquote><p>「仕組みはシンプル。資料をアップロードする。その資料だけを読んで答える。しかも、答える時には『この答えは、渡された資料のこの部分が根拠です』と引用スニペットで示してくれる。資料に書かれていないことを聞くと『資料にありません』と正直に返す。——噓が少ない。これが最大の強みです。」</p></blockquote>
+  <blockquote><p>「一点だけフェアに言います。噓がゼロではない。資料の書き方が曖昧だと、あいまいな答えが返る。渡す教材の質が、そのまま返ってくる答えの質になる。だからこそ、次のHowで"何を渡すか"の話をする価値がある。」</p></blockquote>
+  <blockquote><p>「一行でまとめます。『汎用AIは世界を知っている。NotebookLMは、今のあなたの教材を知っている』。これが本質です。」</p></blockquote>
+
+  <hr>
+
+  <h2 id="how">How — ソース選び × 役割分担の設計思想</h2>
+
+  <h3 id="how-a">3-A：ソース選びの原則</h3>
+
+  <h5>骨子</h5>
+  <ul>
+    <li>2段階モデル：<strong>入れる（一次情報）</strong> と <strong>入れない（ノイズ）</strong></li>
+    <li>入れる：授業ノート／配布プリント／先生の板書メモ／今の教科書の該当章</li>
+    <li>入れない：関係ない単元のPDF／解き方が違う別参考書／去年の古いノート／文字がかすれた画像PDF</li>
+    <li>失敗パターンの因果：ノイズが多いと、AIは「情報量不足」ではなく<strong>「優先順位の混線」で答えがぶれる</strong></li>
+    <li>設計者としてのキーフレーズ：<strong>「AIを迷わせないことが、あなたの仕事」</strong></li>
+    <li>次節への橋渡し：数学だけじゃない。別の科目で感覚をつかもう</li>
+  </ul>
+
+  <h5>ミニ台本</h5>
+  <div class="script-label">SCRIPT</div>
+  <blockquote><p>「ここからHow。最大のカギはソース選びです。プロンプトを書くのが上手になるより、こっちのほうが効く。」</p></blockquote>
+  <blockquote><p>「覚え方は2つだけ。入れるか、入れないか。」</p></blockquote>
+  <blockquote><p>「入れるのは、あなたの一次情報。授業ノート、配布プリント、先生の板書、今使っている教科書の該当章。あなたの学習状況に最もマッチした教材だからです。」</p></blockquote>
+  <blockquote><p>「入れないのはノイズになる資料。関係ない単元、解き方が違う別の参考書、去年の古いノート、暗くて文字がかすれた画像PDF。たくさん入れれば賢くなる、は逆です。関係ない資料が混ざると、AIは情報量不足じゃなく、優先順位の混線で答えがぶれる。」</p></blockquote>
+  <blockquote><p>「イメージしてほしい。優秀なアシスタントの机に、今日の仕事と関係ない書類を山積みにしたらどうなるか。能力が低いから困るんじゃない。どれを優先すべきかが分からなくなる。それと同じです。」</p></blockquote>
+  <blockquote><p>「だから頭に入れておいてほしい一行はこれ。『AIを迷わせないことが、あなたの仕事』。狭く、深く、今の範囲に合わせる。これが設計の基本姿勢です。」</p></blockquote>
+
+  <h3 id="how-b">3-B：別事例（英単語帳×暗記ノート）</h3>
+
+  <h5>骨子</h5>
+  <ul>
+    <li>数学の実演は次の動画に譲り、ここは<strong>英単語</strong>で別題材として腹落ちさせる（設計意図：答え漏洩防止＋他科目への横展開を示す）</li>
+    <li>汎用AIの困りごと：自分の語呂合わせや独自ルールが無視され、一般的な語源で返される</li>
+    <li>NotebookLMでの解決：単語帳と暗記ノート（語呂合わせ・語源メモ・イラスト・例文）をソース化→自分ルール準拠の穴埋めクイズ生成が可能</li>
+    <li>キーメッセージ：<strong>「単語の意味はどのAIでも出せる。でも、自分がどう覚えているかは、自分のノートを渡さないと分からない」</strong></li>
+    <li>横展開メッセージ：数学・理科・歴史、どの科目でも構造は同じ</li>
+  </ul>
+
+  <h5>ミニ台本</h5>
+  <div class="script-label">SCRIPT</div>
+  <blockquote><p>「数学の話は次の動画で一緒に実際にやるから、ここはあえて別の題材——英単語で感覚をつかんでみよう。構造はまったく同じだから、数学でも、理科でも、世界史でも、同じ発想が使える。」</p></blockquote>
+  <blockquote><p>「たとえば"deduce"という単語の覚え方を汎用AIに聞く。返ってくるのは『de（下に）+duce（導く）』という一般的な語源。正しい。でも、あなたのノートには違うことが書いてある。『で、ジュースを推測する』っていう、しょうもないけど絶対忘れない語呂合わせが書いてある。汎用AIはこれを知らないから、あなたの覚え方は無視されて、一般論で返ってくる。」</p></blockquote>
+  <blockquote><p>「じゃあ、自分の暗記ノート——語呂合わせ、語源メモ、自作の例文、落書きのイラスト——これをPDFにしてNotebookLMに渡したらどうなるか。『このノートにある私の語呂合わせとイラストのイメージを使って、今日のテスト範囲の20単語で穴埋めクイズを作って。間違えたら、私のノートの言葉でヒントを出して』と頼める。すると、世界に一つしかない、あなた専用の問題集が手元に生まれます。」</p></blockquote>
+  <blockquote><p>「一行で覚えてほしい。『単語の意味は、どのAIでも出せる。でも、あなたがどう覚えているかは、あなたのノートを渡さないと分からない』。——これが一次情報の価値です。英語でも、数学でも、他の科目でも、構造は同じ。」</p></blockquote>
+
+  <h3 id="how-c">3-C：ツール役割分担（NotebookLM × Gems）</h3>
+
+  <h5>骨子</h5>
+  <ul>
+    <li>NotebookLMの得意：<strong>教材理解・範囲内説明・根拠提示</strong>（"何を知っているか"を決める役）</li>
+    <li>NotebookLMの苦手：<strong>先生の人格、教え方のクセ、励まし、習慣化の声かけ</strong>（"どう関わるか"は担当外）</li>
+    <li>解決策としてのGems：<strong>人格設計の役割</strong>（"どう話すか"を決める役）</li>
+    <li>役割の対比：<strong>資料に強い助手と、伴走に強いコーチを、同じものとして扱わない</strong></li>
+    <li>組み合わせメッセージ：<strong>「NotebookLMは教材を持たせる。Gemsは先生の人格を持たせる」</strong></li>
+    <li>姉妹SET「Gems編」への1行接続</li>
+  </ul>
+
+  <h5>ミニ台本</h5>
+  <div class="script-label">SCRIPT</div>
+  <blockquote><p>「もう一つ整理しておきたい話があります。NotebookLMだけでは、実は"専属家庭教師"が完成しない。」</p></blockquote>
+  <blockquote><p>「NotebookLMが強いのは、教材を読ませて、その範囲で根拠付きで説明すること。ここはNotebookLMの得意領域です。でも、苦手な領域もある。先生の人格。教え方のクセ。落ち込んだときの励まし。毎日の習慣化の声かけ——こういう"どう関わるか"の部分は、資料をいくら渡しても生まれない。」</p></blockquote>
+  <blockquote><p>「そこで出てくるのがGemsです。Gemsは"教える人の人格"を設計する役を担う。『厳しめのコーチで、時々ユーモアを交える。分からないと言ったら3つ質問を返してくる』みたいに、先生のキャラを作れる。」</p></blockquote>
+  <blockquote><p>「役割分担はシンプルです。資料に強い助手と、伴走に強いコーチを、同じものとして扱わない。教材を読む役と、背中を押す役を、分けて設計する。」</p></blockquote>
+  <blockquote><p>「一行でまとめます。『NotebookLMは教材を持たせる。Gemsは先生の人格を持たせる』。この2つが組み合わさって、はじめて専属家庭教師が完成する。」</p></blockquote>
+  <blockquote><p>「Gemsの設計は、姉妹の動画セット『AIに人格を与える』でじっくり扱うので、そっちでつなげてほしい。この講座では、まず"教材を持たせる"を全力でやっていこう。」</p></blockquote>
+
+  <hr>
+
+  <h2 id="wrap">Wrap — 実務編への橋渡し</h2>
+
+  <h4>骨子</h4>
+  <ul>
+    <li>3行まとめ：①AIに何を持たせるかで結果が決まる／②NotebookLMは教材を持たせる助手／③ソースは一次情報を優先・範囲は絞る</li>
+    <li>Before/Afterを"発想転換"として言語化：<strong>勉強を丸投げする発想 → 自分の学習環境を設計する発想</strong></li>
+    <li>次講座への予告：「自分の学習Botを作ってみる」実演編、実際に手を動かす</li>
+    <li>運用サイクル（ソース追加・削除）は実演編の末尾でまとめると予告</li>
+    <li>締め：相棒トーンで簡潔。精神論ではなく、ここから先の景色の話を1行</li>
+  </ul>
+
+  <h4>ミニ台本</h4>
+  <div class="script-label">SCRIPT</div>
+  <blockquote><p>「今日の話を3行で整理します。ひとつ、AIは、どれを選ぶかより、何を持たせるかで結果が変わる。ふたつ、NotebookLMは、今のあなたの教材を知っている助手。みっつ、ソースは、自分の一次情報を優先して、範囲は絞る。この3つが頭に入っていれば、次の動画で迷わない。」</p></blockquote>
+  <blockquote><p>「受講前のあなたは、AIの返答に振り回されていた人も多かったはず。でも今のあなたは、勉強を丸投げする発想から、自分の学習環境を設計する発想に、切り替わっています。小さく見えて、大きな変化です。」</p></blockquote>
+  <blockquote><p>「次の動画は『自分の学習Botを作ってみる』。画面を開いて、実際に自分の手でNotebookLMに教材を持たせる。運用サイクル——新しい単元のノートをどう足すか、不要になったソースをどう外すか——も、そっちの最後でまとめて話します。」</p></blockquote>
+  <blockquote><p>「思想が頭に入ったら、あとは手を動かすだけ。次の動画で、一緒に組み立てにいこう。」</p></blockquote>
+
+  <hr>
+
+  <h2 id="lint">構造lint チェック結果</h2>
+  <table>
+    <thead><tr><th style="width:6%">#</th><th>項目</th><th style="width:10%">結果</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>同階層の抽象度が揃っているか</td><td>✅</td></tr>
+      <tr><td>2</td><td>同一章に重複論点がないか</td><td>✅</td></tr>
+      <tr><td>3</td><td>各章がゴールに紐づいているか</td><td>✅</td></tr>
+      <tr><td>4</td><td>前提知識なしで理解できる順序か</td><td>✅</td></tr>
+      <tr><td>5</td><td>Why/What/How/Wrap が全章に存在するか</td><td>✅</td></tr>
+      <tr><td>6</td><td>章間接続（前章結論→疑問→今章必要性）があるか</td><td>✅</td></tr>
+      <tr><td>7</td><td>1章のテーマが1〜2個に収まっているか</td><td>✅</td></tr>
+      <tr><td>8</td><td>ミニ台本が400字以上あるか</td><td>✅</td></tr>
+      <tr><td>9</td><td>固有名詞（企業名・人名）が本文に残っていないか</td><td>✅</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="review">レビュー対応履歴</h2>
+  <table>
+    <thead><tr><th style="width:38%">指摘</th><th>対応</th></tr></thead>
+    <tbody>
+      <tr><td>#9 Before/After 4観点</td><td>感情・知識・スキル・行動の4行テーブルに拡張</td></tr>
+      <tr><td>#38 解釈の余地（「かも」）</td><td>「聞いたことがある人も多いはず」「振り回されていた人も多かったはず」に置換</td></tr>
+      <tr><td>#53 教養How別事例の意図明示</td><td>How3-B 導入を「数学は次の動画／ここは別題材の英単語」に変更</td></tr>
+      <tr><td>textlint「」閉じ</td><td>各段落を独立した「」ブロックに分割</td></tr>
+      <tr><td>textlint 括弧スペース</td><td>該当箇所修正</td></tr>
+    </tbody>
+  </table>
+
+  <div class="footer">
+    BOT-02_v5-a ／ 教養編アウトライン最終版 ／ 生成日: 2026-04-22<br>
+    SHIFT AI 講座制作ワークフロー create-course-main
+  </div>
+
+</div>
+</body>
+</html>
