@@ -1,0 +1,67 @@
+{
+  "_comment": "ビジネス語彙→学校生活語彙 変換辞書。サブスキちゃんが Body / 台本テキストを機械的に置換する際に参照する。核心比喩や固有名詞（NotebookLM/Gems/SHIFT AI等）はこの辞書に含めない。",
+  "_policy": {
+    "match_mode": "longest_first",
+    "case_sensitive": false,
+    "preserve_particles": true,
+    "no_inference": "辞書にないビジネス語彙があってもそのまま残す。推測変換は禁止"
+  },
+  "mappings": [
+    { "from": "ビジネスパーソン", "to": "学生", "context": "人物属性" },
+    { "from": "ビジネスマン", "to": "学生", "context": "人物属性" },
+    { "from": "社会人", "to": "学生", "context": "人物属性" },
+    { "from": "会社員", "to": "学生", "context": "人物属性" },
+    { "from": "従業員", "to": "学生", "context": "人物属性" },
+
+    { "from": "本業の成果", "to": "試験の成果", "context": "成果指標" },
+    { "from": "本業", "to": "勉強", "context": "活動主軸" },
+    { "from": "業務効率", "to": "勉強の効率", "context": "効率" },
+    { "from": "業務時間", "to": "勉強時間", "context": "時間" },
+    { "from": "業務", "to": "勉強", "context": "活動" },
+    { "from": "仕事", "to": "勉強", "context": "活動" },
+    { "from": "業界", "to": "学年", "context": "所属" },
+    { "from": "ワークフロー", "to": "勉強の流れ", "context": "手順" },
+    { "from": "ミーティング", "to": "授業", "context": "集まり" },
+    { "from": "会議", "to": "授業", "context": "集まり" },
+    { "from": "プロジェクト", "to": "課題", "context": "取り組み" },
+    { "from": "タスク管理", "to": "宿題管理", "context": "管理" },
+    { "from": "タスク", "to": "宿題", "context": "やること" },
+    { "from": "スケジュール管理", "to": "予定管理", "context": "管理" },
+
+    { "from": "顧客", "to": "先生", "context": "対話相手" },
+    { "from": "クライアント", "to": "先生", "context": "対話相手" },
+    { "from": "取引先", "to": "先生", "context": "対話相手" },
+    { "from": "同僚", "to": "クラスメイト", "context": "周囲" },
+    { "from": "上司", "to": "先生", "context": "指導者" },
+    { "from": "部下", "to": "後輩", "context": "指導対象" },
+    { "from": "先輩社員", "to": "先輩", "context": "先達" },
+    { "from": "チームメンバー", "to": "クラスメイト", "context": "仲間" },
+
+    { "from": "営業", "to": "発表", "context": "伝える活動" },
+    { "from": "プレゼン", "to": "発表", "context": "伝える活動" },
+    { "from": "資料作成", "to": "ノート作り", "context": "まとめ作業" },
+    { "from": "報告書", "to": "レポート", "context": "提出物" },
+    { "from": "企画書", "to": "レポート", "context": "提出物" },
+
+    { "from": "データ分析", "to": "ノートの見直し", "context": "振り返り" },
+    { "from": "データベース", "to": "ノート", "context": "蓄積" },
+    { "from": "データ", "to": "ノート", "context": "情報" },
+
+    { "from": "オフィス", "to": "教室", "context": "場所" },
+    { "from": "職場", "to": "学校", "context": "場所" },
+    { "from": "会社", "to": "学校", "context": "場所" },
+    { "from": "現場", "to": "教室", "context": "場所" },
+
+    { "from": "ナレッジ", "to": "知識", "context": "情報資産" },
+    { "from": "KPI", "to": "目標", "context": "指標" },
+    { "from": "PDCA", "to": "やり方の改善", "context": "手法" },
+    { "from": "コンサルタント", "to": "先生", "context": "指導者" },
+    { "from": "エンジニア", "to": "理系の人", "context": "職業" },
+    { "from": "マネージャー", "to": "リーダー", "context": "役割" },
+
+    { "from": "ビジネス", "to": "学校生活", "context": "活動領域" },
+    { "from": "業績", "to": "成績", "context": "結果" },
+    { "from": "売上", "to": "成績", "context": "結果" },
+    { "from": "収益", "to": "成績", "context": "結果" }
+  ]
+}
