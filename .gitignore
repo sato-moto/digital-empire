@@ -17,3 +17,6 @@ Thumbs.db
 
 # BOT-02_v3 PDF（112MBで GitHub 100MB制限超過。PPTX+diagramsから再生成可能）
 SHIFT AI/BOT-02_v3/output/BOT-02_v3.pdf
+
+# 2026-04-27 整理作業: worktree抜け殻退避先（venv等で path>260, 物理保護のみ）
+/--archive/worktrees-shells_2026-04-27/
