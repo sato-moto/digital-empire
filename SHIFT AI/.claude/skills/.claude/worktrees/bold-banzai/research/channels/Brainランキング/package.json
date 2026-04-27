@@ -1,0 +1,9 @@
+{
+  "name": "brain-ranking-scraper",
+  "version": "1.0.0",
+  "description": "Brain Market AI ランキングスクレイパー",
+  "main": "scraper.js",
+  "scripts": {
+    "start": "node scraper.js"
+  }
+}

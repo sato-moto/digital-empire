@@ -1,0 +1,1305 @@
+# **ユニコ🦄式「Claude Code × Remotion Skills」の教科書【AI動画制作の全プロセス完全自動化マニュアル】**
+
+<aside>
+
+目次
+
+</aside>
+
+# 1. AIが動画編集者の仕事まで奪った日
+
+もう動画編集ソフトも動画編集者もいりません！
+
+AIエージェントが全部自動でやってくれる時代になりました！！
+
+動画編集歴15年以上、動画編集者としてクラウドワークスで毎月100万円を超える報酬をいただいていた僕だからこそ、動画編集の大変さをよく知っています。
+
+その分、やりがいもありましたし、積み上げてきた編集スキルに対する自負もありました。
+
+しかし、僕はもう自分で動画編集することはないでしょう。
+
+こちらの動画をご覧ください。
+
+※動画反映前となります🙇‍♂️
+
+僕がOpenClawのセキュリティについて語っている風の動画なんですが、なんと全部AIエージェントが制作してくれました。
+
+以下について、僕は一切手を加えていません。
+
+- 台本
+- ナレーション
+- 字幕
+- 画像
+- 編集
+
+僕がやったことは、最初に1回だけ僕の声を学習させて、後は「こんな感じの動画を作って」と指示しただけです。
+
+僕の声や喋り方を知っている方々からは「本人が話しているようにしか聞こえない」と言われます。
+
+しかも、この動画はなんとXで4.7万インプを獲得。ブックマークも300件以上していただいています。
+
+![](https://assets.st-note.com/img/1772188443-SThKUzf4Lkt29rDi7JIdxbHw.png?width=2000&height=2000&fit=bounds&quality=85)
+
+他にも1万インプ超えのポストが多数あります。
+
+![](https://assets.st-note.com/img/1772268078-2ocYGzrIpdfxKwqZya35Tm1O.png?width=2000&height=2000&fit=bounds&quality=85)
+
+![](https://assets.st-note.com/img/1772268071-b2etilYWjKISEhRn8Zq5HFgJ.png?width=2000&height=2000&fit=bounds&quality=85)
+
+![](https://assets.st-note.com/img/1772268083-DbaYjFtLxZE356X10nciq8mM.png?width=2000&height=2000&fit=bounds&quality=85)
+
+驚きなのが、これらのポストは「最新のAIがやばい！」とか「AIでこんな動画が作れるようになってやばい！」とか「AI動画で簡単に稼げる！」とか「プロンプトが欲しい人はいいねして◯◯ってリプを送ってね！」みたいなものではないことです。
+
+まじめにOpenClawのセキュリティなどAIに関する考察を語っているだけであり、それでもこれだけのインプやブックマークを集めることができました。
+
+純粋にいい動画だと感じてもらえたからに他なりません。
+
+まさか全部AIエージェントが作ったものだとは想像もしていない方が大半だと思います。
+
+これからは台本から動画編集まで全部AIエージェントに任せればいいことを確信した瞬間でした。
+
+このBrainは、僕のように台本から編集まで動画制作を全部AIエージェントに丸投げしたい方のためのものです。
+
+僕が自分用に開発して使っている動画制作のためのAIエージェントを、このBrainの購入者に配布します。手順に従っていただければ、誰もが自動でオリジナルの音声を使った動画を制作できるようになります。
+
+しかも、作れるのは縦動画だけではありません。このような横動画も作れます。
+
+もちろんこのスタイルの動画しか作れないわけでもありません。
+
+僕はたまたまこのスタイルが自分の中でしっくりくるので好んでこうなるように指示していますが、こういうのとは違う動画を作ってほしければ、そのための指示を出せばいいだけです。
+
+スタイルのテンプレートだけでも30種類用意しています。修正を指示したり、こちらで用意した素材を使ったりも当然できます。
+
+まさに自分の代わりに働いてくれる優秀な動画クリエイターそのものです！
+
+## **Xの記事ブームに最適！**
+
+今Xでは記事がアルゴリズム的に優遇される傾向にあります。
+
+しかし、記事はすでにAIで書ける人が多く、差別化できないので、結局伸ばせるのは一握りの人だけになってしまっています。
+
+そこで僕は、記事だけでなく動画も使うことで差別化に成功。記事だけだった時より明らかに調子がいいです。
+
+## 1-1. まだ「動画生成」で止まっていませんか？
+
+AIで動画を作るムーブメントは数年前から発生しています。
+
+特に2024年はバブル状態で、僕もがっつり便乗して稼がせてもらいました。
+
+例えばこの動画はXで1,000万インプを獲得！
+
+![](https://assets.st-note.com/img/1772188377-bsl5Z1VTAUvutiJQg6FNSpYW.png?width=2000&height=2000&fit=bounds&quality=85)
+
+YouTubeでAI動画をバズらせまくり、チャンネル登録者数10万人でもらえる銀の盾を獲得している方も知っています。
+
+振り返ってみればボーナスタイムだったという他ありません。バズりそうな企画を考えて、後は動画生成AIで中身のない数秒の動画を出せばよかった時代です。
+
+今も動画生成AIは進化を続けていますし、種類も豊富です。
+
+- Sora
+- Veo
+- Kling
+- Runway
+- Vidu
+
+などは、一度は触ったことのある方が多いのではないでしょうか。
+
+しかし残念ながら…世間はもう動画生成AIで生成しただけの単純な「AI動画」に慣れてしまいました。
+
+「AIでこんな動画が作れるようになってやばい！」という驚きで稼げるのは最初だけで、基本的に一過性のブームなんですよね。
+
+現在は動画生成AIだけ触っていても上手くきません。
+
+これまで通り、企画だけでなく、台本から編集までしっかりした動画が求められています。
+
+だけど正直、台本とか編集とか面倒くさいですよね？
+
+動画編集歴15年以上の僕ですら面倒で仕方ありません。
+
+だから開発したんです。
+
+僕の代わりに全部自動でやってくれるAIエージェントを。
+
+## 1-2. AIエージェントの開発者
+
+こんにちは、ユニコ🦄と申します！
+
+渋谷のベンチャー企業の経営者で、累計2億円以上の資金調達などしつつ、XではAIエージェント開発（Claude Codeガチ勢）の人として発信しています。
+
+おかげさまで4万人を超える方にフォローしていただいております！
+
+また、AIエージェント開発スクール「#ユニコスクール」というものも運営していまして、そちらは受講生が934人を突破しました。
+
+僕以上にAIエージェント開発に夢中な人間は他にいないでしょう！
+
+1日12時間AIと向き合い、週に15時間以上生放送して、おかげさまで月100万を達成する受講生も次々に出てきています。
+
+このBrainでは、そんな僕の研究成果を全て受け取っていただけます！
+
+## 1-3. 動画制作に対するハードルをゼロにする
+
+配布するAIエージェントを使えば、
+
+- 台本
+- ナレーション
+- 字幕
+- 画像
+- 動画編集
+
+これらを全て自動化できます。
+
+「台本が苦手…」「自分で話すのは嫌…」「動画編集が面倒…」などの悩みは今日からなくなるでしょう。
+
+外注費をかけたり、外注先との煩わしいコミュニケーションに悩んだりする必要もありません。
+
+必要なのは「AIエージェントに動画を作らせたい」という気持ちだけ。面倒くさいところは全部AIエージェントにお任せください！
+
+## 1-4. 動画制作に欲しい機能全部入り！
+
+今回のAIエージェントには、僕が欲しかった機能を全部詰め込みました。具体的に次のようなことができます。
+
+- 動画の目的・内容・スタイルを対話形式で確認してから制作開始
+- 台本を生成して動画に使用（こちらが渡した台本を使うことも可）
+- 画像を生成して動画に使用（こちらが渡した画像を使うことも可）
+- ナレーションを生成して動画に使用（こちらが渡した音声ファイルを使うことも可）
+- 生成したナレーションに合わせた字幕を生成
+- テキストを渡して字幕を生成
+- 渡したBGMを動画に使用（渡さなくてもデフォルトBGMあり）
+- 完成した動画のタイトル案を5つ提示
+- 完成した動画を通し番号と一覧HTMLで管理
+- 修正対応
+- 機能の追加
+
+台本、画像、ナレーション、字幕をゼロから生成できます。こちらが素材を渡せば、それをちゃんと使ってくれます。
+
+## 1-5. スタイルテンプレートも30種類用意
+
+もし、自分の中のイメージが曖昧で、具体的な指示を出せない状態でも大丈夫です。
+
+最初にAIエージェントのほうからどんな動画を作りたいか、どういうスタイルの動画を作りたいかなどを聞いてくれる機能があります。
+
+AIエージェントの質問に答えていけば自然と動画ができあがります。
+
+以下、用意しているスタイル30種類のイメージ画像です。
+
+**1：ピクセルアート（暖色）**
+
+![](https://assets.st-note.com/img/1771853532-3hz8TVB7UXgF50aNfoOLItwW.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**2：ピクセルアート（寒色）**
+
+![](https://assets.st-note.com/img/1771853548-KzRensri4Nt1MdJv2fAgPmOw.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**3：ピクセルアート（ダーク）**
+
+![](https://assets.st-note.com/img/1771853558-yon2SixzprMVFhPglYNZa9I0.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**4：アニメ風**
+
+![](https://assets.st-note.com/img/1771853568-sXviw6yTeUZhkHdop2OQjnl5.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**5：アイソメトリック**
+
+![](https://assets.st-note.com/img/1771853578-9x0W3gFcpAJBXyS1ZsRMzlKb.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**6：カワイイ**
+
+![](https://assets.st-note.com/img/1771853590-bhgLHMrFyqTpi5kePCsI3Z9U.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**7：絵本風**
+
+![](https://assets.st-note.com/img/1771853599-fzPiyt2INTXWJ4gDZHh8LxYs.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**8：劇場版アニメ**
+
+![](https://assets.st-note.com/img/1771853610-2o7DhMq1m0JngsLzWBHFG3Xu.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**9：ゲームCG**
+
+![](https://assets.st-note.com/img/1771853620-Rwd0XKcfF3xUsH5qzMZELm9G.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**10：浮世絵**
+
+![](https://assets.st-note.com/img/1771853644-zU4tKM0gSG37TybqDhxEJVmL.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**11：水墨画**
+
+![](https://assets.st-note.com/img/1771853673-VdjJp8sr5aA7GYufqxHZTgo9.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**12：ローポリ3D**
+
+![](https://assets.st-note.com/img/1771853682-bAWE84nx3zjh10ZTFwedo6Xl.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**13：萌え**
+
+![](https://assets.st-note.com/img/1771853693-6ADSKx1r8OH05id49leEFPTc.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**14：アイドル**
+
+![](https://assets.st-note.com/img/1771853700-SzxoRrpPAsZVmuN7Gnbq6eh8.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**15：コスプレ**
+
+![](https://assets.st-note.com/img/1771853714-E7Y9ZnlzW1CxcOahHTIkUB4K.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**16：ちびキャラ**
+
+![](https://assets.st-note.com/img/1771853723-o916fbCvwLDyYmBhJdlxHjeP.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**17：ギャルポップ**
+
+![](https://assets.st-note.com/img/1771853746-Zvpahq5DslXi310x6gj8nBeo.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**18：ギャルストリート**
+
+![](https://assets.st-note.com/img/1771853756-Lbon5PNpFiYTAgyvXOrkef76.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**19：クラシックアニメ**
+
+![](https://assets.st-note.com/img/1771853765-fVqAScTw4Zhl5rMeQU7t8nI0.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**20：深夜アニメ（ファンタジー）**
+
+![](https://assets.st-note.com/img/1771853775-xUPkiKRfvsHWm65bXQM3nAcL.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**21：深夜アニメ（日常系）**
+
+![](https://assets.st-note.com/img/1771853784-BSOQV5A87zXkdF3Cl02iNRvJ.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**22：原宿ポップ**
+
+![](https://assets.st-note.com/img/1771853807-jlx2JHsCf3LkizXWRUDbyoOZ.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**23：渋谷カルチャー**
+
+![](https://assets.st-note.com/img/1771853815-kbKtpo69gaUeuldW1z5nJhCM.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**24：シネマティック**
+
+![](https://assets.st-note.com/img/1771853821-2J0hXasOyLMiGdWDIRBfEUoS.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**25：ポートレート**
+
+![](https://assets.st-note.com/img/1771853831-rZxF5qY8SneUfXdphQg31k0N.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**26：ストリートスナップ**
+
+![](https://assets.st-note.com/img/1771853841-AdyoLU6N5hHPiRX8IpZvgaBJ.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**27：ドラマチック**
+
+![](https://assets.st-note.com/img/1771853849-neHXQVDYFclxtbmZBAh5Tu97.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**28：ソフトフォーカス**
+
+![](https://assets.st-note.com/img/1771853857-5FAQNdOemoLp3SZGwJ2gij40.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**29：ネオン夜景**
+
+![](https://assets.st-note.com/img/1772188513-HXpvIFJEBOL2UkyZGhiaY6zc.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+**30：ドキュメンタリー**
+
+![](https://assets.st-note.com/img/1771853875-0H7BGVo2nMuAqmOckQ8LYESd.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+## 1-6. 初心者向けに導入から徹底解説
+
+配布するAIエージェントは、自分で言うのもなんですが、非常に高度であり、導入や起動には複数の知識が必要です。
+
+何せ以下のものを掛け合わせたものですので。
+
+- Antigravity
+- ClaudeCode + Skills
+- Remotion Skills
+
+英語で質問される場面もあります。
+
+せっかく配布しても、導入で挫折されて結局使ってもらえないのは避けたいと僕は強く思っています。
+
+だから導入手順を全て画像つきで解説しました！
+
+解説のために80枚以上の画像が使われています。
+
+テキストだけではなく解説動画まで用意しています！
+
+<aside>
+
+テキストはWindowsの画面を、動画はMacの画面を使っています。
+
+</aside>
+
+Antigravityの知識がなくても、ClaudeCodeの知識がなくても、Skillsの知識がなくても、Remotionの知識がなくても、その他プログラミングやAI開発に関する知識がなくても、一切構いません！
+
+あなたが導入で挫折しないよう、丁寧にサポートします。
+
+実際に、完全初心者のスタッフにゼロ状態から導入を試みてもらって、本当に知識なしでもこのBrainだけでできることを確認済みです。
+
+## 1-7. 生放送でも導入サポート！
+
+導入は生放送でもサポートします。
+
+アーカイブも残します。
+
+詳しくは後述します！
+
+## 1-8. AntigravityやClaudeCodeの使い方も解説
+
+AIエージェントのためにAntigravityやClaudeCodeを使う関係上、それらに関する解説もあります。
+
+つまり、このBrainはAntigravityやClaudeCodeの教科書にもなっており、その意味でも非常にお得です。
+
+## 1-9. 自分の声をAIに学習させる方法も解説
+
+僕のように自分の声を学習させてナレーションに使う方法も解説します。
+
+YouTubeでは今、いわゆる「ゆっくりボイス」や「VOICEVOX」のような人気音声を使うと「量産型のコンテンツ」などとして収益化が認められない例が一部で見られるようです。
+
+だけど自分の声であれば、少なくとも声を理由に量産型とされる心配はありません。
+
+自分の声を使いたいけどいちいち収録するのは面倒という方にとって、僕のやり方はベストな選択肢だと思います。
+
+<aside>
+
+自分で声を用意せずに、デフォルトの声やネットで公開されている声を使う方法もあります。
+
+</aside>
+
+## 1-10. 自分用にアレンジ可能
+
+配布するAIエージェントは好きにアレンジもできます。
+
+アレンジの仕方は簡単で、「こういう機能を追加して」などと直接AIエージェントに依頼するだけ。
+
+それくらい簡単にアレンジできる機能も備えています！必要に応じてどんどん自分用にアレンジして、自分だけのAIエージェントに染めてください！
+
+## 1-11. 動画マネタイズの可能性は無限大！
+
+![](https://assets.st-note.com/img/1773058502-MGTbvJgBlw1d5c64Pef8C3EF.png?width=2000&height=2000&fit=bounds&quality=85)
+
+動画制作ほどマネタイズの幅が広いジャンルは珍しいと思います。
+
+- 企業から制作依頼を受けて報酬を受け取る（クライアントワーク）
+- YouTubeやTikTokなどで再生回数に応じた報酬を受け取る
+- Xからインプ数に応じた報酬を受け取る
+- 動画制作の教材やスクールなどを売る（コンテンツ販売）
+- 動画を集客装置に使ってバックエンド商品を売る（コンテンツ販売）
+
+などなど、動画制作は、様々な形でのマネタイズに繋がる可能性を秘めています。
+
+ただ、これまでは学習ハードルが高く、外注するにしても制作コストやコミュニケーションコストがバカにならないという問題がありました。
+
+だけどもう違います。
+
+AIエージェントを使えば誰でもクリエイターになれるようになりました！
+
+想像してみてください。
+
+ただ指示するだけでAIエージェントが自動で動画を作ってくれる未来を。それによって得られる未来を。
+
+僕のスクールでは、すでにYouTubeから登録者数10万人でもらえる銀の盾を獲得したり、アドセンス収益だけでも毎月100万円以上稼いだりしている方もいます。
+
+あなたも今日から動画クリエイターです！
+
+※成果を保証するものではありません。
+
+## 1-12. 購入者限定の5大特典
+
+![](https://assets.st-note.com/img/1773057636-OnG6iItMfeqAXa0NbuEjH5dm.png?width=2000&height=2000&fit=bounds&quality=85)
+
+<aside>
+
+特典を受け取っていただくためにはユニコ🦄の公式LINEへの登録が必要です。AIエージェントの導入や使い方の解説はBrain内で完結します。
+
+</aside>
+
+### **特典1：購入者限定オープンチャットでサポート**
+
+購入者はオープンチャット「Claude CodeでAI動画完全自動化コミュニティ」に招待させていただきます。
+
+そこでは無料でAI動画に関する有益情報を共有します。
+
+また、購入者の声を今後の開発やサービスに反映させるためにアンケートも実施予定。Brainを売って終わりではなく、末永くサポートさせていただきます！
+
+### **特典2：導入サポート生放送**
+
+Brainだけでは導入が上手くできなかった方のために、生放送でも直接サポートします。
+
+<aside>
+
+【この生放送の予定】
+
+2026年3月30日 22:00～2026年3月31日 03:00
+
+AIエージェントの導入や使い方の解説はBrain内で完結しますが、プラスアルファの無償サポートです。
+
+</aside>
+
+放送時間は5時間を予定していますが、可能であれば、全員の導入が終わるまで続ける気持ちでいます！
+
+また、アーカイブも残します。
+
+絶対に導入で挫折させないつもりでサポートします！
+
+### **特典3：バズる動画を一緒に作ろう生放送**
+
+AIエージェントで動画を作れるようになったら、今度はその動画を多くの方に見てもらいたいものですよね？
+
+そのためにバズる動画をその場で一緒に作る生放送も行います！
+
+<aside>
+
+【この生放送の予定】2026年4月7日 23:00～2026年4月8日 01:00
+
+生放送に参加しなくてもAIエージェントの導入や使い方の解説はBrain内で完結しています。
+
+</aside>
+
+アーカイブも残します。
+
+従来であれば生放送中に動画を作るなんてむちゃな企画なんですが、AIエージェントがあれば余裕です！
+
+### **特典4：購入者の作った動画を添削する生放送**
+
+購入者が実際に作った動画を僕が直接見て添削する生放送も行います！是非ともAIエージェントで作った動画であなたにもバズを経験してもらいたいので、そのためのサポートも惜しみません！
+
+<aside>
+
+【この生放送の予定】2026年4月26日 22:00～2026年4月27日 00:00
+
+生放送に参加しなくてもAIエージェントの導入や使い方の解説はBrain内で完結しています。
+
+</aside>
+
+アーカイブも残します！
+
+### **特典5：要望に応じたスタイルテンプレートの追加**
+
+あらかじめ30種類のスタイルテンプレートを備えていることは前述の通りですが、さらに追加のテンプレートも作成して配布します。
+
+しかも、追加するテンプレートは、購入者の生放送での要望に応じて作成します！よりよいAIエージェント開発のためにあなたの声をお聞かせください！
+
+<aside>
+
+生放送に参加しなくてもAIエージェントの導入や使い方の解説はBrain内で完結しています。
+
+</aside>
+
+## 1-13. YouTubeのプロ監修
+
+僕のスクールにミカさんというスクール生がいます。
+
+- 顔も声も出さない非属人YouTubeで月100万超え達成
+- ミカさんのスクール生の3分の1以上がYouTubeで月100万超え達成
+- YouTube攻略noteは290部超えの大ヒット
+
+などなど、非常に優れた実績を持っている方です！
+
+今回AIエージェント開発に当たって、そんなミカさんに監修してもらいました！
+
+## **ミカのあいさつ**
+
+![](https://assets.st-note.com/img/1772450726-QL0vH1oaRVtK7dAz3TlIBDE9.png?width=2000&height=2000&fit=bounds&quality=85)
+
+ユニコ🦄さんからご紹介に預かりましたミカと申します。
+
+YouTubeでのAI活用は、2024年頃から本格化しています。
+
+台本をAIに書かせたり、AIイラストを動画に使ったりするなど、AIによってこれまではできなかったことや外注が必要だったことがどんどん自前でできるようなりました。
+
+しかし、それでもずっと制作のネックになっていたものがありました。
+
+それが動画編集です。
+
+他と違って動画編集だけは中々AIに任せることができず、重たい作業として残り続けていたんですよね。
+
+それがなんと、ユニコ🦄さんの開発したAIエージェントでは、動画編集まで丸投げできるようになりました。
+
+<aside>
+
+作りたい動画や目指すところによっては人の手で編集したほうがいいことも当然あります。
+
+</aside>
+
+これでもう「そもそも動画が作れない」人はいなくなります。
+
+多くの方がこのAIエージェントをきっかけに、何かしらの形で動画投稿を始めることになるでしょう。
+
+これまで「やりたい」と思いながら「できなかった」人たちができるようになっていくわけですから、私もうかうかしていられません。
+
+今回、監修という偉そうな立場で少しだけ携わらせていただきましたが、おかげでAI×YouTubeの未来もだいぶ見えましたし、逆に刺激をいただけて、貴重な体験となりました。
+
+AntigravityやClaude Codeについても一気に詳しくなれました。
+
+ユニコ🦄さんのAIエージェント開発に対する熱量は本物です。このAIエージェントをより多くの方に使っていただければ私としても幸いです。
+
+## 1-14. よくある質問（FAQ）
+
+**Q.パソコンは必須ですか？**
+
+A.はい、パソコンは必須です。WindowsでもMacでも構いません。
+
+**Q.動画編集未経験ですが大丈夫ですか？**
+
+A.はい、大丈夫です。あなたはAIエージェントに指示するだけです。自分自身で動画編集する必要はありません。
+
+**Q.プログラミング未経験ですが大丈夫ですか？**
+
+A.はい、大丈夫です。必要なものは僕が全部AIエージェントにぶち込みました。あなたはAIエージェントに指示するだけです。
+
+**Q.利用に費用はかかりますか？**
+
+A.AIを利用する際に下記の費用が必要となります。
+
+- LLM（ClaudeCode）　※ただしGoogle Antigravityを利用の場合は無料も可
+
+- 画像生成API- 音声API
+
+※目安として、月に100本で約5,000円〜1万円という形となります。（動画時間に応じて費用が変わってきます）
+
+# 2. 価格について
+
+発売開始から3/22 23:59までは限定で5,980円とします。
+
+その後は、3/29 23:59まで19,800円、3/30 0:00からは29,800円で販売します。
+
+※Brainの値上げは手動で行うため、時間が前後する可能性があることあらかじめご了承ください。
+
+このBrainは「Antigravityの使い方を教えます」的な情報まとめだけのコンテンツではなく、僕が独自に開発したAIエージェント（Claude Codeなどのファイル）を配布するものです。
+
+開発のために1日12時間AIと向き合い続け、ここまで何百万円も課金してきました。
+
+それだけでなく、スタッフにテストしてもらったり、このBrain執筆のために協力してもらったりもしています。
+
+そういった僕のかけた膨大な時間と費用をすっ飛ばして労せずに完成品という旨味だけ受け取れるわけですから、コスパは極めて高いと思います。
+
+しかも、AntigravityやClaude Codeの使い方まで解説しています。
+
+このBrainでわかることやできるようになることが山ほどあります。
+
+そして何より、動画編集の学習コストや外注費が浮きます。
+
+5,980円で動画制作を丸投げできるAIエージェントを手にすれば、学習する必要すらありません。
+
+今すぐ「購入して続きを読む」ボタンを押して、僕のAIエージェントとノウハウを受け取ってください！
+
+🔻🔻ここから有料エリアです🔻🔻
+
+# 3. 今スグ購入者特典をお受け取りください！
+
+Brainのご購入ありがとうございます！最初に1番大事なご案内です。
+
+**※※購入者特典を受け取るためにLINE登録をお願いします！※※**
+
+AIエージェントの更新など、最新の情報はLINEで共有します。これからもサポートさせていただきたいので、忘れないよう、今すぐ登録してください。
+
+**👇️こちらのリンクからご登録いただけます👇️**
+
+https://s.lmes.jp/landing-qr/2000375570-7vQ32Bzl?uLand=emW9Tg
+
+**こちらのQRコードからもご登録いただけます。**
+
+![](https://assets.st-note.com/img/1772611193-JFgd8q5Z3C0rOjt1WcDNB49M.png?width=2000&height=2000&fit=bounds&quality=85)
+
+## 3-1. 特典内容
+
+![](https://assets.st-note.com/img/1773216729-vnjyNM6uCehOKSsQmtI1TkEH.png?width=2000&height=2000&fit=bounds&quality=85)
+
+**👇️上記特典を受け取るために、必ずLINE登録をお願いします👇️**https://s.lmes.jp/landing-qr/2000375570-7vQ32Bzl?uLand=emW9Tg
+
+# 4. 導入に当たって
+
+これからAIエージェントで動画制作を自動化するために必要なものや設定方法について解説します。
+
+もし、記事内の画像や動画と実際の画面が異なる場合、必ず実際の画面に従って操作してください。
+
+解説記事と実際の画面が完全に一致していることのほうが世の中珍しいと思います。
+
+アップデートによる変更などが常に起こりえるものだからです。
+
+AntigravityやClaude Codeの反応だって毎回同じではありません。
+
+そういうのも生放送では対応できます！
+
+導入につまづいてしまった方は、是非とも生放送に参加したりアーカイブを見たりして、導入を完了させてください。
+
+## 4-1. 生放送以外での解決方法
+
+迷ったら「スクショをAIエージェントに見せてどうしたらいいのか聞く」ことをしてみてください。
+
+そうやってAIエージェントに質問して解決を試みることもAIスキル上達に繋がります。
+
+# 5. ステップ1️⃣：ユニコ🦄式Skillsをダウンロードする
+
+https://www.youtube.com/watch?v=e1Nm9ElXOYo
+
+最初に僕が配布するデータの保存先となるフォルダを作ってください。
+
+ダウンロード先はどこでもいいと言われることが多いですが、セキュリティを考慮すると、ドライブ直下は避けるべきです。
+
+よくわからないという方は、今回はとりあえずデスクトップに「ClaudeCode」というフォルダを作成してください。
+
+<aside>
+
+作成する場所やフォルダ名はこれじゃないといけないわけではありません。
+
+</aside>
+
+作成したら、以下のリンクから「.claude」をダウンロードしてください。
+
+https://drive.google.com/drive/u/0/folders/1RH8KL2pXrZImNy5FFVow1E7pEn1smGPi
+
+「claude.zip」の「⋮」を押して「ダウンロード」を押すとダウンロードできます。
+
+![](https://assets.st-note.com/img/1772280177-2eGjMhtAYJ5pZl1KRuB6a8D3.png?width=2000&height=2000&fit=bounds&quality=85)
+
+Zipファイルでダウンロードされます。
+
+ダウンロードしたら、Zipファイルを解凍（展開）してください。
+
+解凍（展開）されたら、その「.claude」フォルダを、先ほど作った「ClaudeCode」フォルダの中に移動させてください。
+
+# 6. ステップ2️⃣：画像生成を丸投げするためのAPIキーを取得する
+
+https://www.youtube.com/watch?v=4IYH3zUvW-M
+
+AIエージェントに画像生成を丸投げしたい場合、fal.aiというサービスのAPIキーが必要です。
+
+<aside>
+
+逆に言えば、画像生成の丸投げは自分には必要ないと感じる方は、この章をスキップしても構いません。次のステップまで飛んでください。
+
+</aside>
+
+まずはfal.aiに登録しましょう。
+
+以下にアクセスしてください。
+
+https://fal.ai/
+
+アクセスしたら右上の「Login」ボタンを押してください。
+
+![](https://assets.st-note.com/img/1772188998-SOWT0mnpRoXc1xKueqfEzMZj.png?width=2000&height=2000&fit=bounds&quality=85)
+
+左にどのアカウントでログインするかの選択肢が出てくるので、任意で選択してください。
+
+まだfal.aiを一度も使ったことない場合でもここからログインです。
+
+![](https://assets.st-note.com/img/1772188999-g4VODFnoabrAqQJ0ZT6RX9hu.png?width=2000&height=2000&fit=bounds&quality=85)
+
+ログインしたら、右上のアイコンボタンを押してください。
+
+![](https://assets.st-note.com/img/1772188998-pGIWf8Su3lvcCPYRxrt7U20z.png?width=2000&height=2000&fit=bounds&quality=85)
+
+「API Keys」を押してください。
+
+![](https://assets.st-note.com/img/1772188998-ZT7MumzvB65fp3wQ1okyClOr.png?width=2000&height=2000&fit=bounds&quality=85)
+
+「Add key（またはCreate new key）」を押してください。
+
+![](https://assets.st-note.com/img/1772188999-vSAPGZuqWCmDIdaX9gQzf25b.png?width=2000&height=2000&fit=bounds&quality=85)
+
+APIキーに任意の名前をつけてください。
+
+そして表示されたAPIキーをクリックしてください。
+
+APIキーは一度しか表示されないため、必ずどこかに控えてください。
+
+このAPIキーは、動画制作の際にAIエージェントから聞かれますので、必要に応じて使用してください。
+
+なお、APIキーがあっても、fal.aiのクレジットがなければ使用できません。クレジットを購入するためにホーム画面に戻ってください。
+
+![](https://assets.st-note.com/img/1772188998-q9vm3ISLDcjBHzQZNPXtyan2.png?width=2000&height=2000&fit=bounds&quality=85)
+
+Home画面に戻ったら右上のアイコンから「Credits」を押してください。
+
+![](https://assets.st-note.com/img/1772188998-N5nMgkSZX8rmLi6R7UzYGuWA.png?width=2000&height=2000&fit=bounds&quality=85)
+
+「Add Credits」から任意の金額を選択して「Buy」ボタンを押して購入できます。お試しでも10ドルくらいは持っておくのがおすすめです。
+
+![](https://assets.st-note.com/img/1772188998-StiXNdKumGyfL4qEDlnTJxzh.png?width=2000&height=2000&fit=bounds&quality=85)
+
+これで画像生成をAIエージェントに丸投げする準備ができました。
+
+# 7. ステップ3️⃣：自分の声をAIに学習させて使う準備をする
+
+https://www.youtube.com/watch?v=WmPLAsUk2eA
+
+自分の声をAIに学習させて、AIエージェントが音声を自動生成できるようにしましょう。そのためにFish Audioというサービスを使います。
+
+まずは自分の声を録音したデータをご用意ください。
+
+自分の声が嫌な方は、他人に頼んでもいいです。
+
+録音方法は何でも構いません。
+
+例えばiPhoneの「ボイスメモ」アプリでも大丈夫です。
+
+- WAV（推奨）
+- MP3
+- M4A
+- その他一般的なフォーマット
+
+に対応しています。
+
+録音のために何を喋ればいいのかわからない方は、とりあえず以下の文章を読み上げたものを録音すれば問題ないと思います。
+
+<aside>
+
+こんにちは。今日も動画を見に来てくれてありがとうございます。
+
+最近、AI技術の進化がすごいスピードで進んでいますよね。特に動画制作や音声合成の分野では、ほんの数年前まで専門家にしかできなかったことが、今では誰でも簡単にできるようになってきています。
+
+私自身も、この流れをうまく活用しながらコンテンツ作りをしています。最初は難しそうに見えても、実際に触ってみると意外とシンプルだったりするんですよね。
+
+大事なのは、まず一歩踏み出してみること。完璧じゃなくていいので、とにかくやってみる。それが上達への一番の近道だと思っています。
+
+この動画では、そんな私の経験をもとに、わかりやすく解説していきます。ぜひ最後まで見ていってください。
+
+</aside>
+
+録音データを用意したら、Fish Audioに登録しましょう。
+
+以下にアクセスしてください。
+
+https://fish.audio/ja/
+
+右上の「ログイン」ボタンから新規登録もできます。
+
+![](https://assets.st-note.com/img/1772188998-rad217Iih9fT63RwGsznJlBp.png?width=2000&height=2000&fit=bounds&quality=85)
+
+任意の方法でログインしてください。
+
+![](https://assets.st-note.com/img/1772188998-veS2OiP9ukbgJAUrhtfna5zC.png?width=2000&height=2000&fit=bounds&quality=85)
+
+これがホーム画面です。
+
+![](https://assets.st-note.com/img/1772188999-FmjzclDXqI2hLvsKS9pgZN4T.png?width=2000&height=2000&fit=bounds&quality=85)
+
+サイドバーから「ボイスクローン」をクリックしてください。
+
+![](https://assets.st-note.com/img/1772188999-yNSI4pwqtVU7kmBxF1GgOAuZ.png?width=2000&height=2000&fit=bounds&quality=85)
+
+「アップロード」ボタンから録音データをアップロードしてください。
+
+![](https://assets.st-note.com/img/1772188998-mAP5JK0XODeBIH2YfMjLg6F9.png?width=2000&height=2000&fit=bounds&quality=85)
+
+「詳細に進む」ボタンを押してください。
+
+![](https://assets.st-note.com/img/1772188998-p0Wn2Oc9d63y5xZe1RkBErAT.png?width=2000&height=2000&fit=bounds&quality=85)
+
+名前と説明文を、何でもいいので埋めて、最後に「作成」ボタンを押してください。
+
+![](https://assets.st-note.com/img/1772188998-QumLwTBzdqxUYZyODb12lVA8.png?width=2000&height=2000&fit=bounds&quality=85)
+
+作成後、「ブックマーク」の隣の「…」ボタンを押して、「モデルIDをコピー」を押して、出てきたモデルIDを控えてください。
+
+![](https://assets.st-note.com/img/1772188999-ry9PgOIvDfd2KnVhCMcSYAjx.png?width=2000&height=2000&fit=bounds&quality=85)
+
+続いてAPIキーを取得しましょう。
+
+サイドバーの「開発者」をクリックしてください。
+
+![](https://assets.st-note.com/img/1772188999-2oJjlS7LQbrICmzUXauxiqGh.png?width=2000&height=2000&fit=bounds&quality=85)
+
+上のタブの「APIキー」ボタンを押し、出てきた「新規シクレットキーを作成します」ボタンを押して、作成したAPIキーを控えてください。
+
+![](https://assets.st-note.com/img/1772188998-M6pvTxAdEKIBnm57SRhyF08C.png?width=2000&height=2000&fit=bounds&quality=85)
+
+また、AIエージェントで音声を生成するには、専用クレジットが必要です。
+
+上のタブの「請求書」ボタンを押して、出てきた「クレジット追加」ボタンを押すと、クレジットを購入できます。
+
+![](https://assets.st-note.com/img/1772188999-kNEvHBJOzDot89XTwyxapAlS.png?width=2000&height=2000&fit=bounds&quality=85)
+
+試しに10ドルも購入すればだいぶ使えます。
+
+## 7-1. Fish Audioに公開されている音声データを使う方法
+
+http://youtube.com/watch?v=WP1YprYTtC4&embeds_referring_euri=https%3A%2F%2Fbrain-market.com%2F&source_ve_path=OTY3MTQ
+
+Fish Audioに公開されている音声を選んで使うこともできます。
+
+サイドバーの「発見」を押してください。
+
+![](https://assets.st-note.com/img/1772448984-YMJtGXezwrAdkOSPxEB8oNmu.png?width=2000&height=2000&fit=bounds&quality=85)
+
+公開されている音声一覧が出てくるので、気になったものをクリックしてください。
+
+![](https://assets.st-note.com/img/1772449747-hVoYxwK6FQjuRXBe17rOqyf3.png?width=2000&height=2000&fit=bounds&quality=85)
+
+「⋯」ボタンを押してください。
+
+![](https://assets.st-note.com/img/1772449810-8BPtL7Xnl3Fspuo6hiqeyZO0.png?width=2000&height=2000&fit=bounds&quality=85)
+
+「モデルIDをコピー」ボタンを押して、モデルIDを控えてください。
+
+![](https://assets.st-note.com/img/1772449888-KhVIRw15Y3ZX6PS2fFzAtCO9.png?width=2000&height=2000&fit=bounds&quality=85)
+
+<aside>
+
+Fish Audioに公開されている音声は、権利問題をクリアしているものとは限りません。ご利用の際はくれぐれもご注意ください。僕自身は絶対に使わないようにしています。
+
+</aside>
+
+# 8. ステップ4️⃣：Antigravityを導入する
+
+https://www.youtube.com/watch?v=v242MVZrKlo
+
+Antigravityとは、Googleが2025年11月に公開したAIエージェント搭載の開発環境（IDE）です。
+
+今回はこれを使って動画制作AIエージェントを動かします。
+
+Antigravityのダウンロードは以下のGoogle公式ページから行います。
+
+https://antigravity.google/
+
+アクセスしたら右上の「Download」ボタンを押してください。
+
+![](https://assets.st-note.com/img/1771510228-WXpPgcK5loMzEh3rmfCb06GF.png?width=2000&height=2000&fit=bounds&quality=85)
+
+押すと、Mac、Windows、Linuxのためのダウンロードボタンがそれぞれ表示されます。
+
+![](https://assets.st-note.com/img/1771510382-CS3cmFJ6kiN42D7xPdE9zZM5.png?width=2000&height=2000&fit=bounds&quality=85)
+
+ご自身の環境に合わせて選択されてください。
+
+「Antigravity.exe」のダウンロードが開始されます。
+
+ダウンロード先のフォルダはどこでもいいです。
+
+次にダウンロードした「Antigravity.exe」をダブルクリックしてください。
+
+すると次のようなセットアップ画面が出ますので、「同意する」を選んで「次へ」をクリックしてください。
+
+![](https://assets.st-note.com/img/1771510703-vQCNbHcfl6IYpsJxXWzSGPgo.png?width=2000&height=2000&fit=bounds&quality=85)
+
+インストール先を指定します。
+
+こだわりがなければそのまま「次へ」を押して進みます。
+
+![](https://assets.st-note.com/img/1771510788-n1flBXSgDsebL7MZq0J3A4ri.png?width=2000&height=2000&fit=bounds&quality=85)
+
+ここも「次へ」を押して進みます。
+
+![](https://assets.st-note.com/img/1771510834-TvUZhqFD42AsXc69IuJ7K5lR.png?width=2000&height=2000&fit=bounds&quality=85)
+
+ここもこだわりなければそのまま「次へ」で進んで大丈夫です。
+
+![](https://assets.st-note.com/img/1771510857-i3oqzhEGr8OYVNlZ9PJj7xIf.png?width=2000&height=2000&fit=bounds&quality=85)
+
+「インストール」を押してください。
+
+![](https://assets.st-note.com/img/1771511265-5ZqrgclLezGiXANS39asbM4U.png?width=2000&height=2000&fit=bounds&quality=85)
+
+インストール完了するまで待機してください。
+
+![](https://assets.st-note.com/img/1771511370-r6KyVFu39k7ZYwE2Otpv1AfN.png?width=2000&height=2000&fit=bounds&quality=85)
+
+「Antigravityを実行する」にチェックを入れた状態で「完了」ボタンを押してください。
+
+![](https://assets.st-note.com/img/1771511869-VPf9lEy4uxr1iNWmocpCXSJk.png?width=2000&height=2000&fit=bounds&quality=85)
+
+起動後の画面です。「Next」を押してください。
+
+![](https://assets.st-note.com/img/1771582680-gs2Y9kj7afSAJxNChv1wyB8L.png?width=2000&height=2000&fit=bounds&quality=85)
+
+ここもこだわりなければ「Next」で大丈夫です。
+
+![](https://assets.st-note.com/img/1771583162-AUoRvplYWsKdVCj1iJFOEbka.png?width=2000&height=2000&fit=bounds&quality=85)
+
+ここでダークモードなど画面のテーマを選べます。選んだら「Next」を押してください。
+
+![](https://assets.st-note.com/img/1771583213-igIvpUEOryaPcBH02lj57RWb.png?width=2000&height=2000&fit=bounds&quality=85)
+
+ここもこだわりなければそのまま「Next」で大丈夫です。
+
+![](https://assets.st-note.com/img/1771583299-BDZQfck2h7MFyVGuxAJdo0vP.png?width=2000&height=2000&fit=bounds&quality=85)
+
+ここも「Next」で大丈夫です。
+
+![](https://assets.st-note.com/img/1771583357-VuSkE5iAQ3q9n26PxHUBpJvh.png?width=2000&height=2000&fit=bounds&quality=85)
+
+「Sin in with Google」を押してください。
+
+![](https://assets.st-note.com/img/1771583450-RtkTg0eh2U8wzsmIfjrXANHv.png?width=2000&height=2000&fit=bounds&quality=85)
+
+ブラウザが開き、自分のGoogleアカウント一覧が出ています。
+
+任意のアカウントを選択してください。
+
+![](https://assets.st-note.com/img/1771583612-BfM3KQrkAZbhNDUyG5tJlC4z.png?width=2000&height=2000&fit=bounds&quality=85)
+
+「ログイン」を押してください。
+
+![](https://assets.st-note.com/img/1771583716-vsdDnkS0XiGlYz4gxmbaAOrQ.png?width=2000&height=2000&fit=bounds&quality=85)
+
+「Antigravityを開く」をクリックしてください。
+
+![](https://assets.st-note.com/img/1771583804-PkUVvLeS0tOFsyMxD2obCrpX.png?width=2000&height=2000&fit=bounds&quality=85)
+
+Antigravityの画面に戻り、チェックが入っていることを確認して、「Next」を押してください。
+
+![](https://assets.st-note.com/img/1771583853-HWOjelJzUdm1rMcxFPoAZnK6.png?width=2000&height=2000&fit=bounds&quality=85)
+
+これでAntigravityのセットアップ完了です。
+
+ついでに日本語化しましょう。
+左のバーにある、四角が4つ集まっているボタンを押してください。
+
+![](https://assets.st-note.com/img/1771584243-YE3bR2P6dQrIOpvoLNmZ9tyJ.png?width=2000&height=2000&fit=bounds&quality=85)
+
+検索バーに「Japanese」と入力してください。
+
+![](https://assets.st-note.com/img/1771584338-X2kENbuf1hxiLKFvQcmRpZty.png?width=2000&height=2000&fit=bounds&quality=85)
+
+地球儀のアイコンの「Japanese Language…」という拡張機能の「Install」を押してください。
+
+![](https://assets.st-note.com/img/1771584369-LtGXgqAHa4WY6IwKcxo2OBij.png?width=2000&height=2000&fit=bounds&quality=85)
+
+左下の「Change Language and Restart」を押してください。
+
+![](https://assets.st-note.com/img/1771651972-oUlsa1dAibw8nNLJk90cZPtz.png?width=2000&height=2000&fit=bounds&quality=85)
+
+一旦Antigravityが閉じ、すぐに自動で再起動されます。
+これで日本語化されました（英語のままのところは諦めてください）。
+
+![](https://assets.st-note.com/img/1771584757-FiJtj8Myv4fzNgZk0YCQB9qK.png?width=2000&height=2000&fit=bounds&quality=85)
+
+もうひとつおすすめの拡張機能を紹介します。
+検索バーに「pesosz」と入れてください。
+
+![](https://assets.st-note.com/img/1772119326-Ss3vXO1auxlThpg6QCcyAVfN.png?width=2000&height=2000&fit=bounds&quality=85)
+
+すると「Antigravity Auto Accept」という拡張機能が出てきます。
+
+![](https://assets.st-note.com/img/1772119328-SxsvMN7zItpA3Fq8k5nim0Ku.png?width=2000&height=2000&fit=bounds&quality=85)
+
+これをインストールすると、いちいちこっちで承認しなくても、AIエージェントが大部分を自動で進めてくれるようになります。
+
+プログラミングとか英語とかわからない、とにかく進めてくれという方におすすめです。
+一方、AIエージェントが承認なしで動くわけですので、それによる何らかのリスクはあります。
+
+必要に感じたら「インストール」してください。
+
+![](https://assets.st-note.com/img/1772119392-eXtE2nCQuxOB0JbAG7LRhUwF.png?width=2000&height=2000&fit=bounds&quality=85)
+
+この画面になったら完了です。
+
+![](https://assets.st-note.com/img/1772119398-qpecVgxHFw6Kd9hrBuv7PGzX.png?width=2000&height=2000&fit=bounds&quality=85)
+
+ここの「✕」ボタンで閉じることができます。
+
+![](https://assets.st-note.com/img/1772119448-dQzmJrRuk0lpywejISNFHaTc.png?width=2000&height=2000&fit=bounds&quality=85)
+
+ここまで問題なければ「Open Folder」を押してください。
+
+![](https://assets.st-note.com/img/1771584934-UY3l25MP1D9pfkxCyA0jTd8J.png?width=2000&height=2000&fit=bounds&quality=85)
+
+そしてステップ1️⃣で作成した、僕の配布データを保存したフォルダを選択してください。
+選択すると「このフォルダー内の作成者を信頼しますか？」と出てきますので「はい、作成者を信頼します」ボタンを押してください。
+
+![](https://assets.st-note.com/img/1771586742-0o3YjXKcE1kRnl8MGrJe4NWt.png?width=2000&height=2000&fit=bounds&quality=85)
+
+左側に選択したフォルダとその中身が表示されます。
+
+![](https://assets.st-note.com/img/1771586835-8qL5uFyQ0HzPbUWonhMTZDfc.png?width=2000&height=2000&fit=bounds&quality=85)
+
+ここまででAntigravityを使う準備ができました。
+
+# 9. ステップ5️⃣：Antigravityで動画制作できるようにする
+
+これからAIエージェントで動画制作できるようにするわけですが、Claudeに月額20ドルの課金をしてもいいかどうかで手順が分岐します。
+
+Claudeに課金するとClaude Codeが使えるようになります。
+おすすめはClaudeに課金してClaude Codeを使えるようになることです。
+しかし、Claude CodeなしでAIエージェントを動かす方法もあります。
+
+<aside>
+
+今回のAIエージェントはClaude Codeで動かすことを前提に設計しています。
+そのためClaude Codeなしで動かす方法は、こちらが想定しない動作になる可能性が、どうしてもClaude Codeを使う場合より高くなってしまいます。
+
+</aside>
+
+Claudeに課金したくない場合は「**Claudeに課金したくない場合**」へ飛んでください。
+
+Claudeに課金してもいい場合は「**Claudeに課金してもいい場合**」へ飛んでください。
+
+## 9-1. Claudeに課金したくない場合
+
+https://www.youtube.com/watch?v=TQD1kGBy6nQ
+
+右側のチャット欄を使います。
+
+![](https://assets.st-note.com/img/1772120400-JefU8yRkO4ciSPxnurzTsA1a.png?width=2000&height=2000&fit=bounds&quality=85)
+
+使うAIの種類は、一応「Gemini 3.1 Pro（High）」を推奨していますが、「Gemini 3.1 Pro（Low）」や「Gemini 3 Flash」でもいいです。
+
+選択はここで行えます。
+
+![](https://assets.st-note.com/img/1772120553-F6btEA1jOT9xUIWpBGfsXLRQ.png?width=2000&height=2000&fit=bounds&quality=85)
+
+選択したら、チャット欄に以下を入力してエンターを押してください。
+
+```
+.claude の内容をAntigravityで実行したい skills や agents はClaudeCode用のファイル設計なのでAntigravity用のフォルダ構築を
+
+Web Search
+https://antigravity.google/docs/agent-modes-settings
+https://antigravity.google/docs/rules-workflows
+https://antigravity.google/docs/skills
+
+を参考にAntigravity用に適したフォルダや形式に移行したうえで動画生成できるようにしてください。
+```
+
+![](https://assets.st-note.com/img/1772120659-F5W6NuZBAJGRCHop1rq4x8fl.png?width=2000&height=2000&fit=bounds&quality=85)
+
+エンターを押すとAIがAntigravityでも動画生成できるように設計を開始してくれます。
+途中で承認が必要になったら「Accept」で承認してください。
+
+「Allow Once」か「Allow This Conversation」の選択を迫られたら「Allow This Conversation」を選択してください。
+
+![](https://assets.st-note.com/img/1772120839-gQsu5OZVqRAvNxYpMmtFnLbo.png?width=2000&height=2000&fit=bounds&quality=85)
+
+「Run」ボタンが出てきたら押してください。
+
+![](https://assets.st-note.com/img/1772121239-OkIq9so2J1FifhernNP0K7tU.png?width=2000&height=2000&fit=bounds&quality=85)
+
+なお、「Accept」ボタンや「Run」ボタンがスクロールしないと出てこない下に隠れている場合があります。
+
+「Waiting…」などのまま止まってしまった場合はスクロールしてみてください。
+
+![](https://assets.st-note.com/img/1772121478-YEkR0MlPZyXHnOrAs42vKCDI.png?width=2000&height=2000&fit=bounds&quality=85)
+
+何度も何度もボタンを押すことになります。
+また、「このまま進めてよろしいですか？」などと日本語で確認を求められる場合もあります。
+
+最後まで完了すると、日本語で完了のお知らせをしてくれるはずです。
+完了したか気になったらチャットで「完了した？」とでも聞けば答えてくれます。
+
+それでは動画生成するためステップ6️⃣に飛んでください。
+
+## 9-2. Claude Codeに課金してもいい場合
+
+https://www.youtube.com/watch?v=-IEKXZJzfHQ
+
+AntigravityでClaude Codeを使えるようにしましょう。
+
+Claude Codeを使う場合は、右側のチャットは使わないので、上のボタンを押して閉じると画面を大きく使えるので便利です。
+
+![](https://assets.st-note.com/img/1771586932-4OEi1T2KgwNfRFDk5BtcejVo.png?width=2000&height=2000&fit=bounds&quality=85)
+
+このような画面になります。
+
+![](https://assets.st-note.com/img/1771586955-J5tlnrhKP8DXk60ezx2GViou.png?width=2000&height=2000&fit=bounds&quality=85)
+
+Claude Codeを使うために、まだClaudeに登録していない方は登録してアカウントを用意してください。
+
+Claudeの公式ページは以下です。
+
+https://claude.ai/
+
+登録したらプランをアップグレードします。
+「アップグレード」を押してください。
+
+![](https://assets.st-note.com/img/1771587374-KO4e7UrT3M2V0jRFfgLDmG6x.png?width=2000&height=2000&fit=bounds&quality=85)
+
+「Pro」プラン以上を選択してください。
+
+![](https://assets.st-note.com/img/1771587419-BMzvh8bmZoGA1HPOQDe92T5r.png?width=2000&height=2000&fit=bounds&quality=85)
+
+私はProプランで、月額20ドル支払っています。
+年間払いにすると月17ドル計算と少し安くなります。
+
+もちろんMaxプランでも構いません。
+が、お試しならばProプランを月額20ドルで使うのがいいと思います。
+
+ClaudeをProプラン以上にしたら、Antigravityの画面に戻りましょう。
+上の「ターミナル」を押してください。
+
+![](https://assets.st-note.com/img/1771588213-IY0WncrMygzNtuFmka1jDBA9.png?width=2000&height=2000&fit=bounds&quality=85)
+
+「新しいターミナル」を押してください。
+
+![](https://assets.st-note.com/img/1771588281-JboMsmq8V27rXL5yxFCN3z6R.png?width=2000&height=2000&fit=bounds&quality=85)
+
+このような画面になります。
+
+![](https://assets.st-note.com/img/1771588306-WYxuGzsPEBoKI7kj4AtXg0p5.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+下の「パネル サイズの最大化」ボタンを押すと画面を大きく使えるようになります。
+
+![](https://assets.st-note.com/img/1771588412-vE73UqKPHI2oa5VTCzl6jRdX.png?width=2000&height=2000&fit=bounds&quality=85)
+
+このような画面になります。
+
+![](https://assets.st-note.com/img/1771588431-9ucBvbnKIRrEqWQO5tNLMk2w.jpg?width=2000&height=2000&fit=bounds&quality=85)
+
+以後、ここに打ち込んでAIに指示を出すことになります。
+
+![](https://assets.st-note.com/img/1771588572-sujnKSwNgFTYM9iXZf3UDycC.png?width=2000&height=2000&fit=bounds&quality=85)
+
+Claude Codeをインストールするために「npm install -g @anthropic-ai/claude-code」とコマンドを入力してエンターを押してください。
+
+<aside>
+
+【追記】
+最新の公式案内では、OSごとのネイティブインストール方法も用意されており、公式としては自身のOSや環境に合わせた以下のコマンドを推奨しています。
+
+**【macOS, Linux, WSL:】**
+curl -fsSL https://claude.ai/install.sh | bash
+
+**【Windows PowerShell:】**
+irm https://claude.ai/install.ps1 | iex
+
+**【Windows CMD:】**
+curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
+
+ただ、そう言われてもよくわからないという方はとりあえず「npm install -g @anthropic-ai/claude-code」でもインストール及び動作することが確認できているため大丈夫です。
+
+</aside>
+
+次の画面になればClaude Codeのインストール完了です。
+
+![](https://assets.st-note.com/img/1771588632-RBFpVMQJg8vfmoO2YSZ3tLwE.png?width=2000&height=2000&fit=bounds&quality=85)
+
+続いてClaude Codeを起動するために「claude --dangerously-skip-permissions」と入力してエンターを押してください。
+
+これは「いちいちこっちに確認しなくていいから、勝手にどんどん進めてください」モードです。
+プログラミングとか英語とかわからない、聞かれても困るという方におすすめです。
+
+一方、AIエージェントが自己判断で進めてしまうモードでもあります。
+いちいち自分に確認を取ってもらいたい時は「claude」と入力してエンターを押してください。
+
+僕のおすすめは「claude --dangerously-skip-permissions」なので、それ前提で解説を進めます。
+入力してエンターを押すと、ダークモードとかライトモードといった画面表示の選択が出てきます。
+
+![](https://assets.st-note.com/img/1771589089-eGUzTdsEDR0ZvS5JFCB2MY6I.png?width=2000&height=2000&fit=bounds&quality=85)
+
+「↑」「↓」ボタンで操作して、好きなものを選択したらエンターを押してください。
+
+次の選択肢は「1.Claude account with subscription Pro, Max, Team, or Enterprise」のままエンターを押してください。
+
+![](https://assets.st-note.com/img/1771589181-lHy1NC6ROzGkLs9Jop3ZQfA4.png?width=2000&height=2000&fit=bounds&quality=85)
+
+Claudeアカウントでログインするためにブラウザが開きます。
+「承認する」ボタンを押してください。
+
+![](https://assets.st-note.com/img/1771589462-Mfv1Y5FbaRwz37UXWoI6mD9B.png?width=2000&height=2000&fit=bounds&quality=85)
+
+次の画面になれば成功です。
+
+![](https://assets.st-note.com/img/1771589524-ZKyeWQ2B1MwHAiczdPJLDrnm.png?width=2000&height=2000&fit=bounds&quality=85)
+
+Antigravityでは次のような画面になるので、エンターを押して進めてください。
+
+![](https://assets.st-note.com/img/1771592839-MkV3icEZNx5ztdwohTuDGq6y.png?width=2000&height=2000&fit=bounds&quality=85)
+
+これもエンターで進めてOKです。
+
+![](https://assets.st-note.com/img/1771592871-GhdyEjg8IuJNLeiMZWKl0pmC.png?width=2000&height=2000&fit=bounds&quality=85)
+
+「Yes」を選択してエンター押してください。
+
+![](https://assets.st-note.com/img/1771592878-0r6oVzl7CisYHhFedKf3a2ZW.png?width=2000&height=2000&fit=bounds&quality=85)
+
+ここも「Yes」ですが、Noが上でYesが下になっているので「↓」ボタンでYesを選んでエンターを押しましょう。
+
+![](https://assets.st-note.com/img/1771592898-z0iMsHdxNg72EDAKQCrUeGI3.png?width=2000&height=2000&fit=bounds&quality=85)
+
+下の「2.Continue without these settings」を選んでエンターを押してください。
+
+![](https://assets.st-note.com/img/1771592967-Z0R9BuXa6csMiKHq4Ymb2pkv.png?width=2000&height=2000&fit=bounds&quality=85)
+
+次は上の「1.Use medium effort (current)」を選んだ状態でエンターです。
+
+![](https://assets.st-note.com/img/1772198643-Shp5zL8nVl2e3GogtHawE6KA.png?width=2000&height=2000&fit=bounds&quality=85)
+
+これでClaude Codeを使って動画制作する準備ができました。
+
+![](https://assets.st-note.com/img/1772198580-YpsznoubVO4SdXKtIvNcaLmW.png?width=2000&height=2000&fit=bounds&quality=85)
+
+# 10. ステップ6️⃣：AIエージェントで動画制作する
+
+ 
+
+ここまでで準備完了です。
+本当にお疲れ様でした！
+
+後はAIエージェントと日本語で対話しながら動画制作を指示するだけです。
+
+Claude Codeが使えない方は、右のチャットで対話してください。
+
+![image.png](attachment:2e3c1ae5-7fe0-474b-a82d-312de449515d:image.png)
+
+Claude Codeが使える方は、ここでチャットできます。
+
+![](https://assets.st-note.com/img/1772198552-rzktgJ37DnjXPmMy5exfTNh0.png?width=2000&height=2000&fit=bounds&quality=85)
+
+試しに「動画制作してください」と指示してください。
+すると、初回セットアップが始まります。
+
+1. Fish AudioのAPIキー
+2. Fish AudioのモデルID
+3. fal.aiのAPIキー
+
+を順番に聞かれます。
+取得しなかった場合は持ってないことを伝えてください。
+
+次に、動画の尺を確認してきます。
+30秒、60秒、90秒、180秒などが例として提示されますが、この4択じゃないといけないわけではありません。
+任意の尺を指定してください。
+
+他にも「台本は用意済みか？」など、動画制作のために必要なことを聞いてきます。
+都度、自分が作りたい動画に合わせて回答や指示をしてください。
+
+## 10-1. デフォルトの動作ステップ
+
+一応、AIエージェントとしては、ステップを次のように考えています。
+
+- STEP0：💰コスト概算
+- STEP1：🎨素材生成
+- STEP2：👀素材確認
+- STEP2.5：🔧修正確認（修正時のみ）
+- STEP3：📝字幕レビュー
+- STEP4：🎬レンダリング + 完成動画 ← 新設
+
+ただ、このステップから外れたことができないわけではありません。
+要望を出せばAIエージェントは応えてくれます。
+
+## 10-2. 自分で自由に触ってみてください！
+
+もうこちらからこれまでのように「次は◯◯してください」とあなたに指示することはありません。
+作りたい動画は人それぞれですからね。
+
+ここまでしっかり準備したおかげで、あなたはもうAIエージェントだけに頼って動画を制作したり問題を解決したりすることができるようになっています！
+
+困ったら積極的にAIエージェントに質問してください。
+追加で欲しい機能があったらAIエージェントに相談してください。
+
+例えば「こちらで用意した素材を使って編集してほしいです」と言えば、AIエージェントはあなたのために動いてくれます！
+
+AIエージェントを積極的に使い倒しましょう。
+
+# 11. 購入者特典のためLINE登録お願いします！
+
+AIエージェントの更新など、最新の情報はLINEで共有します。
+これからもサポートさせていただきたいので、忘れないよう、今すぐ登録してください。
+
+**👇️こちらのリンクからご登録いただけます👇️**
+
+https://s.lmes.jp/landing-qr/2000375570-7vQ32Bzl?uLand=emW9Tg
+
+こちらのQRコードからもご登録いただけます。
+
+![image.png](attachment:70640491-3118-4417-9354-b98278520001:image.png)
+
+## 11-1. 特典内容
+
+![image.png](attachment:726de2e4-3698-48b1-9d7d-68034820968a:image.png)
+
+**上記特典を受け取るために、必ずLINE登録をお願いします。**
+https://s.lmes.jp/landing-qr/2000375570-7vQ32Bzl?uLand=emW9Tg
+
+改めまして、この度はBrainのご購入ありがとうございました！
+今後もLINEや生放送でサポートさせていただきますので引き続きよろしくお願いいたします！

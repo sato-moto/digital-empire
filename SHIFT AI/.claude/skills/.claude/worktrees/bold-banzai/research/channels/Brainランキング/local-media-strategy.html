@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>地方メディア記事戦略レポート — Brain Market × 熊取町</title>
+  <style>
+    :root {
+      --ink: #0f172a;
+      --ink2: #334155;
+      --ink3: #64748b;
+      --line: #e2e8f0;
+      --line2: #f1f5f9;
+      --white: #ffffff;
+      --bg: #f8fafc;
+      --indigo: #4f46e5;
+      --indigo-s: #eef2ff;
+      --indigo-b: #c7d2fe;
+      --rose: #e11d48;
+      --rose-s: #fff1f2;
+      --rose-b: #fecdd3;
+      --emerald: #059669;
+      --emerald-s: #ecfdf5;
+      --emerald-b: #a7f3d0;
+      --amber: #d97706;
+      --amber-s: #fffbeb;
+      --amber-b: #fde68a;
+      --violet: #7c3aed;
+      --violet-s: #f5f3ff;
+      --violet-b: #ddd6fe;
+      --sky: #0284c7;
+      --sky-s: #f0f9ff;
+      --sky-b: #bae6fd;
+      --teal: #0d9488;
+      --teal-s: #f0fdfa;
+      --teal-b: #99f6e4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Hiragino Sans', 'Meiryo', 'Segoe UI', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ========== NAVIGATION ========== */
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 60px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .logo-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--indigo);
+      border-radius: 50%;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      font-size: 13px;
+    }
+
+    .nav-menu a {
+      color: var(--ink3);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-menu a:hover { color: var(--ink); }
+
+    .nav-badge {
+      background: var(--indigo);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+      padding: 80px 40px 64px;
+    }
+
+    .hero-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    .tag-indigo { background: var(--indigo-s); color: var(--indigo); border: 1px solid var(--indigo-b); }
+    .tag-rose { background: var(--rose-s); color: var(--rose); border: 1px solid var(--rose-b); }
+    .tag-emerald { background: var(--emerald-s); color: var(--emerald); border: 1px solid var(--emerald-b); }
+    .tag-amber { background: var(--amber-s); color: var(--amber); border: 1px solid var(--amber-b); }
+    .tag-violet { background: var(--violet-s); color: var(--violet); border: 1px solid var(--violet-b); }
+    .tag-sky { background: var(--sky-s); color: var(--sky); border: 1px solid var(--sky-b); }
+    .tag-teal { background: var(--teal-s); color: var(--teal); border: 1px solid var(--teal-b); }
+
+    .hero h1 {
+      font-size: clamp(28px, 4vw, 46px);
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--indigo);
+    }
+
+    .hero-desc {
+      color: var(--ink2);
+      font-size: 15px;
+      line-height: 1.7;
+      max-width: 600px;
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-width: 200px;
+    }
+
+    .hero-stat {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px 20px;
+      text-align: center;
+    }
+
+    .hero-stat .n {
+      font-size: 30px;
+      font-weight: 900;
+      color: var(--indigo);
+      line-height: 1;
+    }
+
+    .hero-stat .l {
+      font-size: 11px;
+      color: var(--ink3);
+      margin-top: 4px;
+    }
+
+    /* ========== SECTION ========== */
+    .section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 64px 40px;
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--line);
+    }
+
+    .section-head {
+      margin-bottom: 40px;
+    }
+
+    .section-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .section-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink3);
+      letter-spacing: 2px;
+    }
+
+    .section-title {
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .section-desc {
+      color: var(--ink3);
+      font-size: 14px;
+    }
+
+    /* ========== SCRAPING INFO ========== */
+    .scraping-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .sc-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 18px;
+    }
+
+    .sc-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink3);
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .sc-value {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--ink);
+    }
+
+    .sc-sub {
+      font-size: 11px;
+      color: var(--ink3);
+      margin-top: 2px;
+    }
+
+    .flow-line {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+      overflow-x: auto;
+    }
+
+    .flow-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 8px;
+      font-size: 12.5px;
+      color: var(--ink2);
+      white-space: nowrap;
+    }
+
+    .flow-step-num {
+      width: 20px;
+      height: 20px;
+      background: var(--indigo);
+      color: white;
+      border-radius: 50%;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .flow-arrow {
+      color: var(--line);
+      font-size: 14px;
+      padding: 0 4px;
+    }
+
+    /* ========== BRIDGE MATRIX ========== */
+    .matrix {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .matrix th {
+      padding: 10px 16px;
+      text-align: left;
+      background: var(--bg);
+      border-bottom: 2px solid var(--line);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink3);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .matrix td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      background: var(--white);
+    }
+
+    .matrix tr:hover td { background: var(--bg); }
+
+    .matrix-pattern {
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .matrix-example {
+      font-size: 12px;
+      color: var(--ink3);
+      margin-top: 3px;
+    }
+
+    .matrix-arrow {
+      color: var(--indigo);
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .matrix-local {
+      color: var(--ink2);
+      line-height: 1.5;
+    }
+
+    .impact-chip {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .impact-high { background: var(--emerald-s); color: var(--emerald); }
+    .impact-mid { background: var(--amber-s); color: var(--amber); }
+
+    /* ========== KEYWORD BARS ========== */
+    .kw-grid2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .kw-title2 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink2);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .kw-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .kw-item {
+      display: grid;
+      grid-template-columns: 90px 1fr 32px;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .kw-word { font-weight: 600; }
+
+    .bar-track {
+      height: 6px;
+      background: var(--line2);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 3px;
+    }
+
+    .kw-n { font-size: 12px; color: var(--ink3); text-align: right; }
+
+    .pattern-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .pc {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 13px;
+    }
+
+    .pc-tag {
+      background: var(--ink);
+      color: white;
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 10px;
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .pc-body { color: var(--ink2); line-height: 1.55; }
+    .pc-body strong { color: var(--ink); }
+
+    /* ========== RANKING TABLE ========== */
+    .rtable {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .rtable th {
+      padding: 10px 14px;
+      background: var(--bg);
+      border-bottom: 2px solid var(--line);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: left;
+    }
+
+    .rtable td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      background: var(--white);
+      vertical-align: middle;
+    }
+
+    .rtable tr:hover td { background: var(--bg); }
+
+    .rn {
+      font-weight: 900;
+      font-size: 15px;
+      width: 36px;
+    }
+
+    .rn-1 { color: #b45309; }
+    .rn-2 { color: #6b7280; }
+    .rn-3 { color: #92400e; }
+    .rn-top { color: var(--indigo); }
+    .rn-mid { color: var(--ink3); }
+
+    .rt-link {
+      display: block;
+      font-weight: 600;
+      color: var(--ink);
+      text-decoration: none;
+      line-height: 1.4;
+    }
+
+    .rt-link:hover { color: var(--indigo); }
+
+    .rt-author {
+      font-size: 11px;
+      color: var(--ink3);
+      margin-top: 2px;
+    }
+
+    .price-pill {
+      background: var(--rose-s);
+      color: var(--rose);
+      border: 1px solid var(--rose-b);
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-weight: 700;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .rev-pill {
+      background: var(--emerald-s);
+      color: var(--emerald);
+      border: 1px solid var(--emerald-b);
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    /* ========== TITLE PROPOSALS ========== */
+    .proposals {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .prop {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+
+    .prop:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.07); }
+
+    .prop-header {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      align-items: stretch;
+      min-height: 80px;
+    }
+
+    .prop-num {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--white);
+      background: var(--indigo);
+      flex-shrink: 0;
+    }
+
+    .prop-num.c-rose { background: var(--rose); }
+    .prop-num.c-emerald { background: var(--emerald); }
+    .prop-num.c-amber { background: var(--amber); }
+    .prop-num.c-violet { background: var(--violet); }
+    .prop-num.c-sky { background: var(--sky); }
+    .prop-num.c-teal { background: var(--teal); }
+    .prop-num.c-indigo2 { background: #3730a3; }
+    .prop-num.c-pink { background: #db2777; }
+    .prop-num.c-slate { background: #475569; }
+
+    .prop-head-content {
+      padding: 16px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .prop-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .prop-title {
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+
+    .prop-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-top: 1px solid var(--line);
+    }
+
+    .prop-cell {
+      padding: 16px 20px;
+      font-size: 12.5px;
+      border-right: 1px solid var(--line);
+    }
+
+    .prop-cell:last-child { border-right: none; }
+
+    .prop-cell-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 6px;
+    }
+
+    .prop-cell-val {
+      color: var(--ink2);
+      line-height: 1.55;
+    }
+
+    .kw-inline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .kw-chip {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 11px;
+      color: var(--ink3);
+    }
+
+    .media-chip {
+      display: inline-block;
+      background: var(--indigo-s);
+      color: var(--indigo);
+      border: 1px solid var(--indigo-b);
+      border-radius: 4px;
+      padding: 1px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      margin: 2px 2px 0 0;
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+      background: var(--white);
+      border-top: 1px solid var(--line);
+      padding: 32px 40px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--ink3);
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 768px) {
+      nav { padding: 0 16px; }
+      .nav-menu { display: none; }
+      .hero { padding: 48px 16px 40px; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-stats { flex-direction: row; }
+      .section { padding: 48px 16px; }
+      .scraping-row { grid-template-columns: 1fr 1fr; }
+      .kw-grid2 { grid-template-columns: 1fr; }
+      .prop-body { grid-template-columns: 1fr; }
+      .prop-cell { border-right: none; border-bottom: 1px solid var(--line); }
+      .prop-cell:last-child { border-bottom: none; }
+      .prop-header { grid-template-columns: 48px 1fr; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .prop {
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .prop:nth-child(1) { animation-delay: 0.05s; }
+    .prop:nth-child(2) { animation-delay: 0.10s; }
+    .prop:nth-child(3) { animation-delay: 0.15s; }
+    .prop:nth-child(4) { animation-delay: 0.20s; }
+    .prop:nth-child(5) { animation-delay: 0.25s; }
+    .prop:nth-child(6) { animation-delay: 0.30s; }
+    .prop:nth-child(7) { animation-delay: 0.35s; }
+    .prop:nth-child(8) { animation-delay: 0.40s; }
+    .prop:nth-child(9) { animation-delay: 0.45s; }
+    .prop:nth-child(10) { animation-delay: 0.50s; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#">
+    <div class="logo-dot"></div>
+    地方メディア記事戦略レポート
+  </a>
+  <ul class="nav-menu">
+    <li><a href="#scraping">データ</a></li>
+    <li><a href="#bridge">トレンド転用</a></li>
+    <li><a href="#keywords">キーワード</a></li>
+    <li><a href="#ranking">TOP20</a></li>
+    <li><a href="#titles">記事タイトル10案</a></li>
+  </ul>
+  <span class="nav-badge">熊取町 × AI 市場分析</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <span class="tag tag-indigo">Brain Market 300件分析</span>
+        <span class="tag tag-emerald">地方メディア応用</span>
+      </div>
+      <h1>売れるAIコンテンツの型を<br><em>地方メディア記事</em>に転用する</h1>
+      <p class="hero-desc">Brain Market「AI」検索 お気に入り順 300件のスクレイピングデータから抽出した6つの市場法則を、熊取町メディアが書くべき10記事のタイトル戦略に落とし込んだ。</p>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="n">300</div>
+        <div class="l">スクレイピング件数</div>
+      </div>
+      <div class="hero-stat">
+        <div class="n">6</div>
+        <div class="l">市場インサイト</div>
+      </div>
+      <div class="hero-stat">
+        <div class="n">10</div>
+        <div class="l">地方メディア記事案</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: スクレイピング概要 -->
+<div class="section" id="scraping">
+  <div class="section-head">
+    <div class="section-eyebrow">
+      <span class="section-num">01</span>
+      <span class="tag tag-sky">Data Collection</span>
+    </div>
+    <h2 class="section-title">スクレイピング概要</h2>
+    <p class="section-desc">brain-market.com は Vue.js/Nuxt.js製のSPAのため、Puppeteer headless browser + system Chromeを使用してDOMから直接取得した。</p>
+  </div>
+
+  <div class="scraping-row">
+    <div class="sc-card">
+      <div class="sc-label">URL</div>
+      <div class="sc-value" style="font-size:12px;word-break:break-all;margin-top:4px;">brain-market.com/search<br>?q=AI&order=fav</div>
+    </div>
+    <div class="sc-card">
+      <div class="sc-label">取得件数</div>
+      <div class="sc-value">300件</div>
+      <div class="sc-sub">20件/ページ × 15ページ</div>
+    </div>
+    <div class="sc-card">
+      <div class="sc-label">取得フィールド</div>
+      <div class="sc-value">6項目</div>
+      <div class="sc-sub">タイトル・URL・価格・レビュー・著者・カテゴリ</div>
+    </div>
+    <div class="sc-card">
+      <div class="sc-label">出力ファイル</div>
+      <div class="sc-value" style="font-size:14px;">JSON+CSV</div>
+      <div class="sc-sub">207KB + 152KB（BOM付UTF-8）</div>
+    </div>
+  </div>
+
+  <div class="flow-line">
+    <div class="flow-step"><div class="flow-step-num">1</div>Puppeteer起動 / system Chrome指定</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-step-num">2</div>Phase1: API検出試行 → 失敗（JSON 0件）</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-step-num">3</div>Phase2: DOMスクレイプ（page=1〜15）</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-step-num">4</div>URLパターンで商品リンク抽出</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-step-num">5</div>正規表現で価格・レビュー分離</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-step-num">6</div>重複排除 → JSON+CSV保存</div>
+  </div>
+</div>
+
+<!-- SECTION 2: 市場トレンド → 地方メディア転用 -->
+<div class="section" id="bridge">
+  <div class="section-head">
+    <div class="section-eyebrow">
+      <span class="section-num">02</span>
+      <span class="tag tag-violet">Bridge Analysis</span>
+    </div>
+    <h2 class="section-title">Brain Marketの「売れる型」を<br>地方メディア記事に転用する</h2>
+    <p class="section-desc">Brain Market上位を独占する6つのパターンを、熊取町メディアが書ける記事コンセプトに直接マッピングした。</p>
+  </div>
+
+  <div style="overflow-x:auto;">
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th>Brain Marketの売れる型</th>
+          <th>代表商品（上位）</th>
+          <th style="text-align:center;">→</th>
+          <th>地方メディアへの転用コンセプト</th>
+          <th>効果</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="matrix-pattern">🔮 AI×占い型</div><div class="matrix-example">1位・2位・8位・15位など計9件</div></td>
+          <td style="font-size:12px;color:var(--ink2);">【AIで鑑定作成】副業占い完全攻略<br>457レビュー・¥9,980</td>
+          <td class="matrix-arrow">→</td>
+          <td class="matrix-local">「熊取町で占い副業×AIを始めた話」<br>→ 地元の副業事例として紹介する地域密着系記事</td>
+          <td><span class="impact-chip impact-high">高</span></td>
+        </tr>
+        <tr>
+          <td><div class="matrix-pattern">🚀 0→1突破型</div><div class="matrix-example">1位・2位が共通採用</div></td>
+          <td style="font-size:12px;color:var(--ink2);">【爆速で0→1突破へ】鑑定書バイブル<br>420レビュー・¥4,980</td>
+          <td class="matrix-arrow">→</td>
+          <td class="matrix-local">「熊取町発・地方メディアを0から立ち上げた全記録」<br>→ 自分の体験そのものが記事になる最強コンテンツ</td>
+          <td><span class="impact-chip impact-high">高</span></td>
+        </tr>
+        <tr>
+          <td><div class="matrix-pattern">⚡ 激時短型</div><div class="matrix-example">3位「激時短AIライティング術」341件</div></td>
+          <td style="font-size:12px;color:var(--ink2);">【シリーズ5冠】激時短AIライティング術<br>341レビュー・¥3,980</td>
+          <td class="matrix-arrow">→</td>
+          <td class="matrix-local">「取材→記事化まで2時間が30分に。AIで地域メディア運営を激時短した話」</td>
+          <td><span class="impact-chip impact-high">高</span></td>
+        </tr>
+        <tr>
+          <td><div class="matrix-pattern">👶 超初心者訴求型</div><div class="matrix-example">5位「超初心者でも勝ち確」284件</div></td>
+          <td style="font-size:12px;color:var(--ink2);">【超初心者でも勝ち確】ジャニーズ投資術<br>284レビュー・¥39,800</td>
+          <td class="matrix-arrow">→</td>
+          <td class="matrix-local">「スマホ1台・知識ゼロから始めた熊取町AIメディアの全手順」<br>→ 移住検討者・主婦層にも刺さる入門系記事</td>
+          <td><span class="impact-chip impact-mid">中</span></td>
+        </tr>
+        <tr>
+          <td><div class="matrix-pattern">📊 実績バッジ型</div><div class="matrix-example">3位「5冠達成」、13位「870部突破」</div></td>
+          <td style="font-size:12px;color:var(--ink2);">【870部突破】AI時代を勝ち抜く10の秘技<br>177レビュー・¥24,800</td>
+          <td class="matrix-arrow">→</td>
+          <td class="matrix-local">「地域メディア開設○ヶ月・記事○本・PV○万達成」<br>→ 数字付き実績レポートで信頼性を積み上げる</td>
+          <td><span class="impact-chip impact-mid">中</span></td>
+        </tr>
+        <tr>
+          <td><div class="matrix-pattern">🤖 AI脇役型</div><div class="matrix-example">「AIを駆使して」「AI×〇〇」が多数</div></td>
+          <td style="font-size:12px;color:var(--ink2);">【AIを駆使して本を出す】Kindleプログラム<br>214レビュー・¥7,480</td>
+          <td class="matrix-arrow">→</td>
+          <td class="matrix-local">「Claude×Remotionで熊取町PR動画を20分で作った話」<br>→ AIはあくまで道具・主役は地域や体験</td>
+          <td><span class="impact-chip impact-high">高</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION 3: キーワード分析 -->
+<div class="section" id="keywords">
+  <div class="section-head">
+    <div class="section-eyebrow">
+      <span class="section-num">03</span>
+      <span class="tag tag-rose">Keyword Analysis</span>
+    </div>
+    <h2 class="section-title">頻出キーワード & タイトルの型</h2>
+    <p class="section-desc">上位20件のタイトルから抽出した頻出ワードと「売れるタイトルの型」。地方メディア記事を書く際の参考指標として使う。</p>
+  </div>
+
+  <div class="kw-grid2">
+    <div>
+      <div class="kw-title2">頻出キーワード（上位20件）</div>
+      <div class="kw-bars">
+        <div class="kw-item">
+          <span class="kw-word">AI</span>
+          <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--indigo)"></div></div>
+          <span class="kw-n">14件</span>
+        </div>
+        <div class="kw-item">
+          <span class="kw-word">占い</span>
+          <div class="bar-track"><div class="bar-fill" style="width:64%;background:var(--violet)"></div></div>
+          <span class="kw-n">9件</span>
+        </div>
+        <div class="kw-item">
+          <span class="kw-word">副業</span>
+          <div class="bar-track"><div class="bar-fill" style="width:50%;background:var(--emerald)"></div></div>
+          <span class="kw-n">7件</span>
+        </div>
+        <div class="kw-item">
+          <span class="kw-word">初心者</span>
+          <div class="bar-track"><div class="bar-fill" style="width:36%;background:var(--sky)"></div></div>
+          <span class="kw-n">5件</span>
+        </div>
+        <div class="kw-item">
+          <span class="kw-word">稼ぐ</span>
+          <div class="bar-track"><div class="bar-fill" style="width:29%;background:var(--amber)"></div></div>
+          <span class="kw-n">4件</span>
+        </div>
+        <div class="kw-item">
+          <span class="kw-word">完全</span>
+          <div class="bar-track"><div class="bar-fill" style="width:29%;background:var(--rose)"></div></div>
+          <span class="kw-n">4件</span>
+        </div>
+        <div class="kw-item">
+          <span class="kw-word">0→1突破</span>
+          <div class="bar-track"><div class="bar-fill" style="width:21%;background:var(--indigo)"></div></div>
+          <span class="kw-n">3件</span>
+        </div>
+        <div class="kw-item">
+          <span class="kw-word">ChatGPT</span>
+          <div class="bar-track"><div class="bar-fill" style="width:21%;background:var(--teal)"></div></div>
+          <span class="kw-n">3件</span>
+        </div>
+        <div class="kw-item">
+          <span class="kw-word">時短</span>
+          <div class="bar-track"><div class="bar-fill" style="width:14%;background:var(--emerald)"></div></div>
+          <span class="kw-n">2件</span>
+        </div>
+        <div class="kw-item">
+          <span class="kw-word">自動化</span>
+          <div class="bar-track"><div class="bar-fill" style="width:14%;background:var(--amber)"></div></div>
+          <span class="kw-n">2件</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="kw-title2">売れるタイトルの型（地方メディア適用）</div>
+      <div class="pattern-cards">
+        <div class="pc">
+          <span class="pc-tag">型①</span>
+          <div class="pc-body"><strong>【初心者訴求】</strong>「ゼロから」「知識なし」「スマホだけ」→ 移住検討者・主婦・シニア層に刺さる</div>
+        </div>
+        <div class="pc">
+          <span class="pc-tag">型②</span>
+          <div class="pc-body"><strong>【具体的な数字】</strong>「30分」「3万円」「100日」「〇〇記事」→ 期待値を明確にして読者の行動を引き出す</div>
+        </div>
+        <div class="pc">
+          <span class="pc-tag">型③</span>
+          <div class="pc-body"><strong>【地名×AI】</strong>「熊取町×AI」「地方×AI動画」→ 地名入りキーワードはSEOの競合が薄い穴場</div>
+        </div>
+        <div class="pc">
+          <span class="pc-tag">型④</span>
+          <div class="pc-body"><strong>【実績・記録】</strong>「〇ヶ月実録」「PV〇万達成」「記事〇本突破」→ 継続性の証明がブランド信頼を作る</div>
+        </div>
+        <div class="pc">
+          <span class="pc-tag">型⑤</span>
+          <div class="pc-body"><strong>【逆張り・疑問提起】</strong>「地方だから稼げないは嘘だった」「AIは道具、主役は地域だった」→ クリック率が高い感情刺激型</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4: TOP20ランキング -->
+<div class="section" id="ranking">
+  <div class="section-head">
+    <div class="section-eyebrow">
+      <span class="section-num">04</span>
+      <span class="tag tag-amber">Raw Data</span>
+    </div>
+    <h2 class="section-title">Brain Market AI 人気TOP20</h2>
+    <p class="section-desc">タイトルクリックで商品ページへ。地方メディア記事の切り口・構成の参考データとして活用する。</p>
+  </div>
+
+  <div style="overflow-x:auto;">
+    <table class="rtable" id="rankTable"></table>
+  </div>
+</div>
+
+<!-- SECTION 5: 地方メディア記事タイトル10案 -->
+<div class="section" id="titles">
+  <div class="section-head">
+    <div class="section-eyebrow">
+      <span class="section-num">05</span>
+      <span class="tag tag-emerald">Content Strategy</span>
+    </div>
+    <h2 class="section-title">地方メディア記事<br>タイトル案 10選</h2>
+    <p class="section-desc">Brain Market上位の「売れる型」を熊取町メディアの文脈に落とし込んだ。各案に対象読者・想定媒体・SEOキーワード候補を付与している。</p>
+  </div>
+
+  <div class="proposals" id="proposalList"></div>
+</div>
+
+<footer>
+  <div>データ取得元：Brain Market (brain-market.com) ／ 検索：q=AI&order=fav ／ 取得件数：300件</div>
+  <div style="margin-top:4px;">分析・レポート：Claude Code (claude-sonnet-4-6) ／ 2026年3月22日 ／ 熊取町地域メディア戦略研究</div>
+</footer>
+
+<script>
+// TOP20ランキング
+const rankings = [
+  { rank: 1,  title: "【AIで鑑定作成】副業占い完全攻略マニュアル【0→1突破ロードマップ付き】", price: "¥9,980", reviews: 457, url: "https://brain-market.com/u/koki-br/a/b1EzNxUTMgoTZsNWa0JXY", author: "ねずみくん" },
+  { rank: 2,  title: "【爆速で0→1突破へ】AI × 誕生日占い鑑定書作成バイブル〜稼ぎに特化した副業ネット占いビジネス", price: "¥4,980", reviews: 420, url: "https://brain-market.com/u/yknetdiviner/a/b0kTO4cTMgoTZsNWa0JXY", author: "YUKI" },
+  { rank: 3,  title: "【シリーズ5冠達成❢】ブロガーも必見！激時短AIライティング術【秀逸】属人性AI導入の指南書", price: "¥3,980", reviews: 341, url: "https://brain-market.com/u/brain/a/b2cDOxQTMgoTZsNWa0JXY", author: "右京" },
+  { rank: 4,  title: "【2025年更新】インスタ占いスタートガイド ～占いもインスタも知識ゼロから始める初心者戦略〜", price: "¥3,980", reviews: 305, url: "https://brain-market.com/u/liam_uranai/a/bwgjN5kTMgoTZsNWa0JXY", author: "リアム" },
+  { rank: 5,  title: "【超初心者でも勝ち確】労働からの脱却『1年で利益1000万円稼いだ』在宅投資術", price: "¥39,800", reviews: 284, url: "https://brain-market.com/u/portolano/a/b3YTN2MTMgoTZsNWa0JXY", author: "ぽるとら" },
+  { rank: 6,  title: "スマホ1台でできる！日記感覚ブログで月3万円を稼ぐ『アメステップ』", price: "¥4,980", reviews: 274, url: "https://brain-market.com/u/brain-hatabo/a/bzETNzMjMgoTZsNWa0JXY", author: "はたぼー" },
+  { rank: 7,  title: "【未経験・顔出しなし】TikTok×占い集客完全攻略マニュアル【AIを駆使して投稿作成】", price: "¥100,000", reviews: 249, url: "https://brain-market.com/u/koki-br/a/bwczN2cTMgoTZsNWa0JXY", author: "ねずみくん" },
+  { rank: 8,  title: "【シリーズ3冠達成！】占いビジネス×AIライティング占術〜AIコンテンツメイクのすすめ3", price: "¥4,980", reviews: 245, url: "https://brain-market.com/u/yknetdiviner/a/bwQTM3UTMgoTZsNWa0JXY", author: "YUKI" },
+  { rank: 9,  title: "Brainの始め方", price: "¥3,980", reviews: 245, url: "https://brain-market.com/u/maripin/a/bzIDMxAjMgoTZsNWa0JXY", author: "まりぴん" },
+  { rank: 10, title: "【インスタ占いの全て】インスタ×占いマーケティングで月50万円稼ぐ全てを解説！", price: "¥49,980", reviews: 231, url: "https://brain-market.com/u/liam_uranai/a/b1cTM4gTMgoTZsNWa0JXY", author: "リアム" },
+  { rank: 11, title: "【AIを駆使して本を出す】30 days Kindle Program【最初の1冊を確実に出す完全ロードマップ】", price: "¥7,480", reviews: 214, url: "https://brain-market.com/u/kan11/a/b3UTO1YTMgoTZsNWa0JXY", author: "カン" },
+  { rank: 12, title: "Brain・Tipsアフィリエイトの教科書「理論編」【激辛出版】", price: "¥9,800", reviews: 202, url: "https://brain-market.com/u/oki-keita/a/bzAzM5IjMgoTZsNWa0JXY", author: "沖ケイタ" },
+  { rank: 13, title: "【870部突破】広告業界30年のプロが伝授するAI時代を勝ち抜く10の秘技『人の感情を動かすライティング術』", price: "¥24,800", reviews: 177, url: "https://brain-market.com/u/aratamedo/a/bwYDMxIjMgoTZsNWa0JXY", author: "アラタメ堂" },
+  { rank: 14, title: "【完全ブルーオーシャン】超初心者でも30日で10万円『高利益率×高回転』在宅グッズ錬金術", price: "¥39,800", reviews: 156, url: "https://brain-market.com/u/portolano/a/bUTM2ETOgoTZsNWa0JXY", author: "ぽるとら" },
+  { rank: 15, title: "【副業AI占い】ChatGPT×Canva【おみくじ＆新春タロット占い】速習パック2024", price: "¥4,980", reviews: 152, url: "https://brain-market.com/u/yknetdiviner/a/b5MDN4gTMgoTZsNWa0JXY", author: "YUKI" },
+  { rank: 16, title: "【副業占いに禁断の神ツール降臨】シャドウAIタロット鑑定自動化パッケージ", price: "¥35,000", reviews: 133, url: "https://brain-market.com/u/yknetdiviner/a/b5UzMxAjMgoTZsNWa0JXY", author: "YUKI" },
+  { rank: 17, title: "【音楽知識ゼロでもプロクオリティ】たった2つの質問であなたのイメージが神曲になるGPTs", price: "¥8,980", reviews: 130, url: "https://brain-market.com/u/meison/a/b0kTMzIjMgoTZsNWa0JXY", author: "ヌンちゃま" },
+  { rank: 18, title: "【200部突破】AIに指示するだけでできる非常識コンテンツメイキング術とその活用術", price: "¥1,980", reviews: 124, url: "https://brain-market.com/u/coocha/a/b2UzN3UTMgoTZsNWa0JXY", author: "coocha" },
+  { rank: 19, title: "【YouTube収益化×主婦のAI副業】おきるママのYouTube脱サラ計画へようこそ", price: "¥29,800", reviews: 122, url: "https://brain-market.com/u/okriumama/a/bwETNyEjMgoTZsNWa0JXY", author: "おきるママ" },
+  { rank: 20, title: "【AIライジング】GPTsセット80個超｜ChatGPT活用大全付き", price: "¥49,800", reviews: 123, url: "https://brain-market.com/u/hinakira/a/bwIDO2AjMgoTZsNWa0JXY", author: "ヒナキラ" },
+];
+
+const thead = `<thead><tr>
+  <th>順位</th><th>タイトル</th><th>価格</th><th>レビュー</th>
+</tr></thead><tbody id="rtbody"></tbody>`;
+document.getElementById('rankTable').innerHTML = thead;
+const tbody = document.getElementById('rtbody');
+rankings.forEach(item => {
+  const nc = item.rank===1?'rn-1':item.rank===2?'rn-2':item.rank===3?'rn-3':item.rank<=7?'rn-top':'rn-mid';
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><span class="rn ${nc}">#${item.rank}</span></td>
+    <td>
+      <a class="rt-link" href="${item.url}" target="_blank" rel="noopener">${item.title}</a>
+      <div class="rt-author">by ${item.author}</div>
+    </td>
+    <td><span class="price-pill">${item.price}</span></td>
+    <td><span class="rev-pill">⭐ ${item.reviews}件</span></td>
+  `;
+  tbody.appendChild(tr);
+});
+
+// タイトル案10選
+const proposals = [
+  {
+    num: "01", color: "c-indigo2",
+    tags: ["0→1突破型", "体験記"],
+    title: "【熊取町発・地方メディア0→1突破マニュアル】AIだけで記事・動画・SNSを1人で回した100日の全記録",
+    readers: "地方で副業・発信に挑戦したい人、移住検討者",
+    media: ["note", "kumatori-info.com", "stand.fm"],
+    reason: "Brain Market 1・2位が共通して使う「0→1突破」フレームを地方メディア立ち上げ体験に転用。「100日の全記録」で継続性と実績の証明を同時に行う。SEO競合が薄い「熊取町×メディア」ロングテールを狙う。",
+    kws: ["熊取町 副業", "地方メディア 立ち上げ", "AI ブログ 始め方", "1人メディア 運営"]
+  },
+  {
+    num: "02", color: "c-rose",
+    tags: ["激時短型", "ツール紹介"],
+    title: "【激時短】取材→記事化が2時間から20分に。AIで熊取町の地域情報を量産する実際のワークフロー",
+    readers: "地域メディア運営者、ブロガー、移住検討者（地域の情報量に興味がある人）",
+    media: ["note", "kumatori-info.com"],
+    reason: "3位「激時短AIライティング術」（341レビュー）の成功パターンを地域メディア運営に転用。「2時間→20分」というビフォーアフターの数字対比が視覚的にインパクト大。ワークフロー公開でSEO滞在時間も稼げる。",
+    kws: ["地域メディア AI 時短", "熊取町 記事 作り方", "AIライティング ブログ 効率化"]
+  },
+  {
+    num: "03", color: "c-emerald",
+    tags: ["データ×地域型", "市場分析"],
+    title: "Brain Market 300件分析でわかった。熊取町在住の地方メディア運営者が今すぐ参入できるAI副業ジャンル3選",
+    readers: "AI副業・在宅ワークに興味がある地方在住者、熊取町の移住検討者",
+    media: ["note", "stand.fm"],
+    reason: "実際のスクレイピングデータ（300件）を根拠に使うことで圧倒的な信頼性が生まれる。「地方在住者に特化した視点」という差別化軸と「3選」という具体性で読了率も高い。",
+    kws: ["AI副業 地方", "在宅 稼ぐ 熊取町", "Brain Market 分析", "AI コンテンツ 副業"]
+  },
+  {
+    num: "04", color: "c-amber",
+    tags: ["初心者訴求型", "移住者向け"],
+    title: "スマホ1台・知識ゼロ・1人で回してる。熊取町発AIメディアの作り方を全部オープンにする",
+    readers: "移住検討者、主婦・主夫層、副業初心者",
+    media: ["note", "kumatori-info.com", "stand.fm"],
+    reason: "6位「スマホ1台でできる！日記感覚ブログで月3万円」（274レビュー）の「スマホ1台」フレームと「全部オープン」の完全開示感を組み合わせ。移住検討者が「自分もできそう」と感じるトーンで設計。",
+    kws: ["熊取町 移住 仕事", "スマホ ブログ 副業", "1人メディア 運営方法"]
+  },
+  {
+    num: "05", color: "c-violet",
+    tags: ["逆張り型", "感情訴求"],
+    title: "「地方だから稼げない」は嘘だった。熊取町のAIメディアで見えてきた地方創生の本音と具体的な数字",
+    readers: "地方在住で将来に不安を感じている人、地方創生に関心がある読者",
+    media: ["note", "stand.fm"],
+    reason: "Brain Market型⑤「逆張り・疑問提起」の応用。「嘘だった」という強い否定語がクリック率を引き上げる。「本音と具体的な数字」で読んだ後の満足感を事前に約束するタイトル構成。",
+    kws: ["地方 副業 稼ぐ", "熊取町 地方創生", "AIメディア 地方 可能性"]
+  },
+  {
+    num: "06", color: "c-sky",
+    tags: ["SNS×地域型", "インスタ活用"],
+    title: "【インスタ×熊取町情報】地域密着フォロワーを集める投稿の作り方とAI自動化の実例",
+    readers: "熊取町に住む人・移住検討者、インスタ活用に興味がある地域事業者",
+    media: ["note", "kumatori-info.com"],
+    reason: "4位「インスタ占いスタートガイド」（305レビュー）の「インスタ×〇〇」フレームを地域情報に転用。「地域密着フォロワー」という具体的な成果設定と「AI自動化の実例」で差別化。SEOとSNS流入の両取りが狙える。",
+    kws: ["インスタ 熊取町", "地域情報 SNS 発信", "地方メディア インスタグラム"]
+  },
+  {
+    num: "07", color: "c-teal",
+    tags: ["ツール特化型", "Claude活用"],
+    title: "【Claudeだけで完結】熊取町の地域情報記事が1本20分で書けた。AIライティングを地方メディアで実践した全手順",
+    readers: "AIツール活用に興味がある発信者・メディア運営者",
+    media: ["note", "kumatori-info.com"],
+    reason: "11位「AIを駆使して本を出す」（214レビュー）の「具体的なAIツール活用」フレームを地域記事制作に転用。「1本20分」という体験数字と「全手順」の完全開示がSEOにも効く。Claudeというツール名でAI活用層への検索流入も狙える。",
+    kws: ["Claude 記事 書き方", "AI ライティング ブログ", "熊取町 記事制作", "生成AI 地方メディア"]
+  },
+  {
+    num: "08", color: "c-indigo2",
+    tags: ["実績レポート型", "定期連載"],
+    title: "【熊取町メディア運営 6ヶ月実録】記事○本・PV○万・収益○円。AIで1人でやってきたリアルな記録",
+    readers: "地方での一人メディア運営に関心がある人、副業・在宅ワーク検討者",
+    media: ["note", "stand.fm"],
+    reason: "3位「シリーズ5冠達成」・13位「870部突破」の「実績バッジ」パターンを定期レポート記事に転用。数字（PV・収益）が入ることで「本物の情報」感が生まれ、シリーズ化することでリピーター獲得にも繋がる。",
+    kws: ["熊取町メディア 運営記録", "1人ブログ 収益報告", "AI副業 実績 地方"]
+  },
+  {
+    num: "09", color: "c-pink",
+    tags: ["移住コンテンツ型", "SEO記事"],
+    title: "熊取町への移住を本気で考えているあなたへ。地元メディア運営者がAIで調べた「移住後の仕事事情」のリアル",
+    readers: "熊取町・大阪南部への移住検討者、リモートワーク・地方移住に関心がある人",
+    media: ["kumatori-info.com", "note"],
+    reason: "「移住 仕事」というSEO検索需要が高いキーワードに地域名を掛け合わせ。「AIで調べた」という切り口でデータの信頼性を演出しながら、地元在住者の「リアルな声」という二重の権威性を持たせる。",
+    kws: ["熊取町 移住", "大阪 移住 仕事", "熊取町 在宅 ワーク", "泉南 移住 メリット"]
+  },
+  {
+    num: "10", color: "c-slate",
+    tags: ["ユニコスタイル", "ビジョン型"],
+    title: "熊取町から日本の地方創生を変えたい。AIとメディアで「再現可能な地域活性化モデル」を作るまでの道筋",
+    readers: "AI×地方創生に関心がある人、地域メディアや町おこしに興味がある読者・メディア関係者",
+    media: ["note", "stand.fm"],
+    reason: "ユニコスタイルの真骨頂「なぜやっているのか」を全面に出した信念・ビジョン型タイトル。「再現可能なモデル」という表現がAI×地方創生に関心を持つ読者の心を掴み、メディア掲載・拡散にも繋がりやすい。",
+    kws: ["地方創生 AI", "熊取町 町おこし", "地域メディア 創生", "AI 地方 再現モデル"]
+  }
+];
+
+const list = document.getElementById('proposalList');
+proposals.forEach(p => {
+  const mediaBadges = p.media.map(m => `<span class="media-chip">${m}</span>`).join('');
+  const kwChips = p.kws.map(k => `<span class="kw-chip">${k}</span>`).join('');
+  const tagBadges = p.tags.map(t => `<span class="tag tag-indigo">${t}</span>`).join('');
+
+  const div = document.createElement('div');
+  div.className = 'prop';
+  div.innerHTML = `
+    <div class="prop-header">
+      <div class="prop-num ${p.color}">${p.num}</div>
+      <div class="prop-head-content">
+        <div class="prop-tags">${tagBadges}</div>
+        <div class="prop-title">${p.title}</div>
+      </div>
+    </div>
+    <div class="prop-body">
+      <div class="prop-cell">
+        <div class="prop-cell-label">対象読者</div>
+        <div class="prop-cell-val">${p.readers}</div>
+      </div>
+      <div class="prop-cell">
+        <div class="prop-cell-label">想定媒体</div>
+        <div class="prop-cell-val">${mediaBadges}
+          <div style="margin-top:10px;font-size:12px;color:var(--ink3)">${p.reason}</div>
+        </div>
+      </div>
+      <div class="prop-cell">
+        <div class="prop-cell-label">SEOキーワード候補</div>
+        <div class="prop-cell-val"><div class="kw-inline">${kwChips}</div></div>
+      </div>
+    </div>
+  `;
+  list.appendChild(div);
+});
+</script>
+</body>
+</html>

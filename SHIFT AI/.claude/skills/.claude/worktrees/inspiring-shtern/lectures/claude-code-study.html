@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code入門勉強会 — 無料・オンライン開催</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    /* ===== CSS変数（Claude / Anthropicカラー × プロ・エレガント） ===== */
+    :root {
+      --primary: #CF6428;
+      --primary-dark: #A84B15;
+      --accent: #F4923B;
+      --bg: #FAF7F3;
+      --bg-alt: #F0E9DF;
+      --white: #FFFFFF;
+      --text: #1C1208;
+      --text-muted: #7A6250;
+      --border: rgba(207, 100, 40, 0.15);
+      --shadow: 0 4px 24px rgba(207, 100, 40, 0.10);
+      --shadow-lg: 0 8px 48px rgba(207, 100, 40, 0.16);
+      --radius: 12px;
+      --radius-sm: 6px;
+    }
+
+    /* ===== リセット & ベース ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans JP', 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; height: auto; display: block; }
+    ul { list-style: none; }
+
+    /* ===== タイポグラフィ ===== */
+    h1 { font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 700; line-height: 1.25; word-break: keep-all; overflow-wrap: anywhere; }
+    h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; word-break: keep-all; overflow-wrap: anywhere; }
+    h3 { font-size: clamp(1rem, 2vw, 1.3rem); font-weight: 600; word-break: keep-all; overflow-wrap: anywhere; }
+    p  { font-size: 1rem; line-height: 1.85; }
+
+    /* ===== スクロールプログレスバー ===== */
+    .scroll-bar {
+      position: fixed; top: 0; left: 0;
+      height: 3px; background: var(--accent);
+      z-index: 300; width: 0%;
+    }
+
+    /* ===== ナビゲーション ===== */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 40px;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    #nav.scrolled {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    }
+    .nav-logo { font-size: 1.05rem; font-weight: 700; color: #fff; letter-spacing: 0.02em; }
+    .nav-logo span { color: var(--accent); }
+    #nav.scrolled .nav-logo { color: var(--text); }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { font-size: 0.88rem; font-weight: 500; color: rgba(255,255,255,0.82); transition: color 0.2s; }
+    #nav.scrolled .nav-links a { color: var(--text-muted); }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta-btn {
+      padding: 10px 22px; border-radius: 50px;
+      background: var(--accent); color: #fff;
+      font-size: 0.88rem; font-weight: 700;
+      box-shadow: 0 4px 16px rgba(244,146,59,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .nav-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(244,146,59,0.5); }
+
+    /* ===== レイアウト共通 ===== */
+    .inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 96px 0; }
+
+    /* ===== セクションヘッダー ===== */
+    .sec-eyebrow {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--primary); margin-bottom: 10px;
+    }
+    .sec-title { margin-bottom: 14px; }
+    .sec-title .hl { color: var(--primary); }
+    .sec-lead { font-size: 0.97rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+    .sec-head { text-align: center; margin-bottom: 56px; }
+
+    /* ===== スクロールアニメーション ===== */
+    .fi {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fi.visible { opacity: 1; transform: translateY(0); }
+    .fi.d1 { transition-delay: 0.1s; }
+    .fi.d2 { transition-delay: 0.2s; }
+    .fi.d3 { transition-delay: 0.3s; }
+    .fi.d4 { transition-delay: 0.4s; }
+
+    /* ===== ウェーブ区切り ===== */
+    .wave { line-height: 0; }
+    .wave svg { display: block; width: 100%; height: 76px; }
+
+    /* ===== ボタン ===== */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 18px 42px; border-radius: 50px;
+      background: var(--accent); color: #fff;
+      font-size: 1rem; font-weight: 700;
+      box-shadow: 0 4px 24px rgba(244,146,59,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(244,146,59,0.5); }
+
+    /* ============================================================
+       1. HERO
+    ============================================================ */
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      background: linear-gradient(135deg, #1A0900 0%, #3A1800 55%, #6A2C08 100%);
+      position: relative; overflow: hidden; padding-top: 80px;
+    }
+    /* グリッド装飾 */
+    .h-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 56px 56px;
+    }
+    /* Blob */
+    .blob {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); pointer-events: none;
+      animation: bfloat 9s ease-in-out infinite;
+    }
+    .blob-a { width: 560px; height: 560px; background: var(--accent); opacity: 0.18; top: -80px; right: -80px; }
+    .blob-b { width: 380px; height: 380px; background: var(--primary); opacity: 0.16; bottom: -40px; left: -40px; animation-delay: 4.5s; }
+    @keyframes bfloat {
+      0%,100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-22px) scale(1.04); }
+    }
+    /* ヒーロー内部グリッド */
+    .hero-wrap {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center;
+      max-width: 1100px; margin: 0 auto;
+      padding: 56px 24px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(244,146,59,0.14);
+      border: 1px solid rgba(244,146,59,0.3);
+      border-radius: 50px; padding: 7px 18px;
+      font-size: 0.8rem; font-weight: 600; color: var(--accent);
+      margin-bottom: 22px;
+    }
+    .hero-h1 { color: #fff; margin-bottom: 20px; }
+    .hero-h1 .hl { color: var(--accent); }
+    .hero-sub { color: rgba(255,255,255,0.72); font-size: 1.03rem; line-height: 1.9; margin-bottom: 36px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 32px; }
+    .hero-meta-item {
+      display: flex; align-items: center; gap: 7px;
+      color: rgba(255,255,255,0.6); font-size: 0.88rem;
+    }
+    .hero-meta-item .material-icons { font-size: 1.05rem; color: var(--accent); }
+    /* 右側ビジュアル */
+    .hero-visual { position: relative; }
+    .hero-img-box {
+      border-radius: 16px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+      aspect-ratio: 4/3;
+      background: rgba(255,255,255,0.05);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-img-box img { width: 100%; height: 100%; object-fit: cover; }
+    .img-ph {
+      text-align: center; color: rgba(255,255,255,0.35); padding: 40px;
+    }
+    .img-ph .material-icons { font-size: 2.8rem; display: block; margin-bottom: 12px; }
+    .img-ph p { font-size: 0.82rem; line-height: 1.6; }
+    /* フローティングカード */
+    .f-card {
+      position: absolute;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 12px; padding: 14px 18px; color: #fff;
+    }
+    .f-card-a { bottom: -18px; left: -28px; }
+    .f-card-label { font-size: 0.72rem; color: rgba(255,255,255,0.55); margin-bottom: 3px; }
+    .f-card-val { font-size: 1.05rem; font-weight: 700; }
+    .f-card-b {
+      top: -14px; right: -14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .f-card-b .material-icons { font-size: 1.7rem; color: var(--accent); }
+    .f-card-b-text { font-size: 0.78rem; font-weight: 700; line-height: 1.4; }
+
+    /* ============================================================
+       2. ABOUT
+    ============================================================ */
+    #about { background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .ba-wrap { display: flex; flex-direction: column; gap: 16px; }
+    .ba-card {
+      padding: 22px 26px; border-radius: var(--radius);
+      border: 1px solid transparent;
+    }
+    .ba-card.bef { background: #FFF2EC; border-color: rgba(207,100,40,0.2); }
+    .ba-card.aft { background: #F2FAF0; border-color: rgba(76,175,80,0.2); }
+    .ba-tag {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .ba-card.bef .ba-tag { color: var(--primary); }
+    .ba-card.aft .ba-tag { color: #4CAF50; }
+    .ba-arrow { text-align: center; color: var(--text-muted); padding: 4px 0; }
+    .about-text h2 { margin-bottom: 18px; }
+    .about-text p { color: var(--text-muted); margin-bottom: 14px; }
+    .about-pull {
+      background: var(--bg); border-left: 4px solid var(--primary);
+      padding: 14px 18px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-weight: 500; color: var(--text); font-size: 0.97rem;
+    }
+
+    /* ============================================================
+       3. CONTENTS
+    ============================================================ */
+    #contents { background: var(--bg); }
+    .contents-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+    .c-card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 30px 26px; border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .c-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .c-num {
+      font-size: 2.4rem; font-weight: 700;
+      color: rgba(207,100,40,0.1);
+      line-height: 1; margin-bottom: 14px;
+      font-family: 'Inter', sans-serif;
+    }
+    .c-icon {
+      width: 46px; height: 46px;
+      background: rgba(207,100,40,0.09);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px;
+    }
+    .c-icon .material-icons { color: var(--primary); font-size: 1.35rem; }
+    .c-card h3 { margin-bottom: 9px; }
+    .c-card p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.75; }
+
+    /* ============================================================
+       4. TARGET
+    ============================================================ */
+    #target { background: var(--white); }
+    .target-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .t-card {
+      padding: 26px 22px; border-radius: var(--radius);
+      border: 1.5px solid var(--border); background: var(--bg);
+      text-align: center; transition: border-color 0.3s, transform 0.3s;
+    }
+    .t-card:hover { border-color: var(--primary); transform: translateY(-3px); }
+    .t-card .material-icons { font-size: 1.9rem; color: var(--primary); display: block; margin-bottom: 14px; }
+    .t-card h3 { font-size: 0.97rem; margin-bottom: 8px; }
+    .t-card p { font-size: 0.87rem; color: var(--text-muted); }
+    .t-note {
+      text-align: center; margin-top: 32px;
+      padding: 18px 26px; background: rgba(207,100,40,0.06);
+      border-radius: var(--radius); font-size: 0.92rem; color: var(--text-muted);
+    }
+    .t-note strong { color: var(--primary); }
+
+    /* ============================================================
+       5. SCHEDULE
+    ============================================================ */
+    #schedule { background: var(--bg); }
+    .sch-wrap { max-width: 680px; margin: 0 auto; }
+    .sch-item {
+      display: grid; grid-template-columns: 110px 1fr;
+      gap: 22px; align-items: flex-start;
+      padding: 22px 0; border-bottom: 1px solid var(--border);
+    }
+    .sch-item:last-child { border-bottom: none; }
+    .sch-time { font-size: 0.88rem; font-weight: 700; color: var(--primary); padding-top: 2px; font-family: 'Inter', sans-serif; }
+    .sch-tag {
+      display: inline-block; background: rgba(207,100,40,0.1); color: var(--primary);
+      font-size: 0.72rem; font-weight: 700; padding: 3px 10px;
+      border-radius: 50px; margin-bottom: 6px;
+    }
+    .sch-item h3 { font-size: 0.98rem; margin-bottom: 5px; }
+    .sch-item p { font-size: 0.87rem; color: var(--text-muted); }
+
+    /* ============================================================
+       6. HOST
+    ============================================================ */
+    #host { background: var(--white); }
+    .host-wrap {
+      display: grid; grid-template-columns: 220px 1fr;
+      gap: 50px; align-items: center;
+      max-width: 820px; margin: 0 auto;
+    }
+    .host-av {
+      aspect-ratio: 1; border-radius: 50%;
+      background: var(--bg-alt, var(--bg));
+      border: 4px solid var(--border); overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .host-av .material-icons { font-size: 3.8rem; color: var(--text-muted); }
+    .host-role { font-size: 0.8rem; color: var(--primary); font-weight: 600; letter-spacing: 0.04em; margin-bottom: 7px; }
+    .host-name { font-size: 1.8rem; font-weight: 700; margin-bottom: 14px; }
+    .host-bio { color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem; }
+    .host-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .host-tag {
+      padding: 5px 14px; border-radius: 50px;
+      background: var(--bg); border: 1px solid var(--border);
+      font-size: 0.8rem; font-weight: 500; color: var(--text-muted);
+    }
+
+    /* ============================================================
+       7. FAQ
+    ============================================================ */
+    #faq { background: var(--bg); }
+    .faq-wrap { max-width: 700px; margin: 0 auto; }
+    details { border-bottom: 1px solid var(--border); }
+    summary {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 0; cursor: pointer;
+      font-weight: 600; font-size: 0.97rem; gap: 16px;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: 'expand_more';
+      font-family: 'Material Icons'; font-size: 1.25rem;
+      color: var(--primary); flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+    details[open] summary::after { transform: rotate(180deg); }
+    .faq-a { padding: 0 0 22px; color: var(--text-muted); line-height: 1.85; font-size: 0.95rem; }
+
+    /* ============================================================
+       8. CTA（最終）
+    ============================================================ */
+    #cta {
+      background: linear-gradient(135deg, #1A0900 0%, #3A1800 55%, #6A2C08 100%);
+      position: relative; overflow: hidden;
+    }
+    .cta-inner {
+      position: relative; z-index: 2;
+      text-align: center; max-width: 660px; margin: 0 auto; padding: 0 24px;
+    }
+    .cta-inner h2 { color: #fff; margin-bottom: 14px; }
+    .cta-inner .sub { color: rgba(255,255,255,0.68); margin-bottom: 36px; font-size: 1.02rem; }
+    .cta-inner .btn { font-size: 1.05rem; padding: 20px 52px; }
+    .cta-note {
+      margin-top: 18px; font-size: 0.83rem; color: rgba(255,255,255,0.4);
+      display: flex; align-items: center; justify-content: center; gap: 5px;
+    }
+    .cta-note .material-icons { font-size: 0.9rem; }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      background: #0F0600; color: rgba(255,255,255,0.38);
+      text-align: center; padding: 36px 24px; font-size: 0.83rem;
+    }
+    footer a { color: rgba(255,255,255,0.48); transition: color 0.2s; }
+    footer a:hover { color: var(--accent); }
+
+    /* ============================================================
+       レスポンシブ
+    ============================================================ */
+    @media (max-width: 768px) {
+      #nav { padding: 14px 20px; }
+      .nav-links, .nav-cta-btn { display: none; }
+
+      section { padding: 60px 0; }
+
+      .hero-wrap { grid-template-columns: 1fr; gap: 36px; padding: 40px 20px; }
+      .hero-visual { display: none; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 36px; }
+      .contents-grid { grid-template-columns: 1fr; }
+      .target-grid { grid-template-columns: 1fr; }
+
+      .host-wrap { grid-template-columns: 1fr; text-align: center; gap: 28px; }
+      .host-av { width: 130px; margin: 0 auto; }
+      .host-tags { justify-content: center; }
+
+      .sch-item { grid-template-columns: 1fr; gap: 6px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- スクロールプログレスバー -->
+  <div class="scroll-bar" id="scrollBar"></div>
+
+  <!-- ナビゲーション -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">Claude Code<span>勉強会</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">概要</a></li>
+      <li><a href="#contents">内容</a></li>
+      <li><a href="#schedule">スケジュール</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a href="#cta" class="nav-cta-btn">無料で申し込む</a>
+  </nav>
+
+  <!-- ============================================================
+       1. HERO
+  ============================================================ -->
+  <section id="hero">
+    <div class="h-grid"></div>
+    <div class="blob blob-a"></div>
+    <div class="blob blob-b"></div>
+    <div class="hero-wrap">
+
+      <!-- 左：テキスト -->
+      <div>
+        <div class="hero-badge fi">
+          <span class="material-icons" style="font-size:0.9rem;">event</span>
+          無料・オンライン開催
+        </div>
+        <h1 class="hero-h1 fi">
+          AIを、仕事に<br>使える人になる。<br>
+          <span class="hl">Claude Code</span><br>入門勉強会
+        </h1>
+        <p class="hero-sub fi">コードが書けなくても大丈夫。話題のAIツール「Claude Code」を、ゼロから一緒に動かしましょう。</p>
+        <div class="fi">
+          <a href="#cta" class="btn">
+            <span class="material-icons">arrow_forward</span>
+            無料で参加登録する
+          </a>
+        </div>
+        <div class="hero-meta fi">
+          <div class="hero-meta-item">
+            <span class="material-icons">laptop</span>オンライン開催
+          </div>
+          <div class="hero-meta-item">
+            <span class="material-icons">payments</span>参加費：無料
+          </div>
+          <div class="hero-meta-item">
+            <span class="material-icons">calendar_today</span>日時：近日公開
+          </div>
+        </div>
+      </div>
+
+      <!-- 右：ビジュアル（画像プレースホルダー） -->
+      <div class="hero-visual fi">
+        <div class="hero-img-box">
+          <!--
+            画像が用意できたら下記のコメントを外し、
+            src="your-image.jpg" に変更してください
+          -->
+          <!-- <img src="event-photo.jpg" alt="イベント・会場の様子"> -->
+          <div class="img-ph">
+            <span class="material-icons">add_photo_alternate</span>
+            <p>イベント・会場の写真<br>ファイル名をお知らせいただければ組み込みます</p>
+          </div>
+        </div>
+        <div class="f-card f-card-a">
+          <div class="f-card-label">参加費</div>
+          <div class="f-card-val">完全無料</div>
+        </div>
+        <div class="f-card f-card-b">
+          <span class="material-icons">auto_awesome</span>
+          <span class="f-card-b-text">Claude Code<br>入門 × 実践</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ウェーブ（ヒーロー → About） -->
+  <div class="wave" style="background:linear-gradient(135deg,#1A0900 0%,#6A2C08 100%);">
+    <svg viewBox="0 0 1440 76" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,38 C240,76 480,5 720,38 C960,71 1200,8 1440,38 L1440,76 L0,76 Z" fill="#FFFFFF"/>
+    </svg>
+  </div>
+
+  <!-- ============================================================
+       2. ABOUT
+  ============================================================ -->
+  <section id="about">
+    <div class="inner">
+      <div class="about-grid">
+        <!-- Before / After -->
+        <div class="ba-wrap fi">
+          <div class="ba-card bef">
+            <div class="ba-tag">Before — 今の状態</div>
+            <p>「Claude Codeって名前は聞いたことあるけど、何ができるのかよくわからない」</p>
+          </div>
+          <div class="ba-arrow">
+            <span class="material-icons">south</span>
+          </div>
+          <div class="ba-card aft">
+            <div class="ba-tag">After — 勉強会後</div>
+            <p>「Claude Codeを実際に動かせた。日常業務のどこに使えるか、具体的にイメージできた」</p>
+          </div>
+        </div>
+        <!-- テキスト -->
+        <div class="about-text fi">
+          <p class="sec-eyebrow">About</p>
+          <h2 class="sec-title">この勉強会は<br>何のためにあるの？</h2>
+          <p>AIツールは次々と登場していますが、「実際に使いこなせている」人はまだ少ないのが現実です。</p>
+          <p>この勉強会は講義を聞くだけの場ではありません。Claude Codeを実際に手を動かして体験し、「使えた」という感覚を持って帰ってもらうことを目指しています。</p>
+          <div class="about-pull">「わかった」より「できた」を大事にする、参加型のオンライン勉強会です。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ウェーブ（About → Contents） -->
+  <div class="wave" style="background:var(--white);">
+    <svg viewBox="0 0 1440 76" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,38 C360,76 720,5 1080,38 C1260,58 1380,18 1440,32 L1440,76 L0,76 Z" fill="#FAF7F3"/>
+    </svg>
+  </div>
+
+  <!-- ============================================================
+       3. CONTENTS
+  ============================================================ -->
+  <section id="contents">
+    <div class="inner">
+      <div class="sec-head fi">
+        <p class="sec-eyebrow">Program</p>
+        <h2 class="sec-title">当日<span class="hl">学べること</span></h2>
+        <p class="sec-lead">入門者でも安心してついていける内容で設計しています。</p>
+      </div>
+      <div class="contents-grid">
+        <div class="c-card fi d1">
+          <div class="c-num">01</div>
+          <div class="c-icon"><span class="material-icons">info</span></div>
+          <h3>Claude Codeとは何か</h3>
+          <p>普通のClaude（チャット）との違い、何ができるのか。5分でわかる概要セッションからスタートします。</p>
+        </div>
+        <div class="c-card fi d2">
+          <div class="c-num">02</div>
+          <div class="c-icon"><span class="material-icons">build</span></div>
+          <h3>環境構築をやってみる</h3>
+          <p>インストールから起動まで、一緒に手を動かしながら進めます。「難しそう」という不安をその場で解消します。</p>
+        </div>
+        <div class="c-card fi d3">
+          <div class="c-num">03</div>
+          <div class="c-icon"><span class="material-icons">code</span></div>
+          <h3>実際にコードを書いてみる</h3>
+          <p>プログラミング未経験でも大丈夫。Claude Codeに指示を出しながら、何かを動かす体験をします。</p>
+        </div>
+        <div class="c-card fi d4">
+          <div class="c-num">04</div>
+          <div class="c-icon"><span class="material-icons">lightbulb</span></div>
+          <h3>活用アイデアのシェア</h3>
+          <p>「自分の仕事にどう使えるか？」を参加者と一緒に考えます。地域・ビジネス・日常業務への応用を探ります。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ウェーブ（Contents → Target） -->
+  <div class="wave" style="background:var(--bg);">
+    <svg viewBox="0 0 1440 76" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,38 C240,76 480,5 720,38 C960,71 1200,8 1440,38 L1440,76 L0,76 Z" fill="#FFFFFF"/>
+    </svg>
+  </div>
+
+  <!-- ============================================================
+       4. TARGET
+  ============================================================ -->
+  <section id="target">
+    <div class="inner">
+      <div class="sec-head fi">
+        <p class="sec-eyebrow">For You</p>
+        <h2 class="sec-title">こんな人に<span class="hl">来てほしい</span></h2>
+        <p class="sec-lead">専門知識は不要。好奇心だけ持って来てください。</p>
+      </div>
+      <div class="target-grid">
+        <div class="t-card fi d1">
+          <span class="material-icons">explore</span>
+          <h3>AIに興味があるけど何から始めればいいかわからない</h3>
+          <p>とりあえず触ってみたい、という方大歓迎です。</p>
+        </div>
+        <div class="t-card fi d2">
+          <span class="material-icons">computer</span>
+          <h3>プログラミングは未経験・初心者</h3>
+          <p>コードを書いたことがなくても、Claude Codeは使えます。</p>
+        </div>
+        <div class="t-card fi d3">
+          <span class="material-icons">work</span>
+          <h3>業務を効率化したい社会人・フリーランス</h3>
+          <p>繰り返し作業の自動化や仕事のスピードアップに役立てたい方。</p>
+        </div>
+      </div>
+      <div class="t-note fi"><strong>参加条件はゼロ。</strong>事前知識・準備は一切不要です。当日パソコン1台だけ持って来てください。</div>
+    </div>
+  </section>
+
+  <!-- ウェーブ（Target → Schedule） -->
+  <div class="wave" style="background:var(--white);">
+    <svg viewBox="0 0 1440 76" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,34 C360,76 720,4 1080,38 C1260,60 1380,16 1440,28 L1440,76 L0,76 Z" fill="#FAF7F3"/>
+    </svg>
+  </div>
+
+  <!-- ============================================================
+       5. SCHEDULE
+  ============================================================ -->
+  <section id="schedule">
+    <div class="inner">
+      <div class="sec-head fi">
+        <p class="sec-eyebrow">Timetable</p>
+        <h2 class="sec-title">当日の<span class="hl">タイムテーブル</span></h2>
+        <p class="sec-lead">約2時間のプログラムです。途中参加・途中退出も可能です。</p>
+      </div>
+      <div class="sch-wrap">
+        <div class="sch-item fi">
+          <div class="sch-time">開始〜15分</div>
+          <div>
+            <span class="sch-tag">オープニング</span>
+            <h3>はじめに・今日の流れを説明</h3>
+            <p>自己紹介と今日やることの確認。初参加の方への案内もここで。</p>
+          </div>
+        </div>
+        <div class="sch-item fi">
+          <div class="sch-time">15〜35分</div>
+          <div>
+            <span class="sch-tag">インプット</span>
+            <h3>Claude Codeとは何か</h3>
+            <p>普通のClaude（チャット）との違い、できること、向いている使い方を解説します。</p>
+          </div>
+        </div>
+        <div class="sch-item fi">
+          <div class="sch-time">35〜75分</div>
+          <div>
+            <span class="sch-tag">ハンズオン</span>
+            <h3>環境構築 → 実際に動かしてみる</h3>
+            <p>画面共有しながら一緒に進めます。うまくいかなくても大丈夫、その場でサポートします。</p>
+          </div>
+        </div>
+        <div class="sch-item fi">
+          <div class="sch-time">75〜100分</div>
+          <div>
+            <span class="sch-tag">ディスカッション</span>
+            <h3>活用アイデアのシェア</h3>
+            <p>「自分の仕事にどう使えるか」を参加者と話し合います。地域・ビジネスへの応用例も紹介。</p>
+          </div>
+        </div>
+        <div class="sch-item fi">
+          <div class="sch-time">100〜120分</div>
+          <div>
+            <span class="sch-tag">クロージング</span>
+            <h3>質疑応答 + 次のステップ</h3>
+            <p>疑問・質問は何でも。終了後もチャットで受け付けます。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ウェーブ（Schedule → Host） -->
+  <div class="wave" style="background:var(--bg);">
+    <svg viewBox="0 0 1440 76" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,38 C240,76 480,5 720,38 C960,71 1200,8 1440,38 L1440,76 L0,76 Z" fill="#FFFFFF"/>
+    </svg>
+  </div>
+
+  <!-- ============================================================
+       6. HOST
+  ============================================================ -->
+  <section id="host">
+    <div class="inner">
+      <div class="sec-head fi">
+        <p class="sec-eyebrow">Host</p>
+        <h2 class="sec-title">主催者<span class="hl">紹介</span></h2>
+      </div>
+      <div class="host-wrap fi">
+        <div class="host-av">
+          <span class="material-icons">person</span>
+        </div>
+        <div>
+          <p class="host-role">地域情報メディア運営者 / 町おこしプロデューサー</p>
+          <h2 class="host-name">モトk（熊取インフォ）</h2>
+          <p class="host-bio">大阪府熊取町の地域情報メディアを一人で運営。AIを駆使した町おこしプロジェクトを推進しながら、「AI × 地域創生」の先進モデルを構築中。Claude Codeを日常業務に取り入れ、その実践知識を地域の人たちと共有することで、誰もが使えるAI活用の裾野を広げることを目指しています。</p>
+          <div class="host-tags">
+            <span class="host-tag">地域情報メディア</span>
+            <span class="host-tag">AI × 地方創生</span>
+            <span class="host-tag">Claude Code実践者</span>
+            <span class="host-tag">熊取町</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ウェーブ（Host → FAQ） -->
+  <div class="wave" style="background:var(--white);">
+    <svg viewBox="0 0 1440 76" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,34 C360,76 720,4 1080,38 C1260,60 1380,16 1440,28 L1440,76 L0,76 Z" fill="#FAF7F3"/>
+    </svg>
+  </div>
+
+  <!-- ============================================================
+       7. FAQ
+  ============================================================ -->
+  <section id="faq">
+    <div class="inner">
+      <div class="sec-head fi">
+        <p class="sec-eyebrow">FAQ</p>
+        <h2 class="sec-title">よくある<span class="hl">質問</span></h2>
+      </div>
+      <div class="faq-wrap fi">
+        <details>
+          <summary>プログラミングの経験がなくても参加できますか？</summary>
+          <div class="faq-a">はい、まったく問題ありません。この勉強会はプログラミング未経験者を主な対象としています。コードを書いたことがない方でも、Claude Codeの考え方と使い方を理解できるよう設計しています。</div>
+        </details>
+        <details>
+          <summary>参加に必要なものはありますか？</summary>
+          <div class="faq-a">インターネットに接続できるパソコン（MacまたはWindows）があれば参加できます。スマートフォンのみの環境では一部の体験ができないため、パソコンでの参加を推奨しています。事前のインストール作業は不要です。</div>
+        </details>
+        <details>
+          <summary>途中参加・途中退出は可能ですか？</summary>
+          <div class="faq-a">はい、可能です。ただし、ハンズオンセッション（環境構築〜実践）から参加される場合は、前の説明を別途確認いただく必要があります。できればオープニングからのご参加をおすすめします。</div>
+        </details>
+        <details>
+          <summary>参加後にサポートはありますか？</summary>
+          <div class="faq-a">勉強会終了後も、チャットやSNSを通じてご質問をお受けしています。「やってみたけどうまくいかない」という場面でも、できる限りサポートします。</div>
+        </details>
+        <details>
+          <summary>次回の開催予定はありますか？</summary>
+          <div class="faq-a">定期的な開催を予定しています。今回参加できない方も、メールアドレスを登録していただければ次回開催時にお知らせします。</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ウェーブ（FAQ → CTA） -->
+  <div class="wave" style="background:var(--bg);">
+    <svg viewBox="0 0 1440 76" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,38 C240,76 480,5 720,38 C960,71 1200,8 1440,38 L1440,76 L0,76 Z" fill="#1A0900"/>
+    </svg>
+  </div>
+
+  <!-- ============================================================
+       8. CTA
+  ============================================================ -->
+  <section id="cta">
+    <div class="h-grid"></div>
+    <div class="blob blob-a"></div>
+    <div class="cta-inner">
+      <p class="sec-eyebrow fi" style="text-align:center;color:var(--accent);">Join Us</p>
+      <h2 class="fi">Claude Codeを始める<br>第一歩を、ここから。</h2>
+      <p class="sub fi">参加費は無料。申し込みは1分で完了します。まず試してみてください。</p>
+      <a href="#" class="btn fi">
+        <span class="material-icons">arrow_forward</span>
+        無料で参加登録する
+      </a>
+      <div class="cta-note fi">
+        <span class="material-icons">lock</span>
+        個人情報は主催者のみが管理します。スパムメールは送りません。
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 Claude Code勉強会 &nbsp;|&nbsp; 主催：<a href="https://kumatori-info.com/" target="_blank" rel="noopener">熊取インフォ（kumatori-info.com）</a></p>
+  </footer>
+
+  <!-- ============================================================
+       JavaScript
+  ============================================================ -->
+  <script>
+    // スクロールプログレスバーの更新
+    const scrollBar = document.getElementById('scrollBar');
+    window.addEventListener('scroll', () => {
+      const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      scrollBar.style.width = pct + '%';
+    }, { passive: true });
+
+    // ナビゲーション：スクロール時に背景を付与
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // スクロールアニメーション（Intersection Observer）
+    document.addEventListener('DOMContentLoaded', () => {
+      const items = Array.from(document.querySelectorAll('.fi'));
+      const show = el => el.classList.add('visible');
+      if (!('IntersectionObserver' in window)) { items.forEach(show); return; }
+      const io = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) { show(entry.target); observer.unobserve(entry.target); }
+        });
+      }, { threshold: 0.06 });
+      items.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.92) show(el);
+        else io.observe(el);
+      });
+    });
+  </script>
+</body>
+</html>

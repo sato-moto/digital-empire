@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📝 熊取つーしん 記事50本量産計画書【改訂版】</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap');
+  :root{--bg:#0f172a;--card:#1e293b;--card2:#334155;--primary:#38bdf8;--green:#22c55e;--orange:#f97316;--pink:#ec4899;--purple:#a78bfa;--yellow:#facc15;--red:#ef4444;--teal:#2dd4bf;--text:#e2e8f0;--muted:#94a3b8;--border:#475569;--radius:16px}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Zen Maru Gothic',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;padding-bottom:60px}
+
+  .hero{background:linear-gradient(135deg,#0ea5e9 0%,#8b5cf6 40%,#ec4899 100%);padding:50px 20px 80px;text-align:center;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 70%);animation:pulse 6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+  .hero::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:50px;background:var(--bg);border-radius:50% 50% 0 0/100% 100% 0 0}
+  .hero h1{font-size:2.2em;font-weight:900;color:#fff;text-shadow:2px 2px 10px rgba(0,0,0,.3);position:relative}
+  .hero p{color:rgba(255,255,255,.85);font-size:1.05em;margin-top:8px;position:relative}
+  .hero .tag{display:inline-block;background:rgba(255,255,255,.15);color:#fff;padding:6px 18px;border-radius:30px;font-size:.82em;margin-top:14px;backdrop-filter:blur(4px);position:relative}
+
+  .container{max-width:1200px;margin:0 auto;padding:0 20px}
+
+  .section{margin:40px 0}
+  .section h2{font-size:1.5em;font-weight:900;margin-bottom:20px;display:flex;align-items:center;gap:10px;border-bottom:2px solid var(--border);padding-bottom:12px}
+
+  .card{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:20px;border:1px solid var(--border)}
+  .card h3{font-size:1.1em;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media(max-width:900px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+
+  .stat{text-align:center;padding:20px;background:var(--card);border-radius:var(--radius);border:1px solid var(--border)}
+  .stat .num{font-size:2.4em;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .stat .desc{font-size:.82em;color:var(--muted);margin-top:4px}
+
+  table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.88em}
+  th{background:var(--card2);padding:10px 12px;text-align:left;font-size:.82em;color:var(--muted);border-bottom:2px solid var(--border);white-space:nowrap}
+  td{padding:10px 12px;border-bottom:1px solid var(--border)}
+  tr:hover td{background:rgba(56,189,248,.04)}
+
+  .kw{display:inline-block;background:rgba(56,189,248,.1);color:var(--primary);padding:3px 10px;border-radius:8px;font-size:.78em;margin:2px 3px 2px 0;border:1px solid rgba(56,189,248,.2)}
+  .intent{display:inline-block;padding:2px 8px;border-radius:6px;font-size:.72em;font-weight:700}
+  .i-know{background:rgba(56,189,248,.15);color:var(--primary)}
+  .i-go{background:rgba(34,197,94,.15);color:var(--green)}
+  .i-do{background:rgba(249,115,22,.15);color:var(--orange)}
+  .i-buy{background:rgba(236,72,153,.15);color:var(--pink)}
+
+  .cat-badge{display:inline-block;padding:4px 12px;border-radius:10px;font-size:.78em;font-weight:700}
+  .cat-a{background:rgba(249,115,22,.15);color:var(--orange);border:1px solid rgba(249,115,22,.25)}
+  .cat-b{background:rgba(56,189,248,.15);color:var(--primary);border:1px solid rgba(56,189,248,.25)}
+  .cat-c{background:rgba(34,197,94,.15);color:var(--green);border:1px solid rgba(34,197,94,.25)}
+  .cat-d{background:rgba(236,72,153,.15);color:var(--pink);border:1px solid rgba(236,72,153,.25)}
+  .cat-e{background:rgba(167,139,250,.15);color:var(--purple);border:1px solid rgba(167,139,250,.25)}
+  .cat-f{background:rgba(250,204,21,.15);color:var(--yellow);border:1px solid rgba(250,204,21,.25)}
+  .cat-g{background:rgba(45,212,191,.15);color:var(--teal);border:1px solid rgba(45,212,191,.25)}
+
+  .flow{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  .flow-step{background:var(--card2);border-radius:12px;padding:14px 18px;text-align:center;flex:1;min-width:120px;border:1px solid var(--border);position:relative}
+  .flow-step .step-num{font-size:.72em;color:var(--muted);margin-bottom:4px}
+  .flow-step .step-title{font-weight:700;font-size:.9em}
+  .flow-step .step-time{font-size:.72em;color:var(--primary);margin-top:4px}
+  .flow-arr{font-size:1.5em;color:var(--muted);flex-shrink:0}
+  @media(max-width:768px){.flow-arr{display:none}}
+
+  .priority{display:inline-block;padding:2px 8px;border-radius:6px;font-size:.72em;font-weight:700}
+  .p-high{background:rgba(239,68,68,.15);color:var(--red)}
+  .p-mid{background:rgba(250,204,21,.15);color:var(--yellow)}
+  .p-low{background:rgba(34,197,94,.15);color:var(--green)}
+
+  .chart-box{max-width:400px;margin:0 auto}
+
+  .source-note{font-size:.78em;color:var(--muted);padding:10px 0;border-top:1px solid var(--border);margin-top:12px}
+  .footer{text-align:center;padding:40px 20px;color:var(--muted);font-size:.82em}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>📝 記事50本量産計画書</h1>
+  <p>熊取つーしん（kumatori-info.com）</p>
+  <div class="tag">📅 策定日: 2026年3月23日 ｜ルールブック準拠 ｜リサーチ結果反映 改訂版</div>
+</header>
+
+<div class="container">
+
+<!-- ===== 概要 ===== -->
+<section class="section">
+  <h2>📊 プロジェクト概要</h2>
+  <div class="grid-4">
+    <div class="stat"><div class="num">50</div><div class="desc">制作記事数</div></div>
+    <div class="stat"><div class="num">7</div><div class="desc">カテゴリ数</div></div>
+    <div class="stat"><div class="num">3,000</div><div class="desc">文字/記事（目安）</div></div>
+    <div class="stat"><div class="num">HTML</div><div class="desc">出力形式（WP直貼り）</div></div>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <h3>🎯 プロジェクトの目標</h3>
+    <ul style="padding-left:20px;font-size:.92em">
+      <li>固定KW「熊取」を軸にした<strong>SEO流入の最大化</strong></li>
+      <li>地域情報サイトとしての<strong>網羅性・信頼性の確立</strong></li>
+      <li>E-E-A-T（経験・専門性・権威性・信頼性）を意識した<strong>高品質な記事群</strong></li>
+      <li>ルールブック（writing-research-rules.md）に基づく<strong>体系的な制作プロセス</strong></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== 制作フロー ===== -->
+<section class="section">
+  <h2>🔧 記事制作フロー（1記事あたり）</h2>
+  <div class="flow">
+    <div class="flow-step" style="border-top:3px solid var(--primary)">
+      <div class="step-num">Phase 1</div>
+      <div class="step-title">KW設計</div>
+      <div class="step-time">⏱ 10分</div>
+    </div>
+    <span class="flow-arr">→</span>
+    <div class="flow-step" style="border-top:3px solid var(--purple)">
+      <div class="step-num">Phase 2</div>
+      <div class="step-title">検索意図</div>
+      <div class="step-time">⏱ 15分</div>
+    </div>
+    <span class="flow-arr">→</span>
+    <div class="flow-step" style="border-top:3px solid var(--orange)">
+      <div class="step-num">Phase 3</div>
+      <div class="step-title">競合分析</div>
+      <div class="step-time">⏱ 20分</div>
+    </div>
+    <span class="flow-arr">→</span>
+    <div class="flow-step" style="border-top:3px solid var(--green)">
+      <div class="step-num">Phase 4</div>
+      <div class="step-title">情報収集</div>
+      <div class="step-time">⏱ 20分</div>
+    </div>
+    <span class="flow-arr">→</span>
+    <div class="flow-step" style="border-top:3px solid var(--pink)">
+      <div class="step-num">Phase 5</div>
+      <div class="step-title">構成案</div>
+      <div class="step-time">⏱ 15分</div>
+    </div>
+    <span class="flow-arr">→</span>
+    <div class="flow-step" style="border-top:3px solid var(--yellow)">
+      <div class="step-num">Phase 6</div>
+      <div class="step-title">本文執筆</div>
+      <div class="step-time">⏱ 40分</div>
+    </div>
+    <span class="flow-arr">→</span>
+    <div class="flow-step" style="border-top:3px solid var(--teal)">
+      <div class="step-num">Phase 7</div>
+      <div class="step-title">品質チェック</div>
+      <div class="step-time">⏱ 10分</div>
+    </div>
+  </div>
+  <p style="text-align:center;font-size:.85em;color:var(--muted);margin-top:14px">合計: 約130分/記事 ｜ リサーチ50% + 執筆42% + チェック8%</p>
+</section>
+
+<!-- ===== カテゴリ分布 ===== -->
+<section class="section">
+  <h2>📈 カテゴリ別記事数</h2>
+  <div class="grid-2">
+    <div class="card"><div class="chart-box"><canvas id="catChart"></canvas></div></div>
+    <div class="card">
+      <h3>カテゴリ一覧</h3>
+      <table>
+        <thead><tr><th>カテゴリ</th><th>記事数</th><th>優先度</th></tr></thead>
+        <tbody>
+          <tr><td><span class="cat-badge cat-a">🍽️ A グルメ</span></td><td>12本</td><td><span class="priority p-high">最優先</span></td></tr>
+          <tr><td><span class="cat-badge cat-b">📸 B 観光</span></td><td>8本</td><td><span class="priority p-high">最優先</span></td></tr>
+          <tr><td><span class="cat-badge cat-c">🏠 C 暮らし</span></td><td>8本</td><td><span class="priority p-mid">優先</span></td></tr>
+          <tr><td><span class="cat-badge cat-d">👶 D 子育て</span></td><td>7本</td><td><span class="priority p-mid">優先</span></td></tr>
+          <tr><td><span class="cat-badge cat-e">🎪 E イベント</span></td><td>7本</td><td><span class="priority p-mid">優先</span></td></tr>
+          <tr><td><span class="cat-badge cat-f">🏯 F 歴史</span></td><td>4本</td><td><span class="priority p-low">通常</span></td></tr>
+          <tr><td><span class="cat-badge cat-g">🌿 G 自然</span></td><td>4本</td><td><span class="priority p-low">通常</span></td></tr>
+        </tbody>
+      </table>
+      <p class="source-note">💡 グルメ・観光は検索需要が高くロングテールも狙いやすいため最優先</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SEO戦略 ===== -->
+<section class="section">
+  <h2>🎯 SEO戦略</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3>📋 全記事共通SEOルール</h3>
+      <table>
+        <thead><tr><th>項目</th><th>ルール</th></tr></thead>
+        <tbody>
+          <tr><td>タイトルタグ</td><td>32文字前後、「熊取」前方配置、数字 or 感情ワード</td></tr>
+          <tr><td>メタディスクリプション</td><td>120文字前後、検索意図に合致する要約文</td></tr>
+          <tr><td>見出し構造</td><td>h1→h2→h3の階層厳守、KWを自然に含む</td></tr>
+          <tr><td>文字数</td><td>2,500〜3,500文字（目標3,000文字）</td></tr>
+          <tr><td>内部リンク</td><td>関連記事へ2〜3本設置</td></tr>
+          <tr><td>画像ALT</td><td>全画像にKWを含むALTテキスト設定</td></tr>
+          <tr><td>構造化データ</td><td>FAQ記事にはFAQスキーマ付与</td></tr>
+          <tr><td>共起語</td><td>本文中に自然に散りばめる</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3>🛡️ E-E-A-T強化方針</h3>
+      <table>
+        <thead><tr><th>要素</th><th>施策</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:700;color:var(--primary)">Experience</td><td>「実際に行ってみた」体験ベース表現</td></tr>
+          <tr><td style="font-weight:700;color:var(--green)">Expertise</td><td>正確なデータ引用・公式ソース明記</td></tr>
+          <tr><td style="font-weight:700;color:var(--orange)">Authority</td><td>運営者プロフィール・取材実績明示</td></tr>
+          <tr><td style="font-weight:700;color:var(--pink)">Trust</td><td>情報源明記・最終更新日の記載</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:14px;padding:12px;background:var(--card2);border-radius:10px;font-size:.85em">
+        <strong>⚔️ 差別化戦略:</strong><br>
+        大手サイト（食べログ・じゃらん等）は「網羅性」重視。<br>
+        熊取つーしんは<strong>「地元民の体験レポ＋ストーリー＋最新の鮮度」</strong>で差別化。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ファクトチェック方針 ===== -->
+<section class="section">
+  <h2>🔍 ファクトチェック方針</h2>
+  <div class="card">
+    <div class="grid-2">
+      <div>
+        <h3>📅 情報鮮度の基準</h3>
+        <table>
+          <thead><tr><th>情報カテゴリ</th><th>許容期限</th></tr></thead>
+          <tbody>
+            <tr><td>飲食店の営業情報</td><td style="font-weight:700;color:var(--yellow)">3ヶ月以内</td></tr>
+            <tr><td>開店・閉店情報</td><td style="font-weight:700;color:var(--red)">1ヶ月以内</td></tr>
+            <tr><td>イベント日程</td><td style="font-weight:700;color:var(--orange)">当年の公式発表</td></tr>
+            <tr><td>行政制度</td><td style="font-weight:700;color:var(--yellow)">1年以内+公式確認</td></tr>
+            <tr><td>歴史・文化情報</td><td style="font-weight:700;color:var(--green)">3年以内OK</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h3>📱 SNS・口コミの採用基準</h3>
+        <table>
+          <thead><tr><th>基準</th><th>内容</th></tr></thead>
+          <tbody>
+            <tr><td>投稿日</td><td>6ヶ月以内のみ採用</td></tr>
+            <tr><td>裏取り</td><td>最低2ソースでクロスチェック</td></tr>
+            <tr><td>引用方法</td><td>「傾向として言及」（転載NG）</td></tr>
+            <tr><td>信頼度順</td><td>公式 ＞ 実名 ＞ 匿名</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 記事一覧 A: グルメ ===== -->
+<section class="section">
+  <h2><span class="cat-badge cat-a">🍽️ A</span> グルメ・飲食店（12本）</h2>
+  <div class="card">
+    <p style="font-size:.85em;color:var(--muted);margin-bottom:12px">
+      <strong>リサーチで判明した競合状況:</strong> 食べログ・ホットペッパーが強い。個人ブログは弱い → 「体験レポ+地元目線」で差別化可能。
+    </p>
+    <table>
+      <thead><tr><th>#</th><th>タイトル案</th><th>ターゲットKW</th><th>検索意図</th><th>ペルソナ</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>熊取町のおすすめランチ15選｜地元民が通う人気店を厳選</td><td><span class="kw">熊取 ランチ おすすめ</span></td><td><span class="intent i-go">Go</span></td><td>今日のランチ先を探す地元住民</td></tr>
+        <tr><td>2</td><td>熊取町のカフェ巡りガイド｜隠れ家的名店からおしゃれ空間まで</td><td><span class="kw">熊取 カフェ</span></td><td><span class="intent i-go">Go</span></td><td>ゆっくりしたい20-40代女性</td></tr>
+        <tr><td>3</td><td>熊取町で味わう絶品スイーツ｜テイクアウトOKの人気店まとめ</td><td><span class="kw">熊取 スイーツ ケーキ</span></td><td><span class="intent i-go">Go</span></td><td>手土産・ご褒美スイーツを探す人</td></tr>
+        <tr><td>4</td><td>熊取町の居酒屋おすすめ10選｜飲み会・宴会にぴったりの名店</td><td><span class="kw">熊取 居酒屋</span></td><td><span class="intent i-go">Go</span></td><td>飲み会の場所を探す30-50代</td></tr>
+        <tr><td>5</td><td>熊取町のラーメン屋まとめ｜こってり系から淡麗系まで完全網羅</td><td><span class="kw">熊取 ラーメン</span></td><td><span class="intent i-go">Go</span></td><td>ラーメン好きの地元住民</td></tr>
+        <tr><td>6</td><td>熊取町のパン屋さん特集｜焼きたてが自慢のベーカリー巡り</td><td><span class="kw">熊取 パン屋</span></td><td><span class="intent i-go">Go</span></td><td>パン巡りが好きな主婦/女性</td></tr>
+        <tr><td>7</td><td>熊取駅前のグルメマップ｜駅チカで楽しめるランチ＆ディナー</td><td><span class="kw">熊取駅 グルメ</span></td><td><span class="intent i-go">Go</span></td><td>車なしで行ける店を探す人</td></tr>
+        <tr><td>8</td><td>熊取町の新規オープン・閉店情報まとめ【2026年最新】</td><td><span class="kw">熊取 新規オープン</span></td><td><span class="intent i-know">Know</span></td><td>地元の最新ニュースが気になる住民</td></tr>
+        <tr><td>9</td><td>熊取コロッケ（くまコロ）とは？｜ご当地グルメの魅力と買える場所</td><td><span class="kw">熊取コロッケ くまコロ</span></td><td><span class="intent i-know">Know</span><span class="intent i-buy">Buy</span></td><td>ご当地グルメに興味がある観光客</td></tr>
+        <tr><td>10</td><td>泉州水なすの魅力と熊取町の農家直売所ガイド</td><td><span class="kw">熊取 水なす 直売所</span></td><td><span class="intent i-buy">Buy</span></td><td>特産品が買いたい人・料理好き</td></tr>
+        <tr><td>11</td><td>熊取町のテイクアウト・お弁当まとめ｜忙しい日のお助けグルメ</td><td><span class="kw">熊取 テイクアウト</span></td><td><span class="intent i-go">Go</span></td><td>忙しい共働き家庭</td></tr>
+        <tr><td>12</td><td>熊取町の子連れランチにおすすめの飲食店｜座敷・キッズメニューあり</td><td><span class="kw">熊取 子連れ ランチ</span></td><td><span class="intent i-go">Go</span></td><td>子連れで外食したい30代ママ</td></tr>
+      </tbody>
+    </table>
+    <p class="source-note">📝 取得済み店舗情報: BISTRO GAMIN, 中華そば屋かまぼこ, 洋食ピッコローサ, つろぎ, 焙煎と珈琲織の花, 本家さぬきや, 夢かふぇ, HANS洋菓子店 他 → 記事執筆時に営業確認必須</p>
+  </div>
+</section>
+
+<!-- ===== 記事一覧 B: 観光 ===== -->
+<section class="section">
+  <h2><span class="cat-badge cat-b">📸 B</span> 観光・おでかけ（8本）</h2>
+  <div class="card">
+    <p style="font-size:.85em;color:var(--muted);margin-bottom:12px">
+      <strong>リサーチで判明:</strong> 永楽ダム・ゆめの森公園は情報豊富。2026年の新イベント情報もあり、鮮度で勝負可能。
+    </p>
+    <table>
+      <thead><tr><th>#</th><th>タイトル案</th><th>ターゲットKW</th><th>検索意図</th><th>ペルソナ</th></tr></thead>
+      <tbody>
+        <tr><td>13</td><td>熊取町の観光スポット完全ガイド｜定番から穴場まで</td><td><span class="kw">熊取町 観光</span></td><td><span class="intent i-know">Know</span><span class="intent i-go">Go</span></td><td>休日の行き先を探す近隣住民</td></tr>
+        <tr><td>14</td><td>永楽ダムの楽しみ方ガイド｜桜・ハイキング・BBQスポット</td><td><span class="kw">永楽ダム 桜</span></td><td><span class="intent i-go">Go</span></td><td>花見・レジャー計画中のファミリー</td></tr>
+        <tr><td>15</td><td>永楽ゆめの森公園の完全ガイド｜遊具・駐車場・アクセス</td><td><span class="kw">永楽ゆめの森公園</span></td><td><span class="intent i-go">Go</span><span class="intent i-do">Do</span></td><td>子どもと遊べる場所を探す親</td></tr>
+        <tr><td>16</td><td>熊取町の公園まとめ｜子どもが喜ぶ遊具充実の公園10選</td><td><span class="kw">熊取 公園 遊具</span></td><td><span class="intent i-go">Go</span></td><td>幼児〜小学生の子を持つ親</td></tr>
+        <tr><td>17</td><td>奥山雨山自然公園ハイキングガイド｜コース・所要時間</td><td><span class="kw">熊取 ハイキング</span></td><td><span class="intent i-do">Do</span></td><td>健康志向の40-60代、家族連れ</td></tr>
+        <tr><td>18</td><td>中家住宅（国指定重要文化財）の見学ガイド｜歴史と見どころ</td><td><span class="kw">中家住宅</span></td><td><span class="intent i-go">Go</span><span class="intent i-know">Know</span></td><td>歴史好き・文化財巡りの人</td></tr>
+        <tr><td>19</td><td>熊取町の写真映えスポット8選｜SNS投稿にぴったり</td><td><span class="kw">熊取 映え スポット</span></td><td><span class="intent i-go">Go</span></td><td>SNS発信好きな20-30代</td></tr>
+        <tr><td>20</td><td>熊取町周辺の日帰り温泉・スーパー銭湯ガイド</td><td><span class="kw">熊取 温泉</span></td><td><span class="intent i-go">Go</span></td><td>リラクゼーション目的の住民</td></tr>
+      </tbody>
+    </table>
+    <p class="source-note">📝 取得済み: 永楽桜まつり2026(3/28-4/5)、SANPOイベント(1月)、五感プレミアムツアー(3月募集)、万博出展情報</p>
+  </div>
+</section>
+
+<!-- ===== 記事一覧 C: 暮らし ===== -->
+<section class="section">
+  <h2><span class="cat-badge cat-c">🏠 C</span> 暮らし・住まい（8本）</h2>
+  <div class="card">
+    <p style="font-size:.85em;color:var(--muted);margin-bottom:12px">
+      <strong>リサーチで判明:</strong> 口コミはポジ/ネガ両方取得済み。移住支援制度（2025年度公式情報）も確認済み。両論記載でバランスの取れた信頼性の高い記事が可能。
+    </p>
+    <table>
+      <thead><tr><th>#</th><th>タイトル案</th><th>ターゲットKW</th><th>検索意図</th><th>ペルソナ</th></tr></thead>
+      <tbody>
+        <tr><td>21</td><td>熊取町の住みやすさを徹底解説｜交通・子育て・治安の実態</td><td><span class="kw">熊取町 住みやすさ</span></td><td><span class="intent i-know">Know</span></td><td>引越し先検討中の30代ファミリー</td></tr>
+        <tr><td>22</td><td>熊取町への移住ガイド｜支援制度・費用・先輩移住者の声</td><td><span class="kw">熊取 移住</span></td><td><span class="intent i-know">Know</span><span class="intent i-do">Do</span></td><td>都市部から移住検討中の家族</td></tr>
+        <tr><td>23</td><td>熊取駅の利便性ガイド｜快速停車・時刻表・駅周辺施設</td><td><span class="kw">熊取駅 快速</span></td><td><span class="intent i-know">Know</span></td><td>通勤事情を調べている転入予定者</td></tr>
+        <tr><td>24</td><td>熊取町のスーパー・ドラッグストアまとめ｜買い物環境を調査</td><td><span class="kw">熊取 スーパー</span></td><td><span class="intent i-know">Know</span></td><td>生活利便性を確認したい人</td></tr>
+        <tr><td>25</td><td>熊取町の病院・クリニック一覧｜小児科・内科・歯科の選び方</td><td><span class="kw">熊取 病院</span></td><td><span class="intent i-go">Go</span></td><td>かかりつけ医を探す住民</td></tr>
+        <tr><td>26</td><td>ひまわりバス完全ガイド｜路線図・時刻表・料金まで</td><td><span class="kw">ひまわりバス 時刻表</span></td><td><span class="intent i-know">Know</span></td><td>バス利用のシニア・学生</td></tr>
+        <tr><td>27</td><td>熊取町の不動産事情｜一戸建て・マンション・土地の相場</td><td><span class="kw">熊取 不動産 相場</span></td><td><span class="intent i-buy">Buy</span></td><td>住宅購入を検討中の世帯</td></tr>
+        <tr><td>28</td><td>熊取町の治安は良い？悪い？｜データと住民の声で検証</td><td><span class="kw">熊取 治安</span></td><td><span class="intent i-know">Know</span></td><td>引越し前に治安を確認したい人</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===== 記事一覧 D: 子育て ===== -->
+<section class="section">
+  <h2><span class="cat-badge cat-d">👶 D</span> 子育て・教育（7本）</h2>
+  <div class="card">
+    <p style="font-size:.85em;color:var(--muted);margin-bottom:12px">
+      <strong>リサーチで判明:</strong> 2025-2026年の新制度多数（給食費無償化・こども誰でも通園・体育館エアコン等）。公式ソースから最新情報取得済みで、<strong>最も鮮度で差別化できるカテゴリ</strong>。
+    </p>
+    <table>
+      <thead><tr><th>#</th><th>タイトル案</th><th>ターゲットKW</th><th>検索意図</th><th>ペルソナ</th></tr></thead>
+      <tbody>
+        <tr><td>29</td><td>熊取町が子育てしやすい5つの理由｜支援制度・環境を解説</td><td><span class="kw">熊取 子育て しやすい</span></td><td><span class="intent i-know">Know</span></td><td>出産前〜乳幼児の親</td></tr>
+        <tr><td>30</td><td>熊取町の保育園・こども園まとめ｜特徴・空き状況・申込方法</td><td><span class="kw">熊取 保育園</span></td><td><span class="intent i-know">Know</span><span class="intent i-do">Do</span></td><td>保活中の共働き家庭</td></tr>
+        <tr><td>31</td><td>熊取町の小学校5校の特徴と学区まとめ｜校区選びの参考に</td><td><span class="kw">熊取 小学校 学区</span></td><td><span class="intent i-know">Know</span></td><td>住宅購入前の子育て世帯</td></tr>
+        <tr><td>32</td><td>熊取町の中学校3校ガイド｜部活動・進学実績・校区情報</td><td><span class="kw">熊取 中学校</span></td><td><span class="intent i-know">Know</span></td><td>小学校高学年の子を持つ親</td></tr>
+        <tr><td>33</td><td>熊取町の学園都市としての魅力｜4大学が集まる知的なまち</td><td><span class="kw">熊取 大学</span></td><td><span class="intent i-know">Know</span></td><td>教育環境重視の移住検討者</td></tr>
+        <tr><td>34</td><td>熊取町の子どもの習い事おすすめ｜スポーツ・音楽・塾まとめ</td><td><span class="kw">熊取 習い事</span></td><td><span class="intent i-know">Know</span></td><td>幼児〜小学生の親</td></tr>
+        <tr><td>35</td><td>熊取町の子ども医療費助成制度｜18歳まで対象！申請方法を解説</td><td><span class="kw">熊取 医療費 助成</span></td><td><span class="intent i-know">Know</span><span class="intent i-do">Do</span></td><td>制度の詳細を知りたい親</td></tr>
+      </tbody>
+    </table>
+    <p class="source-note">📝 記事に含める最新情報: 中学校給食費無償化(2025~)、こども誰でも通園(2026.04~)、体育館エアコン(2025)、教育支援センター週5日化(2025)</p>
+  </div>
+</section>
+
+<!-- ===== 記事一覧 E: イベント ===== -->
+<section class="section">
+  <h2><span class="cat-badge cat-e">🎪 E</span> イベント・祭り（7本）</h2>
+  <div class="card">
+    <table>
+      <thead><tr><th>#</th><th>タイトル案</th><th>ターゲットKW</th><th>検索意図</th><th>ペルソナ</th></tr></thead>
+      <tbody>
+        <tr><td>36</td><td>熊取だんじり祭り完全ガイド｜日程・見どころ・観覧スポット</td><td><span class="kw">熊取 だんじり</span></td><td><span class="intent i-know">Know</span><span class="intent i-go">Go</span></td><td>祭りを見に行きたい近隣・観光客</td></tr>
+        <tr><td>37</td><td>永楽桜まつり2026｜開花時期・ライトアップ・駐車場情報</td><td><span class="kw">永楽桜まつり</span></td><td><span class="intent i-go">Go</span></td><td>花見の計画を立てるファミリー</td></tr>
+        <tr><td>38</td><td>熊取町の年間イベントカレンダー2026｜月別おでかけ情報</td><td><span class="kw">熊取 イベント 2026</span></td><td><span class="intent i-know">Know</span></td><td>年間を通じて楽しみたい住民</td></tr>
+        <tr><td>39</td><td>熊取町の夏祭り・盆踊り情報｜日程・屋台・会場まとめ</td><td><span class="kw">熊取 夏祭り</span></td><td><span class="intent i-know">Know</span><span class="intent i-go">Go</span></td><td>夏のイベントを探す家族</td></tr>
+        <tr><td>40</td><td>長池オアシスのハスまつり｜見頃・アクセス・楽しみ方</td><td><span class="kw">熊取 長池 ハス</span></td><td><span class="intent i-go">Go</span></td><td>季節の花を楽しみたいシニア</td></tr>
+        <tr><td>41</td><td>熊取町で紅葉を楽しむ｜秋の絶景スポットと見頃時期</td><td><span class="kw">熊取 紅葉</span></td><td><span class="intent i-go">Go</span></td><td>秋のおでかけ先を探す人</td></tr>
+        <tr><td>42</td><td>七夕in煉瓦館の魅力｜熊取の夏の風物詩を楽しもう</td><td><span class="kw">熊取 七夕 煉瓦館</span></td><td><span class="intent i-know">Know</span></td><td>地元イベントに参加したい住民</td></tr>
+      </tbody>
+    </table>
+    <p class="source-note">📝 くだんじり祭2025: 10/11-12 確定 ｜ 永楽桜まつり2026: 3/28-4/5 確定 ｜ 万博出展: 2025年 大阪ウィーク</p>
+  </div>
+</section>
+
+<!-- ===== 記事一覧 F+G: 歴史・自然 ===== -->
+<section class="section">
+  <h2><span class="cat-badge cat-f">🏯 F</span> 歴史・文化（4本）＋ <span class="cat-badge cat-g">🌿 G</span> 自然・アウトドア（4本）</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3>🏯 歴史・文化</h3>
+      <table>
+        <thead><tr><th>#</th><th>タイトル案</th><th>ターゲットKW</th></tr></thead>
+        <tbody>
+          <tr><td>43</td><td>熊取町の歴史をわかりやすく解説｜名前の由来から近代化まで</td><td><span class="kw">熊取町 歴史</span></td></tr>
+          <tr><td>44</td><td>大森神社の見どころガイド｜御祭神・御朱印・だんじり宮入り</td><td><span class="kw">大森神社</span></td></tr>
+          <tr><td>45</td><td>熊取町の重要文化財めぐり｜中家住宅・降井家書院・来迎寺</td><td><span class="kw">熊取 文化財</span></td></tr>
+          <tr><td>46</td><td>京都大学複合原子力科学研究所と熊取町｜学園都市の礎</td><td><span class="kw">熊取 京都大学</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3>🌿 自然・アウトドア</h3>
+      <table>
+        <thead><tr><th>#</th><th>タイトル案</th><th>ターゲットKW</th></tr></thead>
+        <tbody>
+          <tr><td>47</td><td>熊取町のハイキングコース完全ガイド｜初心者からファミリーまで</td><td><span class="kw">熊取 ハイキング</span></td></tr>
+          <tr><td>48</td><td>熊取町で野鳥観察を楽しむ｜コウノトリも飛来する自然の町</td><td><span class="kw">熊取 野鳥</span></td></tr>
+          <tr><td>49</td><td>熊取町の農業体験・里山体験ガイド｜子どもと自然を満喫</td><td><span class="kw">熊取 農業体験</span></td></tr>
+          <tr><td>50</td><td>熊取町のジョギング・ウォーキングコース｜おすすめルート</td><td><span class="kw">熊取 ジョギング</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 制作スケジュール ===== -->
+<section class="section">
+  <h2>📅 制作スケジュール</h2>
+  <div class="card">
+    <table>
+      <thead><tr><th>制作バッチ</th><th>カテゴリ</th><th>記事数</th><th>ファイル命名規則</th></tr></thead>
+      <tbody>
+        <tr><td style="font-weight:700">バッチ1（最優先）</td><td><span class="cat-badge cat-a">A グルメ</span></td><td>12本</td><td>01_gourmet_*.html</td></tr>
+        <tr><td style="font-weight:700">バッチ2（最優先）</td><td><span class="cat-badge cat-b">B 観光</span></td><td>8本</td><td>13_tourism_*.html</td></tr>
+        <tr><td>バッチ3</td><td><span class="cat-badge cat-c">C 暮らし</span></td><td>8本</td><td>21_living_*.html</td></tr>
+        <tr><td>バッチ4</td><td><span class="cat-badge cat-d">D 子育て</span></td><td>7本</td><td>29_parenting_*.html</td></tr>
+        <tr><td>バッチ5</td><td><span class="cat-badge cat-e">E イベント</span></td><td>7本</td><td>36_event_*.html</td></tr>
+        <tr><td>バッチ6</td><td><span class="cat-badge cat-f">F 歴史</span> + <span class="cat-badge cat-g">G 自然</span></td><td>4+4本</td><td>43_history_*.html / 47_nature_*.html</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:14px;padding:14px;background:var(--card2);border-radius:10px;font-size:.88em">
+      <strong>📂 出力形式:</strong> WordPressに直接貼れるHTML形式<br>
+      <strong>📁 保存先:</strong> <code>c:\Users\motok\OneDrive\Desktop\Claude code\kumatori-articles\</code><br>
+      <strong>📝 命名:</strong> <code>XX_category_article-slug.html</code>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 品質チェックリスト ===== -->
+<section class="section">
+  <h2>✅ 品質チェックリスト（全記事共通）</h2>
+  <div class="grid-3">
+    <div class="card">
+      <h3>SEOチェック</h3>
+      <ul style="font-size:.85em;padding-left:16px">
+        <li>タイトルに「熊取」含む（32文字前後）</li>
+        <li>メタディスクリプション（120文字前後）</li>
+        <li>見出し階層 h1→h2→h3</li>
+        <li>文字数 2,500〜3,500文字</li>
+        <li>内部リンク 2〜3本</li>
+        <li>画像ALTにKW</li>
+        <li>FAQ記事にスキーマ</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>コンテンツ品質</h3>
+      <ul style="font-size:.85em;padding-left:16px">
+        <li>検索意図に的確に回答</li>
+        <li>独自の情報・視点あり</li>
+        <li>事実の裏取り完了</li>
+        <li>誤字脱字チェック</li>
+        <li>CTA設置</li>
+        <li>ポジ/ネガ両論バランス</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>ファクトチェック</h3>
+      <ul style="font-size:.85em;padding-left:16px">
+        <li>情報源の更新日確認</li>
+        <li>鮮度基準クリア</li>
+        <li>SNS情報は2ソースで裏取り</li>
+        <li>公式サイトURLリンク切れなし</li>
+        <li>AI生成情報の事実確認</li>
+        <li>古い情報には時点注記</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer class="footer">
+  🐻 熊取つーしん 記事50本量産計画書【改訂版】 ｜ 2026年3月23日策定 ｜ ルールブック＋リサーチ結果準拠
+</footer>
+
+<script>
+new Chart(document.getElementById('catChart'),{
+  type:'doughnut',
+  data:{
+    labels:['A グルメ(12)','B 観光(8)','C 暮らし(8)','D 子育て(7)','E イベント(7)','F 歴史(4)','G 自然(4)'],
+    datasets:[{data:[12,8,8,7,7,4,4],backgroundColor:['#f97316','#38bdf8','#22c55e','#ec4899','#a78bfa','#facc15','#2dd4bf'],borderWidth:0,hoverOffset:8}]
+  },
+  options:{responsive:true,plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{family:'Zen Maru Gothic',size:11},padding:10}}}}
+});
+</script>
+</body>
+</html>

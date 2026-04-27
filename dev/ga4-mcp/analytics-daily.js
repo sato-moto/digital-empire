@@ -352,7 +352,7 @@ async function createNotionReport(analysis) {
       children: [
         divider(),
         heading2('💬 壁打ちコーナー'),
-        { object: 'block', type: 'embed', embed: { url: chatUrl } }
+        { object: 'block', type: 'embed', embed: { url: chatUrl }, format: { block_full_width: true, block_page_width: true } }
       ]
     })
   });

@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>yuniko — 「記事作って」の裏側フロー図</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+/* ══════════ BASE ══════════ */
+:root {
+  --bg:      #080b14;
+  --s1:      #0f1220;
+  --s2:      #161925;
+  --s3:      #1d2235;
+  --bd:      #252a3d;
+  --bd2:     #2e3555;
+  --p:       #8b7ff5;
+  --p2:      #b4acff;
+  --t:       #3ecfcb;
+  --t2:      #7eecea;
+  --pk:      #ff6b9d;
+  --pk2:     #ffaac8;
+  --y:       #ffd166;
+  --y2:      #ffe8a0;
+  --g:       #06d6a0;
+  --g2:      #6ef5cd;
+  --o:       #ff9a3c;
+  --txt:     #e6e9f8;
+  --mu:      #7a82aa;
+  --di:      #3e4468;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--txt);
+  font-family:'Segoe UI','Hiragino Sans','Meiryo',sans-serif;
+  font-size:13.5px;
+  line-height:1.75;
+  overflow-x:hidden;
+}
+
+/* ── stars ── */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(1px 1px at  8% 12%,rgba(255,255,255,.35) 0%,transparent 100%),
+    radial-gradient(1px 1px at 25% 60%,rgba(255,255,255,.25) 0%,transparent 100%),
+    radial-gradient(1px 1px at 55%  8%,rgba(255,255,255,.45) 0%,transparent 100%),
+    radial-gradient(1px 1px at 78% 35%,rgba(255,255,255,.30) 0%,transparent 100%),
+    radial-gradient(1px 1px at 42% 82%,rgba(255,255,255,.40) 0%,transparent 100%),
+    radial-gradient(1px 1px at 88% 72%,rgba(255,255,255,.20) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 52% 28%,rgba(139,127,245,.55) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 72% 58%,rgba(62,207,203,.45) 0%,transparent 100%);
+}
+
+/* ══════════ HERO ══════════ */
+.hero{
+  position:relative;z-index:1;
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:60px 40px;
+  overflow:hidden;
+}
+.hero-orb{
+  position:absolute;
+  border-radius:50%;
+  pointer-events:none;
+}
+.orb1{width:500px;height:500px;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(139,127,245,.10) 0%,transparent 65%);
+  animation:orb 5s ease-in-out infinite;}
+.orb2{width:300px;height:300px;top:20%;right:10%;
+  background:radial-gradient(circle,rgba(62,207,203,.07) 0%,transparent 65%);
+  animation:orb 7s ease-in-out infinite reverse;}
+@keyframes orb{0%,100%{transform:translate(-50%,-50%) scale(1);}50%{transform:translate(-50%,-50%) scale(1.08);}}
+.orb2{animation:orb2 7s ease-in-out infinite reverse;}
+@keyframes orb2{0%,100%{transform:scale(1);}50%{transform:scale(1.15);}}
+
+.badge{
+  display:inline-block;
+  background:rgba(139,127,245,.2);
+  border:1px solid rgba(139,127,245,.4);
+  color:var(--p2);
+  font-size:11px;padding:4px 14px;border-radius:20px;
+  margin-bottom:18px;letter-spacing:1.5px;text-transform:uppercase;
+}
+.hero h1{
+  font-size:clamp(26px,5vw,52px);
+  font-weight:900;text-align:center;line-height:1.15;margin-bottom:14px;
+  background:linear-gradient(135deg,#fff 0%,var(--p2) 35%,var(--t2) 65%,var(--g2) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{
+  text-align:center;color:var(--mu);font-size:14px;margin-bottom:36px;max-width:640px;
+}
+.chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.chip{
+  background:var(--s2);border:1px solid var(--bd2);border-radius:20px;
+  padding:5px 14px;font-size:11px;color:var(--mu);
+}
+.chip .dot{
+  display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:var(--g);margin-right:5px;
+  animation:blink 1.8s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
+
+.scroll-hint{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  color:var(--di);font-size:11px;display:flex;flex-direction:column;align-items:center;gap:5px;
+  animation:sh 2.2s ease-in-out infinite;
+}
+@keyframes sh{0%,100%{opacity:0;transform:translateX(-50%) translateY(-5px);}50%{opacity:1;transform:translateX(-50%) translateY(0);}}
+
+/* ══════════ CAST ══════════ */
+.cast{display:flex;gap:36px;justify-content:center;margin-bottom:48px;flex-wrap:wrap;}
+.char{display:flex;flex-direction:column;align-items:center;gap:8px;}
+.char-face{
+  font-size:56px;line-height:1;
+  animation:float 3s ease-in-out infinite;
+}
+.char:nth-child(2) .char-face{animation-delay:.6s;}
+.char:nth-child(3) .char-face{animation-delay:1.2s;}
+.char:nth-child(4) .char-face{animation-delay:1.8s;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
+.char-name{font-size:11px;font-weight:800;padding:3px 12px;border-radius:20px;letter-spacing:.5px;}
+.char-role{font-size:10px;color:var(--mu);text-align:center;max-width:86px;}
+
+/* ══════════ LAYOUT ══════════ */
+.wrap{max-width:1200px;margin:0 auto;padding:0 44px;position:relative;z-index:1;}
+.sec{padding:80px 0;border-top:1px solid var(--bd);}
+.sec-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:40px;flex-wrap:wrap;}
+.sec-num{font-size:10px;font-weight:700;color:var(--di);letter-spacing:2px;text-transform:uppercase;margin-top:3px;}
+.sec-title{font-size:20px;font-weight:900;color:var(--txt);}
+.sec-sub{font-size:13px;color:var(--mu);margin-top:4px;}
+.stag{padding:3px 10px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap;margin-top:2px;}
+
+/* ══════════ MERMAID WRAPPER ══════════ */
+.mermaid-wrap{
+  background:var(--s1);
+  border:1px solid var(--bd2);
+  border-radius:16px;
+  padding:32px 24px;
+  margin-bottom:20px;
+  overflow:auto;
+}
+.mermaid-wrap .mermaid{min-width:600px;}
+.mermaid-title{
+  font-size:12px;font-weight:700;color:var(--mu);
+  letter-spacing:1px;text-transform:uppercase;
+  margin-bottom:20px;
+  display:flex;align-items:center;gap:8px;
+}
+.mermaid-title::before{
+  content:'';display:inline-block;width:3px;height:14px;
+  border-radius:2px;background:linear-gradient(180deg,var(--p),var(--t));
+}
+
+/* ══════════ FILE NODE CARDS ══════════ */
+.file-nodes{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:12px;
+  margin-bottom:20px;
+}
+.fnode{
+  background:var(--s2);
+  border:1px solid var(--bd);
+  border-radius:10px;
+  padding:14px 16px;
+  transition:border-color .2s,transform .2s;
+  cursor:default;
+}
+.fnode:hover{border-color:var(--p);transform:translateY(-2px);}
+.fnode-step{
+  font-size:10px;font-weight:700;color:var(--di);
+  letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;
+}
+.fnode-name{
+  font-family:'Consolas',monospace;font-size:11px;
+  margin-bottom:4px;font-weight:700;
+}
+.fnode-role{font-size:11px;color:var(--mu);}
+
+/* ══════════ BUBBLE ══════════ */
+.brow{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;}
+.brow.r{flex-direction:row-reverse;}
+.bav{font-size:32px;flex-shrink:0;line-height:1;}
+.bub{
+  max-width:480px;padding:12px 16px;border-radius:14px;
+  font-size:12.5px;line-height:1.75;
+}
+.bub.L{border-radius:4px 14px 14px 14px;}
+.bub.R{border-radius:14px 4px 14px 14px;}
+.bsp{font-size:9.5px;font-weight:700;letter-spacing:.5px;margin-bottom:3px;text-transform:uppercase;}
+
+/* ══════════ PANELS ══════════ */
+.panel{
+  background:var(--s1);border:1px solid var(--bd);border-radius:14px;
+  padding:20px 24px;
+  transition:border-color .2s,transform .2s;
+}
+.panel:hover{border-color:var(--p);transform:translateY(-2px);}
+.ptitle{
+  font-size:10.5px;font-weight:700;color:var(--mu);
+  letter-spacing:.8px;text-transform:uppercase;margin-bottom:14px;
+  display:flex;align-items:center;gap:6px;
+}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+
+/* ══════════ TABLE ══════════ */
+table{width:100%;border-collapse:collapse;font-size:12px;}
+th{background:var(--s3);color:var(--mu);font-weight:700;padding:8px 12px;
+   text-align:left;font-size:10px;letter-spacing:.5px;text-transform:uppercase;
+   border-bottom:1px solid var(--bd);}
+td{padding:9px 12px;border-bottom:1px solid rgba(37,42,61,.4);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(139,127,245,.04);}
+
+/* ══════════ TAGS ══════════ */
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;margin:2px;}
+.tp{background:rgba(139,127,245,.18);color:var(--p2);}
+.tt{background:rgba(62,207,203,.18);color:var(--t2);}
+.tpk{background:rgba(255,107,157,.18);color:var(--pk2);}
+.ty{background:rgba(255,209,102,.18);color:var(--y2);}
+.tg{background:rgba(6,214,160,.18);color:var(--g2);}
+.to{background:rgba(255,154,60,.18);color:var(--o);}
+
+/* ══════════ STEP LEGEND ══════════ */
+.legend{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:10px;margin-top:16px;
+}
+.legend-item{
+  display:flex;align-items:flex-start;gap:10px;
+  background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:10px 12px;
+}
+.legend-dot{
+  width:24px;height:24px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;flex-shrink:0;margin-top:1px;
+}
+.legend-label{font-size:11px;}
+.legend-sub{font-size:10px;color:var(--mu);font-family:'Consolas',monospace;}
+
+/* ══════════ PERM ══════════ */
+.perm-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(37,42,61,.4);font-size:12px;}
+.perm-row:last-child{border-bottom:none;}
+.perm-name{font-family:'Consolas',monospace;flex:1;}
+.ps{padding:2px 9px;border-radius:20px;font-size:9.5px;font-weight:700;}
+.allow{background:rgba(6,214,160,.15);color:var(--g2);}
+.deny{background:rgba(255,107,157,.15);color:var(--pk2);}
+
+/* ══════════ TIMELINE ══════════ */
+.tl{position:relative;padding-left:30px;}
+.tl::before{
+  content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,var(--p),var(--t),var(--g));border-radius:2px;
+}
+.tli{position:relative;margin-bottom:22px;}
+.tld{
+  position:absolute;left:-25px;top:9px;
+  width:12px;height:12px;border-radius:50%;border:2px solid var(--bg);
+}
+.tlb{background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:12px 16px;}
+.tlnum{font-size:10px;color:var(--di);font-weight:700;letter-spacing:.5px;margin-bottom:3px;}
+.tlh{font-size:13px;font-weight:700;margin-bottom:3px;}
+.tlp{font-size:11.5px;color:var(--mu);}
+
+/* ══════════ FOOTER ══════════ */
+footer{
+  border-top:1px solid var(--bd);padding:40px;
+  text-align:center;color:var(--di);font-size:11px;
+  position:relative;z-index:1;
+}
+.footer-chars{font-size:28px;letter-spacing:8px;margin-bottom:10px;}
+
+/* ══════════ RESPONSIVE ══════════ */
+@media(max-width:900px){
+  .g2,.g3{grid-template-columns:1fr;}
+  .wrap{padding:0 20px;}
+  .sec{padding:60px 0;}
+  .cast{gap:20px;}
+  .char-face{font-size:44px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════
+     HERO
+════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+
+  <div class="cast">
+    <div class="char">
+      <div class="char-face">🧑‍💻</div>
+      <div class="char-name" style="background:rgba(139,127,245,.2);color:var(--p2);">ユーザー</div>
+      <div class="char-role">熊取町メディア<br>運営者</div>
+    </div>
+    <div class="char">
+      <div class="char-face">🤖</div>
+      <div class="char-name" style="background:rgba(62,207,203,.2);color:var(--t2);">Claude</div>
+      <div class="char-role">司令塔<br>Sonnet 4.6</div>
+    </div>
+    <div class="char">
+      <div class="char-face">✍️</div>
+      <div class="char-name" style="background:rgba(255,107,157,.2);color:var(--pk2);">記事ちゃん</div>
+      <div class="char-role">article-creator<br>サブエージェント</div>
+    </div>
+    <div class="char">
+      <div class="char-face">🎬</div>
+      <div class="char-name" style="background:rgba(255,209,102,.2);color:var(--y2);">動画くん</div>
+      <div class="char-role">video-creator<br>サブエージェント</div>
+    </div>
+  </div>
+
+  <div class="badge">yuniko workspace — deep dive</div>
+  <h1>「記事作って」の一言が<br>記事になるまでの裏側</h1>
+  <p class="hero-sub">
+    ユーザーのカジュアルな一言が、どのファイル（Rules / Command / Skill / Agent）を経由して
+    完成した .md ファイルになるのか。Mermaid 図解で全プロセスを解剖します。
+  </p>
+  <div class="chips">
+    <div class="chip"><span class="dot"></span>稼働中</div>
+    <div class="chip">📅 2026-03-22</div>
+    <div class="chip">🗂 Mermaid フロー図 3種収録</div>
+    <div class="chip">📍 熊取町 × AI × Claude Code</div>
+  </div>
+  <div class="scroll-hint">↓ スクロールして確認</div>
+</section>
+
+<!-- ════════════════════════════════════
+     SEC 1: 登場キャラクターと担当ファイル
+════════════════════════════════════ -->
+<section class="sec" style="z-index:1;position:relative;">
+<div class="wrap">
+
+  <div class="sec-head">
+    <div>
+      <div class="sec-num">Section 01</div>
+      <div class="sec-title">登場キャラクター × 担当ファイル対応表</div>
+      <div class="sec-sub">各キャラクターが「どのファイルの化身か」を把握するとフロー図が読みやすくなります</div>
+    </div>
+    <span class="stag tp">Cast</span>
+  </div>
+
+  <div class="mermaid-wrap">
+    <div class="mermaid-title">キャラクター ↔ ファイル 対応図</div>
+    <div class="mermaid">
+graph LR
+  subgraph USER ["🧑‍💻 ユーザー"]
+    U["「記事作って」"]
+  end
+
+  subgraph CLAUDE ["🤖 Claude — 司令塔"]
+    R[".claude/rules/project-rules.md<br/>意図の自動判定ルール"]
+    C[".claude/commands/create-article.md<br/>コマンド定義・手順書"]
+  end
+
+  subgraph ARTICLE ["✍️ 記事ちゃん — article-creator"]
+    SK[".claude/skills/article-generator/SKILL.md<br/>スキル定義・生成仕様"]
+    AG[".claude/agents/article-creator.md<br/>サブエージェント起動設定"]
+    REF["参考記事/ユニコ記事<br/>スタイル参照元"]
+  end
+
+  subgraph OUTPUT ["📁 成果物"]
+    OUT["yuniko/[テーマ名]記事.md<br/>最終出力ファイル"]
+  end
+
+  U -->|カジュアルな依頼| R
+  R -->|「記事」キーワード検知| C
+  C -->|スキル起動| SK
+  SK -->|エージェント起動| AG
+  AG -->|Read| REF
+  AG -->|Write| OUT
+    </div>
+  </div>
+
+  <!-- 対応表 -->
+  <table>
+    <thead>
+      <tr>
+        <th>キャラ</th>
+        <th>役割</th>
+        <th>担当ファイル</th>
+        <th>何をするか</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>🧑‍💻 ユーザー</td>
+        <td>依頼者</td>
+        <td>—</td>
+        <td>「記事作って」などカジュアルに依頼する</td>
+      </tr>
+      <tr>
+        <td>🤖 Claude</td>
+        <td>司令塔・判定器</td>
+        <td><code style="color:var(--t2);font-size:11px;">.claude/rules/project-rules.md</code><br><code style="color:var(--t2);font-size:11px;">.claude/commands/create-article.md</code></td>
+        <td>キーワードを検知し、正しいスキル・エージェントを選択して起動する</td>
+      </tr>
+      <tr>
+        <td>✍️ 記事ちゃん</td>
+        <td>記事生成専門</td>
+        <td><code style="color:var(--pk2);font-size:11px;">.claude/skills/article-generator/SKILL.md</code><br><code style="color:var(--pk2);font-size:11px;">.claude/agents/article-creator.md</code></td>
+        <td>参考記事を読み、ユニコスタイルで本文・ハッシュタグ・説明文を生成して保存する</td>
+      </tr>
+      <tr>
+        <td>📖 スタイル参照</td>
+        <td>スタイルガイド</td>
+        <td><code style="color:var(--y2);font-size:11px;">参考記事/ユニコ記事</code></td>
+        <td>記事ちゃんが Read して文体・構成・トーンを学ぶ</td>
+      </tr>
+      <tr>
+        <td>📄 成果物</td>
+        <td>最終出力</td>
+        <td><code style="color:var(--g2);font-size:11px;">yuniko/[テーマ名]記事.md</code></td>
+        <td>記事本文＋ハッシュタグ＋stand.fm説明文がまとめて保存される</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+</section>
+
+<!-- ════════════════════════════════════
+     SEC 2: メインフロー図（全ファイル経路）
+════════════════════════════════════ -->
+<section class="sec" style="z-index:1;position:relative;">
+<div class="wrap">
+
+  <div class="sec-head">
+    <div>
+      <div class="sec-num">Section 02</div>
+      <div class="sec-title">「記事作って」→ .md完成 — 全ファイル経路フロー図</div>
+      <div class="sec-sub">一言がどのファイルを順番に通過して記事になるか、ファイル名レベルで可視化</div>
+    </div>
+    <span class="stag tg">Flowchart</span>
+  </div>
+
+  <!-- 吹き出し -->
+  <div class="brow" style="margin-bottom:24px;">
+    <div class="bav">🤖</div>
+    <div>
+      <div class="bsp" style="color:var(--t2);">Claude</div>
+      <div class="bub L" style="background:rgba(62,207,203,.08);border:1px solid rgba(62,207,203,.25);">
+        これが「記事作って」という一言が記事になるまでの全経路です。<br>
+        <strong>① Rules で判定 → ② Command を参照 → ③ Skill を読む → ④ Agent が動く → ⑤ 参考記事を読む → ⑥ 生成 → ⑦ 保存</strong><br>
+        全部で 7 ステップ、関係するファイルは <strong>6つ</strong> です。
+      </div>
+    </div>
+  </div>
+
+  <div class="mermaid-wrap">
+    <div class="mermaid-title">図 2-A ── 全ファイル経路フローチャート（縦型）</div>
+    <div class="mermaid">
+flowchart TD
+  A(["\n🧑‍💻 ユーザー\n「AIで育児を楽にする方法について記事書いて」\n"]):::user
+
+  A --> B
+
+  subgraph RULES ["① .claude/rules/project-rules.md"]
+    B{"キーワード判定\n「記事」「書いて」を検知？"}:::rule
+  end
+
+  B -->|YES — 「記事」系キーワード| C
+  B -->|YES — 「動画」系キーワード| V([🎬 create-video スキルへ]):::skip
+
+  subgraph CMD ["② .claude/commands/create-article.md"]
+    C["コマンド手順を参照\n7ステップの実行仕様を確認"]:::cmd
+  end
+
+  C --> D
+
+  subgraph SKILL ["③ .claude/skills/article-generator/SKILL.md"]
+    D["スキル定義を読み込む\n生成仕様・品質チェック項目・保存先を確認"]:::skill
+  end
+
+  D --> E
+
+  subgraph AGENT ["④ .claude/agents/article-creator.md"]
+    E["サブエージェント article-creator 起動\n責任範囲・行動指針・ツール権限を確認"]:::agent
+  end
+
+  E -->|Read| F
+
+  subgraph REF ["⑤ 参考記事/ユニコ記事"]
+    F["ユニコ記事スタイルを読み込む\n文体・構成・トーン・禁止表現を把握"]:::ref
+  end
+
+  F --> G
+
+  subgraph GEN ["⑥ 生成フェーズ（article-creator が担当）"]
+    G["記事本文を生成\n体験談→解説→ツール→地域活用→FAQ→まとめ\n3,000文字以下"]:::gen
+    G --> H["ハッシュタグを生成\nnote用 最大15個（#note末尾）\nstand.fm用 最大8個（#standfm #ラジオ含む）"]:::gen
+    H --> I["stand.fm放送説明文を生成\n150文字前後・熊取町文脈を含む"]:::gen
+  end
+
+  I -->|Write| J
+
+  subgraph OUT ["⑦ 出力ファイル"]
+    J[("📄 yuniko/AIで育児を楽にする方法記事.md\n記事本文 + ハッシュタグ + stand.fm説明文")]:::out
+  end
+
+  J --> K([✅ ユーザーへ完成報告\nMarkdownでチャット出力も同時実施]):::done
+
+  classDef user  fill:#1d1535,stroke:#8b7ff5,color:#b4acff,font-weight:bold
+  classDef rule  fill:#0f2020,stroke:#3ecfcb,color:#7eecea,font-weight:bold
+  classDef cmd   fill:#1a1430,stroke:#8b7ff5,color:#b4acff
+  classDef skill fill:#1a1535,stroke:#ff6b9d,color:#ffaac8
+  classDef agent fill:#0e1a28,stroke:#3ecfcb,color:#7eecea
+  classDef ref   fill:#1a1510,stroke:#ffd166,color:#ffe8a0
+  classDef gen   fill:#0a1a14,stroke:#06d6a0,color:#6ef5cd
+  classDef out   fill:#0d1a10,stroke:#06d6a0,color:#6ef5cd,font-weight:bold
+  classDef done  fill:#0a1a10,stroke:#06d6a0,color:#6ef5cd,font-weight:bold
+  classDef skip  fill:#1a1a10,stroke:#ffd166,color:#ffe8a0
+    </div>
+  </div>
+
+  <!-- ファイル別ステップ凡例 -->
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-dot" style="background:rgba(139,127,245,.2);color:var(--p2);">①</div>
+      <div>
+        <div class="legend-label" style="font-weight:700;">Rules — 判定</div>
+        <div class="legend-sub">project-rules.md</div>
+      </div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:rgba(139,127,245,.2);color:var(--p2);">②</div>
+      <div>
+        <div class="legend-label" style="font-weight:700;">Command — 手順参照</div>
+        <div class="legend-sub">create-article.md</div>
+      </div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:rgba(255,107,157,.2);color:var(--pk2);">③</div>
+      <div>
+        <div class="legend-label" style="font-weight:700;">Skill — 仕様確認</div>
+        <div class="legend-sub">article-generator/SKILL.md</div>
+      </div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:rgba(62,207,203,.2);color:var(--t2);">④</div>
+      <div>
+        <div class="legend-label" style="font-weight:700;">Agent — 起動</div>
+        <div class="legend-sub">article-creator.md</div>
+      </div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:rgba(255,209,102,.2);color:var(--y2);">⑤</div>
+      <div>
+        <div class="legend-label" style="font-weight:700;">Reference — スタイル学習</div>
+        <div class="legend-sub">参考記事/ユニコ記事</div>
+      </div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:rgba(6,214,160,.2);color:var(--g2);">⑥⑦</div>
+      <div>
+        <div class="legend-label" style="font-weight:700;">生成 → 保存</div>
+        <div class="legend-sub">[テーマ名]記事.md</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ════════════════════════════════════
+     SEC 3: シーケンス図（時系列インタラクション）
+════════════════════════════════════ -->
+<section class="sec" style="z-index:1;position:relative;">
+<div class="wrap">
+
+  <div class="sec-head">
+    <div>
+      <div class="sec-num">Section 03</div>
+      <div class="sec-title">シーケンス図 — 誰が誰に何を渡すか（時系列）</div>
+      <div class="sec-sub">各コンポーネント間のメッセージ・データのやり取りを時系列で表現</div>
+    </div>
+    <span class="stag tp">Sequence</span>
+  </div>
+
+  <div class="brow" style="margin-bottom:24px;">
+    <div class="bav">✍️</div>
+    <div>
+      <div class="bsp" style="color:var(--pk2);">記事ちゃん</div>
+      <div class="bub L" style="background:rgba(255,107,157,.08);border:1px solid rgba(255,107,157,.25);">
+        シーケンス図は「誰が→誰に→何を渡したか」が時系列でわかる図解だよ。<br>
+        上から順番に読むと、ファイルがバトンを受け渡していく流れがよくわかるはず！
+      </div>
+    </div>
+  </div>
+
+  <div class="mermaid-wrap">
+    <div class="mermaid-title">図 3-A ── コンポーネント間シーケンス図</div>
+    <div class="mermaid">
+sequenceDiagram
+  actor User  as 🧑‍💻 ユーザー
+  participant Rules as project-rules.md
+  participant Cmd   as create-article.md
+  participant Skill as article-generator/SKILL.md
+  participant Agent as article-creator.md
+  participant Ref   as 参考記事/ユニコ記事
+  participant File  as [テーマ名]記事.md
+
+  Note over User,File: ── 「AIで育児を楽にする方法について記事書いて」 ──
+
+  User  ->> Rules: 発言を受信
+  activate Rules
+  Note right of Rules: キーワード「記事」「書いて」を検知
+  Rules ->> Cmd:   create-article スキルを選択・起動
+  deactivate Rules
+
+  activate Cmd
+  Note right of Cmd: 7ステップの手順書を参照
+  Cmd   ->> Skill: スキル定義を参照
+  deactivate Cmd
+
+  activate Skill
+  Note right of Skill: 生成仕様・保存先・品質基準を確認
+  Skill ->> Agent: article-creator エージェントを起動
+  deactivate Skill
+
+  activate Agent
+  Agent ->> Ref:   Read（スタイル参照）
+  activate Ref
+  Ref   -->> Agent: ユニコ記事スタイルを返却
+  Note right of Ref: 文体・構成・禁止表現を学習
+  deactivate Ref
+
+  Note over Agent: ── 生成フェーズ開始 ──
+  Agent ->> Agent: 記事本文を生成（体験談→解説→ツール→地域→FAQ→まとめ）
+  Agent ->> Agent: ハッシュタグを生成（note用15個 / stand.fm用8個）
+  Agent ->> Agent: stand.fm放送説明文を生成（150文字）
+
+  Agent ->> File:  Write（.mdファイルに保存）
+  activate File
+  File  -->> Agent: 保存完了
+  deactivate File
+
+  Agent -->> User: 完成報告 ＋ Markdownでチャット出力
+  deactivate Agent
+
+  Note over User,File: ── 完了 ── 所要時間: 約90〜180秒 ──
+    </div>
+  </div>
+
+  <!-- 各ファイルの詳細カード -->
+  <div class="file-nodes">
+    <div class="fnode" style="border-left:3px solid var(--t2);">
+      <div class="fnode-step">Step ①</div>
+      <div class="fnode-name" style="color:var(--t2);">project-rules.md</div>
+      <div class="fnode-role">意図判定ルール。「記事」「書いて」「note」などのキーワードを検知してcreate-articleスキルを選ぶ。</div>
+    </div>
+    <div class="fnode" style="border-left:3px solid var(--p2);">
+      <div class="fnode-step">Step ②</div>
+      <div class="fnode-name" style="color:var(--p2);">create-article.md</div>
+      <div class="fnode-role">コマンド定義書。参考記事確認→本文生成→ハッシュタグ→説明文→保存という7ステップの手順が書かれている。</div>
+    </div>
+    <div class="fnode" style="border-left:3px solid var(--pk2);">
+      <div class="fnode-step">Step ③</div>
+      <div class="fnode-name" style="color:var(--pk2);">article-generator/SKILL.md</div>
+      <div class="fnode-role">スキル仕様書。生成ルール・品質チェックリスト・保存先パスが定義されている。</div>
+    </div>
+    <div class="fnode" style="border-left:3px solid var(--t2);">
+      <div class="fnode-step">Step ④</div>
+      <div class="fnode-name" style="color:var(--t2);">article-creator.md</div>
+      <div class="fnode-role">サブエージェント設定。Read/Write/Globの3ツールのみ使用可能。行動指針・責任範囲が定義されている。</div>
+    </div>
+    <div class="fnode" style="border-left:3px solid var(--y2);">
+      <div class="fnode-step">Step ⑤</div>
+      <div class="fnode-name" style="color:var(--y2);">参考記事/ユニコ記事</div>
+      <div class="fnode-role">スタイル参照元。ユニコ🦄の実際の記事から文体・熱量・構成パターンを学ぶ。</div>
+    </div>
+    <div class="fnode" style="border-left:3px solid var(--g2);">
+      <div class="fnode-step">Step ⑥⑦</div>
+      <div class="fnode-name" style="color:var(--g2);">[テーマ名]記事.md</div>
+      <div class="fnode-role">最終成果物。記事本文＋note/stand.fmハッシュタグ＋放送説明文が1ファイルにまとまって保存。</div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ════════════════════════════════════
+     SEC 4: アーキテクチャ図（全体構造）
+════════════════════════════════════ -->
+<section class="sec" style="z-index:1;position:relative;">
+<div class="wrap">
+
+  <div class="sec-head">
+    <div>
+      <div class="sec-num">Section 04</div>
+      <div class="sec-title">アーキテクチャ図 — yuniko ワークスペース全体構造</div>
+      <div class="sec-sub">記事生成・動画制作の両経路と、それを支えるファイル群の全体俯瞰図</div>
+    </div>
+    <span class="stag tt">Architecture</span>
+  </div>
+
+  <div class="mermaid-wrap">
+    <div class="mermaid-title">図 4-A ── yuniko ワークスペース アーキテクチャ全体図</div>
+    <div class="mermaid">
+graph TB
+  subgraph INPUT ["🧑‍💻 INPUT — ユーザー"]
+    U["カジュアルな一言\n「記事作って」/「動画作って」"]
+  end
+
+  subgraph CTRL ["🤖 CONTROLLER — Claude Code (Sonnet 4.6)"]
+    direction LR
+    RULES[".claude/rules/project-rules.md\n意図判定 ＋ 自動ルーティング"]
+    CFG[".claude/settings.json\n権限設定"]
+  end
+
+  subgraph ARTICLE_PATH ["✍️ 記事生成パイプライン"]
+    CMD_A[".claude/commands/create-article.md\n手順書・コマンド定義"]
+    SK_A[".claude/skills/article-generator/SKILL.md\n品質基準・生成仕様"]
+    AG_A[".claude/agents/article-creator.md\nサブエージェント起動設定\ntools: Read / Write / Glob"]
+  end
+
+  subgraph VIDEO_PATH ["🎬 動画制作パイプライン"]
+    CMD_V[".claude/commands/create-video.md\n手順書・コマンド定義"]
+    SK_V[".claude/skills/remotion-video/SKILL.md\nスタイルテンプレート30種・仕様"]
+    AG_V[".claude/agents/video-creator.md\nサブエージェント起動設定\ntools: Read / Write / Edit / Bash"]
+  end
+
+  subgraph REFS ["📚 参照リソース"]
+    REF_A["参考記事/ユニコ記事\n記事スタイルガイド"]
+    CLAUDE_MD["CLAUDE.md\nプロジェクト指示書\nゴール・ルール・ターゲット"]
+  end
+
+  subgraph OUTPUT ["📁 OUTPUT — 生成ファイル"]
+    OUT_A["yuniko/[テーマ名]記事.md\n記事本文 + ハッシュタグ + stand.fm説明文"]
+    OUT_V["yuniko/videos/[連番].mp4\n完成動画 + 一覧HTML"]
+  end
+
+  U --> RULES
+  CFG -.->|権限制御| AG_A
+  CFG -.->|権限制御| AG_V
+
+  RULES -->|「記事」系キーワード| CMD_A
+  RULES -->|「動画」系キーワード| CMD_V
+
+  CMD_A --> SK_A --> AG_A
+  CMD_V --> SK_V --> AG_V
+
+  AG_A -->|Read| REF_A
+  AG_A -->|Read| CLAUDE_MD
+  AG_A -->|Write| OUT_A
+
+  AG_V -->|Read| CLAUDE_MD
+  AG_V -->|Bash: npx remotion| OUT_V
+
+  OUT_A -->|チャット出力| U
+  OUT_V -->|完成報告| U
+    </div>
+  </div>
+
+  <div class="g2" style="margin-top:0;">
+    <div class="panel">
+      <div class="ptitle">⚙️ settings.json — 権限設定</div>
+      <div>
+        <div class="perm-row"><span style="font-size:14px;">📖</span><span class="perm-name">Read</span><span class="ps allow">ALLOW</span></div>
+        <div class="perm-row"><span style="font-size:14px;">✏️</span><span class="perm-name">Write</span><span class="ps allow">ALLOW</span></div>
+        <div class="perm-row"><span style="font-size:14px;">🔧</span><span class="perm-name">Edit</span><span class="ps allow">ALLOW</span></div>
+        <div class="perm-row"><span style="font-size:14px;">▶️</span><span class="perm-name">npm run * / npx remotion *</span><span class="ps allow">ALLOW</span></div>
+        <div class="perm-row"><span style="font-size:14px;">📂</span><span class="perm-name">node / mkdir / ls / cat</span><span class="ps allow">ALLOW</span></div>
+        <div class="perm-row"><span style="font-size:14px;">💀</span><span class="perm-name">rm -rf /</span><span class="ps deny">DENY</span></div>
+        <div class="perm-row"><span style="font-size:14px;">🔒</span><span class="perm-name">sudo *</span><span class="ps deny">DENY</span></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="ptitle">🤖 エージェント別 ツール権限比較</div>
+      <table>
+        <thead><tr><th>ツール</th><th>✍️ article-creator</th><th>🎬 video-creator</th></tr></thead>
+        <tbody>
+          <tr><td>Read</td><td><span class="ps allow">✓ ALLOW</span></td><td><span class="ps allow">✓ ALLOW</span></td></tr>
+          <tr><td>Write</td><td><span class="ps allow">✓ ALLOW</span></td><td><span class="ps allow">✓ ALLOW</span></td></tr>
+          <tr><td>Edit</td><td><span class="ps deny">✗ なし</span></td><td><span class="ps allow">✓ ALLOW</span></td></tr>
+          <tr><td>Glob</td><td><span class="ps allow">✓ ALLOW</span></td><td><span class="ps deny">✗ なし</span></td></tr>
+          <tr><td>Bash</td><td><span class="ps deny">✗ なし</span></td><td><span class="ps allow">✓ ALLOW</span></td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:12px;font-size:11px;color:var(--mu);">
+        記事ちゃんは読み書きのみ。動画くんは Bash で Remotion コマンドを実行する権限が必要。
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ════════════════════════════════════
+     SEC 5: 判定ロジック詳細図
+════════════════════════════════════ -->
+<section class="sec" style="z-index:1;position:relative;">
+<div class="wrap">
+
+  <div class="sec-head">
+    <div>
+      <div class="sec-num">Section 05</div>
+      <div class="sec-title">判定ロジック詳細 — project-rules.md の中身</div>
+      <div class="sec-sub">「記事作って」がどうルーティングされるか、判定条件を図解</div>
+    </div>
+    <span class="stag tg">Rules Logic</span>
+  </div>
+
+  <div class="mermaid-wrap">
+    <div class="mermaid-title">図 5-A ── 意図判定フローチャート（project-rules.md の実装ロジック）</div>
+    <div class="mermaid">
+flowchart TD
+  IN([🧑‍💻 ユーザーの発言を受信]):::user
+
+  IN --> D1
+
+  D1{"発言に\n『動画』『ビデオ』\n『映像』『Remotion』\n『動画化』が含まれる？"}:::decision
+
+  D1 -->|YES| VIDEO(["🎬 create-video スキル起動\n→ 動画くんに引き渡す"]):::video
+
+  D1 -->|NO| D2
+
+  D2{"発言に\n『記事』『書いて』\n『note』『stand.fm』\n『ブログ』『コンテンツ』が含まれる？"}:::decision
+
+  D2 -->|YES| D3
+
+  D2 -->|NO| D4
+
+  D3{"発言にテーマが\n含まれている？"}:::decision
+
+  D3 -->|YES - テーマあり| EXEC(["✍️ create-article スキル起動\nテーマをそのまま記事ちゃんへ渡す"]):::exec
+
+  D3 -->|NO - テーマ不明| ASK["📢 1回だけ確認\n「どのようなテーマで書きますか？」"]:::ask
+  ASK --> EXEC
+
+  D4{"その他の通常依頼？"}:::decision
+  D4 -->|YES| NORMAL(["💬 通常の Claude 応答"]):::normal
+  D4 -->|NO| NORMAL
+
+  classDef user     fill:#1d1535,stroke:#8b7ff5,color:#b4acff,font-weight:bold
+  classDef decision fill:#0f2020,stroke:#3ecfcb,color:#7eecea
+  classDef video    fill:#1a1510,stroke:#ffd166,color:#ffe8a0,font-weight:bold
+  classDef exec     fill:#0a1a14,stroke:#06d6a0,color:#6ef5cd,font-weight:bold
+  classDef ask      fill:#1a1020,stroke:#ff6b9d,color:#ffaac8
+  classDef normal   fill:#151520,stroke:#3e4468,color:#7a82aa
+    </div>
+  </div>
+
+  <!-- キーワード一覧表 -->
+  <div class="g2">
+    <div class="panel">
+      <div class="ptitle">✍️ 記事系トリガーワード</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
+        <span class="tag tpk">記事</span>
+        <span class="tag tpk">書いて</span>
+        <span class="tag tpk">note</span>
+        <span class="tag tpk">stand.fm</span>
+        <span class="tag tpk">ブログ</span>
+        <span class="tag tpk">まとめて</span>
+        <span class="tag tpk">コンテンツ</span>
+        <span class="tag tpk">投稿</span>
+      </div>
+      <div style="font-size:11px;color:var(--mu);">
+        → 検知後: <code style="color:var(--pk2);">create-article</code> スキルを自動起動。<br>
+        テーマが含まれていればそのまま渡す。不明なら1回だけ確認する。
+      </div>
+    </div>
+    <div class="panel">
+      <div class="ptitle">🎬 動画系トリガーワード</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
+        <span class="tag ty">動画</span>
+        <span class="tag ty">ビデオ</span>
+        <span class="tag ty">映像</span>
+        <span class="tag ty">Remotion</span>
+        <span class="tag ty">動画化</span>
+        <span class="tag ty">映像化</span>
+        <span class="tag ty">ショート</span>
+      </div>
+      <div style="font-size:11px;color:var(--mu);">
+        → 検知後: <code style="color:var(--y2);">create-video</code> スキルを自動起動。<br>
+        対話形式で目的・スタイルを確認してから制作開始。
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ════════════════════════════════════
+     SEC 6: 記事生成の中身 詳細フロー
+════════════════════════════════════ -->
+<section class="sec" style="z-index:1;position:relative;">
+<div class="wrap">
+
+  <div class="sec-head">
+    <div>
+      <div class="sec-num">Section 06</div>
+      <div class="sec-title">記事ちゃんの内部処理 — 生成フェーズの詳細</div>
+      <div class="sec-sub">article-creator エージェントが参考記事を読んでから .md を書き出すまで</div>
+    </div>
+    <span class="stag tpk">article-creator</span>
+  </div>
+
+  <div class="mermaid-wrap">
+    <div class="mermaid-title">図 6-A ── article-creator 内部処理フロー</div>
+    <div class="mermaid">
+flowchart LR
+  subgraph READ ["📖 インプット読み込み"]
+    direction TB
+    R1["参考記事/ユニコ記事 を Read\n・文体（「〜だ」「〜した」調）\n・構成（6セクション）\n・禁止表現のパターン"]
+    R2["CLAUDE.md を暗黙参照\n・熊取町要素を含める\n・ターゲット読者を意識\n・3000文字以下"]
+  end
+
+  subgraph GEN ["✍️ 生成フェーズ"]
+    direction TB
+    G1["① 書き出し\n読者の悩みを体験談形式で代弁"]
+    G2["② 現状解説\nトレンド・問題提起"]
+    G3["③ ツール・手法紹介\n具体的な名称・手順"]
+    G4["④ 地域活用\n熊取町 × テーマの接続"]
+    G5["⑤ FAQ\n読者が抱く疑問3〜4つ"]
+    G6["⑥ まとめ\n行動喚起クロージング"]
+    G1 --> G2 --> G3 --> G4 --> G5 --> G6
+  end
+
+  subgraph TAG ["#️⃣ ハッシュタグ生成"]
+    direction TB
+    T1["note用\n最大15個\n#AI活用 #熊取町 #地方創生 … #note"]
+    T2["stand.fm用\n最大8個\n#standfm #ラジオ を必ず含む"]
+  end
+
+  subgraph STANDFM ["🎙️ 説明文生成"]
+    S1["150文字前後\n熊取町メディア運営者の文脈\n記事の要点を3文でまとめる"]
+  end
+
+  subgraph WRITE ["💾 ファイル保存"]
+    W1["Write\nyuniko/[テーマ名]記事.md\n本文 + ハッシュタグ + 説明文を1ファイルに"]
+    W2["チャット出力\nMarkdownコードブロックで表示\nコピペしやすい形式"]
+  end
+
+  subgraph CHECK ["✅ 品質チェック"]
+    C1["AI感ある表現がないか？\n事実確認できない情報がないか？\n文字数3000字以下か？\n熊取町要素が含まれているか？\nハッシュタグ2種類揃っているか？\nstand.fm説明文150字前後か？"]
+  end
+
+  READ --> GEN
+  GEN  --> TAG
+  TAG  --> STANDFM
+  STANDFM --> CHECK
+  CHECK --> WRITE
+    </div>
+  </div>
+
+  <!-- 品質チェックリスト -->
+  <div class="panel">
+    <div class="ptitle">✅ article-creator 品質チェックリスト（SKILL.md より）</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div style="display:flex;align-items:center;gap:10px;font-size:12px;">
+        <span style="color:var(--g2);font-size:16px;">☑</span>
+        AI感のある表現が含まれていないか
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;font-size:12px;">
+        <span style="color:var(--g2);font-size:16px;">☑</span>
+        事実確認できない情報が含まれていないか
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;font-size:12px;">
+        <span style="color:var(--g2);font-size:16px;">☑</span>
+        文字数が3,000文字以下か
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;font-size:12px;">
+        <span style="color:var(--g2);font-size:16px;">☑</span>
+        熊取町要素が自然に組み込まれているか
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;font-size:12px;">
+        <span style="color:var(--g2);font-size:16px;">☑</span>
+        ハッシュタグがnote用・stand.fm用で分けられているか
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;font-size:12px;">
+        <span style="color:var(--g2);font-size:16px;">☑</span>
+        stand.fm説明文が150文字前後か
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ════════════════════════════════════
+     SEC 7: 今日のセッション タイムライン
+════════════════════════════════════ -->
+<section class="sec" style="z-index:1;position:relative;">
+<div class="wrap">
+
+  <div class="sec-head">
+    <div>
+      <div class="sec-num">Section 07</div>
+      <div class="sec-title">今日のセッション タイムライン &amp; 成果物</div>
+      <div class="sec-sub">2026-03-22 のやり取りを時系列で整理</div>
+    </div>
+    <span class="stag ty">Timeline</span>
+  </div>
+
+  <div class="mermaid-wrap" style="margin-bottom:24px;">
+    <div class="mermaid-title">図 7-A ── セッション進行タイムライン</div>
+    <div class="mermaid">
+timeline
+  title 2026-03-22 セッション記録
+  Step 1 : /create-article「AI動画について」
+         : article-creator 起動
+         : AI動画記事.md を生成・保存（約2400字）
+  Step 2 : project-rules.md に自動判定ルール追加
+         : 「記事作って」→ create-article 自動起動
+         : 「動画作って」→ create-video 自動起動
+  Step 3 : 「AIで育児を楽にする方法について記事書いて」
+         : 自動判定テスト → 正常動作を確認
+         : AIで育児を楽にする方法記事.md を生成・保存（約2300字）
+  Step 4 : workspace-overview.html を生成・ブラウザ表示
+         : 表・フロー図・タイムラインで可視化
+  Step 5 : workspace-story.html を生成・ブラウザ表示
+         : キャラクター・会話シーンで再構成
+  Step 6 : workspace-flow.html を生成・ブラウザ表示（NOW）
+         : Mermaid 図解 × 全ファイル経路を解剖
+    </div>
+  </div>
+
+  <!-- 成果物一覧 -->
+  <div class="g3">
+    <div class="panel" style="border-left:3px solid var(--pk2);">
+      <div class="ptitle">📝 AI動画記事.md</div>
+      <div style="font-size:12px;color:var(--mu);margin-bottom:10px;">「AIで動画が作れる時代に、熊取町のメディア運営者がやってみた話」</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;">
+        <span class="tag tp">約2,400字</span>
+        <span class="tag ty">note用15タグ</span>
+        <span class="tag tg">stand.fm説明文</span>
+      </div>
+    </div>
+    <div class="panel" style="border-left:3px solid var(--t2);">
+      <div class="ptitle">👶 AIで育児を楽にする方法記事.md</div>
+      <div style="font-size:12px;color:var(--mu);margin-bottom:10px;">「育児×AI活用の現実｜熊取町で一人運営しながら気づいたこと」</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;">
+        <span class="tag tp">約2,300字</span>
+        <span class="tag ty">note用15タグ</span>
+        <span class="tag tg">stand.fm説明文</span>
+      </div>
+    </div>
+    <div class="panel" style="border-left:3px solid var(--g2);">
+      <div class="ptitle">🌐 HTMLダッシュボード3本</div>
+      <div style="font-size:12px;color:var(--mu);margin-bottom:10px;">workspace-overview / workspace-story / workspace-flow（このファイル）</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;">
+        <span class="tag tt">Mermaid図解</span>
+        <span class="tag tp">キャラクター</span>
+        <span class="tag tg">全ファイル経路</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ════════════════════════════════════
+     FOOTER
+════════════════════════════════════ -->
+<footer>
+  <div class="footer-chars">🧑‍💻🤖✍️🎬</div>
+  <div style="margin-bottom:6px;color:var(--mu);">yuniko workspace-flow.html — Mermaid 図解版</div>
+  <div>Generated by Claude Sonnet 4.6 &nbsp;|&nbsp; 2026-03-22 &nbsp;|&nbsp; 大阪府泉南郡熊取町 &nbsp;|&nbsp; Mermaid v10</div>
+</footer>
+
+<!-- ════════════════════════════════════
+     MERMAID INIT
+════════════════════════════════════ -->
+<script>
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'base',
+  themeVariables: {
+    background:           '#0f1220',
+    primaryColor:         '#1d2235',
+    primaryTextColor:     '#e6e9f8',
+    primaryBorderColor:   '#2e3555',
+    secondaryColor:       '#161925',
+    tertiaryColor:        '#0f1220',
+    lineColor:            '#4ecdc4',
+    edgeLabelBackground:  '#161925',
+    clusterBkg:           '#12151f',
+    clusterBorder:        '#2e3555',
+    titleColor:           '#b4acff',
+    nodeBorder:           '#2e3555',
+    mainBkg:              '#1d2235',
+    nodeTextColor:        '#e6e9f8',
+    labelTextColor:       '#e6e9f8',
+    fontFamily:           'Segoe UI, Hiragino Sans, Meiryo, sans-serif',
+    fontSize:             '13px',
+    actorBkg:             '#1d2235',
+    actorBorder:          '#2e3555',
+    actorTextColor:       '#e6e9f8',
+    actorLineColor:       '#3e4468',
+    signalColor:          '#7eecea',
+    signalTextColor:      '#e6e9f8',
+    noteBkgColor:         '#12151f',
+    noteTextColor:        '#b4acff',
+    activationBkgColor:   '#252a3d',
+    activationBorderColor:'#3ecfcb',
+    labelBoxBkgColor:     '#1d2235',
+    labelBoxBorderColor:  '#2e3555',
+    loopTextColor:        '#7eecea',
+    sectionBkgColor:      '#161925',
+    altSectionBkgColor:   '#0f1220',
+    sectionBkgColor2:     '#1d2235',
+    taskBorderColor:      '#3ecfcb',
+    taskBkgColor:         '#1d2235',
+    taskTextColor:        '#e6e9f8',
+    activeTaskBorderColor:'#8b7ff5',
+    activeTaskBkgColor:   '#252a3d',
+    gridColor:            '#252a3d',
+    doneTaskBkgColor:     '#0a1a14',
+    doneTaskBorderColor:  '#06d6a0',
+    critBorderColor:      '#ff6b9d',
+    critBkgColor:         '#1a0f14',
+    todayLineColor:       '#8b7ff5',
+    cScale0:              '#8b7ff5',
+    cScale1:              '#3ecfcb',
+    cScale2:              '#ff6b9d',
+    cScale3:              '#ffd166',
+    cScale4:              '#06d6a0',
+    cScale5:              '#ff9a3c',
+  },
+  flowchart: {
+    htmlLabels: true,
+    curve: 'basis',
+    diagramPadding: 20,
+  },
+  sequence: {
+    diagramMarginX: 20,
+    diagramMarginY: 20,
+    actorMargin: 60,
+    width: 140,
+    height: 60,
+    boxMargin: 10,
+    boxTextMargin: 5,
+    noteMargin: 10,
+    messageMargin: 35,
+    mirrorActors: false,
+    useMaxWidth: true,
+  },
+});
+</script>
+
+</body>
+</html>

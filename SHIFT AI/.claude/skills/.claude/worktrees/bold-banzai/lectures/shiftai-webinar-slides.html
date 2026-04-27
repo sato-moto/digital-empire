@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>答えを検索するな。状況を説明しろ。| SHIFT AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    /* ===== 変数 ===== */
+    :root {
+      --navy:   #0B1F3A;
+      --blue:   #1A6ECC;
+      --blue-l: #5BC8F5;
+      --bg-l:   #E8F4FD;
+      --bg-ll:  #F0F8FF;
+      --white:  #FFFFFF;
+      --gray:   #F5F7FA;
+      --text:   #1A2A3A;
+      --muted:  #6B7C93;
+      --orange: #FF8C00;
+      --green:  #22C55E;
+      --red:    #EF4444;
+    }
+
+    /* ===== ベース ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+    body { font-family: 'Noto Sans JP', sans-serif; }
+
+    /* ===== スライドコンテナ ===== */
+    #deck {
+      width: 100vw; height: 100vh;
+      position: relative; overflow: hidden;
+    }
+
+    /* ===== 各スライド ===== */
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      padding: 60px 80px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .slide.active { opacity: 1; pointer-events: auto; }
+
+    /* ===== 背景バリエーション ===== */
+    .bg-navy  { background: var(--navy); }
+    .bg-white { background: var(--white); }
+    .bg-gray  { background: var(--gray); }
+    .bg-light { background: var(--bg-l); }
+    .bg-grad  { background: linear-gradient(135deg, var(--navy) 0%, #0D3060 100%); }
+
+    /* ===== グリッド装飾（ネイビー系スライド） ===== */
+    .grid-deco {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    /* ===== アクセントライン（白スライド） ===== */
+    .accent-line {
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 6px; background: var(--blue);
+    }
+
+    /* ===== テキスト共通 ===== */
+    .eyebrow {
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--blue-l); margin-bottom: 12px;
+    }
+    .eyebrow.dark { color: var(--blue); }
+
+    h1.title {
+      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+      font-weight: 900; line-height: 1.2;
+      color: var(--white); word-break: keep-all;
+    }
+    h1.title .hl { color: var(--blue-l); }
+    h1.title.dark { color: var(--navy); }
+    h1.title.dark .hl { color: var(--blue); }
+
+    h2.heading {
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
+      font-weight: 700; line-height: 1.3;
+      word-break: keep-all;
+    }
+    h2.heading.light { color: var(--white); }
+    h2.heading.dark  { color: var(--navy); }
+
+    .sub {
+      font-size: clamp(1rem, 1.8vw, 1.4rem);
+      font-weight: 400; line-height: 1.8;
+    }
+    .sub.light { color: rgba(255,255,255,0.72); }
+    .sub.dark  { color: var(--muted); }
+
+    .lead {
+      font-size: clamp(1.1rem, 2vw, 1.6rem);
+      font-weight: 700; color: var(--blue-l);
+    }
+
+    /* ===== バッジ ===== */
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(91,200,245,0.15);
+      border: 1px solid rgba(91,200,245,0.4);
+      border-radius: 50px; padding: 8px 20px;
+      font-size: 0.85rem; font-weight: 600; color: var(--blue-l);
+      margin-bottom: 20px;
+    }
+
+    /* ===== チェックリスト ===== */
+    .check-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .check-list li {
+      display: flex; align-items: flex-start; gap: 14px;
+      font-size: clamp(0.95rem, 1.6vw, 1.2rem); color: var(--text);
+    }
+    .check-list li .material-icons { color: var(--blue); font-size: 1.3rem; margin-top: 2px; flex-shrink: 0; }
+
+    /* ===== 2列レイアウト ===== */
+    .col2 {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 24px; width: 100%;
+    }
+    .col3 {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px; width: 100%;
+    }
+
+    /* ===== カード ===== */
+    .card {
+      background: var(--white); border-radius: 16px;
+      padding: 28px 24px; border: 1px solid rgba(26,110,204,0.12);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+    .card.blue {
+      background: var(--blue); color: var(--white);
+      border: none; box-shadow: 0 4px 20px rgba(26,110,204,0.3);
+    }
+    .card.navy { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: var(--white); }
+    .card.red-border { border: 2px solid var(--red); }
+    .card.blue-border { border: 2px solid var(--blue); }
+
+    .card-num {
+      font-family: 'Inter', sans-serif;
+      font-size: 3rem; font-weight: 900;
+      color: rgba(26,110,204,0.15); line-height: 1; margin-bottom: 8px;
+    }
+    .card-num.light { color: rgba(255,255,255,0.2); }
+    .card h3 { font-size: clamp(0.95rem, 1.5vw, 1.15rem); font-weight: 700; margin-bottom: 8px; word-break: keep-all; }
+    .card p  { font-size: clamp(0.82rem, 1.3vw, 0.98rem); line-height: 1.7; color: var(--muted); }
+    .card.blue p, .card.navy p { color: rgba(255,255,255,0.75); }
+    .card.blue h3, .card.navy h3 { color: var(--white); }
+
+    /* ===== ステップフロー ===== */
+    .step-flow {
+      display: flex; align-items: center; gap: 12px; width: 100%;
+    }
+    .step-box {
+      flex: 1; background: var(--white); border-radius: 14px;
+      padding: 22px 18px; text-align: center;
+      border: 1px solid rgba(26,110,204,0.12);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+    .step-num {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.8rem; font-weight: 900; color: var(--blue);
+      margin-bottom: 6px;
+    }
+    .step-box h4 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .step-box p  { font-size: 0.82rem; color: var(--muted); }
+    .step-arrow { color: var(--blue-l); font-size: 1.8rem; flex-shrink: 0; }
+
+    /* ===== 比較ブロック ===== */
+    .cmp-block {
+      border-radius: 14px; padding: 22px 24px;
+    }
+    .cmp-block.ng { background: #FEF2F2; border: 2px solid #FCA5A5; }
+    .cmp-block.ok { background: #EFF6FF; border: 2px solid #93C5FD; }
+    .cmp-tag {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
+      margin-bottom: 10px;
+    }
+    .cmp-tag.ng { color: var(--red); }
+    .cmp-tag.ok { color: var(--blue); }
+    .cmp-block p { font-size: clamp(0.88rem, 1.4vw, 1.05rem); color: var(--text); line-height: 1.7; }
+    .cmp-block .result { font-size: 0.82rem; color: var(--muted); margin-top: 10px; font-style: italic; }
+
+    /* ===== テンプレートボックス ===== */
+    .tmpl-box {
+      background: var(--white); border: 2px solid var(--blue);
+      border-radius: 14px; padding: 24px 28px;
+      font-size: clamp(0.95rem, 1.5vw, 1.12rem);
+      line-height: 2; color: var(--text); width: 100%;
+    }
+    .tmpl-box .fill { color: var(--blue); font-weight: 700; }
+
+    /* ===== フロー縦 ===== */
+    .v-flow { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+    .v-item {
+      background: var(--white); border-radius: 12px; padding: 16px 20px;
+      border-left: 4px solid var(--blue);
+    }
+    .v-item.q { border-left-color: var(--muted); background: #F8FAFF; }
+    .v-item.a { border-left-color: var(--blue); }
+    .v-item.cut { border-left-color: var(--orange); background: #FFF8F0; }
+    .v-item-tag { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 4px; color: var(--muted); }
+    .v-item.cut .v-item-tag { color: var(--orange); }
+    .v-item.a .v-item-tag { color: var(--blue); }
+    .v-item p { font-size: clamp(0.85rem, 1.4vw, 1rem); color: var(--text); line-height: 1.6; }
+
+    /* ===== ハイライトボックス ===== */
+    .hl-box {
+      background: rgba(26,110,204,0.08);
+      border-left: 4px solid var(--blue);
+      border-radius: 0 12px 12px 0;
+      padding: 16px 20px;
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+      color: var(--navy); font-weight: 500; line-height: 1.7;
+    }
+
+    /* ===== 3ルールカード ===== */
+    .rule-card {
+      background: var(--blue); border-radius: 20px;
+      padding: 28px 20px; text-align: center; color: var(--white);
+      box-shadow: 0 8px 30px rgba(26,110,204,0.3);
+    }
+    .rule-num {
+      font-family: 'Inter', sans-serif;
+      font-size: 3rem; font-weight: 900;
+      color: rgba(255,255,255,0.25); line-height: 1; margin-bottom: 10px;
+    }
+    .rule-card h3 { font-size: clamp(0.95rem, 1.5vw, 1.1rem); font-weight: 700; line-height: 1.5; word-break: keep-all; }
+
+    /* ===== 大きな引用 ===== */
+    .big-quote {
+      font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+      font-weight: 700; color: var(--white);
+      line-height: 1.5; text-align: center; word-break: keep-all;
+    }
+    .big-quote .accent { color: var(--blue-l); }
+
+    /* ===== SNSリンク ===== */
+    .link-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .link-chip {
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50px; padding: 10px 20px;
+      font-size: 0.9rem; color: rgba(255,255,255,0.85);
+    }
+
+    /* ===== スライド番号 ===== */
+    #slide-num {
+      position: fixed; bottom: 20px; right: 30px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem; color: rgba(255,255,255,0.4);
+      z-index: 100;
+    }
+
+    /* ===== ナビゲーションボタン ===== */
+    #nav-prev, #nav-next {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50%; width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: rgba(255,255,255,0.6);
+      z-index: 100; transition: background 0.2s;
+      font-size: 0; /* Material Icons で表示 */
+    }
+    #nav-prev:hover, #nav-next:hover { background: rgba(255,255,255,0.18); color: #fff; }
+    #nav-prev { left: 16px; }
+    #nav-next { right: 16px; }
+    #nav-prev .material-icons, #nav-next .material-icons { font-size: 1.3rem; }
+
+    /* ===== プログレスバー ===== */
+    #progress {
+      position: fixed; bottom: 0; left: 0;
+      height: 3px; background: var(--blue);
+      z-index: 100; transition: width 0.3s;
+    }
+
+    /* ===== 全幅ユーティリティ ===== */
+    .w100 { width: 100%; }
+    .text-center { text-align: center; }
+    .mt8  { margin-top: 8px; }
+    .mt14 { margin-top: 14px; }
+    .mt20 { margin-top: 20px; }
+    .mt28 { margin-top: 28px; }
+    .mt36 { margin-top: 36px; }
+    .gap8  { gap: 8px; }
+    .gap14 { gap: 14px; }
+
+    /* ===== オレンジ強調 ===== */
+    .orange { color: var(--orange); }
+    .blue-c { color: var(--blue); }
+    .blue-l-c { color: var(--blue-l); }
+  </style>
+</head>
+<body>
+
+<div id="deck">
+
+  <!-- ======================================
+       Slide 01 - タイトル
+  ====================================== -->
+  <div class="slide bg-grad active">
+    <div class="grid-deco"></div>
+    <div class="badge"><span class="material-icons" style="font-size:0.9rem;">school</span>SHIFT AI ウェビナー</div>
+    <h1 class="title text-center">
+      答えを検索するな。<br>
+      <span class="hl">状況を説明しろ。</span>
+    </h1>
+    <p class="lead mt20">中高生のためのAIとの対話術</p>
+    <p class="sub light mt28" style="font-size:1rem;">登壇者名 &nbsp;|&nbsp; 2026.XX.XX &nbsp;|&nbsp; SHIFT AI</p>
+  </div>
+
+  <!-- ======================================
+       Slide 02 - 今日のゴール
+  ====================================== -->
+  <div class="slide bg-white">
+    <div class="accent-line"></div>
+    <div style="max-width:780px;width:100%;">
+      <p class="eyebrow dark">Today's Goal</p>
+      <h2 class="heading dark">今日このウェビナーが終わったとき</h2>
+      <ul class="check-list mt28">
+        <li><span class="material-icons">check_circle</span><span>AIへの「問いかけ方」が変わっている</span></li>
+        <li><span class="material-icons">check_circle</span><span>意図した答えが返ってこなくても切り返せる</span></li>
+        <li><span class="material-icons">check_circle</span><span>「なぜそう思う？」をAIと一緒に深められる</span></li>
+      </ul>
+      <div class="hl-box mt28">今日やること：インプット（25分）→ 実践ハンズオン（25分）→ まとめ・Q&A（10分）</div>
+    </div>
+  </div>
+
+  <!-- ======================================
+       Slide 03 - 問いかけ
+  ====================================== -->
+  <div class="slide bg-light">
+    <div style="max-width:760px;width:100%;text-align:center;">
+      <p class="eyebrow dark mt8">Opening Question</p>
+      <h2 class="heading dark mt14" style="font-size:clamp(1.8rem,3.5vw,3rem);">
+        あなたは今、<br>AIに何を聞いていますか？
+      </h2>
+      <p class="sub dark mt20">チャットに書き込んでみてください。<br>どんな答えでも正解です。</p>
+      <div class="card blue mt36" style="display:inline-block;padding:16px 36px;">
+        <p style="color:#fff;font-weight:700;font-size:1.1rem;">▶ 60秒でOKです</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================
+       Slide 04 - 多くの人がやっていること
+  ====================================== -->
+  <div class="slide bg-white">
+    <div class="accent-line"></div>
+    <div style="max-width:800px;width:100%;">
+      <h2 class="heading dark">多くの人がAIをこう使っている</h2>
+      <div class="card mt28" style="max-width:560px;margin-left:auto;margin-right:auto;">
+        <div style="display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;">
+          <p style="font-size:1.15rem;font-weight:700;color:var(--navy);">「数学　二次方程式　解き方」を入力</p>
+          <span class="material-icons" style="color:var(--muted);font-size:1.5rem;">south</span>
+          <p style="color:var(--muted);">AIが答えを返してくる</p>
+          <span class="material-icons" style="color:var(--muted);font-size:1.5rem;">south</span>
+          <p style="color:var(--muted);">「ふーん」で終わる</p>
+        </div>
+      </div>
+      <p class="orange mt28" style="font-size:1.2rem;font-weight:700;text-align:center;">
+        それ、検索エンジンと同じ使い方です。
+      </p>
+    </div>
+  </div>
+
+  <!-- ======================================
+       Slide 05 - 検索 vs AI相談
+  ====================================== -->
+  <div class="slide bg-white">
+    <div style="max-width:900px;width:100%;">
+      <h2 class="heading dark text-center">検索エンジン　vs　AIとの対話</h2>
+      <div class="col2 mt28">
+        <div class="card" style="background:var(--gray);border:none;">
+          <h3 style="color:var(--muted);font-size:1rem;margin-bottom:16px;">検索エンジン</h3>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+            <li style="color:var(--muted);font-size:0.95rem;">・ キーワードを投げる</li>
+            <li style="color:var(--muted);font-size:0.95rem;">・ 一般的な答えが返る</li>
+            <li style="color:var(--muted);font-size:0.95rem;">・ それ以上は深まらない</li>
+          </ul>
+        </div>
+        <div class="card blue">
+          <h3 style="color:var(--blue-l);font-size:1rem;margin-bottom:16px;">AIとの対話</h3>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+            <li style="color:#fff;font-size:0.95rem;">・ 状況を説明する</li>
+            <li style="color:#fff;font-size:0.95rem;">・ 自分に合った答えが返る</li>
+            <li style="color:#fff;font-size:0.95rem;">・ 「なぜ？」で深めていける</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hl-box mt20" style="text-align:center;">AIは対話するほど賢くなる</div>
+    </div>
+  </div>
+
+  <!-- ======================================
+       Slide 06 - 悪い例 vs 良い例①
+  ====================================== -->
+  <div class="slide bg-gray">
+    <div style="max-width:900px;width:100%;">
+      <h2 class="heading dark">実際に比べてみよう</h2>
+      <div class="col2 mt28">
+        <div class="cmp-block ng">
+          <p class="cmp-tag ng">❌ 悪い例</p>
+          <p>「38.5度　熱　対処法」</p>
+          <p class="result">返ってくる答え：<br>熱が出たら水分補給を…（一般論）</p>
+        </div>
+        <div class="cmp-block ok">
+          <p class="cmp-tag ok">✅ 良い例</p>
+          <p>「生後6ヶ月の子が38.5度。元気はある。今夜様子を見るべきか、判断材料を教えて」</p>
+          <p class="result">返ってくる答え：<br>月齢・症状・元気さを踏まえた具体的なアドバイス</p>
+        </div>
+      </div>
+      <p style="font-size:0.82rem;color:var(--muted);margin-top:16px;text-align:center;">
+        ※ 医療判断は必ず医師へ。あくまで判断材料として活用
+      </p>
+    </div>
+  </div>
+
+  <!-- ======================================
+       Slide 07 - 中高生に置き換えると
+  ====================================== -->
+  <div class="slide bg-white">
+    <div style="max-width:900px;width:100%;">
+      <h2 class="heading dark">勉強の場面に置き換えると？</h2>
+      <div class="col2 mt28">
+        <div class="cmp-block ng">
+          <p class="cmp-tag ng">❌ こう聞いていませんか？</p>
+          <p>「数学　二次方程式　解き方」</p>
+        </div>
+        <div class="cmp-block ok">
+          <p class="cmp-tag ok">✅ こう聞いてみよう</p>
+          <p>「解の公式を使おうとしたが、判別式の計算で詰まっている。どこが間違っているか一緒に考えて」</p>
+        </div>
+      </div>
+      <div class="hl-box mt20" style="text-align:center;font-size:1.1rem;">
+        「状況を説明するほど、AIは賢くなる」
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================
+       Slide 08 - なぜ状況説明が大事なのか
+  ====================================== -->
+  <div class="slide bg-navy">
+    <div class="grid-deco"></div>
+    <div style="max-width:900px;width:100%;position:relative;z-index:2;">
+      <h2 class="heading light text-center">
+        AIは文脈がないと<br>「一般論」しか返せない
+      </h2>
+      <div class="col3 mt36">
+        <div class="card navy" style="text-align:center;">
+          <div class="card-num light">01</div>
+          <h3>文脈なし</h3>
+          <p>一般的な答え<br>「知ってた」で終わる</p>
+        </div>
+        <div class="card navy" style="text-align:center;">
+          <div class="card-num light">02</div>
+          <h3>文脈あり</h3>
+          <p>あなた専用の答え<br>「なるほど！」が生まれる</p>
+        </div>
+        <div class="card navy" style="text-align:center;">
+          <div class="card-num light">03</div>
+          <h3>対話を重ねる</h3>
+          <p>思考が深まる<br>自分の力になる</p>
+        </div>
+      </div>
+      <p class="blue-l-c mt28 text-center" style="font-weight:700;font-size:1.1rem;">
+        文脈 ＝ あなたの状況・悩み・試したこと
+      </p>
+    </div>
+  </div>
+
+  <!-- ======================================
+       Slide 09 - PART 1まとめ
+  ====================================== -->
+  <div class="slide bg-light">
+    <div style="max-width:720px;width:100%;text-align:center;">
+      <p class="eyebrow dark">Part 1 Summary</p>
+      <h2 class="heading dark mt14" style="font-size:clamp(1.6rem,3.2vw,2.6rem);">
+        AIに聞く前に、<br>まず状況を整理しよう
+      </h2>
+      <p class="sub dark mt20">
+        誰が・何に・どこで詰まっているかを言語化する<br>
+        それだけで返ってくる答えの質が激変する
+      </p>
+      <div class="card blue mt36" style="display:inline-block;padding:16px 40px;">
+        <p style="color:#fff;font-weight:700;font-size:1rem;">次：実際に手を動かします &nbsp;▶</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================
+       Slide 10 - ハンズオン説明
+  ====================================== -->
+  <div class="slide bg-white">
+    <div class="accent-line"></div>
+    <div style="max-width:860px;width:100%;">
+      <p class="eyebrow dark">Hands-on</p>
+      <h2 class="heading dark">ここから実践です</h2>
+      <div class="step-flow mt36">
+        <div class="step-box">
+          <div class="step-num">01</div>
+          <h4>問いを書く</h4>
+          <p>2分</p>
+        </div>
+        <span class="material-icons step-arrow">arrow_forward</span>
+        <div class="step-box">
+          <div class="step-num">02</div>
+          <h4>AIに送る</h4>
+          <p>2〜3分</p>
+        </div>
+        <span class="material-icons step-arrow">arrow_forward</span>
+        <div class="step-box">
+          <div class="step-num">03</div>
+          <h4>切り返す</h4>
+          <p>3分</p>
+        </div>
+      </div>
+      <div class="hl-box mt28">うまくいかなくてOK。それが練習のチャンスです。</div>
+    </div>
+  </div>
+
+  <!-- ======================================
+       Slide 11 - ステップ①：問いを書く
+  ====================================== -->
+  <div class="slide" style="background:var(--bg-ll);">
+    <div style="max-width:800px;width:100%;">
+      <p class="eyebrow dark">Step 01</p>
+      <h2 class="heading dark mt8">問いを書いてみよう</h2>
+      <div class="tmpl-box mt28">
+        「私は<span class="fill">＿＿＿</span>に取り組んでいます。<br>
+        　<span class="fill">＿＿＿</span>で詰まっています。<br>
+        　<span class="fill">＿＿＿</span>まではわかります。<br>
+        　どこがおかしいか一緒に考えてください。」
+      </div>
+      <p class="sub dark mt20">
+        今の勉強・宿題・やりたいこと、何でもOKです。<br>
+        2分で書いてみてください。
+      </p>
+    </div>
+  </div>
+
+  <!-- ======================================
+       Slide 12 - よくある「惜しい問い」
+  ====================================== -->
+  <div class="slide bg-white">
+    <div style="max-width:860px;width:100%;">
+      <h2 class="heading dark">こんな問い、書いていませんか？</h2>
+      <div style="display:flex;flex-direction:column;gap:16px;margin-top:28px;">
+        <div class="card" style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;">
+          <span style="font-size:1.5rem;">❌</span>
+          <div>
+            <p style="font-weight:700;color:var(--navy);">「英語の勉強法を教えて」</p>
+            <p style="color:var(--muted);font-size:0.9rem;margin-top:4px;">→ 状況がない。一般論しか返せない</p>
+          </div>
+        </div>
+        <div class="card" style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;">
+          <span style="font-size:1.5rem;">❌</span>
+          <div>
+            <p style="font-weight:700;color:var(--navy);">「やる気が出ない。どうすればいい？」</p>
+            <p style="color:var(--muted);font-size:0.9rem;margin-top:4px;">→ 何のやる気か・なぜ出ないかがない</p>
+          </div>
+        </div>
+        <div class="card" style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;">
+          <span style="font-size:1.5rem;">❌</span>
+          <div>
+            <p style="font-weight:700;color:var(--navy);">「テストに出そうな範囲を教えて」</p>
+            <p style="color:var(--muted);font-size:0.9rem;margin-top:4px;">→ AIには教科書・授業情報がない</p>
+          </div>
+        </div>
+      </div>
+      <div class="hl-box mt20">「誰が・何に・どこで詰まっているか」が鍵</div>
+    </div>
+  </div>
+
+  <!-- ======================================
+       Slide 13 - ステップ②：AIに送る
+  ====================================== -->
+  <div class="slide bg-navy">
+    <div class="grid-deco"></div>
+    <div style="max-width:720px;width:100%;text-align:center;position:relative;z-index:2;">
+      <p class="eyebrow">Step 02</p>
+      <h2 class="heading light mt14">AIに送ってみよう</h2>
+      <p class="sub light mt20">書いた問いをそのままClaude or ChatGPTに貼り付けてください。</p>
+      <div class="card navy mt28" style="text-align:center;padding:24px 32px;">
+        <p style="color:var(--blue-l);font-weight:700;font-size:1.05rem;margin-bottom:12px;">返ってきた答えを見て、どう感じましたか？</p>
+        <p style="color:rgba(255,255,255,0.65);font-size:0.95rem;">「思ったより的確だった」<br>「なんか的外れだった」<br>どちらでも正解です。</p>
+      </div>
+      <p style="color:rgba(255,255,255,0.45);font-size:0.85rem;margin-top:20px;">▶ 2〜3分、実際に動かしてみてください</p>
+    </div>
+  </div>
+
+  <!-- ======================================
+       Slide 14 - 意図した答えが返らなかったら
+  ====================================== -->
+  <div class="slide bg-white">
+    <div style="max-width:900px;width:100%;">
+      <h2 class="heading dark">的外れな答えが返ってきた？<br><span class="blue-c">それは失敗じゃない。</span></h2>
+      <div class="col3 mt28">
+        <div class="card" style="text-align:center;">
+          <div class="card-num">01</div>
+          <h3>もっと具体的に言い直す</h3>
+          <p>状況をさらに詳しく追加する</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div class="card-num">02</div>
+          <h3>「なぜそう考えたか教えて」</h3>
+          <p>AIの根拠を引き出す</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div class="card-num">03</div>
+          <h3>「別の角度から考えて」</h3>
+          <p>視点を変えた答えを引き出す</p>
+        </div>
+      </div>
+      <div class="hl-box mt20" style="text-align:center;">1回で終わらせない。それが対話の本質。</div>
+    </div>
+  </div>
+
+  <!-- ======================================
+       Slide 15 - ステップ③：切り返す
+  ====================================== -->
+  <div class="slide" style="background:var(--bg-ll);">
+    <div style="max-width:800px;width:100%;">
+      <p class="eyebrow dark">Step 03</p>
+      <h2 class="heading dark mt8">「なぜ？」と聞き返そう</h2>
+      <p class="sub dark mt14">AIの答えに対して、こう返してみてください。</p>
+      <div class="tmpl-box mt20">
+        「なぜその答えが正しいと言えるの？<br>
+        　別の考え方はある？<br>
+        　もし私が<span class="fill">○○</span>だったら、どう変わる？」
+      </div>
+      <div class="hl-box mt20">
+        「正解を確認する」だけで終わらせない。<br>
+        「なぜその正解なのか」まで一緒に考える。
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================
+       Slide 16 - ビフォーアフター
+  ====================================== -->
+  <div class="slide bg-white">
+    <div style="max-width:800px;width:100%;">
+      <h2 class="heading dark">対話を重ねるとこう変わる</h2>
+      <div class="v-flow mt28">
+        <div class="v-item q">
+          <div class="v-item-tag">1往復目の問い</div>
+          <p>「判別式で詰まっている」</p>
+        </div>
+        <div class="v-item a">
+          <div class="v-item-tag">AIの答え</div>
+          <p>「判別式はb²-4acです。計算してみましょう」</p>
+        </div>
+        <div class="v-item cut">
+          <div class="v-item-tag">切り返し</div>
+          <p>「その計算は合ってた。でもなぜ負になったら解なしなの？」</p>
+        </div>
+        <div class="v-item a">
+          <div class="v-item-tag">深まった答え</div>
+          <p>「数直線上で放物線がx軸と交わらないから。グラフで考えると…」</p>
+        </div>
+      </div>
+      <div class="hl-box mt14">1回で満足しない。深めるほど理解が定着する。</div>
+    </div>
+  </div>
+
+  <!-- ======================================
+       Slide 17 - PART 2まとめ
+  ====================================== -->
+  <div class="slide bg-light">
+    <div style="max-width:720px;width:100%;text-align:center;">
+      <p class="eyebrow dark">Part 2 Summary</p>
+      <h2 class="heading dark mt14" style="font-size:clamp(1.5rem,3vw,2.4rem);">
+        1回で答えが出なくていい。<br>対話を重ねるのが<br>AIの正しい使い方。
+      </h2>
+      <p class="sub dark mt20">この繰り返しが、あなたの思考力を鍛える。</p>
+      <div class="card blue mt36" style="display:inline-block;padding:16px 40px;">
+        <p style="color:#fff;font-weight:700;font-size:1rem;">次：なぜこれが「人生の力」になるのか &nbsp;▶</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================
+       Slide 18 - AIは答えを出す機械ではない
+  ====================================== -->
+  <div class="slide bg-navy">
+    <div class="grid-deco"></div>
+    <div style="max-width:760px;width:100%;text-align:center;position:relative;z-index:2;">
+      <p class="big-quote">
+        AIは「答えを出す機械」<br>ではない。
+      </p>
+      <p class="big-quote mt14">
+        <span class="accent">「考えを深める相手」</span>だ。
+      </p>
+      <p class="sub light mt28">
+        正解を確認するだけでは、あなた自身の思考は育たない。<br>
+        AIと対話した回数だけ、あなたの思考は深くなっていく。
+      </p>
+    </div>
+  </div>
+
+  <!-- ======================================
+       Slide 19 - 自分の人生をコントロールする力
+  ====================================== -->
+  <div class="slide bg-white">
+    <div class="accent-line"></div>
+    <div style="max-width:800px;width:100%;">
+      <h2 class="heading dark">
+        「なぜその正解なのか」まで<br>自分で納得できる人間になること
+      </h2>
+      <p class="sub dark mt20">
+        それが、AIを使いこなす本当の意味。<br>
+        自分で考え、自分で判断し、自分で動ける。<br>
+        それが「自分の人生をコントロールする力」になる。
+      </p>
+      <div class="hl-box mt28" style="font-size:1.1rem;font-weight:700;">
+        AIはその力を鍛えるための、最高の練習相手だ。
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================
+       Slide 20 - 3つのルール
+  ====================================== -->
+  <div class="slide bg-white">
+    <div style="max-width:900px;width:100%;">
+      <h2 class="heading dark text-center">今日から使える3つのルール</h2>
+      <div class="col3 mt28">
+        <div class="rule-card">
+          <div class="rule-num">01</div>
+          <h3>状況を説明してから聞く</h3>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">02</div>
+          <h3>答えが返ってきたら「なぜ？」と聞き返す</h3>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">03</div>
+          <h3>AIと合意するまで対話をやめない</h3>
+        </div>
+      </div>
+      <p class="sub dark mt28 text-center">この3つを繰り返すだけで、AIとの対話の質が変わる。</p>
+    </div>
+  </div>
+
+  <!-- ======================================
+       Slide 21 - 質疑応答
+  ====================================== -->
+  <div class="slide bg-light">
+    <div style="max-width:680px;width:100%;text-align:center;">
+      <p class="eyebrow dark">Q & A</p>
+      <h2 class="heading dark mt14" style="font-size:clamp(2rem,4vw,3.2rem);">質疑応答</h2>
+      <p class="sub dark mt20">
+        どんな質問でも歓迎です。<br>
+        「こういう使い方はどう？」<br>
+        「これって合ってる？」<br>
+        なんでも聞いてください。
+      </p>
+      <p style="color:var(--muted);font-size:0.9rem;margin-top:20px;">チャット or 挙手でどうぞ</p>
+    </div>
+  </div>
+
+  <!-- ======================================
+       Slide 22 - エンド
+  ====================================== -->
+  <div class="slide bg-grad">
+    <div class="grid-deco"></div>
+    <div style="max-width:720px;width:100%;text-align:center;position:relative;z-index:2;">
+      <h2 class="heading light" style="font-size:clamp(1.6rem,3vw,2.4rem);">ご参加ありがとうございました。</h2>
+      <p class="sub light mt20">登壇者名<br>SHIFT AI ウェビナー講師</p>
+      <div class="link-row mt28">
+        <span class="link-chip">note : note.com/lovely_rue6512</span>
+        <span class="link-chip">メディア : kumatori-info.com</span>
+      </div>
+      <p style="color:rgba(255,255,255,0.3);font-size:0.8rem;margin-top:32px;">© 2026 SHIFT AI &nbsp;|&nbsp; 本資料の無断転載を禁じます</p>
+    </div>
+  </div>
+
+</div><!-- /#deck -->
+
+<!-- ナビゲーション -->
+<button id="nav-prev" onclick="move(-1)"><span class="material-icons">chevron_left</span></button>
+<button id="nav-next" onclick="move(1)"><span class="material-icons">chevron_right</span></button>
+<div id="slide-num"></div>
+<div id="progress"></div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total  = slides.length;
+  let cur = 0;
+
+  // スライドを表示
+  function show(n) {
+    slides[cur].classList.remove('active');
+    cur = (n + total) % total;
+    slides[cur].classList.add('active');
+    document.getElementById('slide-num').textContent = (cur + 1) + ' / ' + total;
+    document.getElementById('progress').style.width = ((cur + 1) / total * 100) + '%';
+  }
+
+  // 移動
+  function move(dir) { show(cur + dir); }
+
+  // キーボード操作
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ')  move(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                      move(-1);
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End')  show(total - 1);
+  });
+
+  // タッチスワイプ
+  let tx = 0;
+  document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
+  document.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 40) move(dx < 0 ? 1 : -1);
+  });
+
+  // 初期化
+  show(0);
+</script>
+</body>
+</html>

@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHIFT AI メディア制作 — 業務概要 & ClaudeCode活用分析</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0e1a;
+      --bg-card: rgba(255,255,255,0.04);
+      --bg-card-hover: rgba(255,255,255,0.07);
+      --accent-blue: #3b82f6;
+      --accent-purple: #8b5cf6;
+      --accent-cyan: #06b6d4;
+      --accent-green: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: rgba(255,255,255,0.08);
+      --gradient-hero: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
+      --gradient-card: linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(139,92,246,0.05) 100%);
+      --shadow-glow: 0 0 60px rgba(59,130,246,0.15);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: 'Inter', 'Noto Sans JP', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Animated background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 20% 50%, rgba(59,130,246,0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(139,92,246,0.06) 0%, transparent 50%),
+                  radial-gradient(circle at 50% 80%, rgba(6,182,212,0.05) 0%, transparent 50%);
+      animation: bgFloat 20s ease-in-out infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+    @keyframes bgFloat {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(2%, -1%) rotate(1deg); }
+      66% { transform: translate(-1%, 2%) rotate(-1deg); }
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── Hero ─── */
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      border-radius: 100px;
+      background: rgba(59,130,246,0.12);
+      border: 1px solid rgba(59,130,246,0.25);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent-blue);
+      letter-spacing: 0.05em;
+      margin-bottom: 28px;
+      animation: fadeInUp 0.6s ease;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      box-shadow: 0 0 8px var(--accent-green);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 16px;
+      animation: fadeInUp 0.6s ease 0.1s both;
+    }
+    .hero h1 .gradient-text {
+      background: var(--gradient-hero);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 17px;
+      color: var(--text-secondary);
+      max-width: 640px;
+      margin: 0 auto;
+      animation: fadeInUp 0.6s ease 0.2s both;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── Section ─── */
+    .section {
+      margin-bottom: 60px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .section-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .section-icon.blue { background: rgba(59,130,246,0.15); }
+    .section-icon.purple { background: rgba(139,92,246,0.15); }
+    .section-icon.cyan { background: rgba(6,182,212,0.15); }
+    .section-icon.green { background: rgba(16,185,129,0.15); }
+    .section-icon.amber { background: rgba(245,158,11,0.15); }
+    .section-header h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    /* ─── Cards ─── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 16px;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(255,255,255,0.12);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    /* ─── Profile Card ─── */
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .profile-item {
+      padding: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      transition: all 0.3s ease;
+    }
+    .profile-item:hover {
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+    }
+    .profile-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .profile-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* ─── Workflow Table ─── */
+    .workflow-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 6px;
+    }
+    .workflow-table th {
+      text-align: left;
+      padding: 12px 18px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-bottom: 1px solid var(--border);
+    }
+    .workflow-table td {
+      padding: 14px 18px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      background: var(--bg-card);
+      transition: background 0.2s ease;
+    }
+    .workflow-table tr:hover td {
+      background: var(--bg-card-hover);
+    }
+    .workflow-table tr td:first-child {
+      border-radius: 10px 0 0 10px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .workflow-table tr td:last-child {
+      border-radius: 0 10px 10px 0;
+    }
+
+    /* ─── Delegation Analysis ─── */
+    .delegation-row {
+      display: grid;
+      grid-template-columns: 140px 110px 1fr 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 18px 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    .delegation-row:hover {
+      background: var(--bg-card-hover);
+      transform: translateX(4px);
+    }
+    .delegation-phase {
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .delegation-detail {
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .delegation-human {
+      color: var(--text-muted);
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    /* ─── Badges ─── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .badge-auto {
+      background: rgba(16,185,129,0.15);
+      color: #34d399;
+      border: 1px solid rgba(16,185,129,0.2);
+    }
+    .badge-semi {
+      background: rgba(59,130,246,0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59,130,246,0.2);
+    }
+    .badge-assist {
+      background: rgba(245,158,11,0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245,158,11,0.2);
+    }
+    .badge-human {
+      background: rgba(244,63,94,0.15);
+      color: #fb7185;
+      border: 1px solid rgba(244,63,94,0.2);
+    }
+
+    /* ─── Rate Gauge ─── */
+    .rate-card {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      padding: 32px;
+      background: var(--gradient-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      margin-bottom: 16px;
+    }
+    .rate-circle {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      flex-shrink: 0;
+    }
+    .rate-circle svg {
+      transform: rotate(-90deg);
+      width: 120px;
+      height: 120px;
+    }
+    .rate-circle .track {
+      fill: none;
+      stroke: rgba(255,255,255,0.06);
+      stroke-width: 10;
+    }
+    .rate-circle .progress {
+      fill: none;
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-dasharray: 314;
+      transition: stroke-dashoffset 1.5s ease;
+    }
+    .rate-circle .progress.blue { stroke: url(#gradBlue); }
+    .rate-circle .progress.purple { stroke: url(#gradPurple); }
+    .rate-number {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 28px;
+      font-weight: 800;
+    }
+    .rate-label {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .rate-info h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .rate-info p {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    /* ─── Phase Roadmap ─── */
+    .roadmap {
+      position: relative;
+      padding-left: 32px;
+    }
+    .roadmap::before {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent-blue), var(--accent-purple), var(--accent-cyan));
+      border-radius: 2px;
+    }
+    .roadmap-item {
+      position: relative;
+      margin-bottom: 28px;
+    }
+    .roadmap-dot {
+      position: absolute;
+      left: -28px;
+      top: 6px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 3px solid;
+      background: var(--bg-primary);
+    }
+    .roadmap-dot.ph1 { border-color: var(--accent-blue); box-shadow: 0 0 12px rgba(59,130,246,0.4); }
+    .roadmap-dot.ph2 { border-color: var(--accent-purple); box-shadow: 0 0 12px rgba(139,92,246,0.4); }
+    .roadmap-dot.ph3 { border-color: var(--accent-cyan); box-shadow: 0 0 12px rgba(6,182,212,0.4); }
+    .roadmap-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .roadmap-tasks {
+      list-style: none;
+    }
+    .roadmap-tasks li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    .roadmap-tasks li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    /* ─── Legend ─── */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    /* ─── Rules ─── */
+    .rule-list {
+      list-style: none;
+      counter-reset: rule;
+    }
+    .rule-list li {
+      counter-increment: rule;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+    .rule-list li:last-child { border-bottom: none; }
+    .rule-list li::before {
+      content: counter(rule);
+      min-width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: rgba(59,130,246,0.15);
+      color: var(--accent-blue);
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ─── Footer ─── */
+    .footer {
+      text-align: center;
+      padding: 48px 0;
+      color: var(--text-muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+    }
+    .footer span {
+      color: var(--accent-blue);
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+      .delegation-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .rate-card {
+        flex-direction: column;
+        text-align: center;
+      }
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SVG Gradients -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <linearGradient id="gradBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#3b82f6"/>
+        <stop offset="100%" stop-color="#06b6d4"/>
+      </linearGradient>
+      <linearGradient id="gradPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#8b5cf6"/>
+        <stop offset="100%" stop-color="#3b82f6"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <div class="container">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-badge">SHIFT AI メディア制作ワークスペース</div>
+      <h1>業務概要 & <span class="gradient-text">ClaudeCode 活用分析</span></h1>
+      <p>ウェビナー講師・動画教材制作ディレクターとしての業務をAIエージェントで最大限自動化するための全体像</p>
+    </section>
+
+    <!-- Profile -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon blue">👤</div>
+        <h2>プロフィール</h2>
+      </div>
+      <div class="profile-grid">
+        <div class="profile-item">
+          <div class="profile-label">所属</div>
+          <div class="profile-value">SHIFT AI</div>
+        </div>
+        <div class="profile-item">
+          <div class="profile-label">役割</div>
+          <div class="profile-value">講師 / ディレクター</div>
+        </div>
+        <div class="profile-item">
+          <div class="profile-label">制作頻度</div>
+          <div class="profile-value">月 4〜5 本</div>
+        </div>
+        <div class="profile-item">
+          <div class="profile-label">運用方針</div>
+          <div class="profile-value">AIエージェント全面委任</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 業務①：ウェビナー講師 -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon purple">🎤</div>
+        <h2>業務① ウェビナー講師</h2>
+      </div>
+      <div class="card">
+        <table class="workflow-table">
+          <thead>
+            <tr><th>フェーズ</th><th>内容</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>企画立案</td><td>テーマ選定・ターゲット設定・ゴール定義</td></tr>
+            <tr><td>構成作成</td><td>アウトライン設計・セクション構成・時間配分</td></tr>
+            <tr><td>スライド作成</td><td>ビジュアルデザイン・図解・アニメーション</td></tr>
+            <tr><td>登壇</td><td>ライブ配信・質疑応答（人間が実施）</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 業務②：動画教材制作 -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon cyan">🎬</div>
+        <h2>業務② 動画教材制作ディレクター</h2>
+      </div>
+      <div class="card">
+        <table class="workflow-table">
+          <thead>
+            <tr><th>フェーズ</th><th>内容</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>企画立案</td><td>テーマ選定・学習目標設定・ターゲット定義</td></tr>
+            <tr><td>アウトライン構成</td><td>全体構成設計・章立て・学習フロー設計</td></tr>
+            <tr><td>スライド構成</td><td>各スライドの内容設計・レイアウト指示</td></tr>
+            <tr><td>台本制作</td><td>ナレーション原稿・セリフ・解説テキスト</td></tr>
+            <tr><td>音声制作</td><td>AI音声合成（TTS）・ナレーション生成</td></tr>
+            <tr><td>スライド制作</td><td>デザイン実装・素材配置・アニメーション</td></tr>
+            <tr><td>アバター制作</td><td>AIアバター生成・表情/動き設定</td></tr>
+            <tr><td>動画制作</td><td>編集・合成・書き出し・最終チェック</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ClaudeCode 委譲分析 -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon green">🤖</div>
+        <h2>ClaudeCode 業務委譲分析</h2>
+      </div>
+
+      <div class="legend">
+        <span class="badge badge-auto">✅ 完全自動化</span>
+        <span class="badge badge-semi">🔄 半自動化</span>
+        <span class="badge badge-assist">⚠️ 補助的</span>
+        <span class="badge badge-human">❌ 人間専任</span>
+      </div>
+
+      <h3 style="font-size:16px; margin-bottom:14px; color:var(--accent-purple);">▎ウェビナー講師</h3>
+      <div class="delegation-row">
+        <span class="delegation-phase">企画立案</span>
+        <span class="badge badge-semi">🔄 半自動化</span>
+        <span class="delegation-detail">トレンドリサーチ、テーマ候補リスト、競合調査、企画書ドラフト</span>
+        <span class="delegation-human">最終テーマ決定、方向性の判断</span>
+      </div>
+      <div class="delegation-row">
+        <span class="delegation-phase">構成作成</span>
+        <span class="badge badge-auto">✅ 完全自動化</span>
+        <span class="delegation-detail">アウトライン生成、セクション構成、時間配分提案</span>
+        <span class="delegation-human">—</span>
+      </div>
+      <div class="delegation-row">
+        <span class="delegation-phase">スライド作成</span>
+        <span class="badge badge-semi">🔄 半自動化</span>
+        <span class="delegation-detail">原稿作成、レイアウト指示書、画像生成、PPT自動生成</span>
+        <span class="delegation-human">デザイン最終調整</span>
+      </div>
+      <div class="delegation-row">
+        <span class="delegation-phase">登壇</span>
+        <span class="badge badge-human">❌ 人間専任</span>
+        <span class="delegation-detail">想定Q&Aリスト、トークスクリプト、リハチェックリスト</span>
+        <span class="delegation-human">ライブ登壇・質疑応答</span>
+      </div>
+
+      <br>
+      <h3 style="font-size:16px; margin-bottom:14px; color:var(--accent-cyan);">▎動画教材制作</h3>
+      <div class="delegation-row">
+        <span class="delegation-phase">企画立案</span>
+        <span class="badge badge-semi">🔄 半自動化</span>
+        <span class="delegation-detail">テーマリサーチ、学習目標提案、企画書ドラフト</span>
+        <span class="delegation-human">最終テーマ承認</span>
+      </div>
+      <div class="delegation-row">
+        <span class="delegation-phase">アウトライン構成</span>
+        <span class="badge badge-auto">✅ 完全自動化</span>
+        <span class="delegation-detail">章立て設計、学習フロー作成、所要時間見積もり</span>
+        <span class="delegation-human">—</span>
+      </div>
+      <div class="delegation-row">
+        <span class="delegation-phase">スライド構成</span>
+        <span class="badge badge-auto">✅ 完全自動化</span>
+        <span class="delegation-detail">内容指示書、レイアウト指定、情報粒度調整</span>
+        <span class="delegation-human">—</span>
+      </div>
+      <div class="delegation-row">
+        <span class="delegation-phase">台本制作</span>
+        <span class="badge badge-auto">✅ 完全自動化</span>
+        <span class="delegation-detail">ナレーション原稿、解説テキスト、トーン・話速指定</span>
+        <span class="delegation-human">—</span>
+      </div>
+      <div class="delegation-row">
+        <span class="delegation-phase">音声制作</span>
+        <span class="badge badge-auto">✅ 完全自動化</span>
+        <span class="delegation-detail">TTS API連携での音声生成、ノーマライズ処理</span>
+        <span class="delegation-human">—</span>
+      </div>
+      <div class="delegation-row">
+        <span class="delegation-phase">スライド制作</span>
+        <span class="badge badge-semi">🔄 半自動化</span>
+        <span class="delegation-detail">python-pptxでの自動生成、画像生成AI素材作成</span>
+        <span class="delegation-human">ブランド整合性確認</span>
+      </div>
+      <div class="delegation-row">
+        <span class="delegation-phase">アバター制作</span>
+        <span class="badge badge-semi">🔄 半自動化</span>
+        <span class="delegation-detail">D-ID/HeyGen API連携、表情・動き指定</span>
+        <span class="delegation-human">品質最終チェック</span>
+      </div>
+      <div class="delegation-row">
+        <span class="delegation-phase">動画制作</span>
+        <span class="badge badge-assist">⚠️ 補助的</span>
+        <span class="delegation-detail">FFmpegでの結合・エンコード、字幕・BGM合成</span>
+        <span class="delegation-human">高度な演出、最終品質チェック</span>
+      </div>
+    </section>
+
+    <!-- 自動化率 -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon amber">📊</div>
+        <h2>自動化率</h2>
+      </div>
+      <div class="rate-card">
+        <div class="rate-circle">
+          <svg viewBox="0 0 120 120">
+            <circle class="track" cx="60" cy="60" r="50"/>
+            <circle class="progress blue" cx="60" cy="60" r="50" style="stroke-dashoffset: 100;"/>
+          </svg>
+          <div class="rate-number" style="color:#60a5fa;">68%</div>
+        </div>
+        <div class="rate-info">
+          <h3>ウェビナー講師</h3>
+          <p>構成・スライド原稿は完全自動化可能。登壇のみ人間が担当。企画とスライドデザインは半自動化で対応。</p>
+        </div>
+      </div>
+      <div class="rate-card">
+        <div class="rate-circle">
+          <svg viewBox="0 0 120 120">
+            <circle class="track" cx="60" cy="60" r="50"/>
+            <circle class="progress purple" cx="60" cy="60" r="50" style="stroke-dashoffset: 63;"/>
+          </svg>
+          <div class="rate-number" style="color:#a78bfa;">80%</div>
+        </div>
+        <div class="rate-info">
+          <h3>動画教材制作</h3>
+          <p>構成→台本→音声まで完全自動化。スライド・アバター・動画結合もパイプライン化で大幅自動化が可能。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 運用ルール -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon blue">📋</div>
+        <h2>運用ルール</h2>
+      </div>
+      <div class="card">
+        <ol class="rule-list">
+          <li><strong>AIファースト</strong> — 全工程でAIエージェントを最大活用する</li>
+          <li><strong>人間の介入は最小限</strong> — オーナーの役割は方向性の制御と最終判断のみ</li>
+          <li><strong>ツール選定はエージェント任せ</strong> — ClaudeCodeが最適なAIツールを都度選定</li>
+          <li><strong>スコープはこのワークスペースのみ</strong> — 他業務は別ディレクトリで管理</li>
+          <li><strong>明示的な呼び出し</strong> — 他業務の情報が必要な場合はオーナーから明示的に指示</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ロードマップ -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon purple">🚀</div>
+        <h2>推奨ロードマップ</h2>
+      </div>
+      <div class="card">
+        <div class="roadmap">
+          <div class="roadmap-item">
+            <div class="roadmap-dot ph1"></div>
+            <div class="roadmap-title" style="color:var(--accent-blue);">Phase 1 — 基盤構築（即実行可能）</div>
+            <ul class="roadmap-tasks">
+              <li>構成テンプレートの標準化</li>
+              <li>台本生成ワークフローの構築</li>
+              <li>TTS音声生成の自動化スクリプト作成</li>
+            </ul>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot ph2"></div>
+            <div class="roadmap-title" style="color:var(--accent-purple);">Phase 2 — パイプライン構築</div>
+            <ul class="roadmap-tasks">
+              <li>スライド自動生成パイプラインの構築</li>
+              <li>アバター動画生成の自動化</li>
+              <li>動画結合・書き出しの自動化</li>
+            </ul>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot ph3"></div>
+            <div class="roadmap-title" style="color:var(--accent-cyan);">Phase 3 — 統合・最適化</div>
+            <ul class="roadmap-tasks">
+              <li>企画→動画の一気通貫パイプライン構築</li>
+              <li>過去データを活用した品質自動評価</li>
+              <li>ワンコマンドで教材制作を完了する仕組み</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      Generated by <span>ClaudeCode</span> — 2026.03.25
+    </footer>
+  </div>
+
+  <script>
+    // Animate gauge circles on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.section').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
