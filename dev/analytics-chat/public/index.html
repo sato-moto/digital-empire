@@ -150,14 +150,42 @@
   const params = new URLSearchParams(window.location.search);
   const pageId  = params.get('pageId') || '';
 
-  // システムプロンプト（Notionデータは今後フェーズ2で動的取得）
-  const SYSTEM = `あなたは地域情報メディア「熊取つーしん（kumatori-info.com）」の運営者・佐藤さんの専属アシスタントです。
+  const BASE_SYSTEM = `あなたは地域情報メディア「熊取つーしん（kumatori-info.com）」の運営者・佐藤さんの専属アシスタントです。
 佐藤さんはSEOの専門知識はない個人運営者です。
 ルール：
 - 専門用語は使わない。使うなら必ず一言で説明する
 - 答えは短く具体的に
 - 「この記事どう思う？」「クリック率ってなに？」など何でも気軽に答える
-- 熊取町の地域情報メディアという文脈を常に意識する`;
+- 熊取町の地域情報メディアという文脈を常に意識する
+- 今日のレポートデータが提供されている場合は、その数字・内容を踏まえて具体的に答える`;
+
+  // 今日のレポートデータを取得してシステムプロンプトを構築する
+  let SYSTEM = BASE_SYSTEM;
+  async function loadReportAndBuildSystem() {
+    try {
+      const res = await fetch('./report-latest.json?t=' + Date.now());
+      if (!res.ok) return;
+      const data = await res.json();
+      const r = data.report;
+      const lines = [
+        `\n\n## 今日（${data.date}）のアナリティクスレポート`,
+        `\n### 今日のひとこと\n${r.today_summary || ''}`,
+        `\n### アクセス数`,
+        ...(r.traffic_table || []).map(t => `- ${t.label}：7日 ${t.week}、28日 ${t.month} ${t.trend} ${t.memo}`),
+        `\n### 今週の注目ページ`,
+        ...(r.hot_pages || []).map(p => `- ${p.page}：${p.visits}訪問 — ${p.why_hot}`),
+        `\n### 次に書くべき記事`,
+        ...(r.article_strategy || []).map(a => `- 「${a.title}」${a.reason}（KW:${a.keyword} 難易度:${a.difficulty}）`),
+        `\n### 集めると記事になる情報`,
+        ...(r.info_to_gather || []).map(i => `- ${i.info} → ${i.article}（${i.how}）`),
+        `\n### 今日やること\n${r.one_action || ''}`,
+        `\n### 気になること\n${(r.alerts || []).join('\n')}`,
+      ];
+      SYSTEM = BASE_SYSTEM + lines.join('\n');
+    } catch (e) {
+      // レポート取得失敗時はベースプロンプトのみで続行
+    }
+  }
 
   function init() {
     const key = localStorage.getItem(STORAGE_KEY);
@@ -178,10 +206,13 @@
     location.reload();
   }
 
-  function showApp() {
+  async function showApp() {
     document.getElementById('setup').style.display = 'none';
     document.getElementById('app').style.display = 'flex';
-    addMsg('ai', 'こんにちは！今日のアナリティクスを踏まえて、何でも気軽に聞いてください。\n「この数字どういう意味？」「こんな記事どう思う？」「このキーワードで記事書けそう？」など何でもOKです。');
+    const loadingMsg = addMsg('ai', 'レポートを読み込み中…', true);
+    await loadReportAndBuildSystem();
+    loadingMsg.textContent = 'こんにちは！今日のアナリティクスを踏まえて、何でも気軽に聞いてください。\n「この数字どういう意味？」「こんな記事どう思う？」「このキーワードで記事書けそう？」など何でもOKです。';
+    loadingMsg.classList.remove('loading');
     document.getElementById('input').focus();
   }
 

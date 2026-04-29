@@ -357,6 +357,10 @@ async function createNotionReport(analysis) {
     })
   });
 
+  // 壁打ちコーナー用にレポートデータを GitHub Pages に書き出す
+  const reportJsonPath = join(__dirname, '..', 'analytics-chat', 'public', 'report-latest.json');
+  writeFileSync(reportJsonPath, JSON.stringify({ date: today, report: analysis.report }, null, 2), 'utf8');
+
   return pageId;
 }
 

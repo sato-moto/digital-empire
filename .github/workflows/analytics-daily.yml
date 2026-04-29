@@ -40,6 +40,6 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add dev/ga4-mcp/analytics-method.json
-          git diff --staged --quiet || git commit -m "chore: analytics-method.json 自動更新 $(date +'%Y-%m-%d')"
+          git add dev/ga4-mcp/analytics-method.json dev/analytics-chat/public/report-latest.json
+          git diff --staged --quiet || git commit -m "chore: 日報データ自動更新 $(date +'%Y-%m-%d')"
           git push
